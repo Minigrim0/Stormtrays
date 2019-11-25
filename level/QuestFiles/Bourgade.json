@@ -1,0 +1,17 @@
+{
+    "FirstQuestName"  : "Collecteur",
+    "SecondQuestName" : "Menace canine",
+    "ThirdQuestName"  : "Mise en orbite",
+
+    "FirstQuestObjectif"  : 3.0,
+    "SecondQuestObjectif" : 2.0,
+    "ThirdQuestObjectif"  : 1.0,
+
+    "FirstTypeObjectif"  : 0.0,
+    "SecondTypeObjectif" : 7.0,
+    "ThirdTypeObjectif"  : 2.0,
+
+    "FirstNumObjectif"  : 5000.0,
+    "SecondNumObjectif" : 250.0,
+    "ThirdNumObjectif"  : 10.0
+}

@@ -1,0 +1,17 @@
+{
+    "FirstQuestName"  : "Tuer les Orcs !",
+    "SecondQuestName" : "Acheter une Baliste",
+    "ThirdQuestName"  : "Bill Gates",
+
+    "FirstQuestObjectif"  : 2.0,
+    "SecondQuestObjectif" : 1.0,
+    "ThirdQuestObjectif"  : 3.0,
+
+    "FirstTypeObjectif"  : 10.0,
+    "SecondTypeObjectif" : 6.0,
+    "ThirdTypeObjectif"  : 0.0,
+
+    "FirstNumObjectif"  : 50.0,
+    "SecondNumObjectif" : 1.0,
+    "ThirdNumObjectif"  : 100000.0
+}
