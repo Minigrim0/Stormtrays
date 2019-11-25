@@ -1,4 +1,5 @@
 import pygame
+import pygame.locals
 import constantes
 import classes
 import tkinter
@@ -60,6 +61,8 @@ QGPos = (0, 0)
 rot = 0
 niveau = classes.Niveau()
 
+possouris = (0, 0)
+
 while edit:
 
     pygame.display.set_caption(Titre_Fenetre)
@@ -77,7 +80,7 @@ while edit:
         fenetre.blit(QGImg, (QGPos))
 
     if choix != "  ":
-        fenetre.blit(niveau.imgE[choix, rot], constantes.possouris)
+        fenetre.blit(niveau.imgE[choix, rot], possouris)
 
     for v in rect:
         fenetre.blit(niveau.imgE[v, 0], (rect[v].x, rect[v].y))
