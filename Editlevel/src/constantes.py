@@ -1,7 +1,8 @@
 tabx = 18
 taby = 11
-largeur_jeu = 64*tabx
-hauteur_jeu = 64*taby
+
+WINDOW_WIDTH = 64*tabx
+WINDOW_HEIGHT = 64*taby
 
 # ------------------------------------------------------------
 
