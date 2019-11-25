@@ -1,0 +1,10 @@
+{
+"Name" : "Dragon",
+"Img" : "../Img/Ennemis/Dragon/Dragon1.png",
+"ImgFolder" : "../Img/Ennemis/Dragon/*.png",
+"ImgFolderRet" : "../Img/Ennemis/Dragon/Ret/*.png",
+"DeathSound" : "../musique/mort-Orc.wav",
+"Height" : 50,
+"LifePts" : 225,
+"Speed" : 1
+}

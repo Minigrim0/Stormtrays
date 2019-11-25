@@ -1,0 +1,10 @@
+{
+"Name" : "Ghost",
+"Img" : "../Img/Ennemis/Ghost/Ghost1.png",
+"ImgFolder" : "../Img/Ennemis/Ghost/*.png",
+"ImgFolderRet" : "../Img/Ennemis/Ghost/Ret/*.png",
+"DeathSound" : "../musique/mort-Ghost.wav",
+"Height" : 64,
+"LifePts" : 20,
+"Speed" : 6
+}

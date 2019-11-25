@@ -1,0 +1,10 @@
+{
+"Name" : "Golem",
+"Img" : "../Img/Ennemis/Golem/Golem1.png",
+"ImgFolder" : "../Img/Ennemis/Golem/*.png",
+"ImgFolderRet" : "../Img/Ennemis/Golem/Ret/*.png",
+"DeathSound" : "../musique/mort-Goblin.wav",
+"Height" : 64,
+"LifePts" : 15,
+"Speed" : 3
+}
