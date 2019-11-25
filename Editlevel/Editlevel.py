@@ -52,8 +52,6 @@ sauve = pygame.image.load(constantes.sauve).convert_alpha()
 ouvre = pygame.image.load(constantes.ouvrir).convert_alpha()
 QGImg = pygame.image.load("../Img/QuestGiverF1.png").convert_alpha()
 
-fenetre.blit(fond, (0, 0))
-
 Titre_Fenetre = "Sans Titre"
 edit = 1
 choix = "  "
@@ -62,11 +60,10 @@ rot = 0
 niveau = classes.Niveau()
 
 possouris = (0, 0)
+pygame.display.set_caption(Titre_Fenetre)
 
 while edit:
 
-    pygame.display.set_caption(Titre_Fenetre)
-    pygame.display.flip()
     niveau.afficheE(fenetre, fond)
     for i in range(1, constantes.tabx):
         fenetre.blit(lignevert, (i*64, 0))
@@ -165,3 +162,5 @@ while edit:
                                 niveau.tableau[x, y] = "  ", 0
                             else:
                                 niveau.tableau[x, y] = choix, rot
+
+    pygame.display.flip()
