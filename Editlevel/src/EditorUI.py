@@ -19,16 +19,18 @@ class EditorUI(object):
     ouvre = pygame.image.load(const.ouvrir).convert_alpha()
     QGImg = pygame.image.load("../Img/QuestGiverF1.png").convert_alpha()
 
+    fond_Edit = None
+
     # (Collide)Rects
     rect = {}
-    rect["c1"] = pygame.Rect((const.WINDOW_WIDTH + 12, 10), (64, 64))
-    rect["t2"] = pygame.Rect((const.WINDOW_WIDTH + 100, 10), (64, 64))
-    rect["t1"] = pygame.Rect((const.WINDOW_WIDTH + 12, 84), (64, 64))
-    rect["x1"] = pygame.Rect((const.WINDOW_WIDTH + 100, 84), (64, 64))
-    rect["p1"] = pygame.Rect((const.WINDOW_WIDTH + 12, 154), (64, 64))
-    rect["v1"] = pygame.Rect((const.WINDOW_WIDTH + 100, 154), (64, 64))
-    rect["k1"] = pygame.Rect((const.WINDOW_WIDTH + 12, 218), (192, 64))
-    rect["QG"] = pygame.Rect((const.WINDOW_WIDTH + 12, 282), (64, 64))
+    rect["c1"] = pygame.Rect((const.WINDOW_WIDTH + 10, 0), (64, 64))
+    rect["t2"] = pygame.Rect((const.WINDOW_WIDTH + 10, 64), (64, 64))
+    rect["t1"] = pygame.Rect((const.WINDOW_WIDTH + 10, 128), (64, 64))
+    rect["x1"] = pygame.Rect((const.WINDOW_WIDTH + 85, 0), (64, 64))
+    rect["p1"] = pygame.Rect((const.WINDOW_WIDTH + 85, 64), (64, 64))
+    rect["v1"] = pygame.Rect((const.WINDOW_WIDTH + 85, 128), (64, 64))
+    rect["k1"] = pygame.Rect((const.WINDOW_WIDTH, 218), (192, 64))
+    rect["QG"] = pygame.Rect((const.WINDOW_WIDTH + 10, 282), (64, 64))
 
     changeBackgroundRect = pygame.Rect(
         (const.WINDOW_WIDTH + 10, const.WINDOW_HEIGHT - 100), (72, 44))
@@ -58,63 +60,72 @@ class EditorUI(object):
             (self.changeBackgroundRect.x, self.changeBackgroundRect.y)
         )
 
+    def save(self, niveau, screen):
+        filename = filedialog.asksaveasfilename(
+            initialdir="../level", defaultextension=".txt")
+        if filename:
+            niveau.sauve(filename)
+            niveau.sauveF(filename, self.fond_Edit, self.QGPos)
+            niveau.affiche(screen, self.fond)
+            pygame.display.flip()
+            arect = pygame.Rect(
+                0, 0, const.WINDOW_WIDTH, const.WINDOW_HEIGHT)
+            sub = screen.subsurface(arect)
+            sub = pygame.transform.scale(sub, (39*5, 22*5))
+            dirname, filename = os.path.split(filename)
+            filename, ext = os.path.splitext(filename)
+            pygame.image.save(
+                sub, os.path.join(
+                    dirname, "mininiveau", filename+".png"
+                )
+            )
+
+    def load(self, niveau):
+        filename = filedialog.askopenfilename(
+            initialdir="../level", defaultextension=".txt")
+        if filename:
+            niveau.construit(filename)
+
+    def changeBackground(self):
+        filename = filedialog.askopenfilename(
+            initialdir="../Img/Fonds", defaultextension=".png")
+        if filename:
+            self.fond_Edit = os.path.relpath(filename)
+            self.fond = pygame.image.load(self.fond_Edit).convert_alpha()
+
     def update(self, screen, event, niveau, choix, rot, possouris):
         if event.type == pygame.locals.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                for key in self.rect:
+                    if self.rect[key].collidepoint(event.pos):
+                        choix = key
+                        rot = 0
 
-            for key in self.rect:
-                if self.rect[key].collidepoint(event.pos):
-                    choix = key
-                    rot = 0
+                if self.eraseRect.collidepoint(event.pos):
+                    niveau.videtab()
+                    choix = "  "
 
-            if self.eraseRect.collidepoint(event.pos):
-                niveau.videtab()
-                choix = "  "
+                elif self.changeBackgroundRect.collidepoint(event.pos):
+                    self.changeBackground()
+                    choix = "  "
 
-            elif self.changeBackgroundRect.collidepoint(event.pos):
-                filename = filedialog.askopenfilename(
-                    initialdir="../Img/Fonds", defaultextension=".png")
-                if filename:
-                    fond_Edit = os.path.relpath(filename)
-                    self.fond = pygame.image.load(fond_Edit).convert_alpha()
-                choix = "  "
+                elif self.loadRect.collidepoint(event.pos):
+                    self.load(niveau)
+                    choix = "  "
 
-            elif self.loadRect.collidepoint(event.pos):
-                filename = filedialog.askopenfilename(
-                    initialdir="../level", defaultextension=".txt")
-                if filename:
-                    niveau.construit(filename)
-                choix = "  "
+                elif self.saveRect.collidepoint(event.pos):
+                    self.save(niveau, screen)
+                    choix = "  "
 
-            elif self.saveRect.collidepoint(event.pos):
-                filename = filedialog.asksaveasfilename(
-                    initialdir="../level", defaultextension=".txt")
-                if filename:
-                    niveau.sauve(filename)
-                    niveau.sauveF(filename, fond_Edit, self.QGPos)
-                    niveau.affiche(screen, self.fond)
-                    pygame.display.flip()
-                    arect = pygame.Rect(
-                        0, 0, const.WINDOW_WIDTH, const.WINDOW_HEIGHT)
-                    sub = screen.subsurface(arect)
-                    sub = pygame.transform.scale(sub, (39*5, 22*5))
-                    dirname, filename = os.path.split(filename)
-                    filename, ext = os.path.splitext(filename)
-                    pygame.image.save(
-                        sub, os.path.join(
-                            dirname, "mininiveau", filename+".png"
-                        )
-                    )
-                choix = "  "
-
-            elif event.button == 1 and choix != "  ":
-                x = event.pos[0]//64
-                y = event.pos[1]//64
-                if choix == "p1":
-                    niveau.tableau[x, y] = "  ", 0
-                elif choix == "QG":
-                    self.QGPos = (x*64, y*64)
-                else:
-                    niveau.tableau[x, y] = choix, rot
+                elif choix != "  ":
+                    x = event.pos[0]//64
+                    y = event.pos[1]//64
+                    if choix == "p1":
+                        niveau.tableau[x, y] = "  ", 0
+                    elif choix == "QG":
+                        self.QGPos = (x*64, y*64)
+                    else:
+                        niveau.tableau[x, y] = choix, rot
 
             elif event.button == 3 and choix != "  ":
                 rot = (rot + 90) % 360
