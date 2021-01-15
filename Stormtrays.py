@@ -1,16 +1,14 @@
-import sys
 import pygame
 import pygame.locals
 import glob
 import os
 import random
-sys.path.insert(0, "../Editlevel")
-import constantes
-from classes import Levels, Screen, Niveau
-from invocation import Invocation
-from ennemis import Ennemi_IG
-from TourClasse import Tours, Tours_IG
-from Perso import Perso
+import editlevel.constantes as constantes
+from editlevel.classes import Levels, Screen, Niveau
+from editlevel.invocation import Invocation
+from editlevel.ennemis import Ennemi_IG
+from editlevel.TourClasse import Tours, Tours_IG
+from editlevel.Perso import Perso
 
 pygame.init()
 
@@ -268,9 +266,16 @@ pygame.mixer.music.set_volume(Volume/10)
 fondtps = 0
 randomVarTF = True
 
+
+def play_music():
+    if not pygame.mixer.music.get_busy():
+        pygame.mixer.music.load(
+            Tableau_Musique[random.randrange(len(Tableau_Musique))])
+        pygame.mixer.music.play()
+
 # -----------------------------------------------------------------------------------------------------------------------------------------------
 
-# Tant que le programme tourne
+
 while Programme_Actif:
 
     i = 0
@@ -287,10 +292,7 @@ while Programme_Actif:
         screen.flip()
 
         # Musique
-        if not pygame.mixer.music.get_busy():
-            pygame.mixer.music.load(
-                Tableau_Musique[random.randrange(len(Tableau_Musique))])
-            pygame.mixer.music.play()
+        play_music()
 
         # Events
         for event in screen.GetEvent():
@@ -326,7 +328,6 @@ while Programme_Actif:
 # --------------------------------------------------------------------------------------------------------------------------------------------
 
     while Confirm_Quit:
-
         screen.blit(Fond_Menu_Principal, (0, 0))
         screen.blit(ConfirmQuit, (376, 152))
         screen.blit(reprise, (516, 297))
@@ -334,28 +335,20 @@ while Programme_Actif:
         screen.flip()
 
         # Musique
-        if not pygame.mixer.music.get_busy():
-
-            pygame.mixer.music.load(
-                Tableau_Musique[random.randrange(len(Tableau_Musique))])
-            pygame.mixer.music.play()
+        play_music()
 
         for event in screen.GetEvent():
 
             if event.type == pygame.locals.KEYDOWN and event.key == pygame.locals.K_ESCAPE:
-
                 Confirm_Quit = False
                 Menu_Principal = True
 
             if event.type == pygame.locals.MOUSEBUTTONDOWN and event.button == 1:
-
                 if ConfirmReprise.collidepoint(event.pos):
-
                     Confirm_Quit = False
                     Menu_Principal = True
 
                 elif ConfirmQuitter.collidepoint(event.pos):
-
                     Confirm_Quit = False
                     Programme_Actif = False
 
@@ -367,7 +360,6 @@ while Programme_Actif:
         Compteur_Lvls = 10
 
     while Menu_Selection:
-
         Compteur_Mini = i
         Compteur_Lvls = i
 
@@ -390,11 +382,7 @@ while Programme_Actif:
         screen.flip()
 
         # Musique
-        if not pygame.mixer.music.get_busy():
-
-            pygame.mixer.music.load(
-                Tableau_Musique[random.randrange(len(Tableau_Musique))])
-            pygame.mixer.music.play()
+        play_music()
 
         for event in screen.GetEvent():
 
@@ -440,11 +428,7 @@ while Programme_Actif:
         screen.blit(Fond_Menu_Principal, (0, 0))
 
         # Musique
-        if not pygame.mixer.music.get_busy():
-
-            i = random.randrange(len(Tableau_Musique))
-            pygame.mixer.music.load(Tableau_Musique[i])
-            pygame.mixer.music.play()
+        play_music()
 
         pygame.mixer.music.set_volume(Volume/10)
 
@@ -495,11 +479,7 @@ while Programme_Actif:
     while Credits_Anim:
 
         # Musique
-        if not pygame.mixer.music.get_busy():
-
-            i = random.randrange(len(Tableau_Musique))
-            pygame.mixer.music.load(Tableau_Musique[i])
-            pygame.mixer.music.play()
+        play_music()
 
         i = 0
         while i <= 2900:
@@ -576,11 +556,7 @@ while Programme_Actif:
                 King.capacite1 = False
 
         # Musique
-        if not pygame.mixer.music.get_busy():
-
-            i = random.randrange(len(Tableau_Musique))
-            pygame.mixer.music.load(Tableau_Musique[i])
-            pygame.mixer.music.play()
+        play_music()
 
         LvlUp = King.level_up()
         if CooldownInvoc > 0:
@@ -1002,11 +978,7 @@ while Programme_Actif:
         # Tant que Menu_Principal pause est actif
         while pausemenu:
 
-            if not pygame.mixer.music.get_busy():
-
-                i = random.randrange(len(Tableau_Musique))
-                pygame.mixer.music.load(Tableau_Musique[i])
-                pygame.mixer.music.play()
+            play_music()
 
             screen.blit(Fond_Menu_Opt, (1152//2 - 190, 704//2 - 210))
             screen.blit(PauseTxt, (1152//2 - 190, 704//2 - 210))
@@ -1039,11 +1011,7 @@ while Programme_Actif:
         # Menu_Principal d'Options dans menu pause
         while OptionsMenu:
 
-            if not pygame.mixer.music.get_busy():
-
-                i = random.randrange(len(Tableau_Musique))
-                pygame.mixer.music.load(Tableau_Musique[i])
-                pygame.mixer.music.play()
+            play_music()
 
             pygame.mixer.music.set_volume(Volume/10)
 
