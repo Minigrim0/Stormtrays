@@ -3,11 +3,11 @@
 "degats" : 10,
 "vitesse tir" : 6,
 "portee" : 7,
-"img" : "../Img/Tours/Baliste/Baliste1.png",
+"img" : "Img/Tours/Baliste/Baliste1.png",
 "prix" : 15000,
-"DirImage" : "../Img/Tours/Baliste/*.png",
+"DirImage" : "Img/Tours/Baliste/*.png",
 "Zone" : "N",
 "RoundTraj" : 0.1,
 "VitesseProj" : 50,
-"ProjectileImg" : "../Img/Tours/BalisteProj.png"
+"ProjectileImg" : "Img/Tours/BalisteProj.png"
 }

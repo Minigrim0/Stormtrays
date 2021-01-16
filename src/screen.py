@@ -1,7 +1,7 @@
 import time
 import pygame
 from pygame.locals import MOUSEBUTTONDOWN, MOUSEMOTION
-import constantes as const
+import src.constantes as const
 
 
 class Screen(object):
@@ -30,8 +30,8 @@ class Screen(object):
         pygame.display.set_icon(Icon)
 
         self.delay = 0.05
-        self.timeElapsed = time.clock()
-        self.startTime = time.clock()
+        self.timeElapsed = time.process_time()
+        self.startTime = time.process_time()
 
         self.frameCounter = 0
         self.FPS = 0

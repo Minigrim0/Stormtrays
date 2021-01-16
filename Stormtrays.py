@@ -3,21 +3,22 @@ import pygame.locals
 import glob
 import os
 import random
-import editlevel.constantes as constantes
-from editlevel.classes import Levels, Screen, Niveau
-from editlevel.invocation import Invocation
-from editlevel.ennemis import Ennemi_IG
-from editlevel.TourClasse import Tours, Tours_IG
-from editlevel.Perso import Perso
+import src.constantes as constantes
+from src.classes import Levels, Niveau
+from src.screen import Screen
+from src.invocation import Invocation
+from src.ennemis import Ennemi_IG
+from src.tourClasse import Tours, Tours_IG
+from src.perso import Perso
 
 pygame.init()
 
 pygame.mixer.init()
 
-screen = Screen((1152, 704), "StormTarys", "../Img/Icon.png")
+screen = Screen((1152, 704), "StormTarys", constantes.IconImg)
 
 Tableau_Musique = []
-for Muse in glob.glob("../musique/Themes/*.wav"):
+for Muse in glob.glob("musique/Themes/*.wav"):
     Music = Muse
     Tableau_Musique.append(Music)
 
@@ -192,7 +193,7 @@ Tableau_Niveau = []
 
 # definition des miniatures
 Compteur = 10
-for filename in glob.glob("../level/mininiveau/*.png"):
+for filename in glob.glob("level/mininiveau/*.png"):
     dirname, file = os.path.split(filename)
     file, ext = os.path.splitext(file)
     try:
@@ -214,7 +215,7 @@ TowerFont = pygame.font.SysFont("Viner Hand ITC.ttf",  35)
 # Tableau Liste_Tours
 num = 0
 Liste_Tours = []
-for filename in glob.glob("../Tours/*.json"):
+for filename in glob.glob("Tours/*.json"):
     Liste_Tours.append(Tours(filename, num, myfont1))
     num += 1
 
@@ -268,7 +269,7 @@ randomVarTF = True
 
 
 def play_music():
-    if not pygame.mixer.music.get_busy():
+    if not pygame.mixer.music.get_busy() and len(Tableau_Musique) > 0:
         pygame.mixer.music.load(
             Tableau_Musique[random.randrange(len(Tableau_Musique))])
         pygame.mixer.music.play()
@@ -546,9 +547,6 @@ while Programme_Actif:
         Time_50 = myfont2.render("0", 1, (0, 0, 0))
 
     while jeu:
-
-        print(King.XpToAdd)
-
         if King.capacite1:
             Icapacite1 += 1
             if Icapacite1 == 160:

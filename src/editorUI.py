@@ -17,7 +17,7 @@ class EditorUI(object):
     efface = pygame.image.load(const.efface).convert_alpha()
     sauve = pygame.image.load(const.sauve).convert_alpha()
     ouvre = pygame.image.load(const.ouvrir).convert_alpha()
-    QGImg = pygame.image.load("../Img/QuestGiverF1.png").convert_alpha()
+    QGImg = pygame.image.load("img/QuestGiverF1.png").convert_alpha()
 
     fond_Edit = None
 
@@ -62,7 +62,7 @@ class EditorUI(object):
 
     def save(self, niveau, screen):
         filename = filedialog.asksaveasfilename(
-            initialdir="../level", defaultextension=".txt")
+            initialdir="level", defaultextension=".txt")
         if filename:
             niveau.sauve(filename)
             niveau.sauveF(filename, self.fond_Edit, self.QGPos)
@@ -82,13 +82,13 @@ class EditorUI(object):
 
     def load(self, niveau):
         filename = filedialog.askopenfilename(
-            initialdir="../level", defaultextension=".txt")
+            initialdir="level", defaultextension=".txt")
         if filename:
             niveau.construit(filename)
 
     def changeBackground(self):
         filename = filedialog.askopenfilename(
-            initialdir="../Img/Fonds", defaultextension=".png")
+            initialdir="img/Fonds", defaultextension=".png")
         if filename:
             self.fond_Edit = os.path.relpath(filename)
             self.fond = pygame.image.load(self.fond_Edit).convert_alpha()
