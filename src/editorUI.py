@@ -98,12 +98,11 @@ class EditorUI(object):
             self.fond = pygame.image.load(self.fond_Edit).convert_alpha()
 
     def update(self, screen, event, niveau, choix, rot, possouris):
-        if event.type == pygame.locals.MOUSEBUTTONDOWN:
-            if event.button == 1:
-                for key in self.rect:
-                    if self.rect[key].collidepoint(event.pos):
-                        choix = key
-                        rot = 0
+        if event.button == 1:
+            for key in self.rect:
+                if self.rect[key].collidepoint(event.pos):
+                    choix = key
+                    rot = 0
 
                 if self.eraseRect.collidepoint(event.pos):
                     niveau.videtab()
@@ -121,17 +120,17 @@ class EditorUI(object):
                     self.save(niveau, screen)
                     choix = "  "
 
-                elif choix != "  ":
-                    x = event.pos[0]//64
-                    y = event.pos[1]//64
-                    if choix == "p1":
-                        niveau.tableau[x, y] = "  ", 0
-                    elif choix == "QG":
-                        self.QGPos = (x*64, y*64)
-                    else:
-                        niveau.tableau[x, y] = choix, rot
+            if choix != "  ":
+                x = event.pos[0]//64
+                y = event.pos[1]//64
+                if choix == "p1":
+                    niveau.tableau[x, y] = "  ", 0
+                elif choix == "QG":
+                    self.QGPos = (x*64, y*64)
+                else:
+                    niveau.tableau[x, y] = choix, rot
 
-            elif event.button == 3 and choix != "  ":
-                rot = (rot + 90) % 360
+        elif event.button == 3 and choix != "  ":
+            rot = (rot + 90) % 360
 
         return possouris, rot, choix

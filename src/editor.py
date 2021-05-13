@@ -24,8 +24,9 @@ class Editor:
                 self.handleEvent(screen, event)
 
     def handleEvent(self, screen: Screen, event: pygame.event.Event):
-        self.possouris, self.rot, self.choix = self.UI.update(
-            screen, event, self.niveau, self.choix, self.rot, self.possouris)
+        if event.type == pygame.locals.MOUSEBUTTONDOWN:
+            self.possouris, self.rot, self.choix = self.UI.update(
+                screen, event, self.niveau, self.choix, self.rot, self.possouris)
 
         if event.type == pygame.locals.MOUSEMOTION:
             self.possouris = (event.pos[0]-16, event.pos[1]-16)
