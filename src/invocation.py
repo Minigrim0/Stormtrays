@@ -4,7 +4,7 @@ from src.constantes import (
     InvocationRet_Attak, InvocationRet_Attak2,
     Invocation_1
 )
-from src.classes import FindAngle
+from src.utils import findAngle
 import math
 
 pygame.init()
@@ -84,7 +84,7 @@ class Invocation(object):
             delta_y = ennemi.PosAbsolue[1] - self.posy
             delta_x = ennemi.PosAbsolue[0] - self.posx
 
-            angle = FindAngle(delta_x, delta_y)
+            angle = findAngle(delta_x, delta_y)
 
             if delta_x < 0:
                 self.Is_Returned = True
