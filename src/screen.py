@@ -1,51 +1,53 @@
 import time
 import pygame
+
 from pygame.locals import MOUSEBUTTONDOWN, MOUSEMOTION
+
 import src.constantes as const
+from src.button import Button
 
 
-class Screen(object):
-
-    def __init__(self, size, name, IconImg, fullScreen=True):
-
-        info = pygame.display.Info()
-
-        self.Font = pygame.font.SysFont("Viner Hand ITC", 25)
-
+class Screen:
+    def __init__(self, size: tuple, name: str, icon: str, fullScreen=True):
+        self.font = pygame.font.SysFont("Viner Hand ITC", 25)
         self.nativeSize = size
 
+        info = pygame.display.Info()
         self.fullSize = (info.current_w, info.current_h)
+
         self.fullScreen = fullScreen
         if self.fullScreen:
             self.resize(self.fullSize)
         else:
             self.resize(self.nativeSize)
 
-        self.ScaleButton = pygame.image.load(const.ScaleImg).convert_alpha()
-        self.ScaleRect = pygame.Rect((2, self.nativeSize[1] - 22), (20, 20))
+        self.scaleButton = Button(
+            (2, self.nativeSize[1] - 22),
+            (20, 20),
+            pygame.image.load(const.ScaleImg).convert_alpha()
+        )
 
         self.fenetre = pygame.Surface(self.nativeSize)
-        pygame.display.set_caption(name)
-        Icon = pygame.image.load(IconImg).convert_alpha()
-        pygame.display.set_icon(Icon)
 
-        self.delay = 0.05
-        self.timeElapsed = time.process_time()
-        self.startTime = time.process_time()
+        pygame.display.set_caption(name)
+        if icon is not None and icon != "":
+            pygame.display.set_icon(pygame.image.load(icon).convert_alpha())
+
+        self.timeElapsed = 0
+        self.startTime = time.time()
 
         self.frameCounter = 0
         self.FPS = 0
-        self.ShowFPS = False
+        self.showFPS = False
 
     def rescale(self):
         if self.fullScreen:
-            self.fullScreen = False
             self.resize((1152, 704))
         else:
-            self.fullScreen = True
             self.resize(self.fullSize)
+        self.fullScreen = not self.fullScreen
 
-    def resize(self, size):
+    def resize(self, size: tuple):
         if self.fullScreen:
             self.fenetreAffiche = pygame.display.set_mode(
                 self.fullSize, pygame.locals.FULLSCREEN)
@@ -58,13 +60,13 @@ class Screen(object):
         self.taille = min(taillex, tailley)
 
         self.posAffiche = (
-            (size[0] - int(self.taille*self.nativeSize[0]))//2,
-            (size[1] - int(self.taille*self.nativeSize[1]))//2
+            (size[0] - int(self.taille * self.nativeSize[0]))//2,
+            (size[1] - int(self.taille * self.nativeSize[1]))//2
         )
 
     def flip(self):
-        self.Update()
-        self.fenetre.blit(self.ScaleButton, self.ScaleRect.topleft)
+        self.update()
+        self.scaleButton.draw(self)
         self.fenetreAffiche.blit(
             pygame.transform.smoothscale(
                 self.fenetre, (
@@ -75,50 +77,85 @@ class Screen(object):
         )
         pygame.display.flip()
 
-    def blit(self, Surface, Pos):
-        self.fenetre.blit(Surface, Pos)
+    def blit(self, surface: pygame.Surface, pos: tuple):
+        self.fenetre.blit(surface, pos)
 
-    def GetEvent(self):
-
+    def getEvent(self):
         for event in pygame.event.get():
             if event.type == MOUSEMOTION or event.type == MOUSEBUTTONDOWN:
-                event.pos = (
-                    int((event.pos[0] - self.posAffiche[0])/self.taille),
-                    int((event.pos[1] - self.posAffiche[1])/self.taille)
-                )
-                if event.pos[0] < 0 or event.pos[1] < 0 or event.pos[0] >= self.nativeSize[0] or event.pos[1] >= self.nativeSize[1]:
+                if self.isPosOutOfScreen(self.convertToRelativePos(event.pos)):
                     continue
-
             if event.type == pygame.locals.QUIT:
                 exit()
-
             elif event.type == pygame.locals.KEYDOWN:
-                if event.key == pygame.locals.K_F2:
-                    pygame.image.save(
-                        self.fenetre,
-                        "screen/{}.bmp".format(
-                            time.strftime("%Y_%m_%d_%H_%M_%S")
-                        )
-                    )
-                elif event.key == pygame.locals.K_F11:
-                    self.rescale()
-                elif event.key == pygame.locals.K_F3:
-                    self.ShowFPS = not self.ShowFPS
-
+                self.handleFKeys(event)
             elif event.type == pygame.locals.VIDEORESIZE:
                 self.resize(event.size)
             elif event.type == MOUSEBUTTONDOWN:
-                if self.ScaleRect.collidepoint(event.pos):
+                event_pos = self.convertToRelativePos(event.pos)
+                if self.scaleButton.collide(event_pos):
                     self.rescale()
 
             yield event
 
-    def Update(self):
+    def isPosOutOfScreen(self, pos: tuple):
+        """Checks whether the position is out of the rendered screen or not
 
+        Args:
+            pos (tuple): The position to check
+
+        Returns:
+            bool: whether the given position is out of the screen or not
+        """
+        return (
+            pos[0] < 0
+            or pos[1] < 0
+            or pos[0] >= self.nativeSize[0]
+            or pos[1] >= self.nativeSize[1]
+        )
+
+    def convertToRelativePos(self, pos: tuple):
+        """Converts an real position to a relative position
+
+        Args:
+            pos (tuple): The position to convert
+
+        Returns:
+            tuple: the converted position
+        """
+        return (
+            int((pos[0] - self.posAffiche[0])/self.taille),
+            int((pos[1] - self.posAffiche[1])/self.taille)
+        )
+
+    def handleFKeys(self, event: pygame.event.Event):
+        """Handles events where function keys are pressed
+
+        Args:
+            event (pygame.Event): The event to handle
+        """
+        if event.key == pygame.locals.K_F2:
+            self.screenshot()
+        elif event.key == pygame.locals.K_F11:
+            self.rescale()
+        elif event.key == pygame.locals.K_F3:
+            self.showFPS = not self.showFPS
+
+    def screenshot(self):
+        """Make a screenshot and saves it as a bmp file
+        """
+        pygame.image.save(
+            self.fenetre,
+            "screen/{}.bmp".format(
+                time.strftime("%Y_%m_%d_%H_%M_%S")
+            )
+        )
+
+    def update(self):
         self.timeElapsed = time.time() - self.startTime
         self.startTime = time.time()
         self.FPS = 1/self.timeElapsed
 
-        if self.ShowFPS:
+        if self.showFPS:
             self.fenetre.blit(
-                self.Font.render(str(round(self.FPS)), 1, (0, 0, 0)), (0, 0))
+                self.font.render(str(round(self.FPS)), 1, (0, 0, 0)), (0, 0))
