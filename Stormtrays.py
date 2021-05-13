@@ -296,7 +296,7 @@ while Programme_Actif:
         play_music()
 
         # Events
-        for event in screen.GetEvent():
+        for event in screen.getEvent():
 
             if event.type == pygame.locals.KEYDOWN:
                 if event.key == pygame.locals.K_ESCAPE:
@@ -338,7 +338,7 @@ while Programme_Actif:
         # Musique
         play_music()
 
-        for event in screen.GetEvent():
+        for event in screen.getEvent():
 
             if event.type == pygame.locals.KEYDOWN and event.key == pygame.locals.K_ESCAPE:
                 Confirm_Quit = False
@@ -385,7 +385,7 @@ while Programme_Actif:
         # Musique
         play_music()
 
-        for event in screen.GetEvent():
+        for event in screen.getEvent():
 
             if event.type == pygame.locals.KEYDOWN:
 
@@ -449,7 +449,7 @@ while Programme_Actif:
         screen.blit(quitpaus, (516, 407))
         screen.flip()
 
-        for event in screen.GetEvent():
+        for event in screen.getEvent():
 
             if event.type == pygame.locals.MOUSEBUTTONDOWN:
 
@@ -490,7 +490,7 @@ while Programme_Actif:
             screen.blit(Credits, (0, 0 - i))
             i += 2
 
-            for event in screen.GetEvent():
+            for event in screen.getEvent():
 
                 if event.type == pygame.locals.KEYDOWN and event.key == pygame.locals.K_ESCAPE:
 
@@ -511,8 +511,8 @@ while Programme_Actif:
 
     # Si jeu est actif (action unique)
     if jeu:
-        niveau.deffond("../level/"+str(lvl)+".txt")
-        niveau.construit("../level/"+str(lvl)+".txt")
+        niveau.deffond("level/"+str(lvl)+".txt")
+        niveau.construit("level/"+str(lvl)+".txt")
         niveau.affichem(screen)
 
         double_invoque = False
@@ -833,14 +833,14 @@ while Programme_Actif:
             screen.blit(accelere, (770, 5))
 
         for Gold in niveau.GoldTab:
-            Gold.bouge(screen, Coin, Gold, niveau)
+            Gold.bouge(screen, Coin, niveau)
 
         if King.Level_Roi == 5:
             if not HaveSeenLvl5Msg:
                 screen.blit(InfoLvl5Img, (0, 0))
 
         # Events du jeu
-        for event in screen.GetEvent():
+        for event in screen.getEvent():
 
             # Si l'on est dans le Menu_Principal des tours
             if menu_tour:
@@ -985,7 +985,7 @@ while Programme_Actif:
             screen.blit(quitpaus, (1152//2 - 60, 704//2 + 35))
             screen.flip()
 
-            for event in screen.GetEvent():
+            for event in screen.getEvent():
 
                 if event.type == pygame.locals.KEYDOWN:
                     # Quitter pausemenu
@@ -1033,7 +1033,7 @@ while Programme_Actif:
             screen.blit(quitpaus, (516, 407))
             screen.flip()
 
-            for event in screen.GetEvent():
+            for event in screen.getEvent():
 
                 if event.type == pygame.locals.MOUSEBUTTONDOWN:
 
@@ -1081,7 +1081,7 @@ while Programme_Actif:
         screen.blit(quitpaus, (1152//2 - 60, 704 - i))
         screen.flip()
 
-        for event in screen.GetEvent():
+        for event in screen.getEvent():
             pass
 
         if i >= 220:
@@ -1094,7 +1094,7 @@ while Programme_Actif:
         screen.blit(quitpaus, (1152//2 - 60, 704//2 + 35))
         screen.flip()
 
-        for event in screen.GetEvent():
+        for event in screen.getEvent():
             if event.type == pygame.locals.MOUSEBUTTONDOWN:
                 # Quitter le niveau en cours
                 if quitjrect.collidepoint(event.pos):
@@ -1116,7 +1116,7 @@ while Programme_Actif:
             screen.blit(option, (1152 - 400 + i, 704 - 120))
             screen.blit(quit, (1152 - 350 + i, 704 - 60))
 
-            for event in screen.GetEvent():
+            for event in screen.getEvent():
                 pass
 
             i += 5
@@ -1136,7 +1136,7 @@ while Programme_Actif:
             screen.blit(option, (1152 + 60 - i, 704 - 120))
             screen.blit(quit, (1152 + 110 - i, 704 - 60))
 
-            for event in screen.GetEvent():
+            for event in screen.getEvent():
                 pass
 
             i += 5

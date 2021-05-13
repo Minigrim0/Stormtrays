@@ -7,7 +7,6 @@ import glob
 class Tours(object):
 
     def __init__(self, fichiertour, num, myfont1):
-
         f = open(fichiertour)
         contenu = f.read()
         self.propriete = json.loads(contenu)
