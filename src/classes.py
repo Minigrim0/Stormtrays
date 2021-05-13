@@ -21,7 +21,6 @@ class Levels(object):
 class Niveau(object):
 
     def __init__(self):
-
         self.Tableau_Musique = []
         for Muse in glob.glob("../musique/Themes/*.wav"):
             self.Tableau_Musique.append(Muse)
@@ -259,26 +258,7 @@ class Niveau(object):
 
         Level_Difficulty = 0
 
-        if Difficulte == 10:
-            Difficulty = 1
-        if Difficulte == 9:
-            Difficulty = 2
-        if Difficulte == 8:
-            Difficulty = 3
-        if Difficulte == 7:
-            Difficulty = 4
-        if Difficulte == 5:
-            Difficulty = 5
-        if Difficulte == 6:
-            Difficulty = 6
-        if Difficulte == 4:
-            Difficulty = 7
-        if Difficulte == 3:
-            Difficulty = 8
-        if Difficulte == 2:
-            Difficulty = 9
-        if Difficulte == 1:
-            Difficulty = 10
+        Difficulty = 11 - Difficulte
 
         if self.Nombre_Ennemis_Tue >= 0:
             Level_Difficulty = 10*Difficulty
