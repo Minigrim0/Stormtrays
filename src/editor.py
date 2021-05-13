@@ -37,7 +37,7 @@ class Editor:
                 screen, event, self.niveau, self.choix, self.rot, self.possouris)
 
         if event.type == pygame.locals.MOUSEMOTION:
-            self.possouris = (event.pos[0]-16, event.pos[1]-16)
+            self.possouris = (event.pos[0], event.pos[1])
 
             if event.buttons[0] == 1 and self.choix != "  ":
                 x = event.pos[0]//64
