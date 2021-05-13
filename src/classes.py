@@ -6,28 +6,11 @@ import pygame
 import src.constantes as constantes
 
 
-def FindAngle(delta_x, delta_y):
-    if delta_x != 0:
-        angle = math.atan(delta_y/delta_x)
-    else:
-        if delta_y < 0:
-            angle = -math.pi/2
-        else:
-            angle = math.pi/2
-
-    if delta_x < 0:
-        angle = angle+math.pi
-
-    return angle
-
-
 class Levels(object):
     def __init__(self, file, img, nivrect):
         self.File = file
         self.Img = img
         self.Nivrect = nivrect
-
-# ---------------------------------------------------------------------------------------------------------------------
 
 
 class GoldAnim(object):
