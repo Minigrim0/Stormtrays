@@ -7,8 +7,6 @@ from src.constantes import (
 from src.utils import findAngle
 import math
 
-pygame.init()
-
 
 class Invocation(object):
 

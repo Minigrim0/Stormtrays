@@ -6,10 +6,6 @@ import math
 
 from src.gold import GoldAnim
 
-pygame.init()
-
-# -------------------------------------------------------------------------------------------
-
 
 class EnnemiIM(object):
 

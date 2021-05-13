@@ -13,8 +13,6 @@ from src.perso import Perso
 
 pygame.init()
 
-pygame.mixer.init()
-
 screen = Screen((1152, 704), "StormTarys", constantes.IconImg)
 
 Tableau_Musique = []

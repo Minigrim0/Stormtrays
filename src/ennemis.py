@@ -5,10 +5,6 @@ from src.gold import GoldAnim
 import json
 import glob
 
-pygame.init()
-
-# -------------------------------------------------------------------------------------------
-
 
 class Ennemi_IG(object):
 
