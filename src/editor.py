@@ -1,13 +1,21 @@
+import os
+from tkinter import filedialog
 import pygame
 
 from src.editorUI import EditorUI
 from src.screen import Screen
 from src.classes import Niveau
 
+import src.constantes as consts
+
 
 class Editor:
     def __init__(self):
         self.UI = EditorUI()
+        self.UI.eraseButton.callback = self.erase
+        self.UI.changeBackgroundButton.callback = self.changeBackground
+        self.UI.loadButton.callback = self.loadLevel
+        self.UI.saveButton.callback = self.save
 
         self.running = True
 
@@ -50,7 +58,7 @@ class Editor:
         if self.choix != "  ":
             screen.blit(
                 self.niveau.imgE[self.choix, self.rot],
-                ((self.possouris[0]//64)*64, (self.possouris[1]//64)*64)
+                ((self.possouris[0] // 64) * 64, (self.possouris[1] // 64) * 64)
             )
 
         for v in self.UI.rect:
@@ -60,4 +68,43 @@ class Editor:
         screen.flip()
 
     def erase(self):
-        pass
+        self.niveau.videtab()
+        self.choix = "  "
+
+    def changeBackground(self):
+        filename = filedialog.askopenfilename(
+            initialdir="img/Fonds", defaultextension=".png")
+        if filename:
+            self.UI.fond_Edit = os.path.relpath(filename)
+            self.UI.fond = pygame.image.load(self.UI.fond_Edit).convert_alpha()
+
+        self.choix = "  "
+
+    def loadLevel(self):
+        filename = filedialog.askopenfilename(
+            initialdir="level", defaultextension=".txt")
+        if filename:
+            self.niveau.construit(filename)
+        self.choix = "  "
+
+    def save(self):
+        filename = filedialog.asksaveasfilename(
+            initialdir="level", defaultextension=".txt")
+        if filename:
+            self.niveau.sauve(filename)
+            self.niveau.sauveF(filename, self.fond_Edit, self.QGPos)
+            # self.niveau.affiche(screen, self.fond)
+            pygame.display.flip()
+            arect = pygame.Rect(
+                0, 0, consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT)
+            sub = screen.subsurface(arect)
+            sub = pygame.transform.scale(sub, (39*5, 22*5))
+            dirname, filename = os.path.split(filename)
+            filename, ext = os.path.splitext(filename)
+            pygame.image.save(
+                sub, os.path.join(
+                    dirname, "mininiveau", filename+".png"
+                )
+            )
+
+        self.choix = "  "
