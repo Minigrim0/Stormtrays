@@ -7,6 +7,7 @@ class Button:
         self.size = size
         self.image = image
         self.rect = pygame.Rect(self.pos, self.size)
+        self.callback = None
 
     def draw(self, screen):
         """Draws the button on the screen
@@ -26,3 +27,7 @@ class Button:
             bool: whether the pos is colliding the button or not
         """
         return self.rect.collidepoint(pos)
+
+    def click(self, pos: tuple):
+        if self.collide(pos) and self.callback is not None:
+            self.callback()
