@@ -1,6 +1,7 @@
 import pygame
-import src.constantes
-import src.classes
+import src.constantes as constantes
+from src.gold import GoldAnim
+
 import json
 import glob
 
@@ -168,9 +169,11 @@ class Ennemi_IG(object):
             liste_mech.remove(ennemi)
             self.meurt.play()
             if King.capacite1 is True:
-                FlyingGold = classes.GoldAnim(
-                    self.PosAbsolue[0] + self.Height//2,
-                    self.PosAbsolue[1] + self.Height//2,
+                FlyingGold = GoldAnim(
+                    (
+                        self.PosAbsolue[0] + self.Height//2,
+                        self.PosAbsolue[1] + self.Height//2
+                    ),
                     self.vie_bas
                 )
                 constantes.GoldGained[0] += self.vie_bas
@@ -178,9 +181,11 @@ class Ennemi_IG(object):
                 niveau.gold += self.vie_bas
 
             else:
-                FlyingGold = classes.GoldAnim(
-                    self.PosAbsolue[0] + 32,
-                    self.PosAbsolue[1] + 32,
+                FlyingGold = GoldAnim(
+                    (
+                        self.PosAbsolue[0] + 32,
+                        self.PosAbsolue[1] + 32
+                    ),
                     self.vie_bas//2
                 )
                 constantes.GoldGained[0] += self.vie_bas//2

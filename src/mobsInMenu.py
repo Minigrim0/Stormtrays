@@ -1,9 +1,10 @@
 import pygame
 import random
-import classes
 import json
 import glob
 import math
+
+from src.gold import GoldAnim
 
 pygame.init()
 
@@ -129,7 +130,7 @@ class EnnemiIM(object):
             liste_mech.remove(ennemi)
             self.meurt.play()
             if King.capacite1 is True:
-                FlyingGold = classes.GoldAnim(
+                FlyingGold = GoldAnim(
                     self.PosAbsolue[0] + self.Height//2,
                     self.PosAbsolue[1] + self.Height//2,
                     self.vie_bas
@@ -137,7 +138,7 @@ class EnnemiIM(object):
                 niveau.GoldTab.append(FlyingGold)
                 niveau.gold += self.vie_bas
             else:
-                FlyingGold = classes.GoldAnim(
+                FlyingGold = GoldAnim(
                     self.PosAbsolue[0] + 32,
                     self.PosAbsolue[1] + 32,
                     self.vie_bas//2

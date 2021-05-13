@@ -13,24 +13,7 @@ class Levels(object):
         self.Nivrect = nivrect
 
 
-class GoldAnim(object):
-    def __init__(self, x, y, n):
-        self.posx = x
-        self.posy = y
-        self.nbrs = n
-        self.i = 0
-        myfont = pygame.font.SysFont("Viner Hand ITC", 15)
-        self.NbrsAffiche = myfont.render(str(self.nbrs), 1, (0, 0, 0))
 
-    def bouge(self, fenetre, goldImg, goldObj, niveau):
-        self.i += 1
-        self.posy -= 2
-        if self.i == 24:
-            niveau.GoldTab.remove(goldObj)
-        fenetre.blit(
-            goldImg, (self.posx - 12 + 3*math.cos(self.i), self.posy - 6))
-        fenetre.blit(
-            self.NbrsAffiche, (self.posx + 3*math.cos(self.i), self.posy - 6))
 
 # ---------------------------------------------------------------------------------------------------------------------
 
