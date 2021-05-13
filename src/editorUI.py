@@ -65,29 +65,15 @@ class EditorUI(object):
         self.loadButton.draw(screen)
         self.changeBackgroundButton.draw(screen)
 
-    def update(self, screen, event, niveau, choix, rot, possouris):
+    def update(self, screen, event, niveau, choix):
         if event.button == 1:
             for key in self.rect:
                 if self.rect[key].collidepoint(event.pos):
                     choix = key
-                    rot = 0
 
             self.eraseButton.click(event.pos)
             self.changeBackgroundButton.click(event.pos)
             self.loadButton.click(event.pos)
             self.saveButton.click(event.pos)
 
-            if choix != "  ":
-                x = event.pos[0]//64
-                y = event.pos[1]//64
-                if choix == "p1":
-                    niveau.tableau[x, y] = "  ", 0
-                elif choix == "QG":
-                    self.QGPos = (x*64, y*64)
-                else:
-                    niveau.tableau[x, y] = choix, rot
-
-        elif event.button == 3 and choix != "  ":
-            rot = (rot + 90) % 360
-
-        return possouris, rot, choix
+        return choix

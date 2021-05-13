@@ -33,8 +33,21 @@ class Editor:
 
     def handleEvent(self, screen: Screen, event: pygame.event.Event):
         if event.type == pygame.locals.MOUSEBUTTONDOWN:
-            self.possouris, self.rot, self.choix = self.UI.update(
-                screen, event, self.niveau, self.choix, self.rot, self.possouris)
+            if event.button == 1:
+                self.choix = self.UI.update(screen, event, self.niveau, self.choix)
+
+                if self.choix != "  ":
+                    x = event.pos[0]//64
+                    y = event.pos[1]//64
+                    if self.choix == "p1":
+                        self.niveau.tableau[x, y] = "  ", 0
+                    elif self.choix == "QG":
+                        self.QGPos = (x*64, y*64)
+                    else:
+                        self.niveau.tableau[x, y] = self.choix, self.rot
+
+            if event.button == 3 and self.choix != "  ":
+                self.rot = (self.rot + 90) % 360
 
         if event.type == pygame.locals.MOUSEMOTION:
             self.possouris = (event.pos[0], event.pos[1])
