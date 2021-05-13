@@ -1,5 +1,6 @@
 import pygame
-import constantes as const
+import src.constantes as const
+from src.button import Button
 
 from tkinter import filedialog
 import os
@@ -7,45 +8,48 @@ import os
 
 class EditorUI(object):
 
-    # Images
-    right_panel = pygame.Surface((200, const.WINDOW_HEIGHT))
-    vert_line = pygame.Surface((1, const.WINDOW_WIDTH))
-    hori_line = pygame.Surface((const.WINDOW_WIDTH, 1))
+    def __init__(self):
+        # Images
+        self.right_panel = pygame.Surface((200, const.WINDOW_HEIGHT))
+        self.vert_line = pygame.Surface((1, const.WINDOW_WIDTH))
+        self.hori_line = pygame.Surface((const.WINDOW_WIDTH, 1))
 
-    MicroFond = pygame.image.load(const.Mini_Fond).convert_alpha()
-    fond = pygame.image.load(const.fond).convert_alpha()
-    efface = pygame.image.load(const.efface).convert_alpha()
-    sauve = pygame.image.load(const.sauve).convert_alpha()
-    ouvre = pygame.image.load(const.ouvrir).convert_alpha()
-    QGImg = pygame.image.load("img/QuestGiverF1.png").convert_alpha()
+        self.MicroFond = pygame.image.load(const.Mini_Fond).convert_alpha()
+        self.fond = pygame.image.load(const.fond).convert_alpha()
+        self.efface = pygame.image.load(const.efface).convert_alpha()
+        self.sauve = pygame.image.load(const.sauve).convert_alpha()
+        self.ouvre = pygame.image.load(const.ouvrir).convert_alpha()
+        self.QGImg = pygame.image.load("img/QuestGiverF1.png").convert_alpha()
 
-    fond_Edit = None
+        self.fond_Edit = None
 
-    # (Collide)Rects
-    rect = {}
-    rect["c1"] = pygame.Rect((const.WINDOW_WIDTH + 10, 0), (64, 64))
-    rect["t2"] = pygame.Rect((const.WINDOW_WIDTH + 10, 64), (64, 64))
-    rect["t1"] = pygame.Rect((const.WINDOW_WIDTH + 10, 128), (64, 64))
-    rect["x1"] = pygame.Rect((const.WINDOW_WIDTH + 85, 0), (64, 64))
-    rect["p1"] = pygame.Rect((const.WINDOW_WIDTH + 85, 64), (64, 64))
-    rect["v1"] = pygame.Rect((const.WINDOW_WIDTH + 85, 128), (64, 64))
-    rect["k1"] = pygame.Rect((const.WINDOW_WIDTH, 218), (192, 64))
-    rect["QG"] = pygame.Rect((const.WINDOW_WIDTH + 10, 282), (64, 64))
+        # (Collide)Rects
+        self.rect = {}
+        self.rect["c1"] = pygame.Rect((const.WINDOW_WIDTH + 10, 0), (64, 64))
+        self.rect["t2"] = pygame.Rect((const.WINDOW_WIDTH + 10, 64), (64, 64))
+        self.rect["t1"] = pygame.Rect((const.WINDOW_WIDTH + 10, 128), (64, 64))
+        self.rect["x1"] = pygame.Rect((const.WINDOW_WIDTH + 85, 0), (64, 64))
+        self.rect["p1"] = pygame.Rect((const.WINDOW_WIDTH + 85, 64), (64, 64))
+        self.rect["v1"] = pygame.Rect((const.WINDOW_WIDTH + 85, 128), (64, 64))
+        self.rect["k1"] = pygame.Rect((const.WINDOW_WIDTH, 218), (192, 64))
+        self.rect["QG"] = pygame.Rect((const.WINDOW_WIDTH + 10, 282), (64, 64))
 
-    changeBackgroundRect = pygame.Rect(
-        (const.WINDOW_WIDTH + 10, const.WINDOW_HEIGHT - 100), (72, 44))
-    eraseRect = pygame.Rect(
-        (const.WINDOW_WIDTH + 10, const.WINDOW_HEIGHT - 40), (80, 30))
-    saveRect = pygame.Rect(
-        (const.WINDOW_WIDTH + 100, const.WINDOW_HEIGHT - 40), (40, 40))
-    loadRect = pygame.Rect(
-        (const.WINDOW_WIDTH + 150, const.WINDOW_HEIGHT - 40), (40, 40))
+        self.changeBackgroundRect = pygame.Rect(
+            (const.WINDOW_WIDTH + 10, const.WINDOW_HEIGHT - 100), (72, 44))
+        self.eraseRect = pygame.Rect(
+            (const.WINDOW_WIDTH + 10, const.WINDOW_HEIGHT - 40), (80, 30))
+        self.saveRect = pygame.Rect(
+            (const.WINDOW_WIDTH + 100, const.WINDOW_HEIGHT - 40), (40, 40))
+        self.loadRect = pygame.Rect(
+            (const.WINDOW_WIDTH + 150, const.WINDOW_HEIGHT - 40), (40, 40))
 
-    right_panel.fill((189, 83, 64))
-    vert_line.fill((0, 0, 0))
-    hori_line.fill((0, 0, 0))
+        self.eraseButton = Button((0, 0), (0, 0), self.efface)
 
-    QGPos = (0, 0)
+        self.right_panel.fill((189, 83, 64))
+        self.vert_line.fill((0, 0, 0))
+        self.hori_line.fill((0, 0, 0))
+
+        self.QGPos = (0, 0)
 
     def draw(self, screen):
         for i in range(1, const.tabx):
