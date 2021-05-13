@@ -26,6 +26,7 @@ class Screen:
             (20, 20),
             pygame.image.load(const.ScaleImg).convert_alpha()
         )
+        self.scaleButton.callback = self.rescale
 
         self.fenetre = pygame.Surface(self.nativeSize)
 
@@ -41,11 +42,11 @@ class Screen:
         self.showFPS = False
 
     def rescale(self):
-        if self.fullScreen:
-            self.resize((1152, 704))
-        else:
-            self.resize(self.fullSize)
         self.fullScreen = not self.fullScreen
+        if self.fullScreen:
+            self.resize(self.fullSize)
+        else:
+            self.resize(self.nativeSize)
 
     def resize(self, size: tuple):
         if self.fullScreen:
@@ -83,7 +84,8 @@ class Screen:
     def getEvent(self):
         for event in pygame.event.get():
             if event.type == MOUSEMOTION or event.type == MOUSEBUTTONDOWN:
-                if self.isPosOutOfScreen(self.convertToRelativePos(event.pos)):
+                event.pos = self.convertToRelativePos(event.pos)
+                if self.isPosOutOfScreen(event.pos):
                     continue
             if event.type == pygame.locals.QUIT:
                 exit()
@@ -92,9 +94,7 @@ class Screen:
             elif event.type == pygame.locals.VIDEORESIZE:
                 self.resize(event.size)
             elif event.type == MOUSEBUTTONDOWN:
-                event_pos = self.convertToRelativePos(event.pos)
-                if self.scaleButton.collide(event_pos):
-                    self.rescale()
+                self.scaleButton.click(event.pos)
 
             yield event
 
