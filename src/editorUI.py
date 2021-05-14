@@ -4,8 +4,7 @@ from src.button import Button
 
 
 class EditorUI(object):
-
-    def __init__(self):
+    def __init__(self, level):
         self.right_panel = pygame.Surface((200, const.WINDOW_HEIGHT))
         self.vert_line = pygame.Surface((1, const.WINDOW_WIDTH))
         self.hori_line = pygame.Surface((const.WINDOW_WIDTH, 1))
@@ -15,38 +14,34 @@ class EditorUI(object):
 
         self.fond_Edit = None
 
-        self.rect = {}
-        self.rect["c1"] = pygame.Rect((const.WINDOW_WIDTH + 10, 0), (64, 64))
-        self.rect["t2"] = pygame.Rect((const.WINDOW_WIDTH + 10, 64), (64, 64))
-        self.rect["t1"] = pygame.Rect((const.WINDOW_WIDTH + 10, 128), (64, 64))
-        self.rect["x1"] = pygame.Rect((const.WINDOW_WIDTH + 85, 0), (64, 64))
-        self.rect["p1"] = pygame.Rect((const.WINDOW_WIDTH + 85, 64), (64, 64))
-        self.rect["v1"] = pygame.Rect((const.WINDOW_WIDTH + 85, 128), (64, 64))
-        self.rect["k1"] = pygame.Rect((const.WINDOW_WIDTH, 218), (192, 64))
-        self.rect["QG"] = pygame.Rect((const.WINDOW_WIDTH + 10, 282), (64, 64))
-
-        self.eraseButton = Button(
+        self.buttons = {}
+        self.buttons["c1"] = Button((const.WINDOW_WIDTH + 10, 0), (64, 64), level.editorImage["c1", 0])
+        self.buttons["t2"] = Button((const.WINDOW_WIDTH + 10, 64), (64, 64), level.editorImage["t2", 0])
+        self.buttons["t1"] = Button((const.WINDOW_WIDTH + 10, 128), (64, 64), level.editorImage["t1", 0])
+        self.buttons["x1"] = Button((const.WINDOW_WIDTH + 85, 0), (64, 64), level.editorImage["x1", 0])
+        self.buttons["p1"] = Button((const.WINDOW_WIDTH + 85, 64), (64, 64), level.editorImage["p1", 0])
+        self.buttons["v1"] = Button((const.WINDOW_WIDTH + 85, 128), (64, 64), level.editorImage["v1", 0])
+        self.buttons["k1"] = Button((const.WINDOW_WIDTH + 5, 218), (192, 64), level.editorImage["k1", 0])
+        self.buttons["QG"] = Button((const.WINDOW_WIDTH + 10, 282), (64, 64), level.editorImage["QG", 0])
+        self.buttons["eraseButton"] = Button(
             (const.WINDOW_WIDTH + 10, const.WINDOW_HEIGHT - 40),
             (80, 30),
-            pygame.image.load(const.efface).convert_alpha()
+            pygame.image.load(const.efface).convert_alpha(),
         )
-
-        self.changeBackgroundButton = Button(
+        self.buttons["changeBackgroundButton"] = Button(
             (const.WINDOW_WIDTH + 10, const.WINDOW_HEIGHT - 100),
             (72, 44),
-            pygame.image.load(const.Mini_Fond).convert_alpha()
+            pygame.image.load(const.Mini_Fond).convert_alpha(),
         )
-
-        self.saveButton = Button(
+        self.buttons["saveButton"] = Button(
             (const.WINDOW_WIDTH + 100, const.WINDOW_HEIGHT - 40),
             (40, 40),
-            pygame.image.load(const.sauve).convert_alpha()
+            pygame.image.load(const.sauve).convert_alpha(),
         )
-
-        self.loadButton = Button(
+        self.buttons["loadButton"] = Button(
             (const.WINDOW_WIDTH + 150, const.WINDOW_HEIGHT - 40),
             (40, 40),
-            pygame.image.load(const.ouvrir).convert_alpha()
+            pygame.image.load(const.ouvrir).convert_alpha(),
         )
 
         self.right_panel.fill((189, 83, 64))
@@ -57,13 +52,11 @@ class EditorUI(object):
 
     def draw(self, screen):
         for i in range(1, const.tabx):
-            screen.blit(self.vert_line, (i*64, 0))
-            screen.blit(self.hori_line, (0, i*64))
+            screen.blit(self.vert_line, (i * 64, 0))
+            screen.blit(self.hori_line, (0, i * 64))
         screen.blit(self.right_panel, (const.WINDOW_WIDTH, 0))
-        self.eraseButton.draw(screen)
-        self.saveButton.draw(screen)
-        self.loadButton.draw(screen)
-        self.changeBackgroundButton.draw(screen)
+        for button in self.buttons.values():
+            button.draw(screen)
 
     def update(self, screen, event, niveau, choix):
         if event.button == 1:
