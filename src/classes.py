@@ -3,7 +3,7 @@ import math
 import time
 import random
 import pygame
-import src.constantes as constantes
+import src.constantes as consts
 
 
 class Levels(object):
@@ -13,85 +13,33 @@ class Levels(object):
         self.Nivrect = nivrect
 
 
-
-
 # ---------------------------------------------------------------------------------------------------------------------
 
 
 class Niveau(object):
-
     def __init__(self):
-        self.Tableau_Musique = []
-        for Muse in glob.glob("../musique/Themes/*.wav"):
-            self.Tableau_Musique.append(Muse)
+        images = [
+            (consts.chem1, "c1"),
+            (consts.tour2, "t2"),
+            (consts.tour1, "t1"),
+            (consts.croix1, "x1"),
+            (consts.poubelle, "p1"),
+            (consts.fort1, "k1"),
+            (consts.Vide1, "v1"),
+        ]
 
         self.img = {}
-        self.img["c1", 0] = pygame.image.load(
-            constantes.chem1).convert_alpha()
-        self.img["t2", 0] = pygame.image.load(
-            constantes.tour2).convert_alpha()
-        self.img["t1", 0] = pygame.image.load(
-            constantes.tour1).convert_alpha()
-        self.img["x1", 0] = pygame.image.load(
-            constantes.croix1).convert_alpha()
-        self.img["p1", 0] = pygame.image.load(
-            constantes.poubelle).convert_alpha()
-        self.img["k1", 0] = pygame.image.load(
-            constantes.fort1).convert_alpha()
-        self.img["v1", 0] = pygame.image.load(
-            constantes.Vide1).convert_alpha()
-        for rot in [90, 180, 270]:
-            self.img["c1", rot] = pygame.transform.rotate(
-                self.img["c1", 0], rot)
-            self.img["t2", rot] = pygame.transform.rotate(
-                self.img["t2", 0], rot)
-            self.img["t1", rot] = pygame.transform.rotate(
-                self.img["t1", 0], rot)
-            self.img["x1", rot] = pygame.transform.rotate(
-                self.img["x1", 0], rot)
-            self.img["p1", rot] = pygame.transform.rotate(
-                self.img["p1", 0], rot)
-            self.img["k1", rot] = pygame.transform.rotate(
-                self.img["k1", 0], rot)
-            self.img["v1", rot] = pygame.transform.rotate(
-                self.img["v1", 0], rot)
+        self.editorImage = {}
 
-        self.imgE = {}
-        self.imgE["c1", 0] = pygame.image.load(
-            constantes.chem1E).convert_alpha()
-        self.imgE["t2", 0] = pygame.image.load(
-            constantes.tour2E).convert_alpha()
-        self.imgE["t1", 0] = pygame.image.load(
-            constantes.tour1E).convert_alpha()
-        self.imgE["x1", 0] = pygame.image.load(
-            constantes.croix1E).convert_alpha()
-        self.imgE["p1", 0] = pygame.image.load(
-            constantes.poubelleE).convert_alpha()
-        self.imgE["k1", 0] = pygame.image.load(
-            constantes.fort1E).convert_alpha()
-        self.imgE["v1", 0] = pygame.image.load(
-            constantes.Vide1E).convert_alpha()
-        self.imgE["QG", 0] = pygame.image.load(
-            "img/QuestGiverF1.png").convert_alpha()
-        for rot in [90, 180, 270]:
-            self.imgE["c1", rot] = pygame.transform.rotate(
-                self.imgE["c1", 0], rot)
-            self.imgE["t2", rot] = pygame.transform.rotate(
-                self.imgE["t2", 0], rot)
-            self.imgE["t1", rot] = pygame.transform.rotate(
-                self.imgE["t1", 0], rot)
-            self.imgE["x1", rot] = pygame.transform.rotate(
-                self.imgE["x1", 0], rot)
-            self.imgE["p1", rot] = pygame.transform.rotate(
-                self.imgE["p1", 0], rot)
-            self.imgE["k1", rot] = pygame.transform.rotate(
-                self.imgE["k1", 0], rot)
-            self.imgE["v1", rot] = pygame.transform.rotate(
-                self.imgE["v1", 0], rot)
-            self.imgE["QG", rot] = pygame.transform.rotate(
-                self.imgE["QG", 0], rot)
+        for path, id in images:
+            self.img[id, 0] = pygame.image.load(path[0]).convert_alpha()
+            self.editorImage[id, 0] = pygame.image.load(path[1]).convert_alpha()
+            for rot in [90, 180, 270]:
+                self.img[id, rot] = pygame.transform.rotate(self.img[id, 0], rot)
+                self.editorImage[id, rot] = pygame.transform.rotate(self.editorImage[id, 0], rot)
 
-        self.videtab()
+        self.editorImage["QG", 0] = pygame.image.load("img/QuestGiverF1.png").convert_alpha()
+
 
         self.gold = 500
         self.Vie_Chateau = 100
@@ -231,16 +179,6 @@ class Niveau(object):
         tab = [H, M, S]
 
         return tab
-
-    def PlayMusic(self):
-
-        if not pygame.mixer.music.get_busy():
-            pygame.mixer.music.load(
-                self.Tableau_Musique[
-                    random.randrange(len(self.Tableau_Musique))
-                ]
-            )
-            pygame.mixer.music.play()
 
     def afficheE(self, fenetre, fond):
         fenetre.blit(fond, (0, 0))
