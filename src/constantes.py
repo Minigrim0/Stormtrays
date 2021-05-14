@@ -1,8 +1,8 @@
 tabx = 18
 taby = 11
 
-WINDOW_WIDTH = 64*tabx
-WINDOW_HEIGHT = 64*taby
+WINDOW_WIDTH = 64 * tabx
+WINDOW_HEIGHT = 64 * taby
 
 # ------------------------------------------------------------
 
@@ -15,14 +15,13 @@ titre_editeur = "Editeur - StormTrays"
 titre_jeu = "StormTrays - 0 - Alpha 1.3"
 IconImg = "img/Icon.png"
 
-croix1E = "img/Chemins/croix1_Edit.png"
-tour2E = "img/Chemins/tour2_Edit.png"
-tour1E = "img/Chemins/tour1_Edit.png"
-chem1E = "img/Chemins/chem1_Edit.png"
-croix1 = "img/Chemins/croix1.png"
-chem1 = "img/Chemins/chem1.png"
-tour2 = "img/Chemins/tour2.png"
-tour1 = "img/Chemins/tour1.png"
+croix1 = "img/Chemins/croix1.png", "img/Chemins/croix1_Edit.png"
+chem1 = "img/Chemins/chem1.png", "img/Chemins/chem1_Edit.png"
+tour1 = "img/Chemins/tour1.png", "img/Chemins/tour1_Edit.png"
+tour2 = "img/Chemins/tour2.png", "img/Chemins/tour2_Edit.png"
+poubelle = "img/poubelle.png", "img/poubelle.png"
+fort1 = "img/fort1.png", "img/fort1.png"
+Vide1 = "img/Vide.png", "img/VideE.png"
 
 fondm = "img/FondMenu/FondMenuPrincipal.png"
 LoadingScreen = "img/FondMenu/LoadingScreen.png"
@@ -51,10 +50,6 @@ Sell = "img/Boutons/Sell.png"
 save = "img/Boutons/save.png"
 quit = "img/Boutons/quit.png"
 
-poubelle = "img/poubelle.png"
-poubelleE = "img/poubelle.png"
-fort1 = "img/fort1.png"
-fort1E = "img/fort1.png"
 sombre = "img/sombre.png"
 sombre__ = "img/SombreFull.png"
 mt = "img/menutours.png"
@@ -87,8 +82,6 @@ fondtxt = "img/fondtexte.png"
 FondHautDroite = "img/Haut_Droite.png"
 OptionsTxt__ = "img/OPTION.png"
 PauseTxt__ = "img/PAUSE.png"
-Vide1 = "img/Vide.png"
-Vide1E = "img/VideE.png"
 Mini_Fond = "img/MicroFond.png"
 Credits = "img/Credits.png"
 ConfirmQuit = "img/ConfirmQuit.png"
