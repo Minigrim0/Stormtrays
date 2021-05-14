@@ -52,10 +52,8 @@ boutontour = pygame.image.load(constantes.boutonmenutour).convert_alpha()
 TpsRestInvoc = pygame.image.load(constantes.TpsRestInvoc__).convert_alpha()
 Fond_Menu_Opt = pygame.image.load(constantes.Fond_Menu_Opti).convert_alpha()
 FondHautDroite = pygame.image.load(constantes.FondHautDroite).convert_alpha()
-Fond_Noir_Semi_Transparent = pygame.image.load(
-    constantes.sombre).convert_alpha()
-TpsRestInvocSombre = pygame.image.load(
-    constantes.TpsRestInvocSombre__).convert_alpha()
+Fond_Noir_Semi_Transparent = pygame.image.load(constantes.sombre).convert_alpha()
+TpsRestInvocSombre = pygame.image.load(constantes.TpsRestInvocSombre__).convert_alpha()
 
 # ------------------------------------------------------------------
 
@@ -146,44 +144,37 @@ Catapulte_6 = pygame.transform.scale(Catapulte6, (64, 64))
 
 # ------------------------------------------------------------------
 
-Invoc_Tab = [
-    Invocation_1, Invocation_2, Invocation_3,
-    Invocation_4, Invocation_5, Invocation_6
-]
+Invoc_Tab = [Invocation_1, Invocation_2, Invocation_3, Invocation_4, Invocation_5, Invocation_6]
 Invoc_Tab_ret = [pygame.transform.flip(c, True, False) for c in Invoc_Tab]
 
 # ------------------------------------------------------------------
 
-Catapulte_Tab = [
-    Catapulte_1, Catapulte_2, Catapulte_3,
-    Catapulte_4, Catapulte_5, Catapulte_6
-]
-Catapulte_Tab_Ret = [
-    pygame.transform.flip(c, True, False) for c in Catapulte_Tab]
+Catapulte_Tab = [Catapulte_1, Catapulte_2, Catapulte_3, Catapulte_4, Catapulte_5, Catapulte_6]
+Catapulte_Tab_Ret = [pygame.transform.flip(c, True, False) for c in Catapulte_Tab]
 
 # ------------------------------------------------------------------
 
 # Rectangles
-jouerect = pygame.Rect((1152 - 500, 704 - 240), (500,  50))
-credirect = pygame.Rect((1152 - 450, 704 - 180), (500,  50))
-optionrect = pygame.Rect((1152 - 400, 704 - 120), (500,  50))
-quitrect = pygame.Rect((1152 - 350, 704 - 60), (500,  50))
-retourrect = pygame.Rect((1152 - 500, 0), (500,  50))
+jouerect = pygame.Rect((1152 - 500, 704 - 240), (500, 50))
+credirect = pygame.Rect((1152 - 450, 704 - 180), (500, 50))
+optionrect = pygame.Rect((1152 - 400, 704 - 120), (500, 50))
+quitrect = pygame.Rect((1152 - 350, 704 - 60), (500, 50))
+retourrect = pygame.Rect((1152 - 500, 0), (500, 50))
 pauserect = pygame.Rect((1152 - 332, 5), (40, 40))
 accelererect = pygame.Rect((1152 - 382, 5), (40, 40))
 boutontourrect = pygame.Rect((32, 704 - 50), (45, 45))
 mtrect = pygame.Rect((975, 704 - 89), (15, 15))
-reprendrect = pygame.Rect((1152//2 - 100, 704//2 - 85), (120, 50))
-optionprect = pygame.Rect((1152//2 - 100, 704//2 - 25), (120, 50))
-quitjrect = pygame.Rect((1152//2 - 100, 704//2 + 35), (120, 50))
-quitOrect = pygame.Rect((1152//2 - 100, 704//2 + 55), (120, 50))
+reprendrect = pygame.Rect((1152 // 2 - 100, 704 // 2 - 85), (120, 50))
+optionprect = pygame.Rect((1152 // 2 - 100, 704 // 2 - 25), (120, 50))
+quitjrect = pygame.Rect((1152 // 2 - 100, 704 // 2 + 35), (120, 50))
+quitOrect = pygame.Rect((1152 // 2 - 100, 704 // 2 + 55), (120, 50))
 VolMoins = pygame.Rect((655, 302), (40, 40))
 VolPlus = pygame.Rect((705, 302), (40, 40))
 DifMoins = pygame.Rect((655, 347), (40, 40))
 DifPlus = pygame.Rect((705, 347), (40, 40))
-ConfirmReprise = pygame.Rect((1152//2 - 60, 704//2 - 55), (120, 50))
-ConfirmQuitter = pygame.Rect((1152//2 - 60, 704//2 + 15), (120, 50))
-PoubelleRect = pygame.Rect((15, 15), (40,  40))
+ConfirmReprise = pygame.Rect((1152 // 2 - 60, 704 // 2 - 55), (120, 50))
+ConfirmQuitter = pygame.Rect((1152 // 2 - 60, 704 // 2 + 15), (120, 50))
+PoubelleRect = pygame.Rect((15, 15), (40, 40))
 InfoLvl5Rect = pygame.Rect((0, 0), (750, 113))
 
 # rectangles niveaux
@@ -198,17 +189,17 @@ for filename in glob.glob("level/mininiveau/*.png"):
         img = pygame.image.load(filename).convert_alpha()
     except Exception:
         img = pygame.image.load(constantes.Vide1E).convert_alpha()
-    nivrect = pygame.Rect((1152/2 - 10, Compteur), (500, 110))
+    nivrect = pygame.Rect((1152 / 2 - 10, Compteur), (500, 110))
     level = Levels(file, img, nivrect)
     Tableau_Niveau.append(level)
     Compteur += 120
 
-myfont = pygame.font.SysFont("Viner Hand ITC.ttf",  25)
+myfont = pygame.font.SysFont("Viner Hand ITC.ttf", 25)
 myfontt = pygame.font.SysFont("Viner Hand ITC.ttf", 100)
-myfont2 = pygame.font.SysFont("Viner Hand ITC.ttf",  20)
-myfont3 = pygame.font.SysFont("Viner Hand ITC.ttf",  40)
-myfont1 = pygame.font.SysFont("Viner Hand ITC.ttf",  10)
-TowerFont = pygame.font.SysFont("Viner Hand ITC.ttf",  35)
+myfont2 = pygame.font.SysFont("Viner Hand ITC.ttf", 20)
+myfont3 = pygame.font.SysFont("Viner Hand ITC.ttf", 40)
+myfont1 = pygame.font.SysFont("Viner Hand ITC.ttf", 10)
+TowerFont = pygame.font.SysFont("Viner Hand ITC.ttf", 35)
 
 # Tableau Liste_Tours
 num = 0
@@ -260,7 +251,7 @@ pygame.key.set_repeat(100, 10)
 Volume = 5
 Difficulte = 5
 
-pygame.mixer.music.set_volume(Volume/10)
+pygame.mixer.music.set_volume(Volume / 10)
 
 fondtps = 0
 randomVarTF = True
@@ -268,9 +259,9 @@ randomVarTF = True
 
 def play_music():
     if not pygame.mixer.music.get_busy() and len(Tableau_Musique) > 0:
-        pygame.mixer.music.load(
-            Tableau_Musique[random.randrange(len(Tableau_Musique))])
+        pygame.mixer.music.load(Tableau_Musique[random.randrange(len(Tableau_Musique))])
         pygame.mixer.music.play()
+
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -324,7 +315,7 @@ while Programme_Actif:
                     Credits_Anim = True
                     break
 
-# --------------------------------------------------------------------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------------------------------------------------------------------------
 
     while Confirm_Quit:
         screen.blit(Fond_Menu_Principal, (0, 0))
@@ -351,7 +342,7 @@ while Programme_Actif:
                     Confirm_Quit = False
                     Programme_Actif = False
 
-# --------------------------------------------------------------------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------------------------------------------------------------------------
 
     # Menu_Principal de sélection
     if Menu_Selection:
@@ -409,14 +400,14 @@ while Programme_Actif:
 
                 elif event.button == 5:
 
-                    if i > -len(Tableau_Niveau)*120 + 704:
+                    if i > -len(Tableau_Niveau) * 120 + 704:
                         i -= 50
 
                 elif event.button == 4:
                     if i < 60:
                         i += 50
 
-# --------------------------------------------------------------------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------------------------------------------------------------------------
 
     if Menu_Options:
         screen.blit(FondSombre, (0, 0))
@@ -429,12 +420,10 @@ while Programme_Actif:
         # Musique
         play_music()
 
-        pygame.mixer.music.set_volume(Volume/10)
+        pygame.mixer.music.set_volume(Volume / 10)
 
-        Volumetxt = myfont3.render(
-            "Volume : {}".format(int(Volume*10)), 1, (255, 50, 20))
-        Diffictxt = myfont3.render(
-            "Difficulté : {}".format(Difficulte), 1, (255, 50, 20))
+        Volumetxt = myfont3.render("Volume : {}".format(int(Volume * 10)), 1, (255, 50, 20))
+        Diffictxt = myfont3.render("Difficulté : {}".format(Difficulte), 1, (255, 50, 20))
 
         screen.blit(Fond_Menu_Opt, (386, 142))
         screen.blit(OptionsTxt, (386, 132))
@@ -473,7 +462,7 @@ while Programme_Actif:
                     if Difficulte > 0:
                         Difficulte -= 1
 
-# --------------------------------------------------------------------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------------------------------------------------------------------------
 
     while Credits_Anim:
 
@@ -505,12 +494,12 @@ while Programme_Actif:
         Menu_Principal = True
         Credits_Anim = False
 
-# --------------------------------------------------------------------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------------------------------------------------------------------------
 
     # Si jeu est actif (action unique)
     if jeu:
-        niveau.deffond("level/"+str(lvl)+".txt")
-        niveau.construit("level/"+str(lvl)+".txt")
+        niveau.deffond("level/" + str(lvl) + ".txt")
+        niveau.construit("level/" + str(lvl) + ".txt")
         niveau.affichem(screen)
 
         double_invoque = False
@@ -557,15 +546,15 @@ while Programme_Actif:
         LvlUp = King.level_up()
         if CooldownInvoc > 0:
             CooldownInvoc -= 1
-        TpsCoolDown = CooldownInvoc//24
+        TpsCoolDown = CooldownInvoc // 24
 
         # Augmentation du niveau
         if LvlUp:
 
             AfficheLvlUp = True
 
-            King.Degats = King.Level_Roi*0.5 + 3
-            King.Vitesse = King.Level_Roi*0.25 + 5
+            King.Degats = King.Level_Roi * 0.5 + 3
+            King.Vitesse = King.Level_Roi * 0.25 + 5
 
         # Mort Chateau
         if niveau.Vie_Chateau <= 0:
@@ -575,35 +564,20 @@ while Programme_Actif:
         frappe = 0
 
         # Construction + Affichage + Boutons
-        Argent_Possede_Affiche = myfont2.render(
-            "Or : %i" % niveau.gold, 1, (0, 0, 0)
-        )
-        Vie_Chateau_Affiche = myfont2.render(
-            "Bastion : %i pv." % niveau.Vie_Chateau, 1, (0, 0, 0)
-        )
-        Level_Num_Affiche = myfont2.render(
-            "Niveau %i" % King.Level_Roi, 1, (0, 0, 0)
-        )
-        Ennemi_Tue_Affiche = myfont2.render(
-            "Victimes : %i" % niveau.Nombre_Ennemis_Tue, 1, (0, 0, 0)
-        )
-        Degats_Roi_Affiche = myfont2.render(
-            "Dégats : %i" % King.Degats, 1, (0,   0,   0)
-        )
-        Vitesse_Roi_Affiche = myfont2.render(
-            "Vitesse : %i " % King.Vitesse, 1, (0, 0, 0)
-        )
-        Obj_Lvl_Txt = myfont2.render(
-            "{}/{}".format(King.xp, King.objectif), 1, (0, 0, 0)
-        )
+        Argent_Possede_Affiche = myfont2.render("Or : %i" % niveau.gold, 1, (0, 0, 0))
+        Vie_Chateau_Affiche = myfont2.render("Bastion : %i pv." % niveau.Vie_Chateau, 1, (0, 0, 0))
+        Level_Num_Affiche = myfont2.render("Niveau %i" % King.Level_Roi, 1, (0, 0, 0))
+        Ennemi_Tue_Affiche = myfont2.render("Victimes : %i" % niveau.Nombre_Ennemis_Tue, 1, (0, 0, 0))
+        Degats_Roi_Affiche = myfont2.render("Dégats : %i" % King.Degats, 1, (0, 0, 0))
+        Vitesse_Roi_Affiche = myfont2.render("Vitesse : %i " % King.Vitesse, 1, (0, 0, 0))
+        Obj_Lvl_Txt = myfont2.render("{}/{}".format(King.xp, King.objectif), 1, (0, 0, 0))
 
         if TpsCoolDown != 0:
-            Tps_Invoc_affiche = myfont2.render(
-                str(TpsCoolDown), 1, (255, 255, 255))
+            Tps_Invoc_affiche = myfont2.render(str(TpsCoolDown), 1, (255, 255, 255))
         else:
             Tps_Invoc_affiche = None
 
-        Current_Xp = pygame.Surface(((King.xp/King.objectif)*255, 18))
+        Current_Xp = pygame.Surface(((King.xp / King.objectif) * 255, 18))
         Current_Xp.fill((0, 255, 40))
 
         niveau.affichem(screen)
@@ -618,19 +592,16 @@ while Programme_Actif:
         # Bouger les ennemis
         for ennemi in Liste_Mechants:
 
-            ennemi.bouge(
-                niveau.tableau, screen, niveau, Liste_Mechants, Coin, King)
-            ennemi.meurt.set_volume(Volume/10)
+            ennemi.bouge(niveau.map, screen, niveau, Liste_Mechants, Coin, King)
+            ennemi.meurt.set_volume(Volume / 10)
 
         for projectileObj in Tab_Projectile:
-            projectileObj.Avance(
-                screen, Liste_Mechants, niveau, Coin, Tab_Projectile, King)
+            projectileObj.Avance(screen, Liste_Mechants, niveau, Coin, Tab_Projectile, King)
 
         # Faire attaquer les tours
         for tour in Liste_Tours_IG:
 
-            tour.attaque(
-                tour.Position_IG, Liste_Mechants, niveau, Coin, Tab_Projectile)
+            tour.attaque(tour.Position_IG, Liste_Mechants, niveau, Coin, Tab_Projectile)
             tour.affiche_jeu(screen)
 
         if invocation:
@@ -649,7 +620,7 @@ while Programme_Actif:
         if niveau.Nombre_Ennemis_Tue >= 5000:
             double_invoque = True
 
-        Aleatoire = random.random()*Level_Difficulty
+        Aleatoire = random.random() * Level_Difficulty
 
         # Test random en fonction de Level_Difficulty pour invoquer un ennemi
         if Aleatoire <= 1:
@@ -657,37 +628,37 @@ while Programme_Actif:
                 invoque = random.randrange(10)
                 if invoque == 0:
                     ennemi = Ennemi_IG("../Ennemis/Orc.json")
-                    ennemi.pose_ennemi(niveau.tableau, screen)
+                    ennemi.pose_ennemi(niveau.map, screen)
                     Liste_Mechants.append(ennemi)
                 elif invoque == 1 or invoque == 2:
                     ennemi = Ennemi_IG("../Ennemis/Goblin.json")
-                    ennemi.pose_ennemi(niveau.tableau, screen)
+                    ennemi.pose_ennemi(niveau.map, screen)
                     Liste_Mechants.append(ennemi)
                 elif invoque == 3:
                     ennemi = Ennemi_IG("../Ennemis/Dwarf.json")
-                    ennemi.pose_ennemi(niveau.tableau, screen)
+                    ennemi.pose_ennemi(niveau.map, screen)
                     Liste_Mechants.append(ennemi)
                 elif invoque == 4:
                     ennemi = Ennemi_IG("../Ennemis/Knight.json")
-                    ennemi.pose_ennemi(niveau.tableau, screen)
+                    ennemi.pose_ennemi(niveau.map, screen)
                     Liste_Mechants.append(ennemi)
                 elif invoque == 5:
                     ennemi = Ennemi_IG("../Ennemis/Ghost.json")
-                    ennemi.pose_ennemi(niveau.tableau, screen)
+                    ennemi.pose_ennemi(niveau.map, screen)
                     Liste_Mechants.append(ennemi)
                 elif invoque == 6:
                     ennemi = Ennemi_IG("../Ennemis/Golem.json")
-                    ennemi.pose_ennemi(niveau.tableau, screen)
+                    ennemi.pose_ennemi(niveau.map, screen)
                     Liste_Mechants.append(ennemi)
                 elif invoque == 7:
                     invoque = random.randrange(5)
                     if invoque == 0:
                         ennemi = Ennemi_IG("../Ennemis/Dragon.json")
-                        ennemi.pose_ennemi(niveau.tableau, screen)
+                        ennemi.pose_ennemi(niveau.map, screen)
                         Liste_Mechants.append(ennemi)
                 elif invoque == 8 or invoque == 9 or invoque == 10:
                     ennemi = Ennemi_IG("../Ennemis/Wolf.json")
-                    ennemi.pose_ennemi(niveau.tableau, screen)
+                    ennemi.pose_ennemi(niveau.map, screen)
                     Liste_Mechants.append(ennemi)
                 if double_invoque is True:
                     double_invoque = False
@@ -720,32 +691,26 @@ while Programme_Actif:
                     # affiche le nom de la tour
                     if tour.tourrect.collidepoint(position_souris):
 
-                        StatTourCurseur = TowerFont.render(
-                            tour.nom, 1, (0, 0, 0)
-                        )
-                        screen.blit(StatTourCurseur, (15,  15))
+                        StatTourCurseur = TowerFont.render(tour.nom, 1, (0, 0, 0))
+                        screen.blit(StatTourCurseur, (15, 15))
 
                         if niveau.gold < tour.prix:
 
-                            message_argent = TowerFont.render(
-                                "Vous n'avez pas assez d'argent !",
-                                1,
-                                (255, 0, 0)
-                            )
-                            screen.blit(message_argent, (15,  50))
+                            message_argent = TowerFont.render("Vous n'avez pas assez d'argent !", 1, (255, 0, 0))
+                            screen.blit(message_argent, (15, 50))
 
         screen.blit(King.nanim, (King.posx, King.posy))
-        screen.blit(FondHautDroite, (1152 - 282,  0))
-        screen.blit(Argent_Possede_Affiche, (1152 - 280,  5))
+        screen.blit(FondHautDroite, (1152 - 282, 0))
+        screen.blit(Argent_Possede_Affiche, (1152 - 280, 5))
         screen.blit(Vie_Chateau_Affiche, (1152 - 280, 27))
         screen.blit(Vitesse_Roi_Affiche, (1152 - 280, 54))
-        screen.blit(Level_Num_Affiche, (1152 - 132,  5))
+        screen.blit(Level_Num_Affiche, (1152 - 132, 5))
         screen.blit(Ennemi_Tue_Affiche, (1152 - 132, 27))
         screen.blit(Degats_Roi_Affiche, (1152 - 132, 54))
         screen.blit(Current_Xp, (1152 - 270, 86))
         screen.blit(Obj_Lvl_Txt, (1152 - 155, 80))
         screen.blit(XpBar, (1152 - 282, 80))
-        screen.blit(pause, (820,  5))
+        screen.blit(pause, (820, 5))
 
         if Tps_Invoc_affiche and King.Level_Roi >= 5:
             screen.blit(TpsRestInvocSombre, (1152 - 550, 10))
@@ -757,7 +722,7 @@ while Programme_Actif:
 
             TpsLvl += 1
             if TpsLvl < 30:
-                screen.blit(Tab_AnimLvlUp[TpsLvl//3], (426, 277))
+                screen.blit(Tab_AnimLvlUp[TpsLvl // 3], (426, 277))
 
             elif TpsLvl <= 50:
                 screen.blit(Tab_AnimLvlUp[9], (426, 277))
@@ -769,11 +734,14 @@ while Programme_Actif:
         if AfficheStatTour:
             pygame.draw.circle(
                 screen.fenetre,
-                pygame.Color("red"), (
-                    SelectedTower4AfficheStat.Position_IG[0]*64 + 32,
-                    SelectedTower4AfficheStat.Position_IG[1]*64 + 32
-                ), SelectedTower4AfficheStat.portee*64 + 20, 3
-                )
+                pygame.Color("red"),
+                (
+                    SelectedTower4AfficheStat.Position_IG[0] * 64 + 32,
+                    SelectedTower4AfficheStat.Position_IG[1] * 64 + 32,
+                ),
+                SelectedTower4AfficheStat.portee * 64 + 20,
+                3,
+            )
 
         if animInvocation:
             TpsInvoc += 1
@@ -811,14 +779,13 @@ while Programme_Actif:
                 King.nanim = InvoqueAnim14
 
             if TpsInvoc == 120:
-                invocation = Invocation(
-                    niveau, Invoc_Tab, Invoc_Tab_ret, King.Level_Roi-5, King)
+                invocation = Invocation(niveau, Invoc_Tab, Invoc_Tab_ret, King.Level_Roi - 5, King)
                 TpsInvoc = 0
                 King.nanim = King.King_1
                 animInvocation = False
 
             else:
-                Invoc_Avancee = pygame.Surface(((TpsInvoc/120)*177, 12))
+                Invoc_Avancee = pygame.Surface(((TpsInvoc / 120) * 177, 12))
                 Invoc_Avancee.fill((215, 75, 0))
                 screen.blit(Invoc_Avancee, (16, 69))
                 screen.blit(InvocBar, (10, 65))
@@ -847,13 +814,11 @@ while Programme_Actif:
 
                     if deplace and not mtrect.collidepoint(event.pos) and not PoubelleRect.collidepoint(event.pos):
 
-                        if niveau.tableau[(position_souris[0])//(64), (position_souris[1])//(64)] == ('  ', 0):
+                        if niveau.map[(position_souris[0]) // (64), (position_souris[1]) // (64)] == ("  ", 0):
                             niveau.gold -= tourSelectionee.prix
                             Liste_Tours_IG.append(tourSelectionee)
                             tourSelectionee.placetour(
-                                position_souris, screen,
-                                niveau.tableau, Liste_Tours_IG,
-                                tourSelectionee, niveau
+                                position_souris, screen, niveau.map, Liste_Tours_IG, tourSelectionee, niveau
                             )
                             deplace = False
                             menu_tour = False
@@ -875,10 +840,8 @@ while Programme_Actif:
 
                             if niveau.gold >= tour.prix:
                                 deplace = True
-                                tourSelectionee = Tours_IG(
-                                    tour, num, tour.DirImg)
-                                message_argent = myfont2.render(
-                                    "", 1, (255, 0, 0))
+                                tourSelectionee = Tours_IG(tour, num, tour.DirImg)
+                                message_argent = myfont2.render("", 1, (255, 0, 0))
 
             # si on est pas dans Menu des tour
             if not menu_tour:
@@ -941,7 +904,7 @@ while Programme_Actif:
                 if accelererect.collidepoint(event.pos):
                     Accelerex2 = not Accelerex2
                     if Accelerex2:
-                        screen.delais = 0.05/4
+                        screen.delais = 0.05 / 4
                     else:
                         screen.delais = 0.05
 
@@ -960,13 +923,13 @@ while Programme_Actif:
                 if event.key == pygame.locals.K_a:
                     Accelerex2 = not Accelerex2
                     if Accelerex2:
-                        screen.delais = 0.05/4
+                        screen.delais = 0.05 / 4
                     else:
                         screen.delais = 0.05
 
         screen.flip()
 
-# -----------------------------------------------------------------------------------------------------------
+        # -----------------------------------------------------------------------------------------------------------
 
         if pausemenu:
             screen.blit(FondSombre, (0, 0))
@@ -976,11 +939,11 @@ while Programme_Actif:
 
             play_music()
 
-            screen.blit(Fond_Menu_Opt, (1152//2 - 190, 704//2 - 210))
-            screen.blit(PauseTxt, (1152//2 - 190, 704//2 - 210))
-            screen.blit(reprise, (1152//2 - 60, 704//2 - 85))
-            screen.blit(optionpaus, (1152//2 - 60, 704//2 - 25))
-            screen.blit(quitpaus, (1152//2 - 60, 704//2 + 35))
+            screen.blit(Fond_Menu_Opt, (1152 // 2 - 190, 704 // 2 - 210))
+            screen.blit(PauseTxt, (1152 // 2 - 190, 704 // 2 - 210))
+            screen.blit(reprise, (1152 // 2 - 60, 704 // 2 - 85))
+            screen.blit(optionpaus, (1152 // 2 - 60, 704 // 2 - 25))
+            screen.blit(quitpaus, (1152 // 2 - 60, 704 // 2 + 35))
             screen.flip()
 
             for event in screen.getEvent():
@@ -1009,16 +972,12 @@ while Programme_Actif:
 
             play_music()
 
-            pygame.mixer.music.set_volume(Volume/10)
+            pygame.mixer.music.set_volume(Volume / 10)
 
             appuye = False
 
-            Volumetxt = myfont3.render(
-                "Volume : %i" % int(Volume*10), 1, (255, 50, 20)
-            )
-            Diffictxt = myfont3.render(
-                "Difficulté : %i" % Difficulte, 1, (255, 50, 20)
-            )
+            Volumetxt = myfont3.render("Volume : %i" % int(Volume * 10), 1, (255, 50, 20))
+            Diffictxt = myfont3.render("Difficulté : %i" % Difficulte, 1, (255, 50, 20))
 
             screen.blit(Fond_Menu_Opt, (386, 142))
             screen.blit(OptionsTxt, (386, 132))
@@ -1056,7 +1015,7 @@ while Programme_Actif:
                         if Difficulte > 0:
                             Difficulte -= 1
 
-# -------------------------------------------------------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------------------------------------------------------
 
     if Ecran_Perdu:
 
@@ -1070,13 +1029,13 @@ while Programme_Actif:
     while anim_Perdu:
 
         i += 5
-        niveau.construit("../level/"+lvl+".txt")
+        niveau.construit("../level/" + lvl + ".txt")
         niveau.affichem(screen)
 
         screen.blit(FondSombre, (0, 0))
-        screen.blit(Fond_Menu_Opt, (1152//2 - 200, 704//2 - 200))
-        screen.blit(Perdutxt, (1152//2 - 190, i - 20))
-        screen.blit(quitpaus, (1152//2 - 60, 704 - i))
+        screen.blit(Fond_Menu_Opt, (1152 // 2 - 200, 704 // 2 - 200))
+        screen.blit(Perdutxt, (1152 // 2 - 190, i - 20))
+        screen.blit(quitpaus, (1152 // 2 - 60, 704 - i))
         screen.flip()
 
         for event in screen.getEvent():
@@ -1087,9 +1046,9 @@ while Programme_Actif:
 
     while Ecran_Perdu:
 
-        screen.blit(Fond_Menu_Opt, (1152//2 - 200, 704//2 - 200))
-        screen.blit(Perdutxt, (1152//2 - 190, 704//2 - 200))
-        screen.blit(quitpaus, (1152//2 - 60, 704//2 + 35))
+        screen.blit(Fond_Menu_Opt, (1152 // 2 - 200, 704 // 2 - 200))
+        screen.blit(Perdutxt, (1152 // 2 - 190, 704 // 2 - 200))
+        screen.blit(quitpaus, (1152 // 2 - 60, 704 // 2 + 35))
         screen.flip()
 
         for event in screen.getEvent():
@@ -1099,7 +1058,7 @@ while Programme_Actif:
                     Ecran_Perdu = False
                     Menu_Selection = True
 
-# -------------------------------------------------------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------------------------------------------------------
 
     screen.delais = 0.03
 
