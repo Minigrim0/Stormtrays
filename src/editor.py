@@ -36,13 +36,8 @@ class Editor:
             if event.button == 1:
                 self.choix = self.UI.update(screen, event, self.niveau, self.choix)
 
-                if self.choix != "  ":
-                    x = event.pos[0]//64
-                    y = event.pos[1]//64
-                    if self.choix == "p1":
-                        self.niveau.tableau[x, y] = "  ", 0
-                    elif self.choix == "QG":
-                        self.QGPos = (x*64, y*64)
+                    x = event.pos[0] // 64
+                    y = event.pos[1] // 64
                     else:
                         self.niveau.tableau[x, y] = self.choix, self.rot
 
@@ -52,13 +47,8 @@ class Editor:
         if event.type == pygame.locals.MOUSEMOTION:
             self.possouris = (event.pos[0], event.pos[1])
 
-            if event.buttons[0] == 1 and self.choix != "  ":
-                x = event.pos[0]//64
-                y = event.pos[1]//64
-                if pygame.Rect((x*64, y*64), (64, 64)).collidepoint(event.pos):
-                    if self.choix == "p1":
-                        self.niveau.tableau[x, y] = "  ", 0
-                    else:
+                x = event.pos[0] // 64
+                y = event.pos[1] // 64
                         self.niveau.tableau[x, y] = self.choix, self.rot
 
     def draw(self, screen):

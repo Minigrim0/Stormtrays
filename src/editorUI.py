@@ -58,15 +58,7 @@ class EditorUI(object):
         for button in self.buttons.values():
             button.draw(screen)
 
-    def update(self, screen, event, niveau, choix):
+    def update(self, event):
         if event.button == 1:
-            for key in self.rect:
-                if self.rect[key].collidepoint(event.pos):
-                    choix = key
-
-            self.eraseButton.click(event.pos)
-            self.changeBackgroundButton.click(event.pos)
-            self.loadButton.click(event.pos)
-            self.saveButton.click(event.pos)
-
-        return choix
+            for key in self.buttons:
+                self.buttons[key].click(event.pos)

@@ -64,7 +64,7 @@ class Niveau(object):
         STORMTRAYS = "STORMTRAYS"
         Texti = ""
 
-        fondu = pygame.image.load(constantes.sombre__).convert_alpha()
+        fondu = pygame.image.load(consts.sombre__).convert_alpha()
 
         for x in range(5):
             screen.blit(fondu, (0, 0))
@@ -99,12 +99,11 @@ class Niveau(object):
         f = open(nomfichier, "w")
         for y in range(11):
             for x in range(18):
-                img, rot = self.tableau[x, y]
-                f.write("%s%d/" % (img, rot/90))
+                f.write("%s%d/" % (img, rot / 90))
             f.write("\n")
 
     def sauveF(self, nomfichier, Fond, QGPos):
-        f = open(nomfichier+"_Pref.txt", "w")
+        f = open(nomfichier + "_Pref.txt", "w")
         f.write(Fond)
         Posx = QGPos[0]
         Posy = QGPos[1]
@@ -116,9 +115,8 @@ class Niveau(object):
         self.tableau = {}
         for y, l in enumerate(f):
             for x in range(18):
-                img = l[x*4:x*4+2]
-                rot = l[x*4+2]
-                self.tableau[x, y] = img, int(rot)*90
+                img = l[x * 4 : x * 4 + 2]
+                rot = l[x * 4 + 2]
 
         self.FondFenetre = pygame.Surface((1152, 704))
 
@@ -128,22 +126,17 @@ class Niveau(object):
             for x in range(18):
                 lettre, rot = self.tableau[x, y]
                 if lettre != "  " and lettre != "k1" and lettre != "QG":
-                    img = pygame.transform.scale(
-                        self.img[lettre, rot], (int(65), int(65)))
-                    self.FondFenetre.blit(img, (int((x*64)), int((y*64))))
+                    img = pygame.transform.scale(self.img[lettre, rot], (int(65), int(65)))
+                    self.FondFenetre.blit(img, (int((x * 64)), int((y * 64))))
                 elif lettre == "k1":
                     if rot == 90 or rot == 270:
-                        img = pygame.transform.scale(
-                            self.img[lettre, rot], (64, 3*64)
-                        )
-                        self.FondFenetre.blit(img, (int((x*64)), int((y*64))))
-                        self.pos_Chateau = [x, y+1]
+                        img = pygame.transform.scale(self.img[lettre, rot], (64, 3 * 64))
+                        self.FondFenetre.blit(img, (int((x * 64)), int((y * 64))))
+                        self.pos_Chateau = [x, y + 1]
                     else:
-                        img = pygame.transform.scale(
-                            self.img[lettre, rot], (3*64, 64)
-                        )
-                        self.FondFenetre.blit(img, (int((x*64)), int((y*64))))
-                        self.pos_Chateau = [x+1, y]
+                        img = pygame.transform.scale(self.img[lettre, rot], (3 * 64, 64))
+                        self.FondFenetre.blit(img, (int((x * 64)), int((y * 64))))
+                        self.pos_Chateau = [x + 1, y]
 
             try:
                 self.FondFenetre.blit(self.nanim, (self.posx, self.posy))
@@ -151,11 +144,11 @@ class Niveau(object):
                 print("Error ! :", e)
 
     def deffond(self, nomfichier):
-        f = open(nomfichier+"_Pref.txt", "r")
+        f = open(nomfichier + "_Pref.txt", "r")
         imagetl = f.read()
         image = ""
         for char in imagetl:
-            if char != '\n':
+            if char != "\n":
                 image += char
             else:
                 break
@@ -167,7 +160,7 @@ class Niveau(object):
             for x in range(18):
                 lettre, rot = self.tableau[x, y]
                 if lettre != "  " and lettre != "QG":
-                    fenetre.blit(self.img[lettre, rot], (x*64, y*64))
+                    fenetre.blit(self.img[lettre, rot], (x * 64, y * 64))
 
     def ConvertToHMS(self, Time):
 
@@ -199,24 +192,24 @@ class Niveau(object):
         Difficulty = 11 - Difficulte
 
         if self.Nombre_Ennemis_Tue >= 0:
-            Level_Difficulty = 10*Difficulty
+            Level_Difficulty = 10 * Difficulty
         if self.Nombre_Ennemis_Tue >= 10:
-            Level_Difficulty = 9*Difficulty
+            Level_Difficulty = 9 * Difficulty
         if self.Nombre_Ennemis_Tue >= 25:
-            Level_Difficulty = 8*Difficulty
+            Level_Difficulty = 8 * Difficulty
         if self.Nombre_Ennemis_Tue >= 50:
-            Level_Difficulty = 7*Difficulty
+            Level_Difficulty = 7 * Difficulty
         if self.Nombre_Ennemis_Tue >= 100:
-            Level_Difficulty = 6*Difficulty
+            Level_Difficulty = 6 * Difficulty
         if self.Nombre_Ennemis_Tue >= 200:
-            Level_Difficulty = 5*Difficulty
+            Level_Difficulty = 5 * Difficulty
         if self.Nombre_Ennemis_Tue >= 400:
-            Level_Difficulty = 4*Difficulty
+            Level_Difficulty = 4 * Difficulty
         if self.Nombre_Ennemis_Tue >= 750:
-            Level_Difficulty = 3*Difficulty
+            Level_Difficulty = 3 * Difficulty
         if self.Nombre_Ennemis_Tue >= 1000:
-            Level_Difficulty = 2*Difficulty
+            Level_Difficulty = 2 * Difficulty
         if self.Nombre_Ennemis_Tue >= 2500:
-            Level_Difficulty = 1*Difficulty
+            Level_Difficulty = 1 * Difficulty
 
         return Level_Difficulty
