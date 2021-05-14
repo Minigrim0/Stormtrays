@@ -40,6 +40,7 @@ class Niveau(object):
 
         self.editorImage["QG", 0] = pygame.image.load("img/QuestGiverF1.png").convert_alpha()
 
+        self.empty()
 
         self.gold = 500
         self.Vie_Chateau = 100
@@ -52,13 +53,19 @@ class Niveau(object):
 
         TabTexts = []
         TabTexts.append("Les forces du mal se sont réveillées...")
-        TabTexts.append("""Le seigneur des ténébres souhaite la destruction
-            d'un peuple""")
+        TabTexts.append(
+            """Le seigneur des ténébres souhaite la destruction
+            d'un peuple"""
+        )
         TabTexts.append("qui l'a autrefois détruit.")
-        TabTexts.append("""Les principales puissances
-        d'Ethsilaar sont faibles et vous""")
-        TabTexts.append("""avez été appelé comme mercanaire
-        pour empêcher le mal de""")
+        TabTexts.append(
+            """Les principales puissances
+        d'Ethsilaar sont faibles et vous"""
+        )
+        TabTexts.append(
+            """avez été appelé comme mercanaire
+        pour empêcher le mal de"""
+        )
         TabTexts.append("se répandre.")
         TabTexts.append("Bonne chance...")
         STORMTRAYS = "STORMTRAYS"
@@ -89,16 +96,17 @@ class Niveau(object):
 
         time.sleep(0.5)
 
-    def videtab(self):
-        self.tableau = {}
+    def empty(self):
+        self.map = {}
         for y in range(11):
             for x in range(18):
-                self.tableau[x, y] = "  ", 0
+                self.map[x, y] = "  ", 0
 
     def sauve(self, nomfichier):
         f = open(nomfichier, "w")
         for y in range(11):
             for x in range(18):
+                img, rot = self.map[x, y]
                 f.write("%s%d/" % (img, rot / 90))
             f.write("\n")
 
@@ -112,11 +120,12 @@ class Niveau(object):
 
     def construit(self, nomfichier):
         f = open(nomfichier)
-        self.tableau = {}
+        self.map = {}
         for y, l in enumerate(f):
             for x in range(18):
                 img = l[x * 4 : x * 4 + 2]
                 rot = l[x * 4 + 2]
+                self.map[x, y] = img, int(rot) * 90
 
         self.FondFenetre = pygame.Surface((1152, 704))
 
@@ -124,7 +133,7 @@ class Niveau(object):
         self.FondFenetre.blit(fondimgf, (0, 0))
         for y in range(11):
             for x in range(18):
-                lettre, rot = self.tableau[x, y]
+                lettre, rot = self.map[x, y]
                 if lettre != "  " and lettre != "k1" and lettre != "QG":
                     img = pygame.transform.scale(self.img[lettre, rot], (int(65), int(65)))
                     self.FondFenetre.blit(img, (int((x * 64)), int((y * 64))))
@@ -158,7 +167,7 @@ class Niveau(object):
         fenetre.blit(fond, (0, 0))
         for y in range(11):
             for x in range(18):
-                lettre, rot = self.tableau[x, y]
+                lettre, rot = self.map[x, y]
                 if lettre != "  " and lettre != "QG":
                     fenetre.blit(self.img[lettre, rot], (x * 64, y * 64))
 
@@ -177,12 +186,11 @@ class Niveau(object):
         fenetre.blit(fond, (0, 0))
         for y in range(11):
             for x in range(18):
-                lettre, rot = self.tableau[x, y]
+                lettre, rot = self.map[x, y]
                 if lettre != "  ":
-                    fenetre.blit(self.imgE[lettre, rot], (x*64, y*64))
+                    fenetre.blit(self.editorImage[lettre, rot], (x * 64, y * 64))
 
     def affichem(self, fenetre):
-
         fenetre.blit(self.FondFenetre, (0, 0))
 
     def Set_Difficulty(self, Difficulte):
