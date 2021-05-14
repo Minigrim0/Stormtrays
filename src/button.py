@@ -29,5 +29,13 @@ class Button:
         return self.rect.collidepoint(pos)
 
     def click(self, pos: tuple):
+        """execute the callback if the position collide the button
+
+        Args:
+            pos (tuple): the position to click on
+        """
         if self.collide(pos) and self.callback is not None:
-            self.callback()
+            if type(self.callback) is tuple:
+                self.callback[0](*self.callback[1:])
+            else:
+                self.callback()
