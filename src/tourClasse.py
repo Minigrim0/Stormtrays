@@ -147,10 +147,8 @@ class Projectile:
 
         image2rot = pygame.image.load(tower.Projectile_Image).convert_alpha()
 
-        NewPosEnnemi_x = ennemi.PosAbsolue[0]
-        +ennemi.vitesse * ennemi.Dir_x * t
-        NewPosEnnemi_y = ennemi.PosAbsolue[1]
-        +ennemi.vitesse * ennemi.Dir_y * t
+        NewPosEnnemi_x = ennemi.PosAbsolue[0] + ennemi.vitesse * ennemi.Dir_x * t
+        NewPosEnnemi_y = ennemi.PosAbsolue[1] + ennemi.vitesse * ennemi.Dir_y * t
 
         self.delta_x = NewPosEnnemi_x - tower.Position_IG[0] * 64
         self.delta_y = NewPosEnnemi_y - tower.Position_IG[1] * 64
