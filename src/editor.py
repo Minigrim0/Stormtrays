@@ -10,6 +10,8 @@ import src.constantes as consts
 
 
 class Editor:
+    """The editor class, that runs handles the displaying and update of the editor"""
+
     def __init__(self):
         self.level = Niveau()
         self.UI = EditorUI(self.level)

@@ -6,7 +6,9 @@ import pygame
 import src.constantes as consts
 
 
-class Levels(object):
+class Levels:
+    """A class to keep information on a level"""
+
     def __init__(self, file, img, nivrect):
         self.File = file
         self.Img = img
@@ -16,7 +18,11 @@ class Levels(object):
 # ---------------------------------------------------------------------------------------------------------------------
 
 
-class Niveau(object):
+class Niveau:
+    """The level class contains information and logic about the current level
+    Such as the list of gold anim objects and the number of ennemy killed
+    """
+
     def __init__(self):
         images = [
             (consts.chem1, "c1"),

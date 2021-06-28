@@ -4,6 +4,13 @@ import pygame
 
 
 class Game:
+    """The Game singleton object, used to play music all along the game (For now)
+
+    Raises:
+        Exception: in case a part of the code tries to initialize a
+            new instance of the class
+    """
+
     instance = None
 
     @staticmethod

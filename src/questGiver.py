@@ -4,7 +4,8 @@ from constantes import GoldGained, DicoTowersBought, DicoEnnemisKilled
 import json
 
 
-class QuestGiver(object):
+class QuestGiver:
+    """The quest giver character"""
 
     def __init__(self, FilePath):
         f = open(FilePath, "r")

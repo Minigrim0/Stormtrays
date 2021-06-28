@@ -4,7 +4,9 @@ import json
 import glob
 
 
-class Tours(object):
+class Tours:
+    """Represents a tower in the menu"""
+
     def __init__(self, fichiertour, num, myfont1):
         f = open(fichiertour)
         contenu = f.read()
@@ -31,7 +33,9 @@ class Tours(object):
         fenetre.blit(self.prix_affiche, (18 + (60 * num) + (num * 10), (704) - (72)))
 
 
-class Tours_IG(object):
+class Tours_IG:
+    """Represents an in-game tower"""
+
     def __init__(self, Type_Tour, num, ImgsDir):
 
         self.vitesse_Projectile = Type_Tour.VitesseProject
@@ -135,7 +139,9 @@ class Tours_IG(object):
         return t
 
 
-class Projectile(object):
+class Projectile:
+    """Represents a projectile launched by a tower"""
+
     def __init__(self, t, tower, ennemi):
         self.vitesse = tower.vitesse_Projectile
 

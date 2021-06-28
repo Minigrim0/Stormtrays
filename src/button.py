@@ -2,6 +2,8 @@ import pygame
 
 
 class Button:
+    """A button that can be clicked and may induce a callback"""
+
     def __init__(self, pos: tuple, size: tuple, image: pygame.Surface):
         self.pos = pos
         self.size = size

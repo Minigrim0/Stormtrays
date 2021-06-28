@@ -8,6 +8,8 @@ from src.button import Button
 
 
 class Screen:
+    """The singleton class that handles the screen related actions"""
+
     def __init__(self, size: tuple, name: str, icon: str, fullScreen=True):
         self.font = pygame.font.SysFont("Viner Hand ITC", 25)
         self.nativeSize = size

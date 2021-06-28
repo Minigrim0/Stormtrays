@@ -6,7 +6,9 @@ import math
 import src.constantes as constantes
 
 
-class Perso(object):
+class Perso:
+    """Reprensents the user's character"""
+
     def __init__(self):
         self.targetCoordx = 576
         self.targetCoordy = 352

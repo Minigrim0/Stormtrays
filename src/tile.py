@@ -4,6 +4,8 @@ from src.screen import Screen
 
 
 class Tile:
+    """Represents a tile from the editor"""
+
     def __init__(self, image: tuple, position: tuple, rotation: int):
         self.image = image
         self.rotation = rotation

@@ -4,7 +4,10 @@ from src.utils import findAngle
 import math
 
 
-class Invocation(object):
+class Invocation:
+    """The character power after level 5, a basic "AI"
+    that will attack the first ennemy it sees"""
+
     def __init__(self, niveau, Tab, Tab_Ret, addDegats, King):
         self.myfont = pygame.font.SysFont("Viner Hand ITC", 25)
         self.Img = pygame.image.load(Invocation_1).convert_alpha()

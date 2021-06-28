@@ -4,6 +4,8 @@ from src.button import Button
 
 
 class EditorUI(object):
+    """The UI of the editor"""
+
     def __init__(self, level):
         self.right_panel = pygame.Surface((200, const.WINDOW_HEIGHT))
         self.vert_line = pygame.Surface((1, const.WINDOW_WIDTH))

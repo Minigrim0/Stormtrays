@@ -5,6 +5,8 @@ from src.screen import Screen
 
 
 class GoldAnim:
+    """A flying gold image to show the winned gold when an ennemy has been killed"""
+
     def __init__(self, pos: tuple, amount: int):
         self.posx = pos[0]
         self.posy = pos[1]

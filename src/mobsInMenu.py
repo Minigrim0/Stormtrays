@@ -7,7 +7,9 @@ import math
 from src.gold import GoldAnim
 
 
-class EnnemiIM(object):
+class EnnemiIM:
+    """Represents an Ennemy in the menu"""
+
     def __init__(self, FichierEnnemi):
 
         self.posx = 0
