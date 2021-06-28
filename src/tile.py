@@ -10,7 +10,7 @@ class Tile:
         self.position = position
 
     def rotate(self):
-        """rotates the image by 90 degrees"""
+        """Rotates the image by 90 degrees"""
         self.rotation = (self.rotation + 1) % 4
         self.image = (pygame.transform.rotate(self.image[0], 90), pygame.transform.rotate(self.image[1], 90))
 
