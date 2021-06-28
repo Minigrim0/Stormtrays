@@ -662,7 +662,6 @@ while Programme_Actif:
                     Liste_Mechants.append(ennemi)
                 if double_invoque is True:
                     double_invoque = False
-                    pass
                 else:
                     invoque_Boucle = False
 
