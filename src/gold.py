@@ -19,7 +19,8 @@ class GoldAnim:
         Args:
             screen (Screen): The screen for the coin to display itself
             goldImg (pygame.Surface): The image of the coin
-            niveau (Niveau): The level object for the coin to remove itself from its gold array
+            niveau (Niveau): The level object for the coin to remove
+                itself from its gold array
         """
         self.i += 1
         self.posy -= 2

@@ -89,7 +89,8 @@ class Screen:
         self.fenetre.blit(surface, pos)
 
     def getEvent(self):
-        """Handles user events, reacting of needed, and yielding the event list to the calling function
+        """Handles user events, reacting of needed, and yielding
+            the event list to the calling function
 
         Yields:
             pygame.event: The event list

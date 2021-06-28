@@ -8,7 +8,8 @@ class Game:
 
     @staticmethod
     def getInstance():
-        """Singleton Pattern, returns the instance of the class if the class does have an instance, creates it otherwise
+        """Singleton Pattern, returns the instance of the class if
+            the class does have an instance, creates it otherwise
 
         Returns:
             [type]: [description]
