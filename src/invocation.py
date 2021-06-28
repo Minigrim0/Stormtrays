@@ -118,9 +118,7 @@ class Invocation(object):
                     self.anim(self.Tab)
                     fenetre.blit(self.nanim, (self.posx, self.posy))
                     self.Anim_King_i = 0
-                    ennemi.enleve_vie(
-                        self.degats, Liste_Mechants, ennemi,
-                        niveau, coin, King)
+                    ennemi.enleve_vie(self.degats, Liste_Mechants, ennemi, niveau, King)
                     if ennemi.vie - self.degats <= 0:
                         self.xp += ennemi.vie_bas/3
 
@@ -138,9 +136,7 @@ class Invocation(object):
                     self.anim(self.TabRet)
                     fenetre.blit(self.nanim, (self.posx, self.posy))
                     self.Anim_King_i = 0
-                    ennemi.enleve_vie(
-                        self.degats, Liste_Mechants, ennemi,
-                        niveau, coin, King)
+                    ennemi.enleve_vie(self.degats, Liste_Mechants, ennemi, niveau, King)
                     if ennemi.vie - self.degats <= 0:
                         self.xp += ennemi.vie_bas/3
                 self.Is_Returned = True

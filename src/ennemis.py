@@ -146,9 +146,9 @@ class Ennemi_IG(object):
 
         if self.posx == niveau.pos_Chateau[0] and self.posy == niveau.pos_Chateau[1]:
             niveau.Vie_Chateau -= self.vie // 1.5
-            self.enleve_vie(2000, Liste_Mechants, self, niveau, coin, King)
+            self.enleve_vie(2000, Liste_Mechants, self, niveau, King)
 
-    def enleve_vie(self, viemoins, liste_mech, ennemi, niveau, coin, King):
+    def enleve_vie(self, viemoins, liste_mech, ennemi, niveau, King):
 
         self.vie -= viemoins
         self.IsAttacked = True

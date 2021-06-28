@@ -109,7 +109,7 @@ class EnnemiIM(object):
             self.TargetX = random.randrange(1050)
             self.TargetY = random.randrange(650)
 
-    def enleve_vie(self, viemoins, liste_mech, ennemi, niveau, coin, King):
+    def enleve_vie(self, viemoins, liste_mech, ennemi, niveau, King):
         self.vie -= viemoins
         self.IsAttacked = True
         self.Tics = 0

@@ -49,5 +49,5 @@ class Bomb (object):
 
             if dist <= 40:
                 Ennemi.IsAttacked = True
-                Ennemi.enleve_vie(20, TabEnnemi, Ennemi, niveau, coin, King)
+                Ennemi.enleve_vie(20, TabEnnemi, Ennemi, niveau, King)
         ListeBomb.remove(self)

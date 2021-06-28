@@ -228,8 +228,7 @@ class Projectile(object):
                     + ((y - ennemi.PosAbsolue[1]) ** 2)
                 )
                 if dist < 64:
-                    died = ennemi.enleve_vie(
-                        self.degats, ListeEnnemis, ennemi, niveau, coin, King)
+                    died = ennemi.enleve_vie(self.degats, ListeEnnemis, ennemi, niveau, King)
                     if died:
                         self.tower.EnnemiKilled += 1
                     self.tower.TotalDegats += self.degats
