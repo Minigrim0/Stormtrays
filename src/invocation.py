@@ -5,8 +5,10 @@ import math
 
 
 class Invocation:
-    """The character power after level 5, a basic "AI"
-    that will attack the first ennemy it sees"""
+    """
+    The character power after level 5, a basic "AI"
+    that will attack the first ennemy it sees
+    """
 
     def __init__(self, niveau, Tab, Tab_Ret, addDegats, King):
         self.myfont = pygame.font.SysFont("Viner Hand ITC", 25)
