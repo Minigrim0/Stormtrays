@@ -845,7 +845,6 @@ while Programme_Actif:
 
             # si on est pas dans Menu des tour
             if not menu_tour:
-
                 message_argent = myfont2.render("", 1, (255, 0, 0))
                 deplace = False
 
@@ -859,26 +858,19 @@ while Programme_Actif:
                             CooldownInvoc = 2640
 
                 if event.type == pygame.locals.MOUSEBUTTONDOWN:
-
                     # Menu_Principal tour actif
                     if boutontourrect.collidepoint(event.pos):
                         menu_tour = True
 
                     if event.button == 3 and not animInvocation:
-
                         if Liste_Mechants:
-
                             for ennemi in Liste_Mechants:
-
                                 if ennemi.HitBox.collidepoint(event.pos):
                                     King.target = ennemi
                                     break
-
-                                else:
-                                    King.target = None
-                                    King.targetCoordx = event.pos[0] - 48
-                                    King.targetCoordy = event.pos[1] - 48
-
+                                King.target = None
+                                King.targetCoordx = event.pos[0] - 48
+                                King.targetCoordy = event.pos[1] - 48
                         else:
                             King.target = None
                             King.targetCoordx = event.pos[0] - 48
