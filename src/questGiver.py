@@ -58,8 +58,8 @@ class QuestGiver:
         self.IsGiving = False
 
     def LoadQuests(self, filename):
-        f = open("../level/QuestFiles/" + filename + ".json")
-        self.propriete = json.loads(f.read())
+        with open("../level/QuestFiles/" + filename + ".json") as f:
+            self.propriete = json.loads(f.read())
 
         self.TabQuestsNames.append(self.propriete["FirstQuestName"])
         self.TabQuestsNames.append(self.propriete["SecondQuestName"])

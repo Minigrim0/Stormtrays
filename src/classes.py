@@ -109,29 +109,29 @@ class Niveau:
                 self.map[x, y] = "  ", 0
 
     def sauve(self, nomfichier):
-        f = open(nomfichier, "w")
-        for y in range(11):
-            for x in range(18):
-                img, rot = self.map[x, y]
-                f.write("%s%d/" % (img, rot / 90))
-            f.write("\n")
+        with open(nomfichier, "w") as f:
+            for y in range(11):
+                for x in range(18):
+                    img, rot = self.map[x, y]
+                    f.write("%s%d/" % (img, rot / 90))
+                f.write("\n")
 
     def sauveF(self, nomfichier, Fond, QGPos):
-        f = open(nomfichier + "_Pref.txt", "w")
-        f.write(Fond)
-        Posx = QGPos[0]
-        Posy = QGPos[1]
-        f.write("\n")
-        f.write(str(Posx) + "/" + str(Posy))
+        with open(nomfichier + "_Pref.txt", "w") as f:
+            f.write(Fond)
+            Posx = QGPos[0]
+            Posy = QGPos[1]
+            f.write("\n")
+            f.write(str(Posx) + "/" + str(Posy))
 
     def construit(self, nomfichier):
-        f = open(nomfichier)
-        self.map = {}
-        for y, l in enumerate(f):
-            for x in range(18):
-                img = l[x * 4 : x * 4 + 2]
-                rot = l[x * 4 + 2]
-                self.map[x, y] = img, int(rot) * 90
+        with open(nomfichier) as f:
+            self.map = {}
+            for y, l in enumerate(f):
+                for x in range(18):
+                    img = l[x * 4 : x * 4 + 2]
+                    rot = l[x * 4 + 2]
+                    self.map[x, y] = img, int(rot) * 90
 
         self.FondFenetre = pygame.Surface((1152, 704))
 
@@ -159,8 +159,8 @@ class Niveau:
                 print("Error ! :", e)
 
     def deffond(self, nomfichier):
-        f = open(nomfichier + "_Pref.txt", "r")
-        imagetl = f.read()
+        with open(nomfichier + "_Pref.txt", "r") as f:
+            imagetl = f.read()
         image = ""
         for char in imagetl:
             if char != "\n":

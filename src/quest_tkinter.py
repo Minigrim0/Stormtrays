@@ -99,17 +99,16 @@ def InitTkinter():
 def SaveQuests(filename):
     dirname, filename = os.path.split(filename)
     filename, ext = os.path.splitext(filename)
-    f = open(dirname + "/QuestFiles/" + filename + ".json", "w")
-    f.write("{\n")
-    f.write('    FirstQuestName  : "' + NameQ1.get() + '",\n')
-    f.write('    SecondQuestName : "' + NameQ2.get() + '",\n')
-    f.write('    ThirdQuestName  : "' + NameQ3.get() + '",\n')
-    f.write("\n")
-    f.write("    FirstQuestObjectif  : " + str(RadioValue_Q1.get()) + ",\n")
-    f.write("    SecondQuestObjectif : " + str(RadioValue_Q2.get()) + ",\n")
-    f.write("    ThirdQuestObjectif  : " + str(RadioValue_Q3.get()) + ",\n")
-    f.write("}")
-    f.close()
+    with open(dirname + "/QuestFiles/" + filename + ".json", "w") as f:
+        f.write("{\n")
+        f.write('    FirstQuestName  : "' + NameQ1.get() + '",\n')
+        f.write('    SecondQuestName : "' + NameQ2.get() + '",\n')
+        f.write('    ThirdQuestName  : "' + NameQ3.get() + '",\n')
+        f.write("\n")
+        f.write("    FirstQuestObjectif  : " + str(RadioValue_Q1.get()) + ",\n")
+        f.write("    SecondQuestObjectif : " + str(RadioValue_Q2.get()) + ",\n")
+        f.write("    ThirdQuestObjectif  : " + str(RadioValue_Q3.get()) + ",\n")
+        f.write("}")
 
 
 def ModifQuests():
