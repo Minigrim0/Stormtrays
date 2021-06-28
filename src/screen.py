@@ -22,9 +22,7 @@ class Screen:
             self.resize(self.nativeSize)
 
         self.scaleButton = Button(
-            (2, self.nativeSize[1] - 22),
-            (20, 20),
-            pygame.image.load(const.ScaleImg).convert_alpha()
+            (2, self.nativeSize[1] - 22), (20, 20), pygame.image.load(const.ScaleImg).convert_alpha()
         )
         self.scaleButton.callback = self.rescale
 
@@ -42,6 +40,7 @@ class Screen:
         self.showFPS = False
 
     def rescale(self):
+        """Resizes the screen to either fullscreen or native size"""
         self.fullScreen = not self.fullScreen
         if self.fullScreen:
             self.resize(self.fullSize)
@@ -49,39 +48,52 @@ class Screen:
             self.resize(self.nativeSize)
 
     def resize(self, size: tuple):
-        if self.fullScreen:
-            self.fenetreAffiche = pygame.display.set_mode(
-                self.fullSize, pygame.locals.FULLSCREEN)
-        else:
-            self.fenetreAffiche = pygame.display.set_mode(
-                size, pygame.locals.RESIZABLE)
+        """Resizes the screen to the given size
 
-        taillex = size[0]/self.nativeSize[0]
-        tailley = size[1]/self.nativeSize[1]
+        Args:
+            size (tuple): the new size for the screen
+        """
+        if self.fullScreen:
+            self.fenetreAffiche = pygame.display.set_mode(self.fullSize, pygame.locals.FULLSCREEN)
+        else:
+            self.fenetreAffiche = pygame.display.set_mode(size, pygame.locals.RESIZABLE)
+
+        taillex = size[0] / self.nativeSize[0]
+        tailley = size[1] / self.nativeSize[1]
         self.taille = min(taillex, tailley)
 
         self.posAffiche = (
-            (size[0] - int(self.taille * self.nativeSize[0]))//2,
-            (size[1] - int(self.taille * self.nativeSize[1]))//2
+            (size[0] - int(self.taille * self.nativeSize[0])) // 2,
+            (size[1] - int(self.taille * self.nativeSize[1])) // 2,
         )
 
     def flip(self):
+        """Refreshes the screen"""
         self.update()
         self.scaleButton.draw(self)
         self.fenetreAffiche.blit(
             pygame.transform.smoothscale(
-                self.fenetre, (
-                    int(self.nativeSize[0]*self.taille),
-                    int(self.nativeSize[1]*self.taille)
-                )
-            ), self.posAffiche
+                self.fenetre, (int(self.nativeSize[0] * self.taille), int(self.nativeSize[1] * self.taille))
+            ),
+            self.posAffiche,
         )
         pygame.display.flip()
 
     def blit(self, surface: pygame.Surface, pos: tuple):
+        """Draws an image to the screen
+
+        Args:
+            surface (pygame.Surface): The surface to draw
+            pos (tuple): The position to drae it on
+        """
         self.fenetre.blit(surface, pos)
 
     def getEvent(self):
+        """Handles user events, reacting of needed, and yielding the event list to the calling function
+
+        Yields:
+            pygame.event: The event list
+        """
         for event in pygame.event.get():
             if event.type == MOUSEMOTION or event.type == MOUSEBUTTONDOWN:
                 event.pos = self.convertToRelativePos(event.pos)
@@ -107,12 +119,7 @@ class Screen:
         Returns:
             bool: whether the given position is out of the screen or not
         """
-        return (
-            pos[0] < 0
-            or pos[1] < 0
-            or pos[0] >= self.nativeSize[0]
-            or pos[1] >= self.nativeSize[1]
-        )
+        return pos[0] < 0 or pos[1] < 0 or pos[0] >= self.nativeSize[0] or pos[1] >= self.nativeSize[1]
 
     def convertToRelativePos(self, pos: tuple):
         """Converts an real position to a relative position
@@ -123,10 +130,7 @@ class Screen:
         Returns:
             tuple: the converted position
         """
-        return (
-            int((pos[0] - self.posAffiche[0])/self.taille),
-            int((pos[1] - self.posAffiche[1])/self.taille)
-        )
+        return (int((pos[0] - self.posAffiche[0]) / self.taille), int((pos[1] - self.posAffiche[1]) / self.taille))
 
     def handleFKeys(self, event: pygame.event.Event):
         """Handles events where function keys are pressed
@@ -142,20 +146,14 @@ class Screen:
             self.showFPS = not self.showFPS
 
     def screenshot(self):
-        """Make a screenshot and saves it as a bmp file
-        """
-        pygame.image.save(
-            self.fenetre,
-            "screen/{}.bmp".format(
-                time.strftime("%Y_%m_%d_%H_%M_%S")
-            )
-        )
+        """Make a screenshot and saves it as a bmp file"""
+        pygame.image.save(self.fenetre, "screen/{}.bmp".format(time.strftime("%Y_%m_%d_%H_%M_%S")))
 
     def update(self):
+        """Updates the time variables, and calculate FPS if necessary"""
         self.timeElapsed = time.time() - self.startTime
         self.startTime = time.time()
-        self.FPS = 1/self.timeElapsed
+        self.FPS = 1 / self.timeElapsed
 
         if self.showFPS:
-            self.fenetre.blit(
-                self.font.render(str(round(self.FPS)), 1, (0, 0, 0)), (0, 0))
+            self.fenetre.blit(self.font.render(str(round(self.FPS)), 1, (0, 0, 0)), (0, 0))

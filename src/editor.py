@@ -27,6 +27,11 @@ class Editor:
         self.mousePosition = (0, 0)
 
     def run(self, screen: Screen):
+        """Shows the editor and handles the actions to create/save/load levels
+
+        Args:
+            screen (Screen): The screen object to blit images
+        """
         while self.running:
             self.draw(screen)
 
@@ -62,7 +67,12 @@ class Editor:
                 else:
                     self.level.map[x, y] = self.choice, self.rot
 
-    def draw(self, screen):
+    def draw(self, screen: Screen):
+        """Draws the diffrent elements of the Editor on the screen
+
+        Args:
+            screen (Screen): The screen to blit the editor elements on
+        """
         self.level.afficheE(screen, self.UI.fond)
         self.UI.draw(screen)
 
@@ -78,10 +88,12 @@ class Editor:
         screen.flip()
 
     def erase(self):
+        """Empties the level, and resets the tile choice"""
         self.level.empty()
         self.choice = "  "
 
     def changeBackground(self):
+        """Changes the level's background"""
         filename = filedialog.askopenfilename(initialdir="img/Fonds", defaultextension=".png")
         if filename:
             self.UI.fond_Edit = os.path.relpath(filename)
@@ -90,12 +102,14 @@ class Editor:
         self.choice = "  "
 
     def loadLevel(self):
+        """Loads an already created level to be modified/cloned"""
         filename = filedialog.askopenfilename(initialdir="level", defaultextension=".txt")
         if filename:
             self.level.construit(filename)
         self.choice = "  "
 
     def save(self):
+        """Saves the current level"""
         filename = filedialog.asksaveasfilename(initialdir="level", defaultextension=".txt")
         if filename:
             self.level.sauve(filename)
@@ -112,4 +126,9 @@ class Editor:
         self.choice = "  "
 
     def setChoice(self, choice):
+        """Sets the holded tile to the given choice
+
+        Args:
+            choice (str): The choice to set the user to
+        """
         self.choice = choice
