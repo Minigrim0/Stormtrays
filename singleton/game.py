@@ -28,8 +28,7 @@ class Game:
     def __init__(self):
         if Game.instance is not None:
             raise Exception("This class is a Singleton!")
-        else:
-            Game.instance = self
+        Game.instance = self
 
         self.songList = []
         for song in glob.glob("../musique/Themes/*.wav"):
