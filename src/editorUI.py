@@ -3,7 +3,7 @@ import src.constantes as const
 from src.button import Button
 
 
-class EditorUI(object):
+class EditorUI:
     """The UI of the editor"""
 
     def __init__(self, level):
