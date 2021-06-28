@@ -12,7 +12,6 @@ def findAngle(delta_x: int, delta_y: int):
     Returns:
         float: the angle in degrees of the trangle's corner
     """
-
     if delta_x != 0:
         angle = atan(delta_y / delta_x)
     elif delta_y < 0:
