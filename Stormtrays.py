@@ -446,21 +446,17 @@ while Programme_Actif:
                     Menu_Options = False
                     break
 
-                if VolPlus.collidepoint(event.pos):
-                    if Volume < 10:
-                        Volume += 1
+                if VolPlus.collidepoint(event.pos) and Volume < 10:
+                    Volume += 1
 
-                if VolMoins.collidepoint(event.pos):
-                    if Volume > 0:
-                        Volume -= 1
+                if VolMoins.collidepoint(event.pos) and Volume > 0:
+                    Volume -= 1
 
-                if DifPlus.collidepoint(event.pos):
-                    if Difficulte < 10:
-                        Difficulte += 1
+                if DifPlus.collidepoint(event.pos) and Difficulte < 10:
+                    Difficulte += 1
 
-                if DifMoins.collidepoint(event.pos):
-                    if Difficulte > 0:
-                        Difficulte -= 1
+                if DifMoins.collidepoint(event.pos) and Difficulte > 0:
+                    Difficulte -= 1
 
     # --------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -807,43 +803,40 @@ while Programme_Actif:
         for event in screen.getEvent():
 
             # Si l'on est dans le Menu_Principal des tours
-            if menu_tour:
+            if (
+                menu_tour
+                and event.type == pygame.locals.MOUSEBUTTONDOWN
+                and (deplace and not mtrect.collidepoint(event.pos) and not PoubelleRect.collidepoint(event.pos))
+            ):
+                if niveau.map[(position_souris[0]) // (64), (position_souris[1]) // (64)] == ("  ", 0):
+                    niveau.gold -= tourSelectionee.prix
+                    Liste_Tours_IG.append(tourSelectionee)
+                    tourSelectionee.placetour(
+                        position_souris, screen, niveau.map, Liste_Tours_IG, tourSelectionee, niveau
+                    )
+                    deplace = False
+                    menu_tour = False
+                    break
 
-                if event.type == pygame.locals.MOUSEBUTTONDOWN:
+                # Pour quitter le Menu_Principal des tours
+                if mtrect.collidepoint(event.pos):
+                    menu_tour = False
+                    deplace = False
 
-                    if deplace and not mtrect.collidepoint(event.pos) and not PoubelleRect.collidepoint(event.pos):
+                if PoubelleRect.collidepoint(event.pos):
 
-                        if niveau.map[(position_souris[0]) // (64), (position_souris[1]) // (64)] == ("  ", 0):
-                            niveau.gold -= tourSelectionee.prix
-                            Liste_Tours_IG.append(tourSelectionee)
-                            tourSelectionee.placetour(
-                                position_souris, screen, niveau.map, Liste_Tours_IG, tourSelectionee, niveau
-                            )
-                            deplace = False
-                            menu_tour = False
-                            break
+                    deplace = False
 
-                    # Pour quitter le Menu_Principal des tours
-                    if mtrect.collidepoint(event.pos):
-                        menu_tour = False
-                        deplace = False
+                for tour in Liste_Tours:
 
-                    if PoubelleRect.collidepoint(event.pos):
-
-                        deplace = False
-
-                    for tour in Liste_Tours:
-
-                        # Si l'on selectionne une tour
-                        if tour.tourrect.collidepoint(event.pos):
-
-                            if niveau.gold >= tour.prix:
-                                deplace = True
-                                tourSelectionee = Tours_IG(tour, num, tour.DirImg)
-                                message_argent = myfont2.render("", 1, (255, 0, 0))
+                    # Si l'on selectionne une tour
+                    if tour.tourrect.collidepoint(event.pos) and niveau.gold >= tour.prix:
+                        deplace = True
+                        tourSelectionee = Tours_IG(tour, num, tour.DirImg)
+                        message_argent = myfont2.render("", 1, (255, 0, 0))
 
             # si on est pas dans Menu des tour
-            if not menu_tour:
+            else:
                 message_argent = myfont2.render("", 1, (255, 0, 0))
                 deplace = False
 
@@ -851,10 +844,9 @@ while Programme_Actif:
 
                     k = pygame.key.get_pressed()
 
-                    if k[pygame.locals.K_i]:
-                        if King.Level_Roi >= 5 and not invocation and CooldownInvoc == 0:
-                            animInvocation = True
-                            CooldownInvoc = 2640
+                    if k[pygame.locals.K_i] and King.Level_Roi >= 5 and not invocation and CooldownInvoc == 0:
+                        animInvocation = True
+                        CooldownInvoc = 2640
 
                 if event.type == pygame.locals.MOUSEBUTTONDOWN:
                     # Menu_Principal tour actif
@@ -1029,8 +1021,7 @@ while Programme_Actif:
         screen.blit(quitpaus, (1152 // 2 - 60, 704 - i))
         screen.flip()
 
-        for event in screen.getEvent():
-            pass
+        screen.getEvent()
 
         if i >= 220:
             anim_Perdu = False
@@ -1064,9 +1055,7 @@ while Programme_Actif:
             screen.blit(option, (1152 - 400 + i, 704 - 120))
             screen.blit(quit, (1152 - 350 + i, 704 - 60))
 
-            for event in screen.getEvent():
-                pass
-
+            screen.getEvent()
             i += 5
 
         Menu_Selection = True
@@ -1084,17 +1073,10 @@ while Programme_Actif:
             screen.blit(option, (1152 + 60 - i, 704 - 120))
             screen.blit(quit, (1152 + 110 - i, 704 - 60))
 
-            for event in screen.getEvent():
-                pass
-
+            screen.getEvent()
             i += 5
 
         Menu_Principal = True
         animmenu = False
 
     screen.delais = 0.05
-
-    LoadScreen = False
-
-    while LoadScreen:
-        pass

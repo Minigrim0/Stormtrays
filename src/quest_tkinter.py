@@ -98,7 +98,7 @@ def InitTkinter():
 
 def SaveQuests(filename):
     dirname, filename = os.path.split(filename)
-    filename, ext = os.path.splitext(filename)
+    filename, _ = os.path.splitext(filename)
     with open(dirname + "/QuestFiles/" + filename + ".json", "w") as f:
         f.write("{\n")
         f.write('    FirstQuestName  : "' + NameQ1.get() + '",\n')
