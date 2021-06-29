@@ -12,7 +12,7 @@ class Level:
     instance = None
 
     @staticmethod
-    def getInstance(self):
+    def getInstance():
         if Level.instance is None:
             Level()
         return Level.instance
