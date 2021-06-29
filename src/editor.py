@@ -52,30 +52,31 @@ class Editor:
         if event.type == pygame.locals.MOUSEBUTTONDOWN:
             if event.button == 1:
                 self.UI.update(event)
-
-                if self.choice is not None:
-                    x = event.pos[0] // 64
-                    y = event.pos[1] // 64
-                    if self.choice == "p1":
-                        self.level.map[x, y] = "  ", 0
-                    elif self.choice == "QG":
-                        self.QGPos = (x * 64, y * 64)
-                    else:
-                        self.level.map[x, y] = self.choice, self.rot
+                self.placeTile(event)
 
             if event.button == 3 and self.choice != "  ":
                 self.rot = (self.rot + 90) % 360
 
         if event.type == pygame.locals.MOUSEMOTION:
             self.mousePosition = (event.pos[0], event.pos[1])
-
             if event.buttons[0] == 1 and self.choice != "  ":
-                x = event.pos[0] // 64
-                y = event.pos[1] // 64
-                if self.choice == "p1":
-                    self.level.map[x, y] = "  ", 0
-                else:
-                    self.level.map[x, y] = self.choice, self.rot
+                self.placeTile(event)
+
+    def placeTile(self, event):
+        if self.choice is not None:
+            tile = (self.choice, self.rot)
+            x = event.pos[0] // 64
+            y = event.pos[1] // 64
+            if self.choice == "p1":
+                tile = ("  ", 0)
+
+            try:
+                self.level.placeTile((x, y), tile)
+            except Exception:
+                print("Warning: clicked outside of the map")
+
+        if self.choice == "QG":
+            self.QGPos = (x * 64, y * 64)
 
     def draw(self, screen: Screen):
         """Draws the diffrent elements of the Editor on the screen
@@ -120,12 +121,12 @@ class Editor:
 
     def save(self):
         """Saves the current level"""
-        filename = filedialog.asksaveasfilename(initialdir="level", defaultextension=".txt")
+        filename = filedialog.asksaveasfilename(initialdir="level", defaultextension=".json")
         if filename:
             self.level.sauve(filename)
-            self.level.sauveF(filename, self.fond_Edit, self.QGPos)
-            self.niveau.draw(self.screen)
-            pygame.display.flip()
+            # self.level.sauveF(filename, self.fond_Edit, self.QGPos)
+            self.level.draw(self.screen)
+            self.screen.flip()
             arect = pygame.Rect(0, 0, consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT)
             sub = self.screen.subsurface(arect)
             sub = pygame.transform.scale(sub, (39 * 5, 22 * 5))
