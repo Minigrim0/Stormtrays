@@ -13,8 +13,43 @@ NameQ2 = tkinter.StringVar()
 NameQ3 = tkinter.StringVar()
 LabelWin = tkinter.LabelFrame(root, text="Paramétrage des quêtes", padx=5, pady=5)
 
+listeQ1 = None
+listeQ2 = None
+listeQ3 = None
+
+LabelQ1 = None
+LabelQ2 = None
+LabelQ3 = None
+
+Frame_Q1_1 = None
+Frame_Q1_2 = None
+Frame_Q1_3 = None
+Frame_Q1_4 = None
+Frame_Q2_1 = None
+Frame_Q2_2 = None
+Frame_Q2_3 = None
+Frame_Q2_4 = None
+Frame_Q3_1 = None
+Frame_Q3_2 = None
+Frame_Q3_3 = None
+Frame_Q3_4 = None
+
+Quest1Name = None
+Quest2Name = None
+Quest3Name = None
+
+SpinBoxQ1 = None
+SpinBoxQ2 = None
+SpinBoxQ3 = None
+
 
 def InitTkinter():
+    global Frame_Q1_1, Frame_Q1_2, Frame_Q1_3, Frame_Q1_4
+    global Frame_Q2_1, Frame_Q2_2, Frame_Q2_3, Frame_Q2_4
+    global Frame_Q3_1, Frame_Q3_2, Frame_Q3_3, Frame_Q3_4
+    global Quest1Name, Quest2Name, Quest3Name
+    global SpinBoxQ1, SpinBoxQ2, SpinBoxQ3
+    global LabelQ1, LabelQ2, LabelQ3, listeQ1, listeQ2, listeQ3
 
     LabelQ1 = tkinter.LabelFrame(LabelWin, text="Quête 1", padx=5, pady=5)
     Frame_Q1_1 = tkinter.Frame(LabelQ1, width=0, height=0, borderwidth=2, relief=tkinter.GROOVE)
@@ -100,7 +135,6 @@ def SaveQuests(filename):
 
 
 def ModifQuests():
-
     LabelWin.pack(fill="both", expand="yes")
 
     LabelQ1.pack(side=tkinter.LEFT, fill="both", expand="yes")
