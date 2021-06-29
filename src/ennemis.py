@@ -88,30 +88,30 @@ class Ennemi_IG:
         self.count += 1
 
         # PLUS EN X  (->)
-        if position == ("c1", 0) or position == ("t1", 180) or position == ("t2", 270):
+        if position in (("c1", 0), ("t1", 180), ("t2", 270)):
             self.Dir_x = 1
             self.Dir_y = 0
             self.Returned = False
 
         # MOINS EN Y (^)
-        elif position == ("c1", 90) or position == ("t1", 270) or position == ("t2", 0):
+        elif position in (("c1", 90), ("t1", 270), ("t2", 0)):
             self.Dir_x = 0
             self.Dir_y = -1
             self.Returned = False
 
         # MOINS EN X (<-)
-        elif position == ("c1", 180) or position == ("t1", 0) or position == ("t2", 90):
+        elif position in (("c1", 180), ("t1", 0), ("t2", 90)):
             self.Dir_x = -1
             self.Dir_y = 0
             self.Returned = True
 
         # PLUS EN Y (v)
-        elif position == ("c1", 270) or position == ("t1", 90) or position == ("t2", 180):
+        elif position in (("c1", 270), ("t1", 90), ("t2", 180)):
             self.Dir_x = 0
             self.Dir_y = 1
             self.Returned = True
 
-        elif position == ("x1", 0) or position == ("x1", 90) or position == ("x1", 180) or position == ("x1", 270):
+        elif position[0] == "x1":
             self.Dir_x = self.Dir_x
             self.Dir_y = self.Dir_y
             self.Returned = self.Returned

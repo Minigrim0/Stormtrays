@@ -98,7 +98,7 @@ class Screen:
             pygame.event: The event list
         """
         for event in pygame.event.get():
-            if event.type == MOUSEMOTION or event.type == MOUSEBUTTONDOWN:
+            if event.type in (MOUSEMOTION, MOUSEBUTTONDOWN):
                 event.pos = self.convertToRelativePos(event.pos)
                 if self.isPosOutOfScreen(event.pos):
                     continue
