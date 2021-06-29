@@ -18,9 +18,9 @@ class Levels:
 # ---------------------------------------------------------------------------------------------------------------------
 
 
-class Niveau:
+class Level:
     """The level class contains information and logic about the current level
-    Such as the list of gold anim objects and the number of ennemy killed
+    such as the list of gold anim objects and the number of ennemy killed
     """
 
     def __init__(self):
@@ -51,7 +51,7 @@ class Niveau:
         self.gold = 500
         self.Vie_Chateau = 100
         self.Nombre_Ennemis_Tue = 0
-        self.fondimg = pygame.image.load("img/fond.png").convert_alpha()
+        self.background = pygame.image.load("img/fond.png").convert_alpha()
 
         self.GoldTab = []
 
@@ -153,7 +153,7 @@ class Niveau:
 
         self.FondFenetre = pygame.Surface((1152, 704))
 
-        fondimgf = pygame.transform.scale(self.fondimg, (int(1152), int(704)))
+        fondimgf = pygame.transform.scale(self.background, (int(1152), int(704)))
         self.FondFenetre.blit(fondimgf, (0, 0))
         for y in range(11):
             for x in range(18):
@@ -190,7 +190,7 @@ class Niveau:
                 image += char
             else:
                 break
-        self.fondimg = pygame.image.load(image).convert_alpha()
+        self.background = pygame.image.load(image).convert_alpha()
 
     def affiche(self, fenetre, fond):
         """Draws current level on screen
@@ -206,14 +206,13 @@ class Niveau:
                 if lettre != "  " and lettre != "QG":
                     fenetre.blit(self.img[lettre, rot], (x * 64, y * 64))
 
-    def afficheE(self, fenetre, fond):
-        """Draws the level in the editor
+    def draw(self, fenetre, editor=False):
+        """Draws the current level
 
         Args:
-            fenetre ([type]): [description]
-            fond ([type]): [description]
+            fenetre (Screen): The screen to blit the level on
         """
-        fenetre.blit(fond, (0, 0))
+        fenetre.blit(self.background, (0, 0))
         for y in range(11):
             for x in range(18):
                 lettre, rot = self.map[x, y]

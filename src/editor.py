@@ -4,7 +4,7 @@ import pygame
 
 from src.editorUI import EditorUI
 from src.screen import Screen
-from src.classes import Niveau
+from src.classes import Level
 
 import src.constantes as consts
 
@@ -13,7 +13,7 @@ class Editor:
     """The editor class, that runs handles the displaying and update of the editor"""
 
     def __init__(self):
-        self.level = Niveau()
+        self.level = Level()
         self.UI = EditorUI(self.level)
         self.UI.buttons["eraseButton"].callback = self.erase
         self.UI.buttons["changeBackgroundButton"].callback = self.changeBackground
