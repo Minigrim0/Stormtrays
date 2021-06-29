@@ -50,14 +50,22 @@ class EnnemiIM:
             self.tab_ret.append(ImgR)
 
     def pose_ennemi(self, fenetre):
+        """Puts the ennemi somewhere on the screen
 
+        Args:
+            fenetre ([type]): [description]
+        """
         self.posx = random.randrange(1050)
         self.posy = random.randrange(650)
 
         self.PosAbsolue = (self.posx, self.posy)
 
     def vit(self, fenetre):
+        """Moves the ennemi in random directions
 
+        Args:
+            fenetre ([type]): [description]
+        """
         self.Vie_Rect = pygame.Surface((self.vie * (60 / self.vie_bas), 3))
         self.Vie_Rect.fill((0, 255, 0))
 
@@ -112,6 +120,18 @@ class EnnemiIM:
             self.TargetY = random.randrange(650)
 
     def enleve_vie(self, viemoins, liste_mech, ennemi, niveau, King):
+        """Removes a bit of life from the ennemy
+
+        Args:
+            viemoins ([type]): [description]
+            liste_mech ([type]): [description]
+            ennemi ([type]): [description]
+            niveau ([type]): [description]
+            King ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
         self.vie -= viemoins
         self.IsAttacked = True
         self.Tics = 0
@@ -135,6 +155,7 @@ class EnnemiIM:
         return False
 
     def anim(self):
+        """Animates the ennemy sprites"""
         self.i += 1
         if self.i == 12:
             self.i = 0

@@ -41,6 +41,12 @@ class Editor:
                 self.handleEvent(screen, event)
 
     def handleEvent(self, screen: Screen, event: pygame.event.Event):
+        """Handles eventual events from the user
+
+        Args:
+            screen (Screen): [description]
+            event (pygame.event.Event): [description]
+        """
         if event.type == pygame.locals.MOUSEBUTTONDOWN:
             if event.button == 1:
                 self.UI.update(event)

@@ -65,7 +65,11 @@ class Perso:
         self.nanim = self.King_1
 
     def level_up(self):
+        """Upgrades the character skills
 
+        Returns:
+            [type]: [description]
+        """
         if self.xp >= self.objectif:
             self.xp = self.xp - self.objectif
             self.Level_Roi += 1
@@ -77,6 +81,7 @@ class Perso:
         return False
 
     def anim(self):
+        """Animates the character"""
 
         if self.i == 12:
             self.i = 0
@@ -84,14 +89,20 @@ class Perso:
         self.Is_Returned = False
 
     def anim_ret(self):
-
+        """Animates the character flipped"""
         if self.i == 12:
             self.i = 0
         self.nanim = self.Perso_Tab_ret[self.i // 2]
         self.Is_Returned = True
 
     def AnimKingAttakRet(self, Liste_Mechants, niveau, Coin):
+        """Animates an attacked flipped
 
+        Args:
+            Liste_Mechants ([type]): [description]
+            niveau ([type]): [description]
+            Coin ([type]): [description]
+        """
         self.Anim_King_i += 1
 
         if self.Anim_King_i == 8:
@@ -118,7 +129,13 @@ class Perso:
             self.nanim = self.King_Attak_ret
 
     def AnimKingAttak(self, Liste_Mechants, niveau, Coin):
+        """Animates an attack
 
+        Args:
+            Liste_Mechants ([type]): [description]
+            niveau ([type]): [description]
+            Coin ([type]): [description]
+        """
         self.Anim_King_i += 1
 
         if self.Anim_King_i == 8:
@@ -145,7 +162,7 @@ class Perso:
             self.nanim = self.King_Attak
 
     def AnimXp(self):
-
+        """Animates the xp adding"""
         if self.XpToAdd > 90:
             self.XpToAdd -= 10
             self.xp += 10
@@ -166,7 +183,13 @@ class Perso:
             self.xp += 1
 
     def AnimMenus(self, Liste_Mechants, niveau, Coin):
+        """Animates the character in the menu
 
+        Args:
+            Liste_Mechants ([type]): [description]
+            niveau ([type]): [description]
+            Coin ([type]): [description]
+        """
         self.Vitesse = 10
 
         if not Liste_Mechants:
@@ -184,7 +207,13 @@ class Perso:
         self.vit(Liste_Mechants, niveau, Coin)
 
     def vit(self, Liste_Mechants, niveau, Coin):
+        """Updates the status of the character
 
+        Args:
+            Liste_Mechants ([type]): [description]
+            niveau ([type]): [description]
+            Coin ([type]): [description]
+        """
         self.AnimXp()
 
         if self.AnimAttak:

@@ -43,6 +43,18 @@ class Invocation:
         self.xp = 0
 
     def vit(self, fenetre, Liste_Mechants, niveau, coin, King):
+        """Updates the AI, making it move and attack
+
+        Args:
+            fenetre ([type]): [description]
+            Liste_Mechants ([type]): [description]
+            niveau ([type]): [description]
+            coin ([type]): [description]
+            King ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
         self.tic += 1
 
         TimeLeftPrint = self.myfont.render(str(self.Duree_Invocation), 1, (0, 0, 25))
@@ -62,6 +74,16 @@ class Invocation:
         return True
 
     def bouge_vers_ennemi(self, ennemi, Liste_Mechants, niveau, fenetre, coin, King):
+        """Detects first ennemy and make the AI move towards it
+
+        Args:
+            ennemi ([type]): [description]
+            Liste_Mechants ([type]): [description]
+            niveau ([type]): [description]
+            fenetre ([type]): [description]
+            coin ([type]): [description]
+            King ([type]): [description]
+        """
         dist = math.sqrt(((self.posx - ennemi.PosAbsolue[0]) ** 2) + ((self.posy - ennemi.PosAbsolue[1]) ** 2))
 
         if dist > 32 and self.Anim_King_i == 0:
@@ -128,12 +150,22 @@ class Invocation:
                 self.Is_Returned = True
 
     def anim(self, tab):
+        """Animates the AI's sprites
+
+        Args:
+            tab ([type]): [description]
+        """
         if self.i == 12:
             self.i = 0
         self.nanim = tab[self.i // 2]
         self.Is_Returned = False
 
     def anim_ret(self, tab):
+        """Animates the AI's sprites flipped
+
+        Args:
+            tab ([type]): [description]
+        """
         if self.i == 12:
             self.i = 0
         self.nanim = tab[self.i // 2]

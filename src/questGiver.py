@@ -58,6 +58,11 @@ class QuestGiver:
         self.IsGiving = False
 
     def LoadQuests(self, filename):
+        """Loads the quests from a json file
+
+        Args:
+            filename ([type]): [description]
+        """
         with open("../level/QuestFiles/" + filename + ".json") as f:
             self.propriete = json.loads(f.read())
 
@@ -78,12 +83,22 @@ class QuestGiver:
         self.TabQuestsNum.append(self.propriete["ThirdNumObjectif"])
 
     def GiveRecompense(self, XPtoAdd):
+        """Gives a reward to the user when he reached the goal
+
+        Args:
+            XPtoAdd ([type]): [description]
+        """
         for x in range(3):
             if self.ObjectifDone[x] and not self.Recompensegave[x]:
                 self.Recompensegave[x] = True
                 XPtoAdd += 500
 
     def Live(self, fenetre):
+        """Updates the quest giver status
+
+        Args:
+            fenetre ([type]): [description]
+        """
 
         fenetre.blit(self.Image, (self.Posx, self.Posy))
 

@@ -50,7 +50,12 @@ class Ennemi_IG:
             self.tab_ret.append(ImgR)
 
     def pose_ennemi(self, tableau, fenetre):
+        """Adds an ennemy to the game
 
+        Args:
+            tableau ([type]): [description]
+            fenetre ([type]): [description]
+        """
         self.posx = 0
         self.posy = 0
 
@@ -63,11 +68,24 @@ class Ennemi_IG:
                 self.HitBox = pygame.Rect((0, y), (64, 64))
 
     def BlitInPlace(self, screen):
+        """Blits the ennemy on the screen
 
+        Args:
+            screen ([type]): [description]
+        """
         screen.blit(self.image, (self.PosAbsolue))
 
     def bouge(self, tableau, fenetre, niveau, Liste_Mechants, coin, King):
+        """Makes the ennemy move
 
+        Args:
+            tableau ([type]): [description]
+            fenetre ([type]): [description]
+            niveau ([type]): [description]
+            Liste_Mechants ([type]): [description]
+            coin ([type]): [description]
+            King ([type]): [description]
+        """
         try:
             self.Vie_Rect = pygame.Surface((self.vie * (60 / self.vie_bas), 3))
         except Exception as e:
@@ -151,7 +169,18 @@ class Ennemi_IG:
             self.enleve_vie(2000, Liste_Mechants, self, niveau, King)
 
     def enleve_vie(self, viemoins, liste_mech, ennemi, niveau, King):
+        """Makes the ennemy loose life
 
+        Args:
+            viemoins ([type]): [description]
+            liste_mech ([type]): [description]
+            ennemi ([type]): [description]
+            niveau ([type]): [description]
+            King ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
         self.vie -= viemoins
         self.IsAttacked = True
         self.Tics = 0
@@ -180,6 +209,8 @@ class Ennemi_IG:
         return False
 
     def anim(self):
+        """Animates the ennemy
+        """
         self.i += 1
         if self.i == 12:
             self.i = 0

@@ -3,6 +3,8 @@ import math
 import json
 import glob
 
+import src.utils as utils
+
 
 class Tours:
     """Represents a tower in the menu"""
@@ -28,6 +30,12 @@ class Tours:
         self.prix_affiche = myfont1.render(str(self.prix), 1, (0, 0, 0))
 
     def affichemenu(self, fenetre, num):
+        """Shows the tower in the menu
+
+        Args:
+            fenetre ([type]): [description]
+            num ([type]): [description]
+        """
 
         fenetre.blit(self.image_menu, (18 + (60 * num) + (num * 10), (704) - (72)))
         fenetre.blit(self.prix_affiche, (18 + (60 * num) + (num * 10), (704) - (72)))
@@ -65,10 +73,26 @@ class Tours_IG:
         self.image = self.Tab_Image[0]
 
     def bougetoursouris(self, possouris, fenetre):
+        """Moves the selected tower according to the tower move
+
+        Args:
+            possouris ([type]): [description]
+            fenetre ([type]): [description]
+        """
         if possouris[0] < 1152 and possouris[0] >= 0 and possouris[1] < 704 and possouris[1] >= 0:
             fenetre.blit(self.image, (possouris[0] - 32, possouris[1] - 32))
 
     def placetour(self, position_souris, fenetre, tableau, Liste, toursel, niveau):
+        """Places a tower on the level
+
+        Args:
+            position_souris ([type]): [description]
+            fenetre ([type]): [description]
+            tableau ([type]): [description]
+            Liste ([type]): [description]
+            toursel ([type]): [description]
+            niveau ([type]): [description]
+        """
         self.Position_IG[0] = (position_souris[0]) // (64)
         self.Position_IG[1] = (position_souris[1]) // (64)
 
@@ -80,6 +104,11 @@ class Tours_IG:
         self.position_Absolue = [self.Position_IG[0] * 64, self.Position_IG[1] * 64]
 
     def affiche_jeu(self, fenetre):
+        """Draws a tower in game
+
+        Args:
+            fenetre ([type]): [description]
+        """
         if self.Is_Returned:
             self.image = self.Tab_ImageRet[self.i // (self.vitesse // 6)]
             fenetre.blit(self.image, ((self.Position_IG[0] * 64), (self.Position_IG[1] * 64)))
@@ -88,6 +117,15 @@ class Tours_IG:
             fenetre.blit(self.image, ((self.Position_IG[0] * 64), (self.Position_IG[1] * 64)))
 
     def attaque(self, pos_tour, Liste_Mechants, niveau, Coin, Tab_Projectile):
+        """Attacks the first ennemy in its sight
+
+        Args:
+            pos_tour ([type]): [description]
+            Liste_Mechants ([type]): [description]
+            niveau ([type]): [description]
+            Coin ([type]): [description]
+            Tab_Projectile ([type]): [description]
+        """
 
         if self.i == self.vitesse - 1:
             self.i = 0
@@ -114,6 +152,14 @@ class Tours_IG:
                     break
 
     def Time2Impact(self, ennemi):
+        """Calculates the time until impact
+
+        Args:
+            ennemi ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
 
         delta_x = self.position_Absolue[0] - ennemi.PosAbsolue[0]
         delta_y = self.position_Absolue[1] - ennemi.PosAbsolue[1]
@@ -166,7 +212,7 @@ class Projectile:
             else:
                 Angle = 90
 
-        self.image = self.rot_center(image2rot, Angle)
+        self.image = utils.rot_center(image2rot, Angle)
 
         self.Centre_d_x = (NewPosEnnemi_x + tower.Position_IG[0] * 64) / 2
         self.Centre_d_y = (NewPosEnnemi_y + tower.Position_IG[1] * 64) / 2
@@ -177,15 +223,17 @@ class Projectile:
 
         self.tower = tower
 
-    def rot_center(self, image, angle):
-        orig_rect = image.get_rect()
-        rot_image = pygame.transform.rotate(image, angle)
-        rot_rect = orig_rect.copy()
-        rot_rect.center = rot_image.get_rect().center
-        rot_image = rot_image.subsurface(rot_rect).copy()
-        return rot_image
-
     def Avance(self, fenetre, ListeEnnemis, niveau, coin, Tab_Projectile, King):
+        """Makes a projectile move
+
+        Args:
+            fenetre ([type]): [description]
+            ListeEnnemis ([type]): [description]
+            niveau ([type]): [description]
+            coin ([type]): [description]
+            Tab_Projectile ([type]): [description]
+            King ([type]): [description]
+        """
         self.Compteur += 2 * self.vitesse / self.Dist
 
         x0 = self.Centre_d_x + self.Compteur * (self.delta_x / 2)

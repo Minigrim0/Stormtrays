@@ -53,6 +53,11 @@ class EditorUI:
         self.QGPos = (0, 0)
 
     def draw(self, screen):
+        """Draws the UI on the screen
+
+        Args:
+            screen ([type]): [description]
+        """
         for i in range(1, const.tabx):
             screen.blit(self.vert_line, (i * 64, 0))
             screen.blit(self.hori_line, (0, i * 64))
@@ -61,6 +66,11 @@ class EditorUI:
             button.draw(screen)
 
     def update(self, event):
+        """Handles click events
+
+        Args:
+            event ([type]): [description]
+        """
         if event.button == 1:
             for key in self.buttons:
                 self.buttons[key].click(event.pos)

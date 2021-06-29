@@ -56,7 +56,8 @@ class Niveau:
         self.GoldTab = []
 
     def Cinematic(self, screen, myfont3, myfontt):
-
+        """Shows introduction cinematic
+        """
         TabTexts = []
         TabTexts.append("Les forces du mal se sont réveillées...")
         TabTexts.append(
@@ -103,12 +104,18 @@ class Niveau:
         time.sleep(0.5)
 
     def empty(self):
+        """Empties the level"""
         self.map = {}
         for y in range(11):
             for x in range(18):
                 self.map[x, y] = "  ", 0
 
     def sauve(self, nomfichier):
+        """Saves the level
+
+        Args:
+            nomfichier ([type]): [description]
+        """
         with open(nomfichier, "w") as f:
             for y in range(11):
                 for x in range(18):
@@ -117,6 +124,13 @@ class Niveau:
                 f.write("\n")
 
     def sauveF(self, nomfichier, Fond, QGPos):
+        """Saves the level settings
+
+        Args:
+            nomfichier ([type]): [description]
+            Fond ([type]): [description]
+            QGPos ([type]): [description]
+        """
         with open(nomfichier + "_Pref.txt", "w") as f:
             f.write(Fond)
             Posx = QGPos[0]
@@ -125,6 +139,11 @@ class Niveau:
             f.write(str(Posx) + "/" + str(Posy))
 
     def construit(self, nomfichier):
+        """Builds the level from a file
+
+        Args:
+            nomfichier ([type]): [description]
+        """
         with open(nomfichier) as f:
             self.map = {}
             for y, l in enumerate(f):
@@ -159,6 +178,11 @@ class Niveau:
                 print("Error ! :", e)
 
     def deffond(self, nomfichier):
+        """Defines the background of the current level
+
+        Args:
+            nomfichier ([type]): [description]
+        """
         with open(nomfichier + "_Pref.txt", "r") as f:
             imagetl = f.read()
         image = ""
@@ -170,6 +194,12 @@ class Niveau:
         self.fondimg = pygame.image.load(image).convert_alpha()
 
     def affiche(self, fenetre, fond):
+        """Draws current level on screen
+
+        Args:
+            fenetre ([type]): [description]
+            fond ([type]): [description]
+        """
         fenetre.blit(fond, (0, 0))
         for y in range(11):
             for x in range(18):
@@ -177,18 +207,13 @@ class Niveau:
                 if lettre != "  " and lettre != "QG":
                     fenetre.blit(self.img[lettre, rot], (x * 64, y * 64))
 
-    def ConvertToHMS(self, Time):
-
-        M = math.floor(Time / 60)
-        S = math.floor(Time % 60)
-        H = math.floor(M / 60)
-        M = math.floor(M % 60)
-
-        tab = [H, M, S]
-
-        return tab
-
     def afficheE(self, fenetre, fond):
+        """Draws the level in the editor
+
+        Args:
+            fenetre ([type]): [description]
+            fond ([type]): [description]
+        """
         fenetre.blit(fond, (0, 0))
         for y in range(11):
             for x in range(18):
@@ -197,10 +222,22 @@ class Niveau:
                     fenetre.blit(self.editorImage[lettre, rot], (x * 64, y * 64))
 
     def affichem(self, fenetre):
+        """Draws the background
+
+        Args:
+            fenetre ([type]): [description]
+        """
         fenetre.blit(self.FondFenetre, (0, 0))
 
     def Set_Difficulty(self, Difficulte):
+        """Changes variables relative to the diffculty information
 
+        Args:
+            Difficulte ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
         Level_Difficulty = 0
 
         Difficulty = 11 - Difficulte
