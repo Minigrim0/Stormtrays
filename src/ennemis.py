@@ -209,8 +209,7 @@ class Ennemi_IG:
         return False
 
     def anim(self):
-        """Animates the ennemy
-        """
+        """Animates the ennemy"""
         self.i += 1
         if self.i == 12:
             self.i = 0

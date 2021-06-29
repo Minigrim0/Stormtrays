@@ -56,8 +56,7 @@ class Niveau:
         self.GoldTab = []
 
     def Cinematic(self, screen, myfont3, myfontt):
-        """Shows introduction cinematic
-        """
+        """Shows introduction cinematic"""
         TabTexts = []
         TabTexts.append("Les forces du mal se sont réveillées...")
         TabTexts.append(
