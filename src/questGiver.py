@@ -99,7 +99,6 @@ class QuestGiver:
         Args:
             fenetre ([type]): [description]
         """
-
         fenetre.blit(self.Image, (self.Posx, self.Posy))
 
         if self.DoesBlitQuest:

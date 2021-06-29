@@ -82,7 +82,6 @@ class Perso:
 
     def anim(self):
         """Animates the character"""
-
         if self.i == 12:
             self.i = 0
         self.nanim = self.Perso_Tab[self.i // 2]

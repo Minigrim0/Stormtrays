@@ -36,7 +36,6 @@ class Tours:
             fenetre ([type]): [description]
             num ([type]): [description]
         """
-
         fenetre.blit(self.image_menu, (18 + (60 * num) + (num * 10), (704) - (72)))
         fenetre.blit(self.prix_affiche, (18 + (60 * num) + (num * 10), (704) - (72)))
 
@@ -126,7 +125,6 @@ class Tours_IG:
             Coin ([type]): [description]
             Tab_Projectile ([type]): [description]
         """
-
         if self.i == self.vitesse - 1:
             self.i = 0
 
@@ -160,7 +158,6 @@ class Tours_IG:
         Returns:
             [type]: [description]
         """
-
         delta_x = self.position_Absolue[0] - ennemi.PosAbsolue[0]
         delta_y = self.position_Absolue[1] - ennemi.PosAbsolue[1]
         Dist2 = delta_x ** 2 + delta_y ** 2
