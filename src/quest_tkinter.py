@@ -1,18 +1,6 @@
 import tkinter
 import os
 
-global root
-global RadioValue_Q1
-global RadioValue_Q2
-global RadioValue_Q3
-global ScaleValue_Q1
-global ScaleValue_Q2
-global ScaleValue_Q3
-global NameQ1
-global NameQ2
-global NameQ3
-global LabelWin
-
 root = tkinter.Tk()
 RadioValue_Q1 = tkinter.DoubleVar()
 RadioValue_Q2 = tkinter.DoubleVar()
