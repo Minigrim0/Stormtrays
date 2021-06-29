@@ -122,12 +122,12 @@ class EnnemiIM:
             self.meurt.play()
             if King.capacite1 is True:
                 FlyingGold = GoldAnim(
-                    self.PosAbsolue[0] + self.Height // 2, self.PosAbsolue[1] + self.Height // 2, self.vie_bas
+                    (self.PosAbsolue[0] + self.Height // 2, self.PosAbsolue[1] + self.Height // 2), self.vie_bas
                 )
                 niveau.GoldTab.append(FlyingGold)
                 niveau.gold += self.vie_bas
             else:
-                FlyingGold = GoldAnim(self.PosAbsolue[0] + 32, self.PosAbsolue[1] + 32, self.vie_bas // 2)
+                FlyingGold = GoldAnim((self.PosAbsolue[0] + 32, self.PosAbsolue[1] + 32), self.vie_bas // 2)
                 niveau.GoldTab.append(FlyingGold)
                 niveau.gold += self.vie_bas // 2
             niveau.Nombre_Ennemis_Tue += 1
