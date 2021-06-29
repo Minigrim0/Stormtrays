@@ -7,7 +7,7 @@ class EditorUI:
     """The UI of the editor"""
 
     def __init__(self, level):
-        self.right_panel = pygame.Surface((200, const.WINDOW_HEIGHT))
+        self.right_panel = pygame.Surface((158, const.WINDOW_HEIGHT))
         self.vert_line = pygame.Surface((1, const.WINDOW_WIDTH))
         self.hori_line = pygame.Surface((const.WINDOW_WIDTH, 1))
 
@@ -17,14 +17,14 @@ class EditorUI:
         self.fond_Edit = None
 
         self.buttons = {}
-        self.buttons["c1"] = Button((const.WINDOW_WIDTH + 10, 0), (64, 64), level.editorImage["c1", 0])
-        self.buttons["t2"] = Button((const.WINDOW_WIDTH + 10, 64), (64, 64), level.editorImage["t2", 0])
-        self.buttons["t1"] = Button((const.WINDOW_WIDTH + 10, 128), (64, 64), level.editorImage["t1", 0])
-        self.buttons["x1"] = Button((const.WINDOW_WIDTH + 85, 0), (64, 64), level.editorImage["x1", 0])
-        self.buttons["p1"] = Button((const.WINDOW_WIDTH + 85, 64), (64, 64), level.editorImage["p1", 0])
-        self.buttons["v1"] = Button((const.WINDOW_WIDTH + 85, 128), (64, 64), level.editorImage["v1", 0])
-        self.buttons["k1"] = Button((const.WINDOW_WIDTH + 5, 218), (192, 64), level.editorImage["k1", 0])
-        self.buttons["QG"] = Button((const.WINDOW_WIDTH + 10, 282), (64, 64), level.editorImage["QG", 0])
+        self.buttons["c1"] = Button((const.WINDOW_WIDTH + 10, 10), (64, 64), level.editorImage["c1", 0])
+        self.buttons["t2"] = Button((const.WINDOW_WIDTH + 10, 74), (64, 64), level.editorImage["t2", 0])
+        self.buttons["t1"] = Button((const.WINDOW_WIDTH + 10, 138), (64, 64), level.editorImage["t1", 0])
+        self.buttons["x1"] = Button((const.WINDOW_WIDTH + 85, 10), (64, 64), level.editorImage["x1", 0])
+        self.buttons["p1"] = Button((const.WINDOW_WIDTH + 85, 74), (64, 64), level.editorImage["p1", 0])
+        self.buttons["v1"] = Button((const.WINDOW_WIDTH + 85, 138), (64, 64), level.editorImage["v1", 0])
+        self.buttons["k1"] = Button((const.WINDOW_WIDTH + 5, 228), (192, 64), level.editorImage["k1", 0])
+        self.buttons["QG"] = Button((const.WINDOW_WIDTH + 10, 292), (64, 64), level.editorImage["QG", 0])
         self.buttons["eraseButton"] = Button(
             (const.WINDOW_WIDTH + 10, const.WINDOW_HEIGHT - 40),
             (80, 30),
