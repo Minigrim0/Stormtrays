@@ -258,6 +258,7 @@ randomVarTF = True
 
 
 def play_music():
+    """Plays music if no music is already playing"""
     if not pygame.mixer.music.get_busy() and len(Tableau_Musique) > 0:
         pygame.mixer.music.load(Tableau_Musique[random.randrange(len(Tableau_Musique))])
         pygame.mixer.music.play()
