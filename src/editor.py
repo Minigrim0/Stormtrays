@@ -13,7 +13,7 @@ class Editor:
     """The editor class, that runs handles the displaying and update of the editor"""
 
     def __init__(self):
-        self.level = Level()
+        self.level = Level.getInstance()
         self.UI = EditorUI(self.level)
         self.UI.buttons["eraseButton"].callback = self.erase
         self.UI.buttons["changeBackgroundButton"].callback = self.changeBackground

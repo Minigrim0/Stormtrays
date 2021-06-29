@@ -23,7 +23,19 @@ class Level:
     such as the list of gold anim objects and the number of ennemy killed
     """
 
+    instance = None
+
+    @staticmethod
+    def getInstance(self):
+        if Level.instance is None:
+            Level()
+        return Level.instance
+
     def __init__(self):
+        if Level.instance is not None:
+            raise Exception("This class is a singleton")
+        Level.instance = self
+
         images = [
             (consts.chem1, "c1"),
             (consts.tour2, "t2"),
