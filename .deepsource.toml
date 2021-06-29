@@ -3,10 +3,6 @@ version = 1
 test_patterns = ["test/**"]
 
 [[analyzers]]
-name = "sql"
-enabled = true
-
-[[analyzers]]
 name = "python"
 enabled = true
 
