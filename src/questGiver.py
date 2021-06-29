@@ -358,7 +358,7 @@ class QuestGiver:
                         if GoldGained[0] > 1000000:
                             TabNumsQuestsTxt.append(
                                 self.font.render(
-                                    +"{}M/{}".format(str(GoldGained[0] // 1000000), str(int(self.TabQuestsNum[x]))),
+                                    "{}M/{}".format(str(GoldGained[0] // 1000000), str(int(self.TabQuestsNum[x]))),
                                     1,
                                     (0, 0, 0),
                                 )
@@ -374,7 +374,7 @@ class QuestGiver:
                         else:
                             TabNumsQuestsTxt.append(
                                 self.font.render(
-                                    +"{}/{}".format(str(GoldGained[0]), str(int(self.TabQuestsNum[x]))), 1, (0, 0, 0)
+                                    "{}/{}".format(str(GoldGained[0]), str(int(self.TabQuestsNum[x]))), 1, (0, 0, 0)
                                 )
                             )
                     else:
