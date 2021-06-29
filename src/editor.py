@@ -81,7 +81,7 @@ class Editor:
         if self.UI.QGPos:
             screen.blit(self.UI.QGImg, (self.UI.QGPos))
 
-        if self.choice is not None:
+        if self.choice is not None and self.choice.strip() != "":
             screen.blit(
                 self.level.editorImage[self.choice, self.rot],
                 ((self.mousePosition[0] // 64) * 64, (self.mousePosition[1] // 64) * 64),
