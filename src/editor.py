@@ -4,7 +4,7 @@ import pygame
 
 from src.editorUI import EditorUI
 from src.screen import Screen
-from src.classes import Level
+from models.level import Level
 
 import src.constantes as consts
 
@@ -34,6 +34,8 @@ class Editor:
         Args:
             screen (Screen): The screen object to blit images
         """
+        self.screen = screen
+
         while self.running:
             self.draw(screen)
 
@@ -81,7 +83,7 @@ class Editor:
         Args:
             screen (Screen): The screen to blit the editor elements on
         """
-        self.level.afficheE(screen, self.UI.fond)
+        self.level.draw(screen, editor=True)
         self.UI.draw(screen)
 
         if self.UI.QGPos:
@@ -122,10 +124,10 @@ class Editor:
         if filename:
             self.level.sauve(filename)
             self.level.sauveF(filename, self.fond_Edit, self.QGPos)
-            # self.niveau.affiche(screen, self.fond)
+            self.niveau.draw(self.screen)
             pygame.display.flip()
             arect = pygame.Rect(0, 0, consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT)
-            sub = screen.subsurface(arect)
+            sub = self.screen.subsurface(arect)
             sub = pygame.transform.scale(sub, (39 * 5, 22 * 5))
             dirname, filename = os.path.split(filename)
             filename, ext = os.path.splitext(filename)

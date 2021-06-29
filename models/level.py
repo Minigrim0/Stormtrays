@@ -190,32 +190,20 @@ class Level:
                 break
         self.background = pygame.image.load(image).convert_alpha()
 
-    def affiche(self, fenetre, fond):
-        """Draws current level on screen
-
-        Args:
-            fenetre ([type]): [description]
-            fond ([type]): [description]
-        """
-        fenetre.blit(fond, (0, 0))
-        for y in range(11):
-            for x in range(18):
-                lettre, rot = self.map[x, y]
-                if lettre != "  " and lettre != "QG":
-                    fenetre.blit(self.img[lettre, rot], (x * 64, y * 64))
-
     def draw(self, fenetre, editor=False):
         """Draws the current level
 
         Args:
             fenetre (Screen): The screen to blit the level on
         """
+        images = self.editorImage if editor == True else self.img
+
         fenetre.blit(self.background, (0, 0))
         for y in range(11):
             for x in range(18):
                 lettre, rot = self.map[x, y]
-                if lettre != "  ":
-                    fenetre.blit(self.editorImage[lettre, rot], (x * 64, y * 64))
+                if lettre not in ("  ", "QG"):
+                    fenetre.blit(images[lettre, rot], (x * 64, y * 64))
 
     def affichem(self, fenetre):
         """Draws the background
