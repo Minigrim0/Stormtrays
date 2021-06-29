@@ -1,4 +1,5 @@
 import time
+import json
 import pygame
 
 import src.constantes as consts
@@ -50,6 +51,11 @@ class Level:
         self.Vie_Chateau = 100
         self.Nombre_Ennemis_Tue = 0
         self.background = pygame.image.load("img/fond.png").convert_alpha()
+        self.backgroundName = "fond1"
+        self.size = {
+            "x": 18,
+            "y": 11
+        }
 
         self.GoldTab = []
 
@@ -102,10 +108,11 @@ class Level:
 
     def empty(self):
         """Empties the level"""
-        self.map = {}
-        for y in range(11):
-            for x in range(18):
-                self.map[x, y] = "  ", 0
+        self.map = []
+        for x in range(18):
+            self.map.append([])
+            for y in range(11):
+                self.map[x].append(("  ", 0))
 
     def sauve(self, nomfichier):
         """Saves the level
@@ -113,12 +120,15 @@ class Level:
         Args:
             nomfichier ([type]): [description]
         """
+
+        level = {
+            "background": self.backgroundName,
+            "size": self.size,
+            "map": self.map
+        }
+
         with open(nomfichier, "w") as f:
-            for y in range(11):
-                for x in range(18):
-                    img, rot = self.map[x, y]
-                    f.write("%s%d/" % (img, rot / 90))
-                f.write("\n")
+            f.write(json.dumps(level, indent=4))
 
     def sauveF(self, nomfichier, Fond, QGPos):
         """Saves the level settings
@@ -190,18 +200,30 @@ class Level:
                 break
         self.background = pygame.image.load(image).convert_alpha()
 
+    def placeTile(self, position: tuple, tile):
+        """Places a tile at the given coordinates
+
+        Args:
+            position (tuple): the position to place the tile at
+            tile ([type]): [description]
+        """
+        if position[0] not in list(range(self.size["x"])) or position[1] not in list(range(self.size["y"])):
+            raise Exception("Tile is outside of the map !")
+
+        self.map[position[0]][position[1]] = tile
+
     def draw(self, fenetre, editor=False):
         """Draws the current level
 
         Args:
             fenetre (Screen): The screen to blit the level on
         """
-        images = self.editorImage if editor == True else self.img
+        images = self.editorImage if editor is True else self.img
 
         fenetre.blit(self.background, (0, 0))
         for y in range(11):
             for x in range(18):
-                lettre, rot = self.map[x, y]
+                lettre, rot = self.map[x][y]
                 if lettre not in ("  ", "QG"):
                     fenetre.blit(images[lettre, rot], (x * 64, y * 64))
 
