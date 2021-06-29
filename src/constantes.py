@@ -8,8 +8,8 @@ WINDOW_HEIGHT = 64 * taby
 
 Defeat_Song = "musique/Defeat.wav"
 
-fond = "img/Fonds/fond1.png"
-fond_Edit = "img/Fonds/fond1.png"
+fond = "img/levels/fond1.png"
+fond_Edit = "img/levels/fond1.png"
 
 titre_editeur = "Editeur - StormTrays"
 titre_jeu = "StormTrays - 0 - Alpha 1.3"
