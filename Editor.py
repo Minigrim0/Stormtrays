@@ -11,13 +11,12 @@ from src.editor import Editor
 pygame.init()
 
 screen = Screen(
-    (constantes.WINDOW_WIDTH+200, constantes.WINDOW_HEIGHT),
+    (constantes.WINDOW_WIDTH+158, constantes.WINDOW_HEIGHT),
     "Stormtray's Editor",
     "img/Icon.png",
     False
 )
 
-# init des bibliotheques
 root = tkinter.Tk()
 root.withdraw()
 
