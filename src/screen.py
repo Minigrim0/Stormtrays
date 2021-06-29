@@ -135,6 +135,17 @@ class Screen:
         """
         return (int((pos[0] - self.posAffiche[0]) / self.taille), int((pos[1] - self.posAffiche[1]) / self.taille))
 
+    def subsurface(self, rect: pygame.Rect):
+        """Returns a subsurface of the screen
+
+        Args:
+            rect (pygame.Rect): The subsurface area to get
+
+        Returns:
+            pygame.Surface: The subsurface described by the given arguments
+        """
+        return self.fenetreAffiche.subsurface(rect)
+
     def handleFKeys(self, event: pygame.event.Event):
         """Handles events where function keys are pressed
 
