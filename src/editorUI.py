@@ -26,22 +26,22 @@ class EditorUI:
         self.buttons["k1"] = Button((const.WINDOW_WIDTH + 5, 228), (192, 64), level.editorImage["k1", 0])
         self.buttons["QG"] = Button((const.WINDOW_WIDTH + 10, 292), (64, 64), level.editorImage["QG", 0])
         self.buttons["eraseButton"] = Button(
-            (const.WINDOW_WIDTH + 10, const.WINDOW_HEIGHT - 40),
+            (const.WINDOW_WIDTH + 2, const.WINDOW_HEIGHT - 45),
             (80, 30),
             pygame.image.load(const.efface).convert_alpha(),
         )
         self.buttons["changeBackgroundButton"] = Button(
-            (const.WINDOW_WIDTH + 10, const.WINDOW_HEIGHT - 100),
+            (const.WINDOW_WIDTH + 6, const.WINDOW_HEIGHT - 100),
             (72, 44),
             pygame.image.load(const.Mini_Fond).convert_alpha(),
         )
         self.buttons["saveButton"] = Button(
-            (const.WINDOW_WIDTH + 100, const.WINDOW_HEIGHT - 40),
+            (const.WINDOW_WIDTH + 96, const.WINDOW_HEIGHT - 50),
             (40, 40),
             pygame.image.load(const.sauve).convert_alpha(),
         )
         self.buttons["loadButton"] = Button(
-            (const.WINDOW_WIDTH + 150, const.WINDOW_HEIGHT - 40),
+            (const.WINDOW_WIDTH + 96, const.WINDOW_HEIGHT - 100),
             (40, 40),
             pygame.image.load(const.ouvrir).convert_alpha(),
         )
