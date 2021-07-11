@@ -24,7 +24,7 @@ for Muse in glob.glob("musique/Themes/*.wav"):
 
 # Images
 joue = pygame.image.load(constantes.joue).convert_alpha()
-quit = pygame.image.load(constantes.quit).convert_alpha()
+quit_img = pygame.image.load(constantes.quit_path).convert_alpha()
 Coin = pygame.image.load(constantes.Coin).convert_alpha()
 menutour = pygame.image.load(constantes.mt).convert_alpha()
 pause = pygame.image.load(constantes.pause).convert_alpha()
@@ -34,7 +34,7 @@ option = pygame.image.load(constantes.option).convert_alpha()
 retour = pygame.image.load(constantes.retour).convert_alpha()
 Moins = pygame.image.load(constantes.Moins__).convert_alpha()
 InvocBar = pygame.image.load(constantes.Invoc).convert_alpha()
-credits = pygame.image.load(constantes.credits).convert_alpha()
+credits_img = pygame.image.load(constantes.credits_path).convert_alpha()
 reprise = pygame.image.load(constantes.reprise).convert_alpha()
 Credits = pygame.image.load(constantes.Credits).convert_alpha()
 Quadrille = pygame.image.load(constantes.carrea).convert_alpha()
@@ -277,9 +277,9 @@ while Programme_Actif:
         # Affiche les éléments du menu
         screen.blit(Fond_Menu_Principal, (0, 0))
         screen.blit(joue, (652, 464))
-        screen.blit(credits, (702, 524))
+        screen.blit(credits_img, (702, 524))
         screen.blit(option, (752, 584))
-        screen.blit(quit, (802, 644))
+        screen.blit(quit_img, (802, 644))
         screen.flip()
 
         # Musique
@@ -846,9 +846,7 @@ while Programme_Actif:
                     k = pygame.key.get_pressed()
 
                     if k[pygame.locals.K_i] and King.Level_Roi >= 5 and not invocation and CooldownInvoc == 0:
-                        animInvocation = True
-                        CooldownInvoc = 2640
-
+                        animInvocation = Truequit
                 if event.type == pygame.locals.MOUSEBUTTONDOWN:
                     # Menu_Principal tour actif
                     if boutontourrect.collidepoint(event.pos):
@@ -1052,9 +1050,9 @@ while Programme_Actif:
             screen.flip()
             screen.blit(Fond_Menu_Principal, (0, 0))
             screen.blit(joue, (1152 - 500, 704 - 240 - i))
-            screen.blit(credits, (1152 - 450 + i, 704 - 180))
+            screen.blit(credits_img, (1152 - 450 + i, 704 - 180))
             screen.blit(option, (1152 - 400 + i, 704 - 120))
-            screen.blit(quit, (1152 - 350 + i, 704 - 60))
+            screen.blit(quit_img, (1152 - 350 + i, 704 - 60))
 
             screen.getEvent()
             i += 5
@@ -1070,9 +1068,9 @@ while Programme_Actif:
             screen.flip()
             screen.blit(Fond_Menu_Principal, (0, 0))
             screen.blit(joue, (1152 - 500, i + 4))
-            screen.blit(credits, (1152 + 10 - i, 704 - 180))
+            screen.blit(credits_img, (1152 + 10 - i, 704 - 180))
             screen.blit(option, (1152 + 60 - i, 704 - 120))
-            screen.blit(quit, (1152 + 110 - i, 704 - 60))
+            screen.blit(quit_img, (1152 + 110 - i, 704 - 60))
 
             screen.getEvent()
             i += 5
