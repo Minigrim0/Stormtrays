@@ -82,7 +82,7 @@ class Level:
 
         fondu = pygame.image.load(consts.sombre__).convert_alpha()
 
-        for x in range(5):
+        for _ in range(5):
             screen.blit(fondu, (0, 0))
             screen.flip()
 
@@ -110,7 +110,7 @@ class Level:
         self.map = []
         for x in range(18):
             self.map.append([])
-            for y in range(11):
+            for _ in range(11):
                 self.map[x].append(("  ", 0))
 
     def sauve(self, nomfichier):

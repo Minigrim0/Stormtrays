@@ -133,7 +133,7 @@ class Editor:
             sub = self.screen.subsurface(arect)
             sub = pygame.transform.scale(sub, (39 * 5, 22 * 5))
             dirname, filename = os.path.split(filename)
-            filename, ext = os.path.splitext(filename)
+            filename, _ = os.path.splitext(filename)
             pygame.image.save(sub, os.path.join(dirname, "mininiveau", filename + ".png"))
 
         self.choice = "  "
