@@ -49,6 +49,11 @@ class EnnemiIM:
             ImgR = pygame.transform.scale(ImgR2Scale, (self.Height, self.Height))
             self.tab_ret.append(ImgR)
 
+        self.PosAbsolue = None
+        self.posx_Old = None
+        self.posy_Old = None
+        self.Vie_Rect = None
+
     def pose_ennemi(self, fenetre):
         """Puts the ennemi somewhere on the screen
 

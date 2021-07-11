@@ -45,19 +45,18 @@ class Level:
 
         self.editorImage["QG", 0] = pygame.image.load("img/QuestGiverF1.png").convert_alpha()
 
-        self.empty()
-
         self.gold = 500
         self.Vie_Chateau = 100
         self.Nombre_Ennemis_Tue = 0
         self.background = pygame.image.load("img/fond.png").convert_alpha()
         self.backgroundName = "fond1"
-        self.size = {
-            "x": 18,
-            "y": 11
-        }
+        self.size = {"x": 18, "y": 11}
 
         self.GoldTab = []
+        self.pos_Chateau = None
+        self.FondFenetre = None
+        self.map = None
+        self.empty()
 
     def Cinematic(self, screen, myfont3, myfontt):
         """Shows introduction cinematic"""
@@ -121,11 +120,7 @@ class Level:
             nomfichier ([type]): [description]
         """
 
-        level = {
-            "background": self.backgroundName,
-            "size": self.size,
-            "map": self.map
-        }
+        level = {"background": self.backgroundName, "size": self.size, "map": self.map}
 
         with open(nomfichier, "w") as f:
             f.write(json.dumps(level, indent=4))

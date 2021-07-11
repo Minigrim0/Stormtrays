@@ -49,6 +49,9 @@ class Ennemi_IG:
             ImgR = pygame.transform.scale(ImgR2Scale, (self.Height, self.Height))
             self.tab_ret.append(ImgR)
 
+        self.HitBox = None
+        self.Vie_Rect = None
+
     def pose_ennemi(self, tableau, fenetre):
         """Adds an ennemy to the game
 

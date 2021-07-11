@@ -27,6 +27,8 @@ class Editor:
         self.choice = None
         self.rot = 0
         self.mousePosition = (0, 0)
+        self.QGPos = None
+        self.screen = None
 
     def run(self, screen: Screen):
         """Shows the editor and handles the actions to create/save/load levels

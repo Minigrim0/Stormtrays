@@ -64,6 +64,9 @@ class Perso:
 
         self.nanim = self.King_1
 
+        self.posx_Old = None
+        self.posy_Old = None
+
     def level_up(self):
         """Upgrades the character skills
 

@@ -64,6 +64,10 @@ class Tours_IG:
         self.Has_Ennemi2Attack = False
         self.Is_Returned = False
         self.frappe = False
+        self.projectile = None
+        self.Ennemi2Attack = None
+        self.position_Absolue = None
+        self.Rect = None
 
         for Img2Load in glob.glob(ImgsDir):
             Img = pygame.image.load(Img2Load).convert_alpha()

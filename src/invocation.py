@@ -42,6 +42,9 @@ class Invocation:
 
         self.xp = 0
 
+        self.posx_Old = None
+        self.posy_Old = None
+
     def vit(self, fenetre, Liste_Mechants, niveau, coin, King):
         """Updates the AI, making it move and attack
 

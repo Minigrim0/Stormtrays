@@ -56,6 +56,8 @@ class QuestGiver:
         self.TabImg.append(pygame.image.load("../Img/QuestGiverF3.png").convert_alpha())
 
         self.IsGiving = False
+        self.QuestFinished = None
+        self.propriete = None
 
     def LoadQuests(self, filename):
         """Loads the quests from a json file
