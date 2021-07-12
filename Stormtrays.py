@@ -569,13 +569,7 @@ while Programme_Actif:
         Current_Xp.fill((0, 255, 40))
 
         niveau.affichem(screen)
-        DoAttak = King.vit(King.Perso_Tab, King.Perso_Tab_ret, King.Vitesse)
-
-        if DoAttak:
-            if King.Is_Returned and not Anim_King and not Anim_King_Ret:
-                Anim_King_Ret = True
-            elif not King.Is_Returned and not Anim_King and not Anim_King_Ret:
-                Anim_King = True
+        King.vit(King.Perso_Tab, King.Perso_Tab_ret)
 
         # Bouger les ennemis
         for ennemi in Liste_Mechants:
@@ -594,12 +588,6 @@ while Programme_Actif:
         if invocation and not invocation.vit(screen, Liste_Mechants, niveau, Coin):
             King.XpToAdd += invocation.xp
             invocation = None
-
-        if Anim_King:
-            Anim_King = King.AnimKingAttak(Liste_Mechants, niveau)
-
-        if Anim_King_Ret:
-            Anim_King_Ret = King.AnimKingAttakRet(Liste_Mechants, niveau)
 
         Level_Difficulty = niveau.Set_Difficulty(Difficulte)
 

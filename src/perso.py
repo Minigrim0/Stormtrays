@@ -184,13 +184,12 @@ class Perso:
             self.XpToAdd -= 1
             self.xp += 1
 
-    def AnimMenus(self, Liste_Mechants, niveau, Coin):
+    def AnimMenus(self, Liste_Mechants, niveau):
         """Animates the character in the menu
 
         Args:
             Liste_Mechants ([type]): [description]
             niveau ([type]): [description]
-            Coin ([type]): [description]
         """
         self.Vitesse = 10
 
@@ -206,15 +205,14 @@ class Perso:
         else:
             self.target = Liste_Mechants[0]
             Liste_Mechants[0].IsAttacked = True
-        self.vit(Liste_Mechants, niveau, Coin)
+        self.vit(Liste_Mechants, niveau)
 
-    def vit(self, Liste_Mechants, niveau, Coin):
+    def vit(self, Liste_Mechants, niveau):
         """Updates the status of the character
 
         Args:
             Liste_Mechants ([type]): [description]
             niveau ([type]): [description]
-            Coin ([type]): [description]
         """
         self.AnimXp()
 
