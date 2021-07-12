@@ -9,7 +9,7 @@ class Button:
         self.size = size
         self.image = image
         self.rect = pygame.Rect(self.pos, self.size)
-        self.callback = None
+        self.callback: callable = None
 
     def draw(self, screen):
         """Draws the button on the screen
