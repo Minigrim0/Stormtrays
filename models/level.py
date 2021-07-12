@@ -58,7 +58,8 @@ class Level:
         self.map = None
         self.empty()
 
-    def Cinematic(self, screen, myfont3, myfontt):
+    @staticmethod
+    def Cinematic(screen, myfont3, myfontt):
         """Shows introduction cinematic"""
         TabTexts = []
         TabTexts.append("Les forces du mal se sont réveillées...")
@@ -125,7 +126,8 @@ class Level:
         with open(nomfichier, "w") as f:
             f.write(json.dumps(level, indent=4))
 
-    def sauveF(self, nomfichier, Fond, QGPos):
+    @staticmethod
+    def sauveF(nomfichier, Fond, QGPos):
         """Saves the level settings
 
         Args:
