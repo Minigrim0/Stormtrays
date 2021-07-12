@@ -1,7 +1,7 @@
 import pygame
 import math
 
-from src.screen import Screen
+from models.screen import Screen
 
 
 class GoldAnim:
