@@ -52,12 +52,11 @@ class Ennemi_IG:
         self.HitBox = None
         self.Vie_Rect = None
 
-    def pose_ennemi(self, tableau, fenetre):
+    def pose_ennemi(self, tableau):
         """Adds an ennemy to the game
 
         Args:
             tableau ([type]): [description]
-            fenetre ([type]): [description]
         """
         self.posx = 0
         self.posy = 0
@@ -78,7 +77,7 @@ class Ennemi_IG:
         """
         screen.blit(self.image, (self.PosAbsolue))
 
-    def bouge(self, tableau, fenetre, niveau, Liste_Mechants, coin, King):
+    def bouge(self, tableau, fenetre, niveau, Liste_Mechants, King):
         """Makes the ennemy move
 
         Args:
@@ -139,7 +138,7 @@ class Ennemi_IG:
 
         else:
             print("Position erronée")
-            self.pose_ennemi(tableau, fenetre)
+            self.pose_ennemi(tableau)
 
         if self.count == round(64 / self.vitesse):
 

@@ -97,7 +97,7 @@ class Perso:
         self.nanim = self.Perso_Tab_ret[self.i // 2]
         self.Is_Returned = True
 
-    def AnimKingAttakRet(self, Liste_Mechants, niveau, Coin):
+    def AnimKingAttakRet(self, Liste_Mechants, niveau):
         """Animates an attacked flipped
 
         Args:
@@ -130,7 +130,7 @@ class Perso:
         elif self.Anim_King_i >= 1:
             self.nanim = self.King_Attak_ret
 
-    def AnimKingAttak(self, Liste_Mechants, niveau, Coin):
+    def AnimKingAttak(self, Liste_Mechants, niveau):
         """Animates an attack
 
         Args:

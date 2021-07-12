@@ -19,7 +19,7 @@ class Bomb:
         self.TabImg.append(pygame.image.load("../Img/Explosion/Frame3.png").convert_alpha())
         self.TabImg.append(pygame.image.load("../Img/Explosion/Frame4.png").convert_alpha())
 
-    def Live(self, screen, TabEnnemi, niveau, coin, King, ListeBomb):
+    def Live(self, screen, TabEnnemi, niveau, King, ListeBomb):
         """Update the bomb lifetime and displays it to the screen
 
         Args:

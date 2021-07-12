@@ -43,7 +43,7 @@ class Tours:
 class Tours_IG:
     """Represents an in-game tower"""
 
-    def __init__(self, Type_Tour, num, ImgsDir):
+    def __init__(self, Type_Tour, ImgsDir):
 
         self.vitesse_Projectile = Type_Tour.VitesseProject
         self.Projectile_Image = Type_Tour.Project_Image
@@ -85,7 +85,7 @@ class Tours_IG:
         if possouris[0] < 1152 and possouris[0] >= 0 and possouris[1] < 704 and possouris[1] >= 0:
             fenetre.blit(self.image, (possouris[0] - 32, possouris[1] - 32))
 
-    def placetour(self, position_souris, fenetre, tableau, Liste, toursel, niveau):
+    def placetour(self, position_souris, fenetre, niveau):
         """Places a tower on the level
 
         Args:
@@ -93,7 +93,6 @@ class Tours_IG:
             fenetre ([type]): [description]
             tableau ([type]): [description]
             Liste ([type]): [description]
-            toursel ([type]): [description]
             niveau ([type]): [description]
         """
         self.Position_IG[0] = (position_souris[0]) // (64)
@@ -119,14 +118,12 @@ class Tours_IG:
             self.image = self.Tab_Image[self.i // (self.vitesse // 6)]
             fenetre.blit(self.image, ((self.Position_IG[0] * 64), (self.Position_IG[1] * 64)))
 
-    def attaque(self, pos_tour, Liste_Mechants, niveau, Coin, Tab_Projectile):
+    def attaque(self, Liste_Mechants, Tab_Projectile):
         """Attacks the first ennemy in its sight
 
         Args:
             pos_tour ([type]): [description]
             Liste_Mechants ([type]): [description]
-            niveau ([type]): [description]
-            Coin ([type]): [description]
             Tab_Projectile ([type]): [description]
         """
         if self.i == self.vitesse - 1:
@@ -224,14 +221,13 @@ class Projectile:
 
         self.tower = tower
 
-    def Avance(self, fenetre, ListeEnnemis, niveau, coin, Tab_Projectile, King):
+    def Avance(self, fenetre, ListeEnnemis, niveau, Tab_Projectile, King):
         """Makes a projectile move
 
         Args:
             fenetre ([type]): [description]
             ListeEnnemis ([type]): [description]
             niveau ([type]): [description]
-            coin ([type]): [description]
             Tab_Projectile ([type]): [description]
             King ([type]): [description]
         """

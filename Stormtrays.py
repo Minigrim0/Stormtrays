@@ -589,16 +589,15 @@ while Programme_Actif:
         # Bouger les ennemis
         for ennemi in Liste_Mechants:
 
-            ennemi.bouge(niveau.map, screen, niveau, Liste_Mechants, Coin, King)
+            ennemi.bouge(niveau.map, screen, niveau, Liste_Mechants, King)
             ennemi.meurt.set_volume(Volume / 10)
 
         for projectileObj in Tab_Projectile:
-            projectileObj.Avance(screen, Liste_Mechants, niveau, Coin, Tab_Projectile, King)
+            projectileObj.Avance(screen, Liste_Mechants, niveau, Tab_Projectile, King)
 
         # Faire attaquer les tours
         for tour in Liste_Tours_IG:
-
-            tour.attaque(tour.Position_IG, Liste_Mechants, niveau, Coin, Tab_Projectile)
+            tour.attaque(Liste_Mechants, Tab_Projectile)
             tour.affiche_jeu(screen)
 
         if invocation:
@@ -607,10 +606,10 @@ while Programme_Actif:
                 invocation = None
 
         if Anim_King:
-            Anim_King = King.AnimKingAttak(Liste_Mechants, niveau, Coin)
+            Anim_King = King.AnimKingAttak(Liste_Mechants, niveau)
 
         if Anim_King_Ret:
-            Anim_King_Ret = King.AnimKingAttakRet(Liste_Mechants, niveau, Coin)
+            Anim_King_Ret = King.AnimKingAttakRet(Liste_Mechants, niveau)
 
         Level_Difficulty = niveau.Set_Difficulty(Difficulte)
 
@@ -625,37 +624,37 @@ while Programme_Actif:
                 invoque = random.randrange(10)
                 if invoque == 0:
                     ennemi = Ennemi_IG("../Ennemis/Orc.json")
-                    ennemi.pose_ennemi(niveau.map, screen)
+                    ennemi.pose_ennemi(niveau.map)
                     Liste_Mechants.append(ennemi)
                 elif invoque == 1 or invoque == 2:
                     ennemi = Ennemi_IG("../Ennemis/Goblin.json")
-                    ennemi.pose_ennemi(niveau.map, screen)
+                    ennemi.pose_ennemi(niveau.map)
                     Liste_Mechants.append(ennemi)
                 elif invoque == 3:
                     ennemi = Ennemi_IG("../Ennemis/Dwarf.json")
-                    ennemi.pose_ennemi(niveau.map, screen)
+                    ennemi.pose_ennemi(niveau.map)
                     Liste_Mechants.append(ennemi)
                 elif invoque == 4:
                     ennemi = Ennemi_IG("../Ennemis/Knight.json")
-                    ennemi.pose_ennemi(niveau.map, screen)
+                    ennemi.pose_ennemi(niveau.map)
                     Liste_Mechants.append(ennemi)
                 elif invoque == 5:
                     ennemi = Ennemi_IG("../Ennemis/Ghost.json")
-                    ennemi.pose_ennemi(niveau.map, screen)
+                    ennemi.pose_ennemi(niveau.map)
                     Liste_Mechants.append(ennemi)
                 elif invoque == 6:
                     ennemi = Ennemi_IG("../Ennemis/Golem.json")
-                    ennemi.pose_ennemi(niveau.map, screen)
+                    ennemi.pose_ennemi(niveau.map)
                     Liste_Mechants.append(ennemi)
                 elif invoque == 7:
                     invoque = random.randrange(5)
                     if invoque == 0:
                         ennemi = Ennemi_IG("../Ennemis/Dragon.json")
-                        ennemi.pose_ennemi(niveau.map, screen)
+                        ennemi.pose_ennemi(niveau.map)
                         Liste_Mechants.append(ennemi)
                 elif invoque == 8 or invoque == 9 or invoque == 10:
                     ennemi = Ennemi_IG("../Ennemis/Wolf.json")
-                    ennemi.pose_ennemi(niveau.map, screen)
+                    ennemi.pose_ennemi(niveau.map)
                     Liste_Mechants.append(ennemi)
                 if double_invoque is True:
                     double_invoque = False
@@ -775,7 +774,7 @@ while Programme_Actif:
                 King.nanim = InvoqueAnim14
 
             if TpsInvoc == 120:
-                invocation = Invocation(niveau, Invoc_Tab, Invoc_Tab_ret, King.Level_Roi - 5, King)
+                invocation = Invocation(Invoc_Tab, Invoc_Tab_ret, King)
                 TpsInvoc = 0
                 King.nanim = King.King_1
                 animInvocation = False
@@ -812,9 +811,7 @@ while Programme_Actif:
                 if niveau.map[(position_souris[0]) // (64), (position_souris[1]) // (64)] == ("  ", 0):
                     niveau.gold -= tourSelectionee.prix
                     Liste_Tours_IG.append(tourSelectionee)
-                    tourSelectionee.placetour(
-                        position_souris, screen, niveau.map, Liste_Tours_IG, tourSelectionee, niveau
-                    )
+                    tourSelectionee.placetour(position_souris, screen, niveau)
                     deplace = False
                     menu_tour = False
                     break
@@ -833,7 +830,7 @@ while Programme_Actif:
                     # Si l'on selectionne une tour
                     if tour.tourrect.collidepoint(event.pos) and niveau.gold >= tour.prix:
                         deplace = True
-                        tourSelectionee = Tours_IG(tour, num, tour.DirImg)
+                        tourSelectionee = Tours_IG(tour, tour.DirImg)
                         message_argent = myfont2.render("", 1, (255, 0, 0))
 
             # si on est pas dans Menu des tour

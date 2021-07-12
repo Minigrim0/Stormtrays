@@ -42,9 +42,9 @@ class Editor:
             self.draw(screen)
 
             for event in screen.getEvent():
-                self.handleEvent(screen, event)
+                self.handleEvent(event)
 
-    def handleEvent(self, screen: Screen, event: pygame.event.Event):
+    def handleEvent(self, event: pygame.event.Event):
         """Handles eventual events from the user
 
         Args:

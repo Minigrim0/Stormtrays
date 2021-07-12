@@ -10,7 +10,7 @@ class Invocation:
     that will attack the first ennemy it sees
     """
 
-    def __init__(self, niveau, Tab, Tab_Ret, addDegats, King):
+    def __init__(self, Tab, Tab_Ret, King):
         self.myfont = pygame.font.SysFont("Viner Hand ITC", 25)
         self.Img = pygame.image.load(Invocation_1).convert_alpha()
         self.nanim = pygame.transform.scale(self.Img, (int(96), int(96)))
@@ -67,7 +67,7 @@ class Invocation:
             self.tic = 0
 
         if Liste_Mechants:
-            self.bouge_vers_ennemi(Liste_Mechants[0], Liste_Mechants, niveau, fenetre, coin, King)
+            self.bouge_vers_ennemi(Liste_Mechants[0], Liste_Mechants, niveau, fenetre, King)
 
         if self.Duree_Invocation == 0:
             return False
@@ -76,7 +76,7 @@ class Invocation:
         fenetre.blit(TimeLeftPrint, (self.posx, self.posy))
         return True
 
-    def bouge_vers_ennemi(self, ennemi, Liste_Mechants, niveau, fenetre, coin, King):
+    def bouge_vers_ennemi(self, ennemi, Liste_Mechants, niveau, fenetre, King):
         """Detects first ennemy and make the AI move towards it
 
         Args:
@@ -84,7 +84,6 @@ class Invocation:
             Liste_Mechants ([type]): [description]
             niveau ([type]): [description]
             fenetre ([type]): [description]
-            coin ([type]): [description]
             King ([type]): [description]
         """
         dist = math.sqrt(((self.posx - ennemi.PosAbsolue[0]) ** 2) + ((self.posy - ennemi.PosAbsolue[1]) ** 2))

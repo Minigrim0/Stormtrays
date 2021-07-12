@@ -54,12 +54,8 @@ class EnnemiIM:
         self.posy_Old = None
         self.Vie_Rect = None
 
-    def pose_ennemi(self, fenetre):
-        """Puts the ennemi somewhere on the screen
-
-        Args:
-            fenetre ([type]): [description]
-        """
+    def pose_ennemi(self):
+        """Puts the ennemi somewhere on the screen"""
         self.posx = random.randrange(1050)
         self.posy = random.randrange(650)
 

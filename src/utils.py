@@ -27,7 +27,7 @@ def findAngle(delta_x: int, delta_y: int):
     return angle
 
 
-def rot_center(self, image: pygame.Surface, angle: float):
+def rot_center(image: pygame.Surface, angle: float):
     """Rotate an image on its center
 
     Args:
@@ -45,17 +45,17 @@ def rot_center(self, image: pygame.Surface, angle: float):
     return rot_image
 
 
-def ConvertToHMS(self, Time):
+def ConvertToHMS(secs: int):
     """Converts a timestamps in hour minutes and seconds
 
     Args:
-        Time ([type]): [description]
+        secs (int): [description]
 
     Returns:
         [type]: [description]
     """
-    M = floor(Time / 60)
-    S = floor(Time % 60)
+    M = floor(secs / 60)
+    S = floor(secs % 60)
     H = floor(M / 60)
     M = floor(M % 60)
 
