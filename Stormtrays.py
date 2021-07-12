@@ -4,16 +4,16 @@ import glob
 import os
 import random
 import src.constantes as constantes
-from src.classes import Levels, Niveau
-from src.screen import Screen
+from src.classes import Levels
+from models.level import Level
 from src.invocation import Invocation
 from src.ennemis import Ennemi_IG
 from src.tourClasse import Tours, Tours_IG
 from src.perso import Perso
 
-pygame.init()
+from models.game import Game
 
-screen = Screen((1152, 704), "StormTarys", constantes.IconImg)
+pygame.init()
 
 Tableau_Musique = []
 for Muse in glob.glob("musique/Themes/*.wav"):
@@ -23,18 +23,14 @@ for Muse in glob.glob("musique/Themes/*.wav"):
 # ------------------------------------------------------------------
 
 # Images
-joue = pygame.image.load(constantes.joue).convert_alpha()
-quit_img = pygame.image.load(constantes.quit_path).convert_alpha()
 Coin = pygame.image.load(constantes.Coin).convert_alpha()
 menutour = pygame.image.load(constantes.mt).convert_alpha()
 pause = pygame.image.load(constantes.pause).convert_alpha()
 Plus = pygame.image.load(constantes.Plus__).convert_alpha()
 XpBar = pygame.image.load(constantes.XpBar).convert_alpha()
-option = pygame.image.load(constantes.option).convert_alpha()
 retour = pygame.image.load(constantes.retour).convert_alpha()
 Moins = pygame.image.load(constantes.Moins__).convert_alpha()
 InvocBar = pygame.image.load(constantes.Invoc).convert_alpha()
-credits_img = pygame.image.load(constantes.credits_path).convert_alpha()
 reprise = pygame.image.load(constantes.reprise).convert_alpha()
 Credits = pygame.image.load(constantes.Credits).convert_alpha()
 Quadrille = pygame.image.load(constantes.carrea).convert_alpha()
@@ -155,10 +151,6 @@ Catapulte_Tab_Ret = [pygame.transform.flip(c, True, False) for c in Catapulte_Ta
 # ------------------------------------------------------------------
 
 # Rectangles
-jouerect = pygame.Rect((1152 - 500, 704 - 240), (500, 50))
-credirect = pygame.Rect((1152 - 450, 704 - 180), (500, 50))
-optionrect = pygame.Rect((1152 - 400, 704 - 120), (500, 50))
-quitrect = pygame.Rect((1152 - 350, 704 - 60), (500, 50))
 retourrect = pygame.Rect((1152 - 500, 0), (500, 50))
 pauserect = pygame.Rect((1152 - 332, 5), (40, 40))
 accelererect = pygame.Rect((1152 - 382, 5), (40, 40))
@@ -172,8 +164,6 @@ VolMoins = pygame.Rect((655, 302), (40, 40))
 VolPlus = pygame.Rect((705, 302), (40, 40))
 DifMoins = pygame.Rect((655, 347), (40, 40))
 DifPlus = pygame.Rect((705, 347), (40, 40))
-ConfirmReprise = pygame.Rect((1152 // 2 - 60, 704 // 2 - 55), (120, 50))
-ConfirmQuitter = pygame.Rect((1152 // 2 - 60, 704 // 2 + 15), (120, 50))
 PoubelleRect = pygame.Rect((15, 15), (40, 40))
 InfoLvl5Rect = pygame.Rect((0, 0), (750, 113))
 
@@ -209,7 +199,7 @@ for filename in glob.glob("Tours/*.json"):
     num += 1
 
 # Variables de "session"
-niveau = Niveau()
+niveau = Level()
 King = Perso()
 invocation = None
 Programme_Actif = True
@@ -256,91 +246,11 @@ pygame.mixer.music.set_volume(Volume / 10)
 fondtps = 0
 randomVarTF = True
 
-
-def play_music():
-    """Plays music if no music is already playing"""
-    if not pygame.mixer.music.get_busy() and len(Tableau_Musique) > 0:
-        pygame.mixer.music.load(Tableau_Musique[random.randrange(len(Tableau_Musique))])
-        pygame.mixer.music.play()
+game = Game.getInstance()
+game.run()
 
 
-# -----------------------------------------------------------------------------------------------------------------------------------------------
-
-
-while Programme_Actif:
-
-    i = 0
-
-    # Menu_Principal
-    while Menu_Principal:
-
-        # Affiche les éléments du menu
-        screen.blit(Fond_Menu_Principal, (0, 0))
-        screen.blit(joue, (652, 464))
-        screen.blit(credits_img, (702, 524))
-        screen.blit(option, (752, 584))
-        screen.blit(quit_img, (802, 644))
-        screen.flip()
-
-        # Musique
-        play_music()
-
-        # Events
-        for event in screen.getEvent():
-
-            if event.type == pygame.locals.KEYDOWN and event.key == pygame.locals.K_ESCAPE:
-                Menu_Principal = False
-                Confirm_Quit = True
-                break
-
-            if event.type == pygame.locals.MOUSEBUTTONDOWN and event.button == 1:
-
-                if quitrect.collidepoint(event.pos):
-                    Menu_Principal = False
-                    Confirm_Quit = True
-                    break
-
-                if jouerect.collidepoint(event.pos):
-                    Menu_Principal = False
-                    animjouer = True
-                    break
-
-                if optionrect.collidepoint(event.pos):
-                    Menu_Principal = False
-                    Menu_Options = True
-                    break
-
-                if credirect.collidepoint(event.pos):
-                    Menu_Principal = False
-                    Credits_Anim = True
-                    break
-
-    # --------------------------------------------------------------------------------------------------------------------------------------------
-
-    while Confirm_Quit:
-        screen.blit(Fond_Menu_Principal, (0, 0))
-        screen.blit(ConfirmQuit, (376, 152))
-        screen.blit(reprise, (516, 297))
-        screen.blit(quitpaus, (516, 367))
-        screen.flip()
-
-        # Musique
-        play_music()
-
-        for event in screen.getEvent():
-
-            if event.type == pygame.locals.KEYDOWN and event.key == pygame.locals.K_ESCAPE:
-                Confirm_Quit = False
-                Menu_Principal = True
-
-            if event.type == pygame.locals.MOUSEBUTTONDOWN and event.button == 1:
-                if ConfirmReprise.collidepoint(event.pos):
-                    Confirm_Quit = False
-                    Menu_Principal = True
-
-                elif ConfirmQuitter.collidepoint(event.pos):
-                    Confirm_Quit = False
-                    Programme_Actif = False
+if True:
 
     # --------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -372,7 +282,7 @@ while Programme_Actif:
         screen.flip()
 
         # Musique
-        play_music()
+        game.play_music()
 
         for event in screen.getEvent():
 
@@ -410,7 +320,7 @@ while Programme_Actif:
         screen.blit(Fond_Menu_Principal, (0, 0))
 
         # Musique
-        play_music()
+        game.play_music()
 
         pygame.mixer.music.set_volume(Volume / 10)
 
@@ -455,7 +365,7 @@ while Programme_Actif:
     while Credits_Anim:
 
         # Musique
-        play_music()
+        game.play_music()
 
         i = 0
         while i <= 2900:
@@ -529,7 +439,7 @@ while Programme_Actif:
                 King.capacite1 = False
 
         # Musique
-        play_music()
+        game.play_music()
 
         LvlUp = King.level_up()
         if CooldownInvoc > 0:
@@ -892,7 +802,7 @@ while Programme_Actif:
         # Tant que Menu_Principal pause est actif
         while pausemenu:
 
-            play_music()
+            game.play_music()
 
             screen.blit(Fond_Menu_Opt, (1152 // 2 - 190, 704 // 2 - 210))
             screen.blit(PauseTxt, (1152 // 2 - 190, 704 // 2 - 210))
@@ -925,7 +835,7 @@ while Programme_Actif:
         # Menu_Principal d'Options dans menu pause
         while OptionsMenu:
 
-            play_music()
+            game.play_music()
 
             pygame.mixer.music.set_volume(Volume / 10)
 
