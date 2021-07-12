@@ -65,6 +65,11 @@ class Editor:
                 self.placeTile(event)
 
     def placeTile(self, event):
+        """Places a tile on the map according to the event
+
+        Args:
+            event (pygame.Event): The event that occured
+        """
         if self.choice is not None:
             tile = (self.choice, self.rot)
             x = event.pos[0] // 64
