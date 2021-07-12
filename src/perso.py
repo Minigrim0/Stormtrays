@@ -220,9 +220,9 @@ class Perso:
 
         if self.AnimAttak:
             if self.Is_Returned:
-                self.AnimKingAttakRet(Liste_Mechants, niveau, Coin)
+                self.AnimKingAttakRet(Liste_Mechants, niveau)
             elif not self.Is_Returned:
-                self.AnimKingAttak(Liste_Mechants, niveau, Coin)
+                self.AnimKingAttak(Liste_Mechants, niveau)
 
         elif self.target:
 
