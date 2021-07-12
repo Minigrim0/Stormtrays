@@ -164,11 +164,11 @@ class Level:
         for y in range(11):
             for x in range(18):
                 lettre, rot = self.map[x, y]
-                if lettre != "  " and lettre != "k1" and lettre != "QG":
+                if lettre not in ("  ", "k1", "QG"):
                     img = pygame.transform.scale(self.img[lettre, rot], (int(65), int(65)))
                     self.FondFenetre.blit(img, (int((x * 64)), int((y * 64))))
                 elif lettre == "k1":
-                    if rot == 90 or rot == 270:
+                    if rot in (90, 270):
                         img = pygame.transform.scale(self.img[lettre, rot], (64, 3 * 64))
                         self.FondFenetre.blit(img, (int((x * 64)), int((y * 64))))
                         self.pos_Chateau = [x, y + 1]

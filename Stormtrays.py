@@ -616,7 +616,7 @@ while Programme_Actif:
                     ennemi = Ennemi_IG("../Ennemis/Orc.json")
                     ennemi.pose_ennemi(niveau.map)
                     Liste_Mechants.append(ennemi)
-                elif invoque == 1 or invoque == 2:
+                elif invoque in (1, 2):
                     ennemi = Ennemi_IG("../Ennemis/Goblin.json")
                     ennemi.pose_ennemi(niveau.map)
                     Liste_Mechants.append(ennemi)
@@ -642,7 +642,7 @@ while Programme_Actif:
                         ennemi = Ennemi_IG("../Ennemis/Dragon.json")
                         ennemi.pose_ennemi(niveau.map)
                         Liste_Mechants.append(ennemi)
-                elif invoque == 8 or invoque == 9 or invoque == 10:
+                elif invoque in (8, 9, 10):
                     ennemi = Ennemi_IG("../Ennemis/Wolf.json")
                     ennemi.pose_ennemi(niveau.map)
                     Liste_Mechants.append(ennemi)
