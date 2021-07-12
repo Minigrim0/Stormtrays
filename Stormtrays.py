@@ -955,7 +955,7 @@ while Programme_Actif:
                         OptionsMenu = False
                         pausemenu = True
 
-                    if VolPlus.collidepoint(event.pos) and if Volume < 10:
+                    if VolPlus.collidepoint(event.pos) and Volume < 10:
                         Volume += 1
 
                     if VolMoins.collidepoint(event.pos) and Volume > 0:
