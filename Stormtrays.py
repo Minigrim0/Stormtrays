@@ -288,11 +288,10 @@ while Programme_Actif:
         # Events
         for event in screen.getEvent():
 
-            if event.type == pygame.locals.KEYDOWN:
-                if event.key == pygame.locals.K_ESCAPE:
-                    Menu_Principal = False
-                    Confirm_Quit = True
-                    break
+            if event.type == pygame.locals.KEYDOWN and event.key == pygame.locals.K_ESCAPE:
+                Menu_Principal = False
+                Confirm_Quit = True
+                break
 
             if event.type == pygame.locals.MOUSEBUTTONDOWN and event.button == 1:
 
@@ -377,16 +376,12 @@ while Programme_Actif:
 
         for event in screen.getEvent():
 
-            if event.type == pygame.locals.KEYDOWN:
-
-                if event.key == pygame.locals.K_ESCAPE:
-                    Menu_Selection = False
-                    Menu_Principal = True
+            if event.type == pygame.locals.KEYDOWN and event.key == pygame.locals.K_ESCAPE:
+                Menu_Selection = False
+                Menu_Principal = True
 
             if event.type == pygame.locals.MOUSEBUTTONDOWN:
-
                 if event.button == 1:
-
                     if retourrect.collidepoint(event.pos):
                         animmenu = True
                         Menu_Selection = False
@@ -399,14 +394,10 @@ while Programme_Actif:
                             Menu_Selection = False
                             break
 
-                elif event.button == 5:
-
-                    if i > -len(Tableau_Niveau) * 120 + 704:
-                        i -= 50
-
-                elif event.button == 4:
-                    if i < 60:
-                        i += 50
+                elif event.button == 5 and i > -len(Tableau_Niveau) * 120 + 704:
+                    i -= 50
+                elif event.button == 4 and i < 60:
+                    i += 50
 
     # --------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -600,10 +591,9 @@ while Programme_Actif:
             tour.attaque(Liste_Mechants, Tab_Projectile)
             tour.affiche_jeu(screen)
 
-        if invocation:
-            if not invocation.vit(screen, Liste_Mechants, niveau, Coin):
-                King.XpToAdd += invocation.xp
-                invocation = None
+        if invocation and not invocation.vit(screen, Liste_Mechants, niveau, Coin):
+            King.XpToAdd += invocation.xp
+            invocation = None
 
         if Anim_King:
             Anim_King = King.AnimKingAttak(Liste_Mechants, niveau)
@@ -795,9 +785,8 @@ while Programme_Actif:
         for Gold in niveau.GoldTab:
             Gold.bouge(screen, Coin, niveau)
 
-        if King.Level_Roi == 5:
-            if not HaveSeenLvl5Msg:
-                screen.blit(InfoLvl5Img, (0, 0))
+        if King.Level_Roi == 5 and not HaveSeenLvl5Msg:
+            screen.blit(InfoLvl5Img, (0, 0))
 
         # Events du jeu
         for event in screen.getEvent():
@@ -978,21 +967,17 @@ while Programme_Actif:
                         OptionsMenu = False
                         pausemenu = True
 
-                    if VolPlus.collidepoint(event.pos):
-                        if Volume < 10:
-                            Volume += 1
+                    if VolPlus.collidepoint(event.pos) and if Volume < 10:
+                        Volume += 1
 
-                    if VolMoins.collidepoint(event.pos):
-                        if Volume > 0:
-                            Volume -= 1
+                    if VolMoins.collidepoint(event.pos) and Volume > 0:
+                        Volume -= 1
 
-                    if DifPlus.collidepoint(event.pos):
-                        if Difficulte < 10:
-                            Difficulte += 1
+                    if DifPlus.collidepoint(event.pos) and Difficulte < 10:
+                        Difficulte += 1
 
-                    if DifMoins.collidepoint(event.pos):
-                        if Difficulte > 0:
-                            Difficulte -= 1
+                    if DifMoins.collidepoint(event.pos) and Difficulte > 0:
+                        Difficulte -= 1
 
     # -------------------------------------------------------------------------------------------------------------------------------------------
 
