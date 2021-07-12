@@ -7,6 +7,7 @@ from src.screen import Screen
 from models.level import Level
 
 import src.constantes as consts
+from exceptions.invalidPositionException import InvalidPositionException
 
 
 class Editor:
@@ -79,8 +80,8 @@ class Editor:
 
             try:
                 self.level.placeTile((x, y), tile)
-            except Exception:
-                print("Warning: clicked outside of the map")
+            except InvalidPositionException as e:
+                print(e)
 
         if self.choice == "QG":
             self.QGPos = (x * 64, y * 64)

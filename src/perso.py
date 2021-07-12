@@ -119,12 +119,8 @@ class Perso:
 
         elif self.Anim_King_i >= 4:
             self.nanim = self.King_Attak2_ret
-            try:
-                if self.target.enleve_vie(self.Degats / 4, Liste_Mechants, self.target, niveau, self):
-                    self.XpToAdd += self.target.vie_bas / 3
-                    self.target = False
-            except Exception as e:
-                print("Warning :", e)
+            if self.target.enleve_vie(self.Degats / 4, Liste_Mechants, self.target, niveau, self):
+                self.XpToAdd += self.target.vie_bas / 3
                 self.target = False
 
         elif self.Anim_King_i >= 1:
@@ -152,12 +148,8 @@ class Perso:
 
         elif self.Anim_King_i >= 4:
             self.nanim = self.King_Attak2
-            try:
-                if self.target.enleve_vie(self.Degats / 4, Liste_Mechants, self.target, niveau, self):
-                    self.XpToAdd += self.target.vie_bas / 3
-                    self.target = False
-            except Exception as e:
-                print("Warning :", e)
+            if self.target.enleve_vie(self.Degats / 4, Liste_Mechants, self.target, niveau, self):
+                self.XpToAdd += self.target.vie_bas / 3
                 self.target = False
 
         elif self.Anim_King_i >= 1 and self.Anim_King_i < 4:
@@ -223,13 +215,8 @@ class Perso:
                 self.AnimKingAttak(Liste_Mechants, niveau)
 
         elif self.target:
-
-            try:
-                self.targetCoordx = self.target.PosAbsolue[0]
-                self.targetCoordy = self.target.PosAbsolue[1]
-            except Exception as e:
-                print("Warning :", e)
-                self.target = False
+            self.targetCoordx = self.target.PosAbsolue[0]
+            self.targetCoordy = self.target.PosAbsolue[1]
 
             if (
                 math.sqrt(

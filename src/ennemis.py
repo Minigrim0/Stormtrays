@@ -90,7 +90,7 @@ class Ennemi_IG:
         """
         try:
             self.Vie_Rect = pygame.Surface((self.vie * (60 / self.vie_bas), 3))
-        except Exception as e:
+        except ZeroDivisionError as e:
             print("Warning :", e)
         self.Vie_Rect.fill((0, 255, 0))
 
@@ -188,7 +188,6 @@ class Ennemi_IG:
         self.Tics = 0
 
         if self.vie <= 0:
-
             constantes.DicoEnnemisKilled[self.Name] += 1
             liste_mech.remove(ennemi)
             self.meurt.play()

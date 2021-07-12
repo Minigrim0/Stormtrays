@@ -4,6 +4,8 @@ import pygame
 
 import src.constantes as consts
 
+from exceptions.invalidPositionException import InvalidPositionException
+
 
 class Level:
     """The level class contains information and logic about the current level
@@ -176,10 +178,7 @@ class Level:
                         self.FondFenetre.blit(img, (int((x * 64)), int((y * 64))))
                         self.pos_Chateau = [x + 1, y]
 
-            try:
-                self.FondFenetre.blit(self.nanim, (self.posx, self.posy))
-            except Exception as e:
-                print("Error ! :", e)
+            self.FondFenetre.blit(self.nanim, (self.posx, self.posy))
 
     def deffond(self, nomfichier):
         """Defines the background of the current level
@@ -205,7 +204,7 @@ class Level:
             tile ([type]): [description]
         """
         if position[0] not in list(range(self.size["x"])) or position[1] not in list(range(self.size["y"])):
-            raise Exception("Tile is outside of the map !")
+            raise InvalidPositionException("Tile is outside of the map !")
 
         self.map[position[0]][position[1]] = tile
 

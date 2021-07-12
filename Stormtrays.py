@@ -187,7 +187,7 @@ for filename in glob.glob("level/mininiveau/*.png"):
     file, ext = os.path.splitext(file)
     try:
         img = pygame.image.load(filename).convert_alpha()
-    except Exception:
+    except FileNotFoundError:
         img = pygame.image.load(constantes.Vide1E).convert_alpha()
     nivrect = pygame.Rect((1152 / 2 - 10, Compteur), (500, 110))
     level = Levels(file, img, nivrect)
