@@ -121,7 +121,6 @@ class Level:
         Args:
             nomfichier ([type]): [description]
         """
-
         level = {"background": self.backgroundName, "size": self.size, "map": self.map}
 
         with open(nomfichier, "w") as f:
