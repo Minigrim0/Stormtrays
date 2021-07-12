@@ -850,9 +850,8 @@ while Programme_Actif:
 
                 AfficheStatTour = False
 
-                if King.Level_Roi == 5 and HaveSeenLvl5Msg is False:
-                    if InfoLvl5Rect.collidepoint(event.pos):
-                        HaveSeenLvl5Msg = True
+                if King.Level_Roi == 5 and HaveSeenLvl5Msg is False and InfoLvl5Rect.collidepoint(event.pos):
+                    HaveSeenLvl5Msg = True
 
                 if pauserect.collidepoint(event.pos):
                     pausemenu = True
