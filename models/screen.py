@@ -4,13 +4,25 @@ import pygame
 from pygame.locals import MOUSEBUTTONDOWN, MOUSEMOTION
 
 import src.constantes as const
-from src.button import Button
+from UI.components.button import Button
 
 
 class Screen:
     """The singleton class that handles the screen related actions"""
 
+    instance = None
+
+    @staticmethod
+    def getInstance(*args, **kwargs):
+        if Screen.instance is None:
+            Screen(*args, **kwargs)
+        return Screen.instance
+
     def __init__(self, size: tuple, name: str, icon: str, fullScreen=True):
+        if Screen.instance is not None:
+            raise RuntimeError("Trying to instanciate another instance of a singleton")
+        Screen.instance = self
+
         self.font = pygame.font.SysFont("Viner Hand ITC", 25)
         self.nativeSize = size
 
