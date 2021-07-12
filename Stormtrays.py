@@ -820,7 +820,7 @@ while Programme_Actif:
                     k = pygame.key.get_pressed()
 
                     if k[pygame.locals.K_i] and King.Level_Roi >= 5 and not invocation and CooldownInvoc == 0:
-                        animInvocation = Truequit
+                        animInvocation = True
                 if event.type == pygame.locals.MOUSEBUTTONDOWN:
                     # Menu_Principal tour actif
                     if boutontourrect.collidepoint(event.pos):
