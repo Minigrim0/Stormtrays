@@ -585,7 +585,7 @@ while Programme_Actif:
             tour.attaque(Liste_Mechants, Tab_Projectile)
             tour.affiche_jeu(screen)
 
-        if invocation and not invocation.vit(screen, Liste_Mechants, niveau, Coin):
+        if invocation and not invocation.vit(screen, Liste_Mechants, niveau):
             King.XpToAdd += invocation.xp
             invocation = None
 

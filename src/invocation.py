@@ -45,14 +45,13 @@ class Invocation:
         self.posx_Old = None
         self.posy_Old = None
 
-    def vit(self, fenetre, Liste_Mechants, niveau, coin, King):
+    def vit(self, fenetre, Liste_Mechants, niveau, King):
         """Updates the AI, making it move and attack
 
         Args:
             fenetre ([type]): [description]
             Liste_Mechants ([type]): [description]
             niveau ([type]): [description]
-            coin ([type]): [description]
             King ([type]): [description]
 
         Returns:
