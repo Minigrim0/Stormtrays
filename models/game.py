@@ -2,14 +2,13 @@ import glob
 import random
 import pygame
 
+import src.constantes as constants
+from menus.main import MainMenu
+from models.screen import Screen
+
 
 class Game:
-    """The Game singleton object, used to play music all along the game (For now)
-
-    Raises:
-        Exception: in case a part of the code tries to initialize a
-            new instance of the class
-    """
+    """The Game singleton object, used to start the game in itself"""
 
     instance = None
 
@@ -30,6 +29,9 @@ class Game:
             raise Exception("This class is a Singleton!")
         Game.instance = self
 
+        self.screen = Screen.getInstance((1152, 704), "StormTarys", constants.IconImg, False)
+        self.mainMenu = MainMenu(self.screen)
+
         self.songList = []
         for song in glob.glob("../musique/Themes/*.wav"):
             self.songList.append(song)
@@ -39,3 +41,6 @@ class Game:
         if not pygame.mixer.music.get_busy():
             pygame.mixer.music.load(self.songList[random.randrange(len(self.songList))])
             pygame.mixer.music.play()
+
+    def run(self):
+        self.mainMenu(self.screen)
