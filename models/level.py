@@ -61,54 +61,6 @@ class Level:
         self.map = None
         self.empty()
 
-    @staticmethod
-    def Cinematic(screen, myfont3, myfontt):
-        """Shows introduction cinematic"""
-        TabTexts = []
-        TabTexts.append("Les forces du mal se sont réveillées...")
-        TabTexts.append(
-            """Le seigneur des ténébres souhaite la destruction
-            d'un peuple"""
-        )
-        TabTexts.append("qui l'a autrefois détruit.")
-        TabTexts.append(
-            """Les principales puissances
-        d'Ethsilaar sont faibles et vous"""
-        )
-        TabTexts.append(
-            """avez été appelé comme mercanaire
-        pour empêcher le mal de"""
-        )
-        TabTexts.append("se répandre.")
-        TabTexts.append("Bonne chance...")
-        STORMTRAYS = "STORMTRAYS"
-        Texti = ""
-
-        fondu = pygame.image.load(consts.sombre__).convert_alpha()
-
-        for _ in range(5):
-            screen.blit(fondu, (0, 0))
-            screen.flip()
-
-        y = 20
-        for Text in TabTexts:
-            for Char in Text:
-                Texti += Char
-                Textb = myfont3.render(Texti, 1, (255, 255, 255))
-                screen.blit(Textb, (10, y))
-                screen.flip()
-            Texti = ""
-            y += 50
-
-        for Char in STORMTRAYS:
-            Texti += Char
-            Textb = myfontt.render(Texti, 1, (255, 255, 255))
-            screen.blit(Textb, (230, 425))
-            screen.flip()
-            time.sleep(0.2)
-
-        time.sleep(0.5)
-
     def empty(self):
         """Empties the level"""
         self.map = []
