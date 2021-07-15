@@ -141,20 +141,21 @@ class Editor:
 
     def save(self):
         """Saves the current level"""
-        filename = filedialog.asksaveasfilename(initialdir="level", defaultextension=".json")
-        if filename:
+        full_path = filedialog.asksaveasfilename(initialdir="level", defaultextension=".json")
+        if full_path:
             self.level.draw(self.screen)
-            self.screen.flip()
+            # self.screen.flip()
+
             arect = pygame.Rect(0, 0, consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT)
             sub = self.screen.subsurface(arect)
             sub = pygame.transform.scale(sub, (39 * 5, 22 * 5))
-            dirname, filename = os.path.split(filename)
-            filename, _ = os.path.splitext(filename)
+            dirname, filename = os.path.split(full_path)
+            filename, _ext = os.path.splitext(filename)
 
             thumbnail_path = os.path.join(dirname, "thumbnails", filename + ".png")
             pygame.image.save(sub, thumbnail_path)
 
-            self.level.sauve(filename, thumbnail_path)
+            self.level.sauve(full_path, thumbnail_path)
 
         self.choice = "  "
 
