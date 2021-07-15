@@ -1,5 +1,7 @@
 import os
 import glob
+import json
+
 import pygame as pg
 
 from menus.menu import Menu
@@ -25,14 +27,16 @@ class LevelSelectMenu(Menu, Runnable):
 
     def load(self):
         Compteur = 60
-        for filename in glob.glob("level/*.json"):
-            _, file = os.path.split(filename)
-            file, _ = os.path.splitext(file)
-            try:
-                img = pg.image.load(filename).convert_alpha()
-            except FileNotFoundError:
-                img = pg.image.load("UI/assets/images/missing").convert_alpha()
+        for level in glob.glob("level/*.json"):
+            with open(level) as f:
+                data = json.load(f)
 
+            try:
+                img = pg.image.load(data["thumbnail"]).convert_alpha()
+            except FileNotFoundError:
+                img = pg.image.load("UI/assets/images/missing.png").convert_alpha()
+
+            file = os.path.splitext(os.path.split(level)[1])[0]
             level = Card((1152 / 2 + 10, Compteur), (500, 110), img, "Level ?", "Level level !")
             level.callback = (self.runLevel, file)
 
