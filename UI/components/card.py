@@ -4,6 +4,8 @@ from UI.components.button import Button
 
 
 class Card(Button):
+    """A UI element with a background, an image, a title and a description"""
+
     def __init__(self, pos: tuple, size: tuple, thumbnail: pg.Surface, title: str, description: str, **kwargs):
         super().__init__(pos, size)
 

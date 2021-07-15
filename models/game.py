@@ -14,12 +14,7 @@ class Game:
 
     @staticmethod
     def getInstance():
-        """Singleton Pattern, returns the instance of the class if
-            the class does have an instance, creates it otherwise
-
-        Returns:
-            [type]: [description]
-        """
+        """Returns the model's instance, creating it if needed"""
         if Game.instance is None:
             Game()
         return Game.instance
@@ -43,4 +38,5 @@ class Game:
             pygame.mixer.music.play()
 
     def run(self):
+        """Run the game by launching the main menu"""
         self.mainMenu()

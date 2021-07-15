@@ -27,6 +27,7 @@ class Button:
             else:
                 self.callback()
 
-    def move(self, vector: tuple):
-        self.pos = tuple(self.pos[i] + vector[i] for i, _ in enumerate(self.pos))
-        self.rect = self.rect.move(vector)
+    def move(self, offset: tuple):
+        """Moves a button by the given offset"""
+        self.pos = tuple(self.pos[i] + offset[i] for i, _ in enumerate(self.pos))
+        self.rect = self.rect.move(offset)

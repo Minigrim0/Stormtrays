@@ -14,6 +14,7 @@ class Screen:
 
     @staticmethod
     def getInstance(*args, **kwargs):
+        """Returns the model's instance, creating it if needed"""
         if Screen.instance is None:
             Screen(*args, **kwargs)
         return Screen.instance

@@ -16,7 +16,7 @@ class Level:
 
     @staticmethod
     def getInstance():
-        """Return the only instance of Level"""
+        """Returns the model's instance, creating it if needed"""
         if Level.instance is None:
             Level()
         return Level.instance

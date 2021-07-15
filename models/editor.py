@@ -17,6 +17,7 @@ class Editor:
 
     @staticmethod
     def getInstance():
+        """Returns the model's instance, creating it if needed"""
         if Editor.instance is None:
             Editor()
         return Editor.instance()
