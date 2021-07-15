@@ -1,2 +1,0 @@
-..\Img\Fonds\fond10.png
-640/128
