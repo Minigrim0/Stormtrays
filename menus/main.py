@@ -4,6 +4,7 @@ import src.constantes as constantes
 from src.runnable import Runnable
 from UI.components.button import Button
 from menus.menu import Menu
+from menus.levelSelection import LevelSelectMenu
 
 
 class MainMenu(Menu, Runnable):
@@ -35,5 +36,9 @@ class MainMenu(Menu, Runnable):
             if event.type == pygame.locals.KEYDOWN and event.key == pygame.locals.K_ESCAPE:
                 self.launch("quit")
 
-    def launch(self, type):
-        print(f"Launching {type}")
+    def launch(self, toLaunch: str):
+        if toLaunch == "game":
+            levelMenu = LevelSelectMenu(self.screen)
+            levelMenu()
+        else:
+            print(f"Launching {type}")

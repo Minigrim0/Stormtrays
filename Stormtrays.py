@@ -15,12 +15,10 @@ from models.game import Game
 
 pygame.init()
 
-Tableau_Musique = []
-for Muse in glob.glob("musique/Themes/*.wav"):
-    Music = Muse
-    Tableau_Musique.append(Music)
-
 # ------------------------------------------------------------------
+
+game = Game.getInstance()
+game.run()
 
 # Images
 Coin = pygame.image.load(constantes.Coin).convert_alpha()
@@ -167,23 +165,6 @@ DifPlus = pygame.Rect((705, 347), (40, 40))
 PoubelleRect = pygame.Rect((15, 15), (40, 40))
 InfoLvl5Rect = pygame.Rect((0, 0), (750, 113))
 
-# rectangles niveaux
-Tableau_Niveau = []
-
-# definition des miniatures
-Compteur = 10
-for filename in glob.glob("level/mininiveau/*.png"):
-    dirname, file = os.path.split(filename)
-    file, ext = os.path.splitext(file)
-    try:
-        img = pygame.image.load(filename).convert_alpha()
-    except FileNotFoundError:
-        img = pygame.image.load(constantes.Vide1E).convert_alpha()
-    nivrect = pygame.Rect((1152 / 2 - 10, Compteur), (500, 110))
-    level = Levels(file, img, nivrect)
-    Tableau_Niveau.append(level)
-    Compteur += 120
-
 myfont = pygame.font.SysFont("Viner Hand ITC.ttf", 25)
 myfontt = pygame.font.SysFont("Viner Hand ITC.ttf", 100)
 myfont2 = pygame.font.SysFont("Viner Hand ITC.ttf", 20)
@@ -246,70 +227,8 @@ pygame.mixer.music.set_volume(Volume / 10)
 fondtps = 0
 randomVarTF = True
 
-game = Game.getInstance()
-game.run()
-
 
 if True:
-
-    # --------------------------------------------------------------------------------------------------------------------------------------------
-
-    # Menu_Principal de sélection
-    if Menu_Selection:
-        i = 60
-        Compteur_Lvls = 10
-
-    while Menu_Selection:
-        Compteur_Mini = i
-        Compteur_Lvls = i
-
-        King.posx = 0
-        King.posy = 0
-
-        # Affiche les éléments du menu
-        screen.blit(Fond_Menu_Principal, (0, 0))
-        screen.blit(Fond_Noir_Semi_Transparent, (0, 0))
-
-        for level in Tableau_Niveau:
-            Nom_Niveau = myfont.render(level.File, 1, (255, 255, 255))
-            screen.blit(level.Img, (586, Compteur_Lvls))
-            screen.blit(Nom_Niveau, (796, Compteur_Lvls + 45))
-
-            level.Nivrect = pygame.Rect((586, Compteur_Lvls), (500, 110))
-            Compteur_Lvls += 120
-
-        screen.blit(retour, (654, 0))
-        screen.flip()
-
-        # Musique
-        game.play_music()
-
-        for event in screen.getEvent():
-
-            if event.type == pygame.locals.KEYDOWN and event.key == pygame.locals.K_ESCAPE:
-                Menu_Selection = False
-                Menu_Principal = True
-
-            if event.type == pygame.locals.MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    if retourrect.collidepoint(event.pos):
-                        animmenu = True
-                        Menu_Selection = False
-                        break
-
-                    for level in Tableau_Niveau:
-                        if level.Nivrect.collidepoint(event.pos):
-                            jeu = True
-                            lvl = level.File
-                            Menu_Selection = False
-                            break
-
-                elif event.button == 5 and i > -len(Tableau_Niveau) * 120 + 704:
-                    i -= 50
-                elif event.button == 4 and i < 60:
-                    i += 50
-
-    # --------------------------------------------------------------------------------------------------------------------------------------------
 
     if Menu_Options:
         screen.blit(FondSombre, (0, 0))
