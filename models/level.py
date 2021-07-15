@@ -117,32 +117,17 @@ class Level:
             for _ in range(11):
                 self.map[x].append(("  ", 0))
 
-    def sauve(self, nomfichier):
+    def sauve(self, nomfichier: str, thumbnail_path: str):
         """Saves the level
 
         Args:
-            nomfichier ([type]): [description]
+            nomfichier (str): The name of the file to save the level in
+            thumbnail_path (str): The path of the level's thumbnail
         """
-        level = {"background": self.backgroundName, "size": self.size, "map": self.map}
+        level = {"background": self.backgroundName, "size": self.size, "map": self.map, "thumbnail": thumbnail_path}
 
         with open(nomfichier, "w") as f:
-            f.write(json.dumps(level, indent=4))
-
-    @staticmethod
-    def sauveF(nomfichier, Fond, QGPos):
-        """Saves the level settings
-
-        Args:
-            nomfichier ([type]): [description]
-            Fond ([type]): [description]
-            QGPos ([type]): [description]
-        """
-        with open(nomfichier + "_Pref.txt", "w") as f:
-            f.write(Fond)
-            Posx = QGPos[0]
-            Posy = QGPos[1]
-            f.write("\n")
-            f.write(str(Posx) + "/" + str(Posy))
+            f.write(json.dumps(level))
 
     def construit(self, nomfichier):
         """Builds the level from a file
