@@ -156,7 +156,7 @@ class Screen:
         Returns:
             pygame.Surface: The subsurface described by the given arguments
         """
-        return self.fenetreAffiche.subsurface(rect)
+        return self.fenetre.subsurface(rect)
 
     def handleFKeys(self, event: pygame.event.Event):
         """Handles events where function keys are pressed
