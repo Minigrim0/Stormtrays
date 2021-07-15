@@ -13,6 +13,8 @@ from UI.components.button import Button
 
 
 class LevelSelectMenu(Menu, Runnable):
+    """The level selection menu"""
+
     def __init__(self, screen):
         super().__init__(screen)
         self.scrollAmount = 60
@@ -26,6 +28,7 @@ class LevelSelectMenu(Menu, Runnable):
         self.load()
 
     def load(self):
+        """Generates the levels' cards"""
         Compteur = 60
         for level in glob.glob("level/*.json"):
             with open(level) as f:
@@ -43,7 +46,14 @@ class LevelSelectMenu(Menu, Runnable):
             self.cards.append(level)
             Compteur += 120
 
+    def loop(self):
+        """The bit of code called at each iteration"""
+        super().loop()
+        self.draw()
+        self.handleEvent()
+
     def draw(self):
+        """Draws the buttons/images on screen and refreshes it"""
         self.screen.blit(self.background, (0, 0))
         self.screen.blit(self.semiThing, (0, 0))
 
@@ -53,12 +63,8 @@ class LevelSelectMenu(Menu, Runnable):
         self.backButton.draw(self.screen)
         self.screen.flip()
 
-    def loop(self):
-        super().loop()
-        self.draw()
-        self.handleEvent()
-
     def handleEvent(self):
+        """Handles the user inputs"""
         for event in super().handleEvent():
             if event.type == pg.locals.KEYDOWN and event.key == pg.locals.K_ESCAPE:
                 self.running = False
@@ -76,11 +82,13 @@ class LevelSelectMenu(Menu, Runnable):
                     self.scroll(40)
 
     def scroll(self, amount):
+        """Moves the levelss cards up or down"""
         self.scrollAmount += amount
         for levelcard in self.cards:
             levelcard.move((0, amount))
 
     def runLevel(self, level):
+        """Callback for the levels' cards, launches the selected level"""
         # jeu = True
         # lvl = level.File
         print("Running a level", level)
@@ -88,4 +96,5 @@ class LevelSelectMenu(Menu, Runnable):
         # break
 
     def back(self):
+        """Callback for the back button, gets the user back to the main menu"""
         self.running = False

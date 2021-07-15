@@ -10,6 +10,8 @@ from menus.quit import QuitMenu
 
 
 class MainMenu(Menu, Runnable):
+    """The main menu class"""
+
     def __init__(self, screen):
         super().__init__(screen)
         self.background = pygame.image.load(constantes.fondm).convert_alpha()
