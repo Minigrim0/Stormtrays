@@ -26,7 +26,7 @@ class Game:
 
     def __init__(self):
         if Game.instance is not None:
-            raise Exception("This class is a Singleton!")
+            raise RuntimeError("This class is a Singleton!")
         Game.instance = self
 
         self.screen = Screen.getInstance((1152, 704), "StormTarys", constants.IconImg, False)
@@ -38,9 +38,9 @@ class Game:
 
     def playMusic(self):
         """Plays the next song if the current one is finished"""
-        if not pygame.mixer.music.get_busy():
+        if not pygame.mixer.music.get_busy() and len(self.songList) > 0:
             pygame.mixer.music.load(self.songList[random.randrange(len(self.songList))])
             pygame.mixer.music.play()
 
     def run(self):
-        self.mainMenu(self.screen)
+        self.mainMenu()

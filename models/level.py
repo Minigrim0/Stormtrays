@@ -23,7 +23,7 @@ class Level:
 
     def __init__(self):
         if Level.instance is not None:
-            raise Exception("This class is a singleton")
+            raise RuntimeError("This class is a singleton")
         Level.instance = self
 
         images = [
