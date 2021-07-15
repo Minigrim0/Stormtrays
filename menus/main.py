@@ -3,8 +3,10 @@ import pygame
 import src.constantes as constantes
 from src.runnable import Runnable
 from UI.components.button import Button
+
 from menus.menu import Menu
 from menus.levelSelection import LevelSelectMenu
+from menus.quit import QuitMenu
 
 
 class MainMenu(Menu, Runnable):
@@ -40,5 +42,9 @@ class MainMenu(Menu, Runnable):
         if toLaunch == "game":
             levelMenu = LevelSelectMenu(self.screen)
             levelMenu()
+        elif toLaunch == "quit":
+            quitMenu = QuitMenu(self.screen)
+            if quitMenu() == "q":
+                self.running = False
         else:
-            print(f"Launching {type}")
+            print(f"Launching {toLaunch}")
