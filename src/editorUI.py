@@ -1,6 +1,6 @@
 import pygame
 import src.constantes as const
-from src.button import Button
+from UI.components.button import Button
 
 
 class EditorUI:

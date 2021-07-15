@@ -22,6 +22,6 @@ class Menu:
             button.draw(self.screen)
 
     def loop(self):
-        from singleton.game import Game
+        from models.game import Game
 
-        Game.getInstance().play_music()
+        Game.getInstance().playMusic()
