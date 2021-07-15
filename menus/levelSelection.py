@@ -71,9 +71,9 @@ class LevelSelectMenu(Menu, Runnable):
                         levelcard.click(event.pos)
 
                 elif event.button == 5 and self.scrollAmount > -len(self.cards) * 120 + 704:
-                    self.scroll(-50)
+                    self.scroll(-40)
                 elif event.button == 4 and self.scrollAmount < 60:
-                    self.scroll(50)
+                    self.scroll(40)
 
     def scroll(self, amount):
         self.scrollAmount += amount
