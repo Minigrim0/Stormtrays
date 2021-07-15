@@ -23,22 +23,30 @@ class MainMenu(Menu, Runnable):
         self.buttons[-1].callback = (self.launch, "quit")
 
     def loop(self):
+        """The bit of code called at each iteration"""
         super().loop()
         self.draw()
         self.handleEvent()
 
     def draw(self):
+        """Draws the buttons/images on screen and refreshes it"""
         self.screen.blit(self.background, (0, 0))
         super().draw()
 
         self.screen.flip()
 
     def handleEvent(self):
+        """Handles the user inputs"""
         for event in super().handleEvent():
             if event.type == pygame.locals.KEYDOWN and event.key == pygame.locals.K_ESCAPE:
                 self.launch("quit")
 
     def launch(self, toLaunch: str):
+        """Callback for the buttons
+
+        Args:
+            toLaunch (str): The argument describing the button that's been pressed and what should be launched
+        """
         if toLaunch == "game":
             levelMenu = LevelSelectMenu(self.screen)
             levelMenu()
