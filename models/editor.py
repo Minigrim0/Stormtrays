@@ -3,7 +3,7 @@ from tkinter import filedialog
 import pygame
 
 from src.editorUI import EditorUI
-from src.screen import Screen
+from models.screen import Screen
 from models.level import Level
 
 import src.constantes as consts
@@ -13,7 +13,19 @@ from exceptions.invalidPositionException import InvalidPositionException
 class Editor:
     """The editor class, that runs handles the displaying and update of the editor"""
 
+    instance = None
+
+    @staticmethod
+    def getInstance():
+        if Editor.instance is None:
+            Editor()
+        return Editor.instance()
+
     def __init__(self):
+        if Editor.instance is not None:
+            raise RuntimeError("Trying to instanciate a second object from a singleton")
+        Editor.instance = self
+
         self.level = Level.getInstance()
         self.UI = EditorUI(self.level)
         self.UI.buttons["eraseButton"].callback = self.erase
@@ -131,8 +143,6 @@ class Editor:
         """Saves the current level"""
         filename = filedialog.asksaveasfilename(initialdir="level", defaultextension=".json")
         if filename:
-            self.level.sauve(filename)
-            # self.level.sauveF(filename, self.fond_Edit, self.QGPos)
             self.level.draw(self.screen)
             self.screen.flip()
             arect = pygame.Rect(0, 0, consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT)
@@ -140,7 +150,11 @@ class Editor:
             sub = pygame.transform.scale(sub, (39 * 5, 22 * 5))
             dirname, filename = os.path.split(filename)
             filename, _ = os.path.splitext(filename)
-            pygame.image.save(sub, os.path.join(dirname, "mininiveau", filename + ".png"))
+
+            thumbnail_path = os.path.join(dirname, "thumbnails", filename + ".png")
+            pygame.image.save(sub, thumbnail_path)
+
+            self.level.sauve(filename, thumbnail_path)
 
         self.choice = "  "
 
