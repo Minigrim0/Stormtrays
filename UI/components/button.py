@@ -4,7 +4,7 @@ import pygame
 class Button:
     """A button that can be clicked and may induce a callback"""
 
-    def __init__(self, pos: tuple, size: tuple, image: pygame.Surface):
+    def __init__(self, pos: tuple, size: tuple, image: pygame.Surface = None):
         self.pos = pos
         self.size = size
         self.image = image
@@ -26,3 +26,7 @@ class Button:
                 self.callback[0](*self.callback[1:])
             else:
                 self.callback()
+
+    def move(self, vector: tuple):
+        self.pos = tuple(self.pos[i] + vector[i] for i, _ in enumerate(self.pos))
+        self.rect = self.rect.move(vector)
