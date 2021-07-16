@@ -5,6 +5,7 @@ import pygame
 import src.constantes as constants
 from menus.main import MainMenu
 from models.screen import Screen
+from models.gameOptions import GameOptions
 
 
 class Game:
@@ -30,6 +31,8 @@ class Game:
         self.songList = []
         for song in glob.glob("../musique/Themes/*.wav"):
             self.songList.append(song)
+
+        GameOptions.getInstance().load()
 
     def playMusic(self):
         """Plays the next song if the current one is finished"""
