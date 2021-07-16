@@ -7,6 +7,7 @@ from UI.components.button import Button
 from menus.menu import Menu
 from menus.levelSelection import LevelSelectMenu
 from menus.quit import QuitMenu
+from menus.options import OptionMenu
 
 
 class MainMenu(Menu, Runnable):
@@ -30,12 +31,12 @@ class MainMenu(Menu, Runnable):
         self.draw()
         self.handleEvent()
 
+        self.screen.flip()
+
     def draw(self):
-        """Draws the buttons/images on screen and refreshes it"""
+        """Draws the buttons/images on screen"""
         self.screen.blit(self.background, (0, 0))
         super().draw()
-
-        self.screen.flip()
 
     def handleEvent(self):
         """Handles the user inputs"""
@@ -56,5 +57,8 @@ class MainMenu(Menu, Runnable):
             quitMenu = QuitMenu(self.screen)
             if quitMenu() == "q":
                 self.running = False
+        elif toLaunch == "options":
+            optionMenu = OptionMenu(self.screen)
+            optionMenu()
         else:
             print(f"Launching {toLaunch}")

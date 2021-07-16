@@ -1,52 +1,81 @@
+import pygame as pg
+
+import src.constantes as constants
+
+from models.gameOptions import GameOptions
+
+from menus.menu import Menu
+from src.runnable import Runnable
+
+from UI.components.button import Button
+
+
 class OptionMenu(Menu, Runnable):
     """The menu of options"""
 
-    def __init__(self):
-        if Menu_Options:
-        screen.blit(FondSombre, (0, 0))
+    def __init__(self, screen):
+        super().__init__(screen)
+
+        self.background = pg.image.load(constants.fondm).convert_alpha()
+        self.Fond_Menu_Opt = pg.image.load(constants.Fond_Menu_Opti).convert_alpha()
+        self.OptionsTxt = pg.image.load(constants.OptionsTxt__).convert_alpha()
+
+        options = GameOptions.getInstance()
+
+        self.Diffictxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
+            "Difficulté : {}".format(options.difficulty), 1, (255, 50, 20))
+        self.Volumetxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
+            "Volume : {}".format(int(options.volume * 10)), 1, (255, 50, 20))
+
+        Moins = pg.image.load(constants.Moins__).convert_alpha()
+        Plus = pg.image.load(constants.Plus__).convert_alpha()
+
+        self.buttons.append(Button((655, 302), (40, 40), Moins))
+        self.buttons[-1].callback = (self.updateVolume, -1)
+        self.buttons.append(Button((705, 302), (40, 40), Plus))
+        self.buttons[-1].callback = (self.updateVolume, 1)
+        self.buttons.append(Button((655, 347), (40, 40), Moins))
+        self.buttons[-1].callback = (self.updateDifficulty, -1)
+        self.buttons.append(Button((705, 347), (40, 40), Plus))
+        self.buttons[-1].callback = (self.updateDifficulty, 1)
+        self.buttons.append(Button((516, 407), (120, 50), pg.image.load(constants.quitpaus).convert_alpha()))
+        self.buttons[-1].callback = (self.quitMenu)
 
     def loop(self):
-        pass
+        self.draw()
+        self.handleEvent()
+        self.screen.flip()
 
     def draw(self):
-        # Affiche les éléments du menu
-        screen.blit(Fond_Menu_Principal, (0, 0))
+        self.screen.blit(self.background, (0, 0))
 
-        Volumetxt = myfont3.render("Volume : {}".format(int(Volume * 10)), 1, (255, 50, 20))
-        Diffictxt = myfont3.render("Difficulté : {}".format(Difficulte), 1, (255, 50, 20))
+        self.screen.blit(self.Fond_Menu_Opt, (386, 142))
+        self.screen.blit(self.OptionsTxt, (386, 132))
+        self.screen.blit(self.Volumetxt, (410, 302))
+        self.screen.blit(self.Diffictxt, (410, 347))
 
-        screen.blit(Fond_Menu_Opt, (386, 142))
-        screen.blit(OptionsTxt, (386, 132))
-        screen.blit(Volumetxt, (410, 302))
-        screen.blit(Diffictxt, (410, 347))
-        screen.blit(Moins, (655, 302))
-        screen.blit(Plus, (705, 302))
-        screen.blit(Moins, (655, 347))
-        screen.blit(Plus, (705, 347))
-        screen.blit(quitpaus, (516, 407))
-        screen.flip()
+        super().draw()
 
     def handleEvent(self):
-        """Handles pygame events and yields it to the calling method"""
-        for event in super().handleEvent():
-            if event.type == pygame.locals.MOUSEBUTTONDOWN:
+        """Handles user inputs"""
+        for _ in super().handleEvent():
+            pass
 
-                # quitter le niveau en cours
-                if quitOrect.collidepoint(event.pos):
-                    Menu_Principal = True
-                    Menu_Options = False
-                    break
+    def updateDifficulty(self, value: int):
+        """Updates the difficulty of the game"""
+        GameOptions.getInstance().changeDifficulty(value)
+        options = GameOptions.getInstance()
 
-                if VolPlus.collidepoint(event.pos) and Volume < 10:
-                    Volume += 1
+        self.Diffictxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
+            "Difficulté : {}".format(options.difficulty), 1, (255, 50, 20))
 
-                if VolMoins.collidepoint(event.pos) and Volume > 0:
-                    Volume -= 1
+    def updateVolume(self, value: int):
+        """Updates the volume of the music"""
+        GameOptions.getInstance().changeVolume(value)
+        options = GameOptions.getInstance()
 
-                if DifPlus.collidepoint(event.pos) and Difficulte < 10:
-                    Difficulte += 1
+        self.Volumetxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
+            "Volume : {}".format(int(options.volume * 10)), 1, (255, 50, 20))
 
-                if DifMoins.collidepoint(event.pos) and Difficulte > 0:
-                    Difficulte -= 1
-
-    def updateVolume(self, value):
+    def quitMenu(self):
+        self.running = False
