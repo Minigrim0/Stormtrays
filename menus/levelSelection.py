@@ -32,7 +32,7 @@ class LevelSelectMenu(Menu, Runnable):
     def load(self):
         """Generates the levels' cards"""
         Compteur = 60
-        for index, level in enumerate(glob.glob("level/*.json")):
+        for index, level in enumerate(glob.glob("levels/*.json")):
             with open(level) as f:
                 data = json.load(f)
 
