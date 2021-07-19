@@ -8,6 +8,7 @@ from menus.menu import Menu
 from src.runnable import Runnable
 
 from UI.components.button import Button
+from animations.animation import Animation
 
 
 class OptionMenu(Menu, Runnable):
@@ -23,43 +24,27 @@ class OptionMenu(Menu, Runnable):
         options = GameOptions.getInstance()
 
         self.Diffictxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
-            "Difficulté : {}".format(options.difficulty), 1, (255, 50, 20))
+            "Difficulté : {}".format(options.difficulty), 1, (0, 0, 0)
+        )
         self.Volumetxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
-            "Volume : {}".format(int(options.volume * 10)), 1, (255, 50, 20))
+            "Volume : {}".format(int(options.volume * 10)), 1, (0, 0, 0)
+        )
 
         Moins = pg.image.load(constants.Moins__).convert_alpha()
         Plus = pg.image.load(constants.Plus__).convert_alpha()
 
+        self.buttons.append(Button((655, 302), (40, 40), Moins, self.updateVolume, -1))
+        self.buttons.append(Button((705, 302), (40, 40), Plus, self.updateVolume, 1))
+        self.buttons.append(Button((655, 347), (40, 40), Moins, self.updateDifficulty, -1))
+        self.buttons.append(Button((705, 347), (40, 40), Plus, self.updateDifficulty, 1))
         self.buttons.append(
-            Button(
-                (655, 302), (40, 40),
-                Moins, self.updateVolume, -1
-            )
+            Button((516, 407), (120, 50), pg.image.load(constants.quitpaus).convert_alpha(), self.quitMenu)
         )
-        self.buttons.append(
-            Button(
-                (705, 302), (40, 40),
-                Plus, self.updateVolume, 1
-            )
-        )
-        self.buttons.append(
-            Button(
-                (655, 347), (40, 40),
-                Moins, self.updateDifficulty, -1
-            )
-        )
-        self.buttons.append(
-            Button(
-                (705, 347), (40, 40),
-                Plus, self.updateDifficulty, 1
-            )
-        )
-        self.buttons.append(
-            Button(
-                (516, 407), (120, 50),
-                pg.image.load(constants.quitpaus).convert_alpha(), self.quitMenu
-            )
-        )
+
+        self.buttons.append(Button((1102, 464), (500, 50), pg.image.load(constants.joue).convert_alpha()))
+        self.buttons.append(Button((1102, 524), (500, 50), pg.image.load(constants.credits_path).convert_alpha()))
+        self.buttons.append(Button((1002, 584), (500, 50), pg.image.load(constants.option).convert_alpha()))
+        self.buttons.append(Button((1102, 644), (500, 50), pg.image.load(constants.quit_path).convert_alpha()))
 
     def loop(self):
         """The bit of code called at each iteration"""
@@ -89,7 +74,8 @@ class OptionMenu(Menu, Runnable):
         options = GameOptions.getInstance()
 
         self.Diffictxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
-            "Difficulté : {}".format(options.difficulty), 1, (255, 50, 20))
+            "Difficulté : {}".format(options.difficulty), 1, (255, 50, 20)
+        )
 
     def updateVolume(self, value: int):
         """Updates the volume of the music"""
@@ -97,8 +83,10 @@ class OptionMenu(Menu, Runnable):
         options = GameOptions.getInstance()
 
         self.Volumetxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
-            "Volume : {}".format(int(options.volume * 10)), 1, (255, 50, 20))
+            "Volume : {}".format(int(options.volume * 10)), 1, (255, 50, 20)
+        )
 
     def quitMenu(self):
         """Quits the option menu"""
+        Animation("animations/optionsToMain.json", self.screen)()
         self.running = False

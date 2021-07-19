@@ -86,6 +86,7 @@ class MainMenu(Menu, Runnable):
             if quitMenu() == "q":
                 self.running = False
         elif toLaunch == "options":
+            Animation("animations/mainToOptions.json", self.screen)()
             optionMenu = OptionMenu(self.screen)
             optionMenu()
         elif toLaunch == "credits":
