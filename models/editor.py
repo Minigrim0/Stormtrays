@@ -135,14 +135,14 @@ class Editor:
 
     def loadLevel(self):
         """Loads an already created level to be modified/cloned"""
-        filename = filedialog.askopenfilename(initialdir="level", defaultextension=".txt")
+        filename = filedialog.askopenfilename(initialdir="levels", defaultextension=".json")
         if filename:
             self.level.construit(filename)
         self.choice = "  "
 
     def save(self):
         """Saves the current level"""
-        full_path = filedialog.asksaveasfilename(initialdir="level", defaultextension=".json")
+        full_path = filedialog.asksaveasfilename(initialdir="levels", defaultextension=".json")
         if full_path:
             self.level.draw(self.screen)
             # self.screen.flip()
@@ -153,7 +153,7 @@ class Editor:
             dirname, filename = os.path.split(full_path)
             filename, _ext = os.path.splitext(filename)
 
-            thumbnail_path = os.path.join("img/thumbnails", filename + ".png")
+            thumbnail_path = os.path.join("levels/thumbnails", filename + ".png")
             pygame.image.save(sub, thumbnail_path)
 
             self.level.sauve(full_path, thumbnail_path)
