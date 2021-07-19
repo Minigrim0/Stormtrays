@@ -43,7 +43,7 @@ class LevelSelectMenu(Menu, Runnable):
 
             file = os.path.splitext(os.path.split(level)[1])[0]
             level = Card((1152 / 2 + 10, Compteur), (500, 110), img, file, f"Level {index + 1}")
-            level.setCallaback(self.runLevel, file)
+            level.setCallback(self.runLevel, file)
 
             self.cards.append(level)
             Compteur += 120

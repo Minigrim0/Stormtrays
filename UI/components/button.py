@@ -4,7 +4,9 @@ import pygame
 class Button:
     """A button that can be clicked and may induce a callback"""
 
-    def __init__(self, pos: tuple, size: tuple, image: pygame.Surface = None, callback: callable = None, *cargs, **ckwargs):
+    def __init__(
+        self, pos: tuple, size: tuple, image: pygame.Surface = None, callback: callable = None, *cargs, **ckwargs
+    ):
         self.pos = pos
         self.size = size
         self.image = image
@@ -13,7 +15,7 @@ class Button:
         self.cargs = cargs
         self.ckwargs = ckwargs
 
-    def setCallaback(self, callback: callable, *cargs, **ckwargs):
+    def setCallback(self, callback: callable, *cargs, **ckwargs):
         """Sets the button callback with its parameters"""
         self.callback = callback
         self.cargs = cargs

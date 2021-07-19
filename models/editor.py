@@ -29,12 +29,12 @@ class Editor:
 
         self.level = Level.getInstance()
         self.UI = EditorUI(self.level)
-        self.UI.buttons["eraseButton"].callback = self.erase
-        self.UI.buttons["changeBackgroundButton"].callback = self.changeBackground
-        self.UI.buttons["loadButton"].callback = self.loadLevel
-        self.UI.buttons["saveButton"].callback = self.save
+        self.UI.buttons["eraseButton"].setCallback(self.erase)
+        self.UI.buttons["changeBackgroundButton"].setCallback(self.changeBackground)
+        self.UI.buttons["loadButton"].setCallback(self.loadLevel)
+        self.UI.buttons["saveButton"].setCallback(self.save)
         for buttonID in ["c1", "t2", "t1", "x1", "p1", "v1", "k1", "QG"]:
-            self.UI.buttons[buttonID].callback = self.setChoice, buttonID
+            self.UI.buttons[buttonID].setCallback(self.setChoice, buttonID)
 
         self.running = True
 
