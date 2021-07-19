@@ -11,6 +11,8 @@ import src.constantes as constants
 from UI.components.card import Card
 from UI.components.button import Button
 
+from animations.animation import Animation
+
 
 class LevelSelectMenu(Menu, Runnable):
     """The level selection menu"""
@@ -95,3 +97,4 @@ class LevelSelectMenu(Menu, Runnable):
     def back(self):
         """Callback for the back button, gets the user back to the main menu"""
         self.running = False
+        Animation("animations/selectToMain.json", self.screen)()
