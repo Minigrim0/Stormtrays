@@ -13,6 +13,7 @@ class GameOptions:
 
     @staticmethod
     def getInstance():
+        """Returns the model's instance, creating it if needed"""
         if GameOptions.instance is None:
             GameOptions()
         return GameOptions.instance
@@ -28,6 +29,7 @@ class GameOptions:
         self.fonts = {}
 
     def load(self):
+        """Loads the game's fonts"""
         for font in glob.glob("UI/assets/fonts/*/*.ttf"):
             filename = os.path.splitext(os.path.split(font)[1])[0]
             self.fonts[filename] = {}

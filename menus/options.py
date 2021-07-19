@@ -42,11 +42,13 @@ class OptionMenu(Menu, Runnable):
         self.buttons[-1].callback = (self.quitMenu)
 
     def loop(self):
+        """The bit of code called at each iteration"""
         self.draw()
         self.handleEvent()
         self.screen.flip()
 
     def draw(self):
+        """Draws the buttons/images on screen"""
         self.screen.blit(self.background, (0, 0))
 
         self.screen.blit(self.Fond_Menu_Opt, (386, 142))
@@ -78,4 +80,5 @@ class OptionMenu(Menu, Runnable):
             "Volume : {}".format(int(options.volume * 10)), 1, (255, 50, 20))
 
     def quitMenu(self):
+        """Quits the option menu"""
         self.running = False
