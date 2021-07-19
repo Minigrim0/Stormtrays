@@ -14,6 +14,7 @@ class Button:
         self.ckwargs = ckwargs
 
     def setCallaback(self, callback: callable, *cargs, **ckwargs):
+        """Sets the button callback with its parameters"""
         self.callback = callback
         self.cargs = cargs
         self.ckwargs = ckwargs
