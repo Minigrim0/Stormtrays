@@ -48,9 +48,12 @@ class OptionMenu(Menu, Runnable):
 
     def loop(self):
         """The bit of code called at each iteration"""
+        super().loop()
+
         self.draw()
-        self.handleEvent()
         self.screen.flip()
+
+        self.handleEvent()
 
     def draw(self):
         """Draws the buttons/images on screen"""

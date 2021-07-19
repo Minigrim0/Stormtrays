@@ -29,8 +29,9 @@ class CreditsMenu(Menu, Runnable):
             self.back()
 
         self.draw()
-        self.handleEvent()
         self.screen.flip()
+
+        self.handleEvent()
 
     def draw(self):
         """Draws the buttons/images on screen"""

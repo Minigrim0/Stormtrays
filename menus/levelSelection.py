@@ -51,7 +51,10 @@ class LevelSelectMenu(Menu, Runnable):
     def loop(self):
         """The bit of code called at each iteration"""
         super().loop()
+
         self.draw()
+        self.screen.flip()
+
         self.handleEvent()
 
     def draw(self):
@@ -62,8 +65,6 @@ class LevelSelectMenu(Menu, Runnable):
 
         for card in self.cards:
             card.draw(self.screen)
-
-        self.screen.flip()
 
     def handleEvent(self):
         """Handles the user inputs"""

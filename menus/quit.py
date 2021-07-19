@@ -39,16 +39,18 @@ class QuitMenu(Menu, Runnable):
 
     def loop(self):
         """The bit of code called at each iteration"""
+        super().loop()
+
         self.draw()
         self.handleEvent()
+
+        self.screen.flip()
 
     def draw(self):
         """Draws the buttons/images on screen and refreshes it"""
         self.screen.blit(self.background, (0, 0))
         self.screen.blit(self.confirmQuit, (376, 152))
         super().draw()
-
-        self.screen.flip()
 
     def handleEvent(self):
         """Handles the user inputs"""
