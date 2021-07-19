@@ -29,8 +29,10 @@ class Animation(Runnable):
             self.elements.append(
                 Animated(
                     pg.image.load(elem["image"]).convert_alpha(),
-                    tuple(elem["from"]), tuple(elem["to"]),
-                    style=elem["style"], duration=self.totalTime
+                    tuple(elem["from"]),
+                    tuple(elem["to"]),
+                    style=elem["style"],
+                    duration=self.totalTime,
                 )
             )
 
@@ -46,6 +48,10 @@ class Animation(Runnable):
             self.running = False
 
         self.screen.flip()
+
+    def invert(self):
+        for elem in self.elements:
+            elem.invert()
 
     def handleEvent(self):
         self.screen.getEvent()

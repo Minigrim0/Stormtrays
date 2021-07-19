@@ -26,8 +26,8 @@ class Animated:
             speed_x = delta_x * self.time
             speed_y = delta_y * self.time
         elif self.style == "sine":
-            A_x = (self.end_pos[0] - self.start_pos[0])
-            A_y = (self.end_pos[1] - self.start_pos[1])
+            A_x = self.end_pos[0] - self.start_pos[0]
+            A_y = self.end_pos[1] - self.start_pos[1]
 
             wt = (self.time * 2 / self.initTime) * m.pi
 
@@ -44,9 +44,13 @@ class Animated:
 
         self.current_position = (
             self.current_position[0] + speed_x * timeElapsed,
-            self.current_position[1] + speed_y * timeElapsed
+            self.current_position[1] + speed_y * timeElapsed,
         )
 
     def draw(self, screen):
         """Draws the object on the screen"""
         screen.blit(self.image, (int(self.current_position[0]), int(self.current_position[1])))
+
+    def invert(self):
+        self.start_pos, self.end_pos = self.end_pos, self.start_pos
+        self.current_position = self.start_pos
