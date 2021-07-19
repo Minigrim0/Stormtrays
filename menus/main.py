@@ -10,6 +10,8 @@ from menus.quit import QuitMenu
 from menus.options import OptionMenu
 from menus.credits import CreditsMenu
 
+from animations.animation import Animation
+
 
 class MainMenu(Menu, Runnable):
     """The main menu class"""
@@ -73,8 +75,8 @@ class MainMenu(Menu, Runnable):
             toLaunch (str): The argument describing the button that's been pressed and what should be launched
         """
         if toLaunch == "game":
-            levelMenu = LevelSelectMenu(self.screen)
-            levelMenu()
+            Animation("animations/mainToSelect.json", self.screen)()
+            LevelSelectMenu(self.screen)()
         elif toLaunch == "quit":
             quitMenu = QuitMenu(self.screen)
             if quitMenu() == "q":
