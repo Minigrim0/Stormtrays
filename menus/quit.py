@@ -14,18 +14,10 @@ class QuitMenu(Menu, Runnable):
         super().__init__(screen)
 
         self.buttons.append(
-            Button(
-                (516, 297), (120, 50),
-                pg.image.load(constants.reprise).convert_alpha(),
-                self.cancel
-            )
+            Button((516, 297), (120, 50), pg.image.load(constants.reprise).convert_alpha(), self.cancel)
         )
         self.buttons.append(
-            Button(
-                (516, 367), (120, 50),
-                pg.image.load(constants.quitpaus).convert_alpha(),
-                self.confirm
-            )
+            Button((516, 367), (120, 50), pg.image.load(constants.quitpaus).convert_alpha(), self.confirm)
         )
 
         self.background = pg.image.load(constants.fondm).convert_alpha()
