@@ -1,0 +1,30 @@
+{
+    "duration": 1.5,
+    "background": "img/FondMenu/FondMenuPrincipal.png",
+    "elements": [
+        {
+            "image": "img/Boutons/jouer.png",
+            "from": [652, 464],
+            "to": [1162, 464],
+            "style": "sine"
+        },
+        {
+            "image": "img/Boutons/credits.png",
+            "from": [702, 524],
+            "to": [702, 654],
+            "style": "sine"
+        },
+        {
+            "image": "img/Boutons/options.png",
+            "from": [752, 584],
+            "to": [1166, 584],
+            "style": "sine"
+        },
+        {
+            "image": "img/Boutons/quit.png",
+            "from": [802, 644],
+            "to": [1166, 644],
+            "style": "sine"
+        }
+    ]
+}
