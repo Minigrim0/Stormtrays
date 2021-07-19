@@ -132,10 +132,6 @@ Catapulte_4 = pygame.transform.scale(Catapulte4, (64, 64))
 Catapulte_5 = pygame.transform.scale(Catapulte5, (64, 64))
 Catapulte_6 = pygame.transform.scale(Catapulte6, (64, 64))
 
-# ------------------------------------------------------------------
-
-# ------------------------------------------------------------------
-
 Invoc_Tab = [Invocation_1, Invocation_2, Invocation_3, Invocation_4, Invocation_5, Invocation_6]
 Invoc_Tab_ret = [pygame.transform.flip(c, True, False) for c in Invoc_Tab]
 

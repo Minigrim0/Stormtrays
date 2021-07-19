@@ -1,11 +1,11 @@
 import pygame as pg
 
 from src import constantes as constants
+from src.runnable import Runnable
 
 from models.screen import Screen
 
 from menus.menu import Menu
-from src.runnable import Runnable
 
 
 class CreditsMenu(Menu, Runnable):
