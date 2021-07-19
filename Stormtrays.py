@@ -3,12 +3,12 @@ import pygame.locals
 import glob
 import random
 import src.constantes as constantes
-from models.level import Level
 from src.invocation import Invocation
 from src.ennemis import Ennemi_IG
 from src.tourClasse import Tours, Tours_IG
 from src.perso import Perso
 
+from models.level import Level
 from models.game import Game
 
 pygame.init()
@@ -705,86 +705,3 @@ if True:
 
                     if DifMoins.collidepoint(event.pos) and Difficulte > 0:
                         Difficulte -= 1
-
-    # -------------------------------------------------------------------------------------------------------------------------------------------
-
-    if Ecran_Perdu:
-
-        i = 0
-        anim_Perdu = True
-        Perdutxt = pygame.image.load(constantes.DefeatTxt).convert_alpha()
-        pygame.mixer.music.stop()
-        pygame.mixer.music.load(constantes.Defeat_Song)
-        pygame.mixer.music.play()
-
-    while anim_Perdu:
-
-        i += 5
-        niveau.construit("../level/" + lvl + ".txt")
-        niveau.affichem(screen)
-
-        screen.blit(FondSombre, (0, 0))
-        screen.blit(Fond_Menu_Opt, (1152 // 2 - 200, 704 // 2 - 200))
-        screen.blit(Perdutxt, (1152 // 2 - 190, i - 20))
-        screen.blit(quitpaus, (1152 // 2 - 60, 704 - i))
-        screen.flip()
-
-        screen.getEvent()
-
-        if i >= 220:
-            anim_Perdu = False
-
-    while Ecran_Perdu:
-
-        screen.blit(Fond_Menu_Opt, (1152 // 2 - 200, 704 // 2 - 200))
-        screen.blit(Perdutxt, (1152 // 2 - 190, 704 // 2 - 200))
-        screen.blit(quitpaus, (1152 // 2 - 60, 704 // 2 + 35))
-        screen.flip()
-
-        for event in screen.getEvent():
-            if event.type == pygame.locals.MOUSEBUTTONDOWN:
-                # Quitter le niveau en cours
-                if quitjrect.collidepoint(event.pos):
-                    Ecran_Perdu = False
-                    Menu_Selection = True
-
-    # -------------------------------------------------------------------------------------------------------------------------------------------
-
-    screen.delais = 0.03
-
-    # Animation de Menu_Principal à Menu_Selection
-    while animjouer:
-        i = 0
-        while i < 464:
-            screen.flip()
-            screen.blit(Fond_Menu_Principal, (0, 0))
-            screen.blit(joue, (1152 - 500, 704 - 240 - i))
-            screen.blit(credits_img, (1152 - 450 + i, 704 - 180))
-            screen.blit(option, (1152 - 400 + i, 704 - 120))
-            screen.blit(quit_img, (1152 - 350 + i, 704 - 60))
-
-            screen.getEvent()
-            i += 5
-
-        Menu_Selection = True
-        animjouer = False
-
-    # Animation de Menu_Selection à Menu_Principal
-    while animmenu:
-        i = 0
-        while i < 460:
-
-            screen.flip()
-            screen.blit(Fond_Menu_Principal, (0, 0))
-            screen.blit(joue, (1152 - 500, i + 4))
-            screen.blit(credits_img, (1152 + 10 - i, 704 - 180))
-            screen.blit(option, (1152 + 60 - i, 704 - 120))
-            screen.blit(quit_img, (1152 + 110 - i, 704 - 60))
-
-            screen.getEvent()
-            i += 5
-
-        Menu_Principal = True
-        animmenu = False
-
-    screen.delais = 0.05
