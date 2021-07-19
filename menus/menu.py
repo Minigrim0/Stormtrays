@@ -11,7 +11,8 @@ class Menu:
         self.buttons: [Button] = []
         self.screen = screen
 
-    def loop(self):
+    @staticmethod
+    def loop():
         """Plays music if needed"""
         from models.game import Game
 
