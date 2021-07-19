@@ -30,16 +30,36 @@ class OptionMenu(Menu, Runnable):
         Moins = pg.image.load(constants.Moins__).convert_alpha()
         Plus = pg.image.load(constants.Plus__).convert_alpha()
 
-        self.buttons.append(Button((655, 302), (40, 40), Moins))
-        self.buttons[-1].callback = (self.updateVolume, -1)
-        self.buttons.append(Button((705, 302), (40, 40), Plus))
-        self.buttons[-1].callback = (self.updateVolume, 1)
-        self.buttons.append(Button((655, 347), (40, 40), Moins))
-        self.buttons[-1].callback = (self.updateDifficulty, -1)
-        self.buttons.append(Button((705, 347), (40, 40), Plus))
-        self.buttons[-1].callback = (self.updateDifficulty, 1)
-        self.buttons.append(Button((516, 407), (120, 50), pg.image.load(constants.quitpaus).convert_alpha()))
-        self.buttons[-1].callback = (self.quitMenu)
+        self.buttons.append(
+            Button(
+                (655, 302), (40, 40),
+                Moins, self.updateVolume, -1
+            )
+        )
+        self.buttons.append(
+            Button(
+                (705, 302), (40, 40),
+                Plus, self.updateVolume, 1
+            )
+        )
+        self.buttons.append(
+            Button(
+                (655, 347), (40, 40),
+                Moins, self.updateDifficulty, -1
+            )
+        )
+        self.buttons.append(
+            Button(
+                (705, 347), (40, 40),
+                Plus, self.updateDifficulty, 1
+            )
+        )
+        self.buttons.append(
+            Button(
+                (516, 407), (120, 50),
+                pg.image.load(constants.quitpaus).convert_alpha(), self.quitMenu
+            )
+        )
 
     def loop(self):
         """The bit of code called at each iteration"""

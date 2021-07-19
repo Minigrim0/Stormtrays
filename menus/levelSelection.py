@@ -22,8 +22,7 @@ class LevelSelectMenu(Menu, Runnable):
         self.background = pg.image.load(constants.fondm).convert_alpha()
         self.semiThing = pg.image.load(constants.sombre).convert_alpha()
 
-        self.backButton = Button((654, 0), (500, 50), pg.image.load(constants.retour).convert_alpha())
-        self.backButton.callback = self.back
+        self.buttons.append(Button((654, 0), (500, 50), pg.image.load(constants.retour).convert_alpha(), self.back))
         self.cards: [Card] = []
         self.load()
 
@@ -41,7 +40,7 @@ class LevelSelectMenu(Menu, Runnable):
 
             file = os.path.splitext(os.path.split(level)[1])[0]
             level = Card((1152 / 2 + 10, Compteur), (500, 110), img, file, f"Level {index + 1}")
-            level.callback = (self.runLevel, file)
+            level.setCallaback(self.runLevel, file)
 
             self.cards.append(level)
             Compteur += 120
@@ -56,11 +55,11 @@ class LevelSelectMenu(Menu, Runnable):
         """Draws the buttons/images on screen and refreshes it"""
         self.screen.blit(self.background, (0, 0))
         self.screen.blit(self.semiThing, (0, 0))
+        super().draw()
 
         for card in self.cards:
             card.draw(self.screen)
 
-        self.backButton.draw(self.screen)
         self.screen.flip()
 
     def handleEvent(self):
@@ -71,8 +70,6 @@ class LevelSelectMenu(Menu, Runnable):
 
             if event.type == pg.locals.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    self.backButton.click(event.pos)
-
                     for levelcard in self.cards:
                         levelcard.click(event.pos)
 

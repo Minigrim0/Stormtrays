@@ -17,14 +17,35 @@ class MainMenu(Menu, Runnable):
     def __init__(self, screen):
         super().__init__(screen)
         self.background = pygame.image.load(constantes.fondm).convert_alpha()
-        self.buttons.append(Button((652, 464), (500, 50), pygame.image.load(constantes.joue).convert_alpha()))
-        self.buttons[-1].callback = (self.launch, "game")
-        self.buttons.append(Button((752, 584), (500, 50), pygame.image.load(constantes.option).convert_alpha()))
-        self.buttons[-1].callback = (self.launch, "options")
-        self.buttons.append(Button((702, 524), (500, 50), pygame.image.load(constantes.credits_path).convert_alpha()))
-        self.buttons[-1].callback = (self.launch, "credits")
-        self.buttons.append(Button((802, 644), (500, 50), pygame.image.load(constantes.quit_path).convert_alpha()))
-        self.buttons[-1].callback = (self.launch, "quit")
+
+        self.buttons.append(
+            Button(
+                (652, 464), (500, 50),
+                pygame.image.load(constantes.joue).convert_alpha(),
+                self.launch, toLaunch="game"
+            )
+        )
+        self.buttons.append(
+            Button(
+                (752, 584), (500, 50),
+                pygame.image.load(constantes.option).convert_alpha(),
+                self.launch, toLaunch="options"
+            )
+        )
+        self.buttons.append(
+            Button(
+                (702, 524), (500, 50),
+                pygame.image.load(constantes.credits_path).convert_alpha(),
+                self.launch, toLaunch="credits"
+            )
+        )
+        self.buttons.append(
+            Button(
+                (802, 644), (500, 50),
+                pygame.image.load(constantes.quit_path).convert_alpha(),
+                self.launch, toLaunch="quit"
+            )
+        )
 
     def loop(self):
         """The bit of code called at each iteration"""

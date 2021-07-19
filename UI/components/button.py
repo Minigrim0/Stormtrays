@@ -4,12 +4,19 @@ import pygame
 class Button:
     """A button that can be clicked and may induce a callback"""
 
-    def __init__(self, pos: tuple, size: tuple, image: pygame.Surface = None):
+    def __init__(self, pos: tuple, size: tuple, image: pygame.Surface = None, callback: callable = None, *cargs, **ckwargs):
         self.pos = pos
         self.size = size
         self.image = image
         self.rect = pygame.Rect(self.pos, self.size)
-        self.callback: callable = None
+        self.callback: callable = callback
+        self.cargs = cargs
+        self.ckwargs = ckwargs
+
+    def setCallaback(self, callback: callable, *cargs, **ckwargs):
+        self.callback = callback
+        self.cargs = cargs
+        self.ckwargs = ckwargs
 
     def draw(self, screen):
         """Draws the button on the screen"""
@@ -22,10 +29,7 @@ class Button:
     def click(self, pos: tuple):
         """Execute the callback if the position collide the button"""
         if self.collide(pos) and self.callback is not None:
-            if type(self.callback) is tuple:
-                self.callback[0](*self.callback[1:])
-            else:
-                self.callback()
+            self.callback(*self.cargs, **self.ckwargs)
 
     def move(self, offset: tuple):
         """Moves a button by the given offset"""

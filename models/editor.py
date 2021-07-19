@@ -20,7 +20,7 @@ class Editor:
         """Returns the model's instance, creating it if needed"""
         if Editor.instance is None:
             Editor()
-        return Editor.instance()
+        return Editor.instance
 
     def __init__(self):
         if Editor.instance is not None:
