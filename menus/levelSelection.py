@@ -25,6 +25,7 @@ class LevelSelectMenu(Menu, Runnable):
         self.semiThing = pg.image.load(constants.sombre).convert_alpha()
 
         self.buttons.append(Button((654, 0), (500, 50), pg.image.load(constants.retour).convert_alpha(), self.back))
+
         self.cards: [Card] = []
         self.load()
 
@@ -68,7 +69,7 @@ class LevelSelectMenu(Menu, Runnable):
         """Handles the user inputs"""
         for event in super().handleEvent():
             if event.type == pg.locals.KEYDOWN and event.key == pg.locals.K_ESCAPE:
-                self.running = False
+                self.back()
 
             if event.type == pg.locals.MOUSEBUTTONDOWN:
                 if event.button == 1:
