@@ -91,5 +91,7 @@ class OptionMenu(Menu, Runnable):
 
     def quitMenu(self):
         """Quits the option menu"""
-        Animation("animations/optionsToMain.json", self.screen)()
+        anim = Animation("animations/mainToOptions.json", self.screen)
+        anim.invert()
+        anim()
         self.running = False

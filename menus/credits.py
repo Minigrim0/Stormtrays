@@ -54,5 +54,7 @@ class CreditsMenu(Menu, Runnable):
 
     def back(self):
         """Quits the credits menu"""
-        Animation("animations/creditsToMain.json", self.screen)()
+        anim = Animation("animations/mainToCredits.json", self.screen)
+        anim.invert()
+        anim()
         self.running = False
