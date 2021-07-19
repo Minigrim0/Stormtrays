@@ -22,30 +22,34 @@ class MainMenu(Menu, Runnable):
 
         self.buttons.append(
             Button(
-                (652, 464), (500, 50),
-                pygame.image.load(constantes.joue).convert_alpha(),
-                self.launch, toLaunch="game"
+                (652, 464), (500, 50), pygame.image.load(constantes.joue).convert_alpha(), self.launch, toLaunch="game"
             )
         )
         self.buttons.append(
             Button(
-                (752, 584), (500, 50),
+                (752, 584),
+                (500, 50),
                 pygame.image.load(constantes.option).convert_alpha(),
-                self.launch, toLaunch="options"
+                self.launch,
+                toLaunch="options",
             )
         )
         self.buttons.append(
             Button(
-                (702, 524), (500, 50),
+                (702, 524),
+                (500, 50),
                 pygame.image.load(constantes.credits_path).convert_alpha(),
-                self.launch, toLaunch="credits"
+                self.launch,
+                toLaunch="credits",
             )
         )
         self.buttons.append(
             Button(
-                (802, 644), (500, 50),
+                (802, 644),
+                (500, 50),
                 pygame.image.load(constantes.quit_path).convert_alpha(),
-                self.launch, toLaunch="quit"
+                self.launch,
+                toLaunch="quit",
             )
         )
 
@@ -85,6 +89,7 @@ class MainMenu(Menu, Runnable):
             optionMenu = OptionMenu(self.screen)
             optionMenu()
         elif toLaunch == "credits":
+            Animation("animations/mainToCredits.json", self.screen)()
             creditsMenu = CreditsMenu(self.screen)
             creditsMenu()
         else:
