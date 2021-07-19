@@ -8,6 +8,7 @@ from menus.menu import Menu
 from menus.levelSelection import LevelSelectMenu
 from menus.quit import QuitMenu
 from menus.options import OptionMenu
+from menus.credits import CreditsMenu
 
 
 class MainMenu(Menu, Runnable):
@@ -60,5 +61,8 @@ class MainMenu(Menu, Runnable):
         elif toLaunch == "options":
             optionMenu = OptionMenu(self.screen)
             optionMenu()
+        elif toLaunch == "credits":
+            creditsMenu = CreditsMenu(self.screen)
+            creditsMenu()
         else:
             print(f"Launching {toLaunch}")

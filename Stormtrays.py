@@ -1,10 +1,8 @@
 import pygame
 import pygame.locals
 import glob
-import os
 import random
 import src.constantes as constantes
-from src.classes import Levels
 from models.level import Level
 from src.invocation import Invocation
 from src.ennemis import Ennemi_IG
@@ -229,38 +227,6 @@ randomVarTF = True
 
 
 if True:
-
-    while Credits_Anim:
-
-        # Musique
-        game.play_music()
-
-        i = 0
-        while i <= 2900:
-
-            screen.flip()
-            screen.blit(Fond_Menu_Principal, (0, 0))
-            screen.blit(Credits, (0, 0 - i))
-            i += 2
-
-            for event in screen.getEvent():
-
-                if event.type == pygame.locals.KEYDOWN and event.key == pygame.locals.K_ESCAPE:
-
-                    Credits_Anim = False
-                    i = 3000
-
-                if event.type == pygame.locals.MOUSEBUTTONDOWN:
-
-                    if event.button == 5:
-                        i += 40
-                    elif event.button == 4:
-                        i -= 40
-
-        Menu_Principal = True
-        Credits_Anim = False
-
-    # --------------------------------------------------------------------------------------------------------------------------------------------
 
     # Si jeu est actif (action unique)
     if jeu:
