@@ -8,7 +8,7 @@ from menus.menu import Menu
 from src.runnable import Runnable
 
 from UI.components.button import Button
-from animations.animation import Animation
+from UI.animations.animation import Animation
 
 
 class OptionMenu(Menu, Runnable):
@@ -91,7 +91,7 @@ class OptionMenu(Menu, Runnable):
 
     def quitMenu(self):
         """Quits the option menu"""
-        anim = Animation("animations/mainToOptions.json", self.screen)
+        anim = Animation("UI/animations/mainToOptions.json", self.screen)
         anim.invert()
         anim()
         self.running = False

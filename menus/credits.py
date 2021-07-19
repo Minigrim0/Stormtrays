@@ -9,7 +9,7 @@ from models.screen import Screen
 
 from menus.menu import Menu
 
-from animations.animation import Animation
+from UI.animations.animation import Animation
 
 
 class CreditsMenu(Menu, Runnable):
@@ -54,7 +54,7 @@ class CreditsMenu(Menu, Runnable):
 
     def back(self):
         """Quits the credits menu"""
-        anim = Animation("animations/mainToCredits.json", self.screen)
+        anim = Animation("UI/animations/mainToCredits.json", self.screen)
         anim.invert()
         anim()
         self.running = False
