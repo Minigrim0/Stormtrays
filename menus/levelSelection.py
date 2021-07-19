@@ -30,7 +30,7 @@ class LevelSelectMenu(Menu, Runnable):
     def load(self):
         """Generates the levels' cards"""
         Compteur = 60
-        for level in glob.glob("level/*.json"):
+        for index, level in enumerate(glob.glob("level/*.json")):
             with open(level) as f:
                 data = json.load(f)
 
@@ -40,7 +40,7 @@ class LevelSelectMenu(Menu, Runnable):
                 img = pg.image.load("UI/assets/images/missing.png").convert_alpha()
 
             file = os.path.splitext(os.path.split(level)[1])[0]
-            level = Card((1152 / 2 + 10, Compteur), (500, 110), img, "Level ?", "Level level !")
+            level = Card((1152 / 2 + 10, Compteur), (500, 110), img, file, f"Level {index + 1}")
             level.callback = (self.runLevel, file)
 
             self.cards.append(level)
