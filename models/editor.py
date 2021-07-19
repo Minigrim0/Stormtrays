@@ -153,7 +153,7 @@ class Editor:
             dirname, filename = os.path.split(full_path)
             filename, _ext = os.path.splitext(filename)
 
-            thumbnail_path = os.path.join(dirname, "thumbnails", filename + ".png")
+            thumbnail_path = os.path.join("img/thumbnails", filename + ".png")
             pygame.image.save(sub, thumbnail_path)
 
             self.level.sauve(full_path, thumbnail_path)
