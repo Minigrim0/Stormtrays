@@ -1,10 +1,11 @@
 {
-"Name" : "Dwarf",
-"Img" : "../Img/Ennemis/Nain/Dwarf1.png",
-"ImgFolder" : "../Img/Ennemis/Nain/*.png",
-"ImgFolderRet" : "../Img/Ennemis/Nain/Ret/*.png",
-"DeathSound" : "../musique/mort-Goblin.wav",
-"Height" : 64,
-"LifePts" : 100,
-"Speed" : 1
+    "Name" : "Dwarf",
+    "Img" : "../Img/Ennemis/Nain/Dwarf1.png",
+    "ImgFolder" : "../Img/Ennemis/Nain/*.png",
+    "ImgFolderRet" : "../Img/Ennemis/Nain/Ret/*.png",
+    "DeathSound" : "../musique/mort-Goblin.wav",
+    "Height" : 64,
+    "LifePts" : 100,
+    "Speed" : 1,
+    "weight": 2
 }
