@@ -2,7 +2,7 @@ import json
 import pygame
 
 import src.constantes as consts
-
+from src.tile import Tile
 from src.exceptions.invalidPositionException import InvalidPositionException
 
 
@@ -25,6 +25,8 @@ class Level:
             raise RuntimeError("This class is a singleton")
         Level.instance = self
 
+        self.tiles = {}
+
         images = [
             (consts.chem1, "c1"),
             (consts.tour2, "t2"),
@@ -35,17 +37,12 @@ class Level:
             (consts.Vide1, "v1"),
         ]
 
-        self.img = {}
-        self.editorImage = {}
+        for path, code in images:
+            self.tiles[code] = Tile(
+                code, (pg.image.load(path[0]).convert_alpha(), pg.image.load(path[1]).convert_alpha())
+            )
 
-        for path, id in images:
-            self.img[id, 0] = pygame.image.load(path[0]).convert_alpha()
-            self.editorImage[id, 0] = pygame.image.load(path[1]).convert_alpha()
-            for rot in [90, 180, 270]:
-                self.img[id, rot] = pygame.transform.rotate(self.img[id, 0], rot)
-                self.editorImage[id, rot] = pygame.transform.rotate(self.editorImage[id, 0], rot)
-
-        self.editorImage["QG", 0] = pygame.image.load("img/QuestGiverF1.png").convert_alpha()
+        # self.editorImage["QG", 0] = pg.image.load("img/QuestGiverF1.png").convert_alpha()
 
         self.gold = 500
         self.Vie_Chateau = 100
