@@ -25,7 +25,7 @@ class Stormtrays:
             raise RuntimeError("This class is a Singleton!")
         Stormtrays.instance = self
 
-        self.screen = Screen.getInstance((1152, 704), "StormTarys", constants.IconImg, False)
+        self.screen = Screen.getInstance((1152, 704), "Stormtrays", constants.IconImg, False)
 
         GameOptions.getInstance().load()
 
