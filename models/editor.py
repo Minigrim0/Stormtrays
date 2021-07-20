@@ -137,7 +137,7 @@ class Editor:
         """Loads an already created level to be modified/cloned"""
         filename = filedialog.askopenfilename(initialdir="levels", defaultextension=".json")
         if filename:
-            self.level.construit(filename)
+            self.level.build(filename)
         self.choice = "  "
 
     def save(self):
@@ -156,7 +156,7 @@ class Editor:
             thumbnail_path = os.path.join("levels/thumbnails", filename + ".png")
             pygame.image.save(sub, thumbnail_path)
 
-            self.level.sauve(full_path, thumbnail_path)
+            self.level.save(full_path, thumbnail_path)
 
         self.choice = "  "
 

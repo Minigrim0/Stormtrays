@@ -65,7 +65,7 @@ class Level:
             for _ in range(11):
                 self.map[x].append(("  ", 0))
 
-    def sauve(self, nomfichier: str, thumbnail_path: str):
+    def save(self, nomfichier: str, thumbnail_path: str):
         """Saves the level
 
         Args:
@@ -77,7 +77,7 @@ class Level:
         with open(nomfichier, "w") as f:
             f.write(json.dumps(level))
 
-    def construit(self, nomfichier):
+    def build(self, nomfichier):
         """Builds the level from a file
 
         Args:
