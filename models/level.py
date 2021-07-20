@@ -1,5 +1,5 @@
 import json
-import pygame
+import pygame as pg
 
 import src.constantes as consts
 from src.tile import Tile
@@ -47,7 +47,7 @@ class Level:
         self.gold = 500
         self.Vie_Chateau = 100
         self.Nombre_Ennemis_Tue = 0
-        self.background = pygame.image.load("img/fond.png").convert_alpha()
+        self.background: pg.Surface = pg.image.load("img/fond.png").convert_alpha()
         self.backgroundName = "fond1"
         self.size = [18, 11]
 
@@ -91,23 +91,23 @@ class Level:
                     rot = l[x * 4 + 2]
                     self.map[x, y] = img, int(rot) * 90
 
-        self.FondFenetre = pygame.Surface((1152, 704))
+        self.FondFenetre = pg.Surface((1152, 704))
 
-        fondimgf = pygame.transform.scale(self.background, (int(1152), int(704)))
+        fondimgf = pg.transform.scale(self.background, (int(1152), int(704)))
         self.FondFenetre.blit(fondimgf, (0, 0))
         for y in range(11):
             for x in range(18):
                 lettre, rot = self.map[x, y]
                 if lettre not in ("  ", "k1", "QG"):
-                    img = pygame.transform.scale(self.img[lettre, rot], (int(65), int(65)))
+                    img = pg.transform.scale(self.img[lettre, rot], (int(65), int(65)))
                     self.FondFenetre.blit(img, (int((x * 64)), int((y * 64))))
                 elif lettre == "k1":
                     if rot in (90, 270):
-                        img = pygame.transform.scale(self.img[lettre, rot], (64, 3 * 64))
+                        img = pg.transform.scale(self.img[lettre, rot], (64, 3 * 64))
                         self.FondFenetre.blit(img, (int((x * 64)), int((y * 64))))
                         self.pos_Chateau = [x, y + 1]
                     else:
-                        img = pygame.transform.scale(self.img[lettre, rot], (3 * 64, 64))
+                        img = pg.transform.scale(self.img[lettre, rot], (3 * 64, 64))
                         self.FondFenetre.blit(img, (int((x * 64)), int((y * 64))))
                         self.pos_Chateau = [x + 1, y]
 
