@@ -5,7 +5,7 @@ from src.runnable import Runnable
 
 from models.screen import Screen
 
-from UI.animations.animated_element import Animated
+from UI.components.animated_element import Animated
 
 
 class Animation(Runnable):
