@@ -60,9 +60,9 @@ class Level:
     def empty(self):
         """Empties the level"""
         self.map = []
-        for x in range(18):
+        for x in range(self.size[0]):
             self.map.append([])
-            for _ in range(11):
+            for _ in range(self.size[1]):
                 self.map[x].append(("  ", 0))
 
     def save(self, nomfichier: str, thumbnail_path: str):
@@ -84,12 +84,10 @@ class Level:
             nomfichier ([type]): [description]
         """
         with open(nomfichier) as f:
-            self.map = {}
-            for y, l in enumerate(f):
-                for x in range(18):
-                    img = l[x * 4 : x * 4 + 2]
-                    rot = l[x * 4 + 2]
-                    self.map[x, y] = img, int(rot) * 90
+            data = json.load(f)
+            self.map = data["map"]
+            self.background = pg.image.load(data["background"])
+            self.size = data["size"]
 
         self.FondFenetre = pg.Surface((1152, 704))
 
@@ -112,22 +110,6 @@ class Level:
                         self.pos_Chateau = [x + 1, y]
 
             self.FondFenetre.blit(self.nanim, (self.posx, self.posy))
-
-    def deffond(self, nomfichier):
-        """Defines the background of the current level
-
-        Args:
-            nomfichier ([type]): [description]
-        """
-        with open(nomfichier + "_Pref.txt", "r") as f:
-            imagetl = f.read()
-        image = ""
-        for char in imagetl:
-            if char != "\n":
-                image += char
-            else:
-                break
-        self.background = pygame.image.load(image).convert_alpha()
 
     def placeTile(self, position: tuple, tile):
         """Places a tile at the given coordinates
