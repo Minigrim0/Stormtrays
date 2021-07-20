@@ -8,7 +8,7 @@ class Menu:
     """The base class for all menus"""
 
     def __init__(self, screen: Screen, background: callable = None):
-        self.buttons: [Button] = []
+        self.buttons: {Button} = {}
         self.screen = screen
         self.backgroundCallback: callable = background
 
@@ -26,14 +26,14 @@ class Menu:
 
         self._draw()
 
-        for button in self.buttons:
+        for button in self.buttons.values():
             button.draw(self.screen)
 
     def handleEvent(self):
         """Handles pygame events and yields it to the calling method"""
         for event in self.screen.getEvent():
             if event.type == MOUSEBUTTONDOWN and event.button == 1:
-                for button in self.buttons:
+                for button in self.buttons.values():
                     button.click(event.pos)
 
             yield event
