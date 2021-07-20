@@ -1,10 +1,9 @@
-import time
 import json
 import pygame
 
 import src.constantes as consts
 
-from exceptions.invalidPositionException import InvalidPositionException
+from src.exceptions.invalidPositionException import InvalidPositionException
 
 
 class Level:
@@ -53,7 +52,7 @@ class Level:
         self.Nombre_Ennemis_Tue = 0
         self.background = pygame.image.load("img/fond.png").convert_alpha()
         self.backgroundName = "fond1"
-        self.size = {"x": 18, "y": 11}
+        self.size = [18, 11]
 
         self.GoldTab = []
         self.pos_Chateau = None

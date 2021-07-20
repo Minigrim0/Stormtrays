@@ -7,7 +7,7 @@ from models.screen import Screen
 from models.level import Level
 
 import src.constantes as consts
-from exceptions.invalidPositionException import InvalidPositionException
+from src.exceptions.invalidPositionException import InvalidPositionException
 
 
 class Editor:
