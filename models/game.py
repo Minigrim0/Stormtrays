@@ -3,7 +3,7 @@ import random
 import pygame
 
 import src.constantes as constants
-from menus.main import MainMenu
+from UI.menus.main import MainMenu
 from models.screen import Screen
 from models.gameOptions import GameOptions
 

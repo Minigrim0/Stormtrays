@@ -4,7 +4,7 @@ import src.constantes as constants
 
 from models.gameOptions import GameOptions
 
-from menus.menu import Menu
+from UI.menus.menu import Menu
 from src.runnable import Runnable
 
 from UI.components.button import Button

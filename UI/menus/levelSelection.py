@@ -4,7 +4,7 @@ import json
 
 import pygame as pg
 
-from menus.menu import Menu
+from UI.menus.menu import Menu
 from src.runnable import Runnable
 import src.constantes as constants
 

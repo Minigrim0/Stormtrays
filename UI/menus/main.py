@@ -5,11 +5,11 @@ from src.runnable import Runnable
 
 from models.gameOptions import GameOptions
 
-from menus.menu import Menu
-from menus.levelSelection import LevelSelectMenu
-from menus.quit import QuitMenu
-from menus.options import OptionMenu
-from menus.credits import CreditsMenu
+from UI.menus.menu import Menu
+from UI.menus.levelSelection import LevelSelectMenu
+from UI.menus.quit import QuitMenu
+from UI.menus.options import OptionMenu
+from UI.menus.credits import CreditsMenu
 
 from UI.components.button import Button
 from UI.animations.animation import Animation

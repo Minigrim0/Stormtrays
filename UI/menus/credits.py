@@ -5,7 +5,7 @@ from src.runnable import Runnable
 
 from models.gameOptions import GameOptions
 
-from menus.menu import Menu
+from UI.menus.menu import Menu
 
 from UI.components.button import Button
 from UI.animations.animation import Animation
