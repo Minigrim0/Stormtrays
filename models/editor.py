@@ -125,7 +125,7 @@ class Editor(Runnable):
     def loadLevel(self):
         """Loads an already created level to be modified/cloned"""
         options = GameOptions.getInstance()
-        filename = filedialog.askopenfilename(initialdir=options["levels"], defaultextension=".json")
+        filename = filedialog.askopenfilename(initialdir=options["paths"]["levels"], defaultextension=".json")
         if filename:
             self.level.build(filename)
         self.choice = None
@@ -133,7 +133,7 @@ class Editor(Runnable):
     def save(self):
         """Saves the current level"""
         options = GameOptions.getInstance()
-        full_path = filedialog.asksaveasfilename(initialdir=options["levels"], defaultextension=".json")
+        full_path = filedialog.asksaveasfilename(initialdir=options["paths"]["levels"], defaultextension=".json")
         if full_path:
             self.level.draw(self.screen)
 
@@ -143,7 +143,7 @@ class Editor(Runnable):
             dirname, filename = os.path.split(full_path)
             filename, _ext = os.path.splitext(filename)
 
-            thumbnail_path = os.path.join("levels/thumbnails", filename + ".png")
+            thumbnail_path = os.path.join(options.fullPath("levels", "thumbnails"), filename + ".png")
             pygame.image.save(sub, thumbnail_path)
 
             self.level.save(full_path, thumbnail_path)
