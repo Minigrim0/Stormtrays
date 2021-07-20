@@ -127,7 +127,7 @@ class Editor(Runnable):
         options = GameOptions.getInstance()
         filename = filedialog.askopenfilename(initialdir=options["paths"]["levels"], defaultextension=".json")
         if filename:
-            self.level.build(filename)
+            self.level.build(filename, editor=True)
         self.choice = None
 
     def save(self):
