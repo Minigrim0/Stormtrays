@@ -73,7 +73,7 @@ class OptionMenu(Menu, Runnable):
         options = GameOptions.getInstance()
 
         self.Diffictxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
-            "Difficulté : {}".format(options.difficulty), 1, (255, 50, 20)
+            "Difficulté : {}".format(options.difficulty), 1, (0, 0, 0)
         )
 
     def updateVolume(self, value: int):
@@ -82,7 +82,7 @@ class OptionMenu(Menu, Runnable):
         options = GameOptions.getInstance()
 
         self.Volumetxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
-            "Volume : {}".format(int(options.volume * 10)), 1, (255, 50, 20)
+            "Volume : {}".format(int(options.volume * 10)), 1, (0, 0, 0)
         )
 
     def quitMenu(self):

@@ -39,7 +39,7 @@ class GameOptions:
     def changeDifficulty(self, value):
         """Changes the difficulty of the game from the given amount (and makes sure it's in its bounds)"""
         self.difficulty += value
-        self.difficulty = bound(0, 10, self.difficulty)
+        self.difficulty = bound(1, 10, self.difficulty)
 
     def changeVolume(self, value):
         """Modifies the volume options, and updates it in pygame (and makes sure it's in its bounds)"""
