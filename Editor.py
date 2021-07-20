@@ -7,10 +7,18 @@ import src.constantes as constantes
 
 from models.screen import Screen
 from models.editor import Editor
+from models.gameOptions import GameOptions
 
 pygame.init()
 
-screen = Screen((constantes.WINDOW_WIDTH + 158, constantes.WINDOW_HEIGHT), "Stormtray's Editor", "img/Icon.png", False)
+options = GameOptions.getInstance()
+options.load()
+screen = Screen(
+    (constantes.WINDOW_WIDTH + 158, constantes.WINDOW_HEIGHT),
+    "Stormtray's Editor",
+    options.fullPath("images", "Icon.png"),
+    False,
+)
 
 root = tkinter.Tk()
 root.withdraw()
