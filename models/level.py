@@ -139,18 +139,12 @@ class Level:
             screen (Screen): The screen to blit the level on
         """
         screen.blit(self.background, (0, 0))
-        for y in range(self.size[1]):
-            for x in range(self.size[0]):
-                if self.map[x][y] is not None:
-                    self.map[x][y].draw(screen, editor=editor)
 
-    def affichem(self, fenetre):
-        """Draws the background
-
-        Args:
-            fenetre ([type]): [description]
-        """
-        fenetre.blit(self.FondFenetre, (0, 0))
+        if editor:
+            for y in range(self.size[1]):
+                for x in range(self.size[0]):
+                    if self.map[x][y] is not None:
+                        self.map[x][y].draw(screen, editor=editor)
 
     def Set_Difficulty(self, Difficulte):
         """Changes variables relative to the diffculty information
