@@ -6,7 +6,8 @@ from src.screen import Screen
 class Tile:
     """Represents a tile from the editor"""
 
-    def __init__(self, image: tuple, position: tuple, rotation: int):
+    def __init__(self, code: str, image: tuple, position: tuple = None, rotation: int = 0):
+        self.code = code
         self.image = image
         self.rotation = rotation
         self.position = position
@@ -25,3 +26,6 @@ class Tile:
                 tile or a game tile. Defaults to False.
         """
         screen.blit(self.image[int(editor)], self.position)
+
+    def __repr__(self):
+        return {"code": self.code, "rotation": self.rotation}
