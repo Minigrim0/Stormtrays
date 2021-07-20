@@ -1,4 +1,11 @@
 {
+    "paths": {
+        "levels": "assets/levels/",
+        "ennemies": "assets/ennemies/",
+        "towers": "assets/towers",
+        "img": "assets/img",
+    },
+    "levels"
     "First_Open" : 0,
     "Volume" : 5,
     "Difficulty" : 5,
