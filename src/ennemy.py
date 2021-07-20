@@ -6,7 +6,7 @@ import json
 import glob
 
 
-class Ennemi_IG:
+class EnnemyDO:
     """Represent an in game ennemy, keeps the health etc..."""
 
     def __init__(self, FichierEnnemi):
