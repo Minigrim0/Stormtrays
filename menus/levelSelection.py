@@ -17,11 +17,10 @@ from UI.animations.animation import Animation
 class LevelSelectMenu(Menu, Runnable):
     """The level selection menu"""
 
-    def __init__(self, screen):
-        super().__init__(screen)
+    def __init__(self, screen, background: callable = None):
+        super().__init__(screen, background)
         self.scrollAmount = 60
 
-        self.background = pg.image.load(constants.fondm).convert_alpha()
         self.semiThing = pg.image.load(constants.sombre).convert_alpha()
 
         self.buttons.append(Button((654, 0), (500, 50), pg.image.load(constants.retour).convert_alpha(), self.back))
@@ -57,11 +56,9 @@ class LevelSelectMenu(Menu, Runnable):
 
         self.handleEvent()
 
-    def draw(self):
+    def _draw(self):
         """Draws the buttons/images on screen and refreshes it"""
-        self.screen.blit(self.background, (0, 0))
         self.screen.blit(self.semiThing, (0, 0))
-        super().draw()
 
         for card in self.cards:
             card.draw(self.screen)

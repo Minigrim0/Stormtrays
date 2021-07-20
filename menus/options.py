@@ -14,8 +14,8 @@ from UI.animations.animation import Animation
 class OptionMenu(Menu, Runnable):
     """The menu of options"""
 
-    def __init__(self, screen):
-        super().__init__(screen)
+    def __init__(self, screen, background: callable = None):
+        super().__init__(screen, background)
 
         self.background = pg.image.load(constants.fondm).convert_alpha()
         self.Fond_Menu_Opt = pg.image.load(constants.Fond_Menu_Opti).convert_alpha()
@@ -55,16 +55,12 @@ class OptionMenu(Menu, Runnable):
 
         self.handleEvent()
 
-    def draw(self):
-        """Draws the buttons/images on screen"""
-        self.screen.blit(self.background, (0, 0))
-
+    def _draw(self):
+        """Draws the buttons/images on screen, called by Menu class, in between background and buttons"""
         self.screen.blit(self.Fond_Menu_Opt, (386, 142))
         self.screen.blit(self.OptionsTxt, (386, 132))
         self.screen.blit(self.Volumetxt, (410, 302))
         self.screen.blit(self.Diffictxt, (410, 347))
-
-        super().draw()
 
     def handleEvent(self):
         """Handles user inputs"""

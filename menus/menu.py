@@ -7,9 +7,10 @@ from models.screen import Screen
 class Menu:
     """The base class for all menus"""
 
-    def __init__(self, screen: Screen):
+    def __init__(self, screen: Screen, background: callable = None):
         self.buttons: [Button] = []
         self.screen = screen
+        self.backgroundCallback: callable = background
 
     @staticmethod
     def loop():
@@ -20,6 +21,11 @@ class Menu:
 
     def draw(self):
         """Draws the menu's buttons on screen"""
+        if self.backgroundCallback is not None:
+            self.backgroundCallback()
+
+        self._draw()
+
         for button in self.buttons:
             button.draw(self.screen)
 
@@ -31,3 +37,6 @@ class Menu:
                     button.click(event.pos)
 
             yield event
+
+    def _draw(self):
+        raise NotImplementedError()

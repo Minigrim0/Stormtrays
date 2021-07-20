@@ -15,11 +15,10 @@ from UI.animations.animation import Animation
 class CreditsMenu(Menu, Runnable):
     """The menu that shows the game's credits"""
 
-    def __init__(self, screen: Screen):
-        super().__init__(screen)
+    def __init__(self, screen: Screen, background: callable = None):
+        super().__init__(screen, background)
 
         self.scroll = 0
-        self.background = pg.image.load(constants.fondm)
         self.credits = pg.image.load(constants.Credits)
         self.buttons.append(Button((702, 654), (500, 50), pg.image.load(constants.retour).convert_alpha(), self.back))
 
@@ -33,12 +32,10 @@ class CreditsMenu(Menu, Runnable):
 
         self.handleEvent()
 
-    def draw(self):
+    def _draw(self):
         """Draws the buttons/images on screen"""
-        self.screen.blit(self.background, (0, 0))
         self.screen.blit(self.credits, (0, -self.scroll))
         self.scroll += 20 * self.screen.timeElapsed
-        super().draw()
 
     def handleEvent(self):
         """Handles the user inputs"""

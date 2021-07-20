@@ -16,8 +16,8 @@ from UI.animations.animation import Animation
 class MainMenu(Menu, Runnable):
     """The main menu class"""
 
-    def __init__(self, screen):
-        super().__init__(screen)
+    def __init__(self, screen, background: callable = None):
+        super().__init__(screen, background)
         self.background = pygame.image.load(constantes.fondm).convert_alpha()
 
         self.buttons.append(
@@ -62,10 +62,9 @@ class MainMenu(Menu, Runnable):
 
         self.handleEvent()
 
-    def draw(self):
+    def _draw(self):
         """Draws the buttons/images on screen"""
         self.screen.blit(self.background, (0, 0))
-        super().draw()
 
     def handleEvent(self):
         """Handles the user inputs"""
@@ -81,18 +80,16 @@ class MainMenu(Menu, Runnable):
         """
         if toLaunch == "game":
             Animation("UI/animations/mainToSelect.json", self.screen)()
-            LevelSelectMenu(self.screen)()
+            LevelSelectMenu(self.screen, self._draw)()
         elif toLaunch == "quit":
-            quitMenu = QuitMenu(self.screen)
+            quitMenu = QuitMenu(self.screen, self._draw)
             if quitMenu() == "q":
                 self.running = False
         elif toLaunch == "options":
             Animation("UI/animations/mainToOptions.json", self.screen)()
-            optionMenu = OptionMenu(self.screen)
-            optionMenu()
+            OptionMenu(self.screen, self._draw)()
         elif toLaunch == "credits":
             Animation("UI/animations/mainToCredits.json", self.screen)()
-            creditsMenu = CreditsMenu(self.screen)
-            creditsMenu()
+            CreditsMenu(self.screen, self._draw)()
         else:
             print(f"Launching {toLaunch}")

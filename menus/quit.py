@@ -10,8 +10,8 @@ import src.constantes as constants
 class QuitMenu(Menu, Runnable):
     """A menu for the user to confirm his choice to quit the game"""
 
-    def __init__(self, screen):
-        super().__init__(screen)
+    def __init__(self, screen, background: callable = None):
+        super().__init__(screen, background)
 
         self.buttons.append(
             Button((516, 297), (120, 50), pg.image.load(constants.reprise).convert_alpha(), self.cancel)
@@ -20,7 +20,6 @@ class QuitMenu(Menu, Runnable):
             Button((516, 367), (120, 50), pg.image.load(constants.quitpaus).convert_alpha(), self.confirm)
         )
 
-        self.background = pg.image.load(constants.fondm).convert_alpha()
         self.confirmQuit = pg.image.load(constants.ConfirmQuit).convert_alpha()
 
         self.toReturn: str = None  # Either "q" or "c"
@@ -38,11 +37,9 @@ class QuitMenu(Menu, Runnable):
 
         self.screen.flip()
 
-    def draw(self):
+    def _draw(self):
         """Draws the buttons/images on screen and refreshes it"""
-        self.screen.blit(self.background, (0, 0))
         self.screen.blit(self.confirmQuit, (376, 152))
-        super().draw()
 
     def handleEvent(self):
         """Handles the user inputs"""
