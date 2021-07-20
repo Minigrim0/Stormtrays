@@ -2,8 +2,8 @@
     "paths": {
         "levels": "assets/levels/",
         "ennemies": "assets/ennemies/",
-        "towers": "assets/towers",
-        "img": "assets/img",
+        "towers": "assets/towers/",
+        "images": "assets/images/"
     },
     "Game": {
         "First_Open" : 0,
