@@ -96,7 +96,6 @@ class Level:
         options = GameOptions.getInstance()
         with open(nomfichier) as f:
             data = json.load(f)
-            print("Loading", options.fullPath("images", f'Fond/{data["background"]}.png'))
             self.background = pg.image.load(data["background"])
             self.size = data["size"]
             self.initMap()
