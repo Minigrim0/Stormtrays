@@ -2,6 +2,8 @@ import pygame
 import src.constantes as const
 from UI.components.button import Button
 
+from models.gameOptions import GameOptions
+
 
 class EditorUI:
     """The UI of the editor"""
@@ -11,8 +13,9 @@ class EditorUI:
         self.vert_line = pygame.Surface((1, const.WINDOW_WIDTH))
         self.hori_line = pygame.Surface((const.WINDOW_WIDTH, 1))
 
+        options = GameOptions.getInstance()
         self.fond = pygame.image.load(const.fond).convert_alpha()
-        self.QGImg = pygame.image.load("img/QuestGiverF1.png").convert_alpha()
+        self.QGImg = pygame.image.load(options.fullPath("images", "QuestGiverF1.png")).convert_alpha()
 
         self.fond_Edit = None
 
