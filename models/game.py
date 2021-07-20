@@ -26,13 +26,14 @@ class Game:
         Game.instance = self
 
         self.screen = Screen.getInstance((1152, 704), "StormTarys", constants.IconImg, False)
-        self.mainMenu = MainMenu(self.screen)
+
+        GameOptions.getInstance().load()
 
         self.songList = []
         for song in glob.glob("../musique/Themes/*.wav"):
             self.songList.append(song)
 
-        GameOptions.getInstance().load()
+        self.mainMenu = MainMenu(self.screen)
 
     def playMusic(self):
         """Plays the next song if the current one is finished"""
