@@ -28,7 +28,7 @@ class LevelSelectMenu(Menu, Runnable):
         self.buttons["back"] = Button(
             (654, 0),
             (500, 50),
-            pg.image.load(f"{options['paths']['images']}Boutons/MenuButton.png").convert_alpha(),
+            pg.image.load(options.fullPath("images", "Boutons/MenuButton.png")).convert_alpha(),
             self.back,
         )
         self.buttons["back"].build("Retour", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
@@ -40,7 +40,8 @@ class LevelSelectMenu(Menu, Runnable):
         """Generates the levels' cards"""
         Compteur = 60
         options = GameOptions.getInstance()
-        for index, level in enumerate(glob.glob(f"{options['paths']['levels']}*.json")):
+        print(options.fullPath("levels", "/*.json"))
+        for index, level in enumerate(glob.glob(options.fullPath("levels", "*.json"))):
             with open(level) as f:
                 data = json.load(f)
 

@@ -34,6 +34,10 @@ class GameOptions:
             return None
         return self.settings[category]
 
+    def fullPath(self, category, path):
+        print(f'self["paths"]["{category}"]', self["paths"][category])
+        return os.path.join(self["paths"][category], path)
+
     def load(self):
         """Loads the game's fonts"""
         for font in glob.glob("UI/assets/fonts/*/*.ttf"):
