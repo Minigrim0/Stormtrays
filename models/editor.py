@@ -115,10 +115,10 @@ class Editor(Runnable):
     def changeBackground(self):
         """Changes the level's background"""
         options = GameOptions.getInstance()
-        filename = filedialog.askopenfilename(initialdir=options.fullPath("images", "Fond"), defaultextension=".png")
+        filename = filedialog.askopenfilename(initialdir=options.fullPath("images", "levels"), defaultextension=".png")
         if filename:
-            self.UI.fond_Edit = os.path.relpath(filename)
-            self.UI.fond = pygame.image.load(self.UI.fond_Edit).convert_alpha()
+            self.level.backgroundName = os.path.relpath(filename)
+            self.level.background = pygame.image.load(self.level.backgroundName).convert_alpha()
 
         self.choice = None
 
