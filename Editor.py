@@ -23,6 +23,5 @@ screen = Screen(
 root = tkinter.Tk()
 root.withdraw()
 
-editor = Editor()
-
-editor.run(screen)
+editor = Editor(screen)
+editor()

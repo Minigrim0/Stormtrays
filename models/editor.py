@@ -9,12 +9,14 @@ from UI.menus.editor import EditorUI
 
 import src.constantes as consts
 from src.errors.invalidPositionException import InvalidPositionException
+from src.runnable import Runnable
 
 from models.screen import Screen
 from models.level import Level
+from models.gameOptions import GameOptions
 
 
-class Editor:
+class Editor(Runnable):
     """The editor class, that runs handles the displaying and update of the editor"""
 
     instance = None
@@ -26,7 +28,7 @@ class Editor:
             Editor()
         return Editor.instance
 
-    def __init__(self):
+    def __init__(self, screen: Screen):
         if Editor.instance is not None:
             raise RuntimeError("Trying to instanciate a second object from a singleton")
         Editor.instance = self
@@ -40,48 +42,36 @@ class Editor:
         for code in ["c1", "t2", "t1", "x1", "p1", "v1", "k1"]:
             self.UI.buttons[code].setCallback(self.setChoice, self.level.tiles[code])
 
-        self.running: bool = True
-
         self.choice: Tile = None
         self.mousePosition = (0, 0)
-        self.QGPos = None
-        self.screen = None
+        self.screen: Screen = screen
 
-    def run(self, screen: Screen):
-        """Shows the editor and handles the actions to create/save/load levels
+    def loop(self):
+        """Shows the editor and handles the actions to create/save/load levels"""
 
-        Args:
-            screen (Screen): The screen object to blit images
-        """
-        self.screen = screen
+        self.draw()
+        self.handleEvent()
 
-        while self.running:
-            self.draw(screen)
+        self.screen.flip()
 
-            for event in screen.getEvent():
-                self.handleEvent(event)
+    def handleEvent(self):
+        """Handles eventual events from the user"""
 
-    def handleEvent(self, event: pygame.event.Event):
-        """Handles eventual events from the user
+        for event in self.screen.getEvent():
+            if event.type == pygame.locals.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    self.UI.update(event)
+                    self.placeTile(event)
 
-        Args:
-            screen (Screen): [description]
-            event (pygame.event.Event): [description]
-        """
-        if event.type == pygame.locals.MOUSEBUTTONDOWN:
-            if event.button == 1:
-                self.UI.update(event)
-                self.placeTile(event)
+                if event.button == 3 and self.choice is not None:
+                    self.choice.rotate()
 
-            if event.button == 3 and self.choice is not None:
-                self.choice.rotate()
-
-        if event.type == pygame.locals.MOUSEMOTION:
-            self.mousePosition = (event.pos[0], event.pos[1])
-            if self.choice is not None:
-                self.choice.move(event.pos)
-            if event.buttons[0] == 1 and self.choice != "  ":
-                self.placeTile(event)
+            if event.type == pygame.locals.MOUSEMOTION:
+                self.mousePosition = (event.pos[0], event.pos[1])
+                if self.choice is not None:
+                    self.choice.move(event.pos)
+                if event.buttons[0] == 1 and self.choice != "  ":
+                    self.placeTile(event)
 
     def placeTile(self, event):
         """Places a tile on the map according to the event
@@ -106,22 +96,16 @@ class Editor:
         if self.choice == "QG":
             self.QGPos = (x * 64, y * 64)
 
-    def draw(self, screen: Screen):
-        """Draws the diffrent elements of the Editor on the screen
-
-        Args:
-            screen (Screen): The screen to blit the editor elements on
-        """
-        self.level.draw(screen, editor=True)
-        self.UI.draw(screen)
+    def draw(self):
+        """Draws the diffrent elements of the Editor on the screen"""
+        self.level.draw(self.screen, editor=True)
+        self.UI.draw(self.screen)
 
         if self.UI.QGPos:
-            screen.blit(self.UI.QGImg, (self.UI.QGPos))
+            self.screen.blit(self.UI.QGImg, (self.UI.QGPos))
 
         if self.choice is not None:
-            self.choice.draw(screen, editor=True)
-
-        screen.flip()
+            self.choice.draw(self.screen, editor=True)
 
     def erase(self):
         """Empties the level, and resets the tile choice"""
@@ -130,7 +114,8 @@ class Editor:
 
     def changeBackground(self):
         """Changes the level's background"""
-        filename = filedialog.askopenfilename(initialdir="img/Fonds", defaultextension=".png")
+        options = GameOptions.getInstance()
+        filename = filedialog.askopenfilename(initialdir=options.fullPath("images", "Fond"), defaultextension=".png")
         if filename:
             self.UI.fond_Edit = os.path.relpath(filename)
             self.UI.fond = pygame.image.load(self.UI.fond_Edit).convert_alpha()
@@ -139,14 +124,16 @@ class Editor:
 
     def loadLevel(self):
         """Loads an already created level to be modified/cloned"""
-        filename = filedialog.askopenfilename(initialdir="levels", defaultextension=".json")
+        options = GameOptions.getInstance()
+        filename = filedialog.askopenfilename(initialdir=options["levels"], defaultextension=".json")
         if filename:
             self.level.build(filename)
         self.choice = None
 
     def save(self):
         """Saves the current level"""
-        full_path = filedialog.asksaveasfilename(initialdir="levels", defaultextension=".json")
+        options = GameOptions.getInstance()
+        full_path = filedialog.asksaveasfilename(initialdir=options["levels"], defaultextension=".json")
         if full_path:
             self.level.draw(self.screen)
 
