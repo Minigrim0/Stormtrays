@@ -109,7 +109,7 @@ class Editor(Runnable):
 
     def erase(self):
         """Empties the level, and resets the tile choice"""
-        self.level.empty()
+        self.level.initMap()
         self.choice = None
 
     def changeBackground(self):

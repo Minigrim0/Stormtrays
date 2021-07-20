@@ -55,9 +55,9 @@ class Level:
         self.pos_Chateau = None
         self.FondFenetre = None
         self.map = None
-        self.empty()
+        self.initMap()
 
-    def empty(self):
+    def initMap(self):
         """Empties the level"""
         self.map = []
         for x in range(self.size[0]):
