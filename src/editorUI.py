@@ -20,14 +20,14 @@ class EditorUI:
         self.fond_Edit = None
 
         self.buttons = {}
-        self.buttons["c1"] = Button((const.WINDOW_WIDTH + 10, 10), (64, 64), level.editorImage["c1", 0])
-        self.buttons["t2"] = Button((const.WINDOW_WIDTH + 10, 74), (64, 64), level.editorImage["t2", 0])
-        self.buttons["t1"] = Button((const.WINDOW_WIDTH + 10, 138), (64, 64), level.editorImage["t1", 0])
-        self.buttons["x1"] = Button((const.WINDOW_WIDTH + 85, 10), (64, 64), level.editorImage["x1", 0])
-        self.buttons["p1"] = Button((const.WINDOW_WIDTH + 85, 74), (64, 64), level.editorImage["p1", 0])
-        self.buttons["v1"] = Button((const.WINDOW_WIDTH + 85, 138), (64, 64), level.editorImage["v1", 0])
-        self.buttons["k1"] = Button((const.WINDOW_WIDTH + 5, 228), (192, 64), level.editorImage["k1", 0])
-        self.buttons["QG"] = Button((const.WINDOW_WIDTH + 10, 292), (64, 64), level.editorImage["QG", 0])
+        self.buttons["c1"] = Button((const.WINDOW_WIDTH + 10, 10), (64, 64), level.tiles["c1"].image[1])
+        self.buttons["t2"] = Button((const.WINDOW_WIDTH + 10, 74), (64, 64), level.tiles["t2"].image[1])
+        self.buttons["t1"] = Button((const.WINDOW_WIDTH + 10, 138), (64, 64), level.tiles["t1"].image[1])
+        self.buttons["x1"] = Button((const.WINDOW_WIDTH + 85, 10), (64, 64), level.tiles["x1"].image[1])
+        self.buttons["p1"] = Button((const.WINDOW_WIDTH + 85, 74), (64, 64), level.tiles["p1"].image[1])
+        self.buttons["v1"] = Button((const.WINDOW_WIDTH + 85, 138), (64, 64), level.tiles["v1"].image[1])
+        self.buttons["k1"] = Button((const.WINDOW_WIDTH + 5, 228), (192, 64), level.tiles["k1"].image[1])
+        self.buttons["QG"] = Button((const.WINDOW_WIDTH + 10, 292), (64, 64), self.QGImg)
         self.buttons["eraseButton"] = Button(
             (const.WINDOW_WIDTH + 2, const.WINDOW_HEIGHT - 45),
             (80, 30),
