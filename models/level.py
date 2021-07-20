@@ -72,7 +72,13 @@ class Level:
             nomfichier (str): The name of the file to save the level in
             thumbnail_path (str): The path of the level's thumbnail
         """
-        level = {"background": self.backgroundName, "size": self.size, "map": self.map, "thumbnail": thumbnail_path}
+        serializedMap = [[tile.toJson() if tile is not None else {} for tile in row] for row in self.map]
+        level = {
+            "background": self.backgroundName,
+            "size": self.size,
+            "map": serializedMap,
+            "thumbnail": thumbnail_path,
+        }
 
         with open(nomfichier, "w") as f:
             f.write(json.dumps(level))
