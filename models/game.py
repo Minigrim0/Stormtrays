@@ -1,12 +1,10 @@
-import random
-
-from src.screen import Screen
+from models.screen import Screen
 from src.runnable import Runnable
 from src.invocation import Invocation
-from src.ennemis import Ennemi_IG
-from src.tourClasse import Tours, Tours_IG
+from src.tourClasse import Tours_IG
 
 from models.level import Level
+from models.ennemy import Ennemy
 
 
 class Game(Runnable):
@@ -18,15 +16,14 @@ class Game(Runnable):
 
         count = 0
         Level_Number = 1
-        Liste_Mechants = []
         Liste_Tours_IG = []
         Tab_Projectile = []
         CooldownInvoc = 0
         TpsCoolDown = 0
 
-        niveau.gold = 500
-        niveau.Vie_Chateau = 100
-        niveau.Nombre_Ennemis_Tue = 0
+        self.level.gold = 500
+        self.level.Vie_Chateau = 100
+        self.level.Nombre_Ennemis_Tue = 0
         King.XpToAdd = 0
         King.xp = 0
         King.objectif = 10
@@ -46,6 +43,8 @@ class Game(Runnable):
         Time_50 = myfont2.render("0", 1, (0, 0, 0))
 
     def loop(self):
+        Ennemy.getInstance().update()
+
         if King.capacite1:
             Icapacite1 += 1
             if Icapacite1 == 160:
@@ -90,7 +89,6 @@ class Game(Runnable):
         Current_Xp.fill((0, 255, 40))
 
     def draw(self):
-        niveau.affichem(screen)
         King.vit(King.Perso_Tab, King.Perso_Tab_ret)
 
         # Bouger les ennemis
@@ -112,56 +110,6 @@ class Game(Runnable):
             invocation = None
 
         Level_Difficulty = niveau.Set_Difficulty(Difficulte)
-
-        if niveau.Nombre_Ennemis_Tue >= 5000:
-            double_invoque = True
-
-        Aleatoire = random.random() * Level_Difficulty
-
-        # Test random en fonction de Level_Difficulty pour invoquer un ennemi
-        if Aleatoire <= 1:
-            while invoque_Boucle:
-                invoque = random.randrange(10)
-                if invoque == 0:
-                    ennemi = Ennemi_IG("../Ennemis/Orc.json")
-                    ennemi.pose_ennemi(niveau.map)
-                    Liste_Mechants.append(ennemi)
-                elif invoque in (1, 2):
-                    ennemi = Ennemi_IG("../Ennemis/Goblin.json")
-                    ennemi.pose_ennemi(niveau.map)
-                    Liste_Mechants.append(ennemi)
-                elif invoque == 3:
-                    ennemi = Ennemi_IG("../Ennemis/Dwarf.json")
-                    ennemi.pose_ennemi(niveau.map)
-                    Liste_Mechants.append(ennemi)
-                elif invoque == 4:
-                    ennemi = Ennemi_IG("../Ennemis/Knight.json")
-                    ennemi.pose_ennemi(niveau.map)
-                    Liste_Mechants.append(ennemi)
-                elif invoque == 5:
-                    ennemi = Ennemi_IG("../Ennemis/Ghost.json")
-                    ennemi.pose_ennemi(niveau.map)
-                    Liste_Mechants.append(ennemi)
-                elif invoque == 6:
-                    ennemi = Ennemi_IG("../Ennemis/Golem.json")
-                    ennemi.pose_ennemi(niveau.map)
-                    Liste_Mechants.append(ennemi)
-                elif invoque == 7:
-                    invoque = random.randrange(5)
-                    if invoque == 0:
-                        ennemi = Ennemi_IG("../Ennemis/Dragon.json")
-                        ennemi.pose_ennemi(niveau.map)
-                        Liste_Mechants.append(ennemi)
-                elif invoque in (8, 9, 10):
-                    ennemi = Ennemi_IG("../Ennemis/Wolf.json")
-                    ennemi.pose_ennemi(niveau.map)
-                    Liste_Mechants.append(ennemi)
-                if double_invoque is True:
-                    double_invoque = False
-                else:
-                    invoque_Boucle = False
-
-            invoque_Boucle = True
 
         # Si le Menu des tours est actif
         if menu_tour:
