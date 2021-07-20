@@ -47,7 +47,7 @@ class Level:
         self.gold = 500
         self.Vie_Chateau = 100
         self.Nombre_Ennemis_Tue = 0
-        self.background: pg.Surface = pg.image.load("img/fond.png").convert_alpha()
+        self.background: pg.Surface = pg.image.load("assets/images/fond.png").convert_alpha()
         self.backgroundName = "fond1"
         self.size = [18, 11]
 
@@ -63,7 +63,7 @@ class Level:
         for x in range(self.size[0]):
             self.map.append([])
             for _ in range(self.size[1]):
-                self.map[x].append(("  ", 0))
+                self.map[x].append(None)
 
     def save(self, nomfichier: str, thumbnail_path: str):
         """Saves the level
@@ -118,25 +118,22 @@ class Level:
             position (tuple): the position to place the tile at
             tile ([type]): [description]
         """
-        if position[0] not in list(range(self.size["x"])) or position[1] not in list(range(self.size["y"])):
+        if position[0] not in list(range(self.size[0])) or position[1] not in list(range(self.size[1])):
             raise InvalidPositionException("Tile is outside of the map !")
 
         self.map[position[0]][position[1]] = tile
 
-    def draw(self, fenetre, editor=False):
+    def draw(self, screen, editor=False):
         """Draws the current level
 
         Args:
-            fenetre (Screen): The screen to blit the level on
+            screen (Screen): The screen to blit the level on
         """
-        images = self.editorImage if editor is True else self.img
-
-        fenetre.blit(self.background, (0, 0))
-        for y in range(11):
-            for x in range(18):
-                lettre, rot = self.map[x][y]
-                if lettre not in ("  ", "QG"):
-                    fenetre.blit(images[lettre, rot], (x * 64, y * 64))
+        screen.blit(self.background, (0, 0))
+        for y in range(self.size[1]):
+            for x in range(self.size[0]):
+                if self.map[x][y] is not None:
+                    self.map[x][y].draw(screen, editor=editor)
 
     def affichem(self, fenetre):
         """Draws the background
