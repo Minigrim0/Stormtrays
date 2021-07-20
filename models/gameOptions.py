@@ -1,5 +1,6 @@
 import os
 import glob
+import json
 
 import pygame as pg
 
@@ -28,6 +29,11 @@ class GameOptions:
 
         self.fonts = {}
 
+    def __getitem__(self, category: str) -> dict:
+        if category not in self.settings.keys():
+            return None
+        return self.settings[category]
+
     def load(self):
         """Loads the game's fonts"""
         for font in glob.glob("UI/assets/fonts/*/*.ttf"):
@@ -35,6 +41,9 @@ class GameOptions:
             self.fonts[filename] = {}
             for size in [12, 14, 18, 25, 35, 40, 100]:
                 self.fonts[filename][str(size)] = pg.font.Font(font, size)
+
+        with open("assets/settings.json") as settings:
+            self.settings = json.load(settings)
 
     def changeDifficulty(self, value):
         """Changes the difficulty of the game from the given amount (and makes sure it's in its bounds)"""
