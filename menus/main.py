@@ -18,54 +18,46 @@ from UI.animations.animation import Animation
 class MainMenu(Menu, Runnable):
     """The main menu class"""
 
-    def __init__(self, screen, background: callable = None):
-        super().__init__(screen, background)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.background = pygame.image.load(constantes.fondm).convert_alpha()
 
         options = GameOptions.getInstance()
-        self.buttons.append(
-            Button(
-                (652, 464),
-                (500, 50),
-                pygame.image.load("assets/img/Boutons/MenuButton.png").convert_alpha(),
-                self.launch,
-                toLaunch="game",
-            )
+        self.buttons["play"] = Button(
+            (652, 464),
+            (500, 50),
+            pygame.image.load("assets/img/Boutons/MenuButton.png").convert_alpha(),
+            self.launch,
+            toLaunch="game",
         )
-        self.buttons[-1].build("Jouer", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["play"].build("Jouer", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
-        self.buttons.append(
-            Button(
-                (752, 584),
-                (500, 50),
-                pygame.image.load("assets/img/Boutons/MenuButton.png").convert_alpha(),
-                self.launch,
-                toLaunch="options",
-            )
+        self.buttons["options"] = Button(
+            (752, 584),
+            (500, 50),
+            pygame.image.load("assets/img/Boutons/MenuButton.png").convert_alpha(),
+            self.launch,
+            toLaunch="options",
         )
-        self.buttons[-1].build("Options", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["options"].build("Options", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
-        self.buttons.append(
-            Button(
-                (702, 524),
-                (500, 50),
-                pygame.image.load("assets/img/Boutons/MenuButton.png").convert_alpha(),
-                self.launch,
-                toLaunch="credits",
-            )
+        self.buttons["credits"] = Button(
+            (702, 524),
+            (500, 50),
+            pygame.image.load("assets/img/Boutons/MenuButton.png").convert_alpha(),
+            self.launch,
+            toLaunch="credits",
         )
-        self.buttons[-1].build("Credits", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["credits"].build("Credits", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
-        self.buttons.append(
-            Button(
-                (802, 644),
-                (500, 50),
-                pygame.image.load("assets/img/Boutons/MenuButton.png").convert_alpha(),
-                self.launch,
-                toLaunch="quit",
-            )
+        self.buttons["quit"] = Button(
+            (802, 644),
+            (500, 50),
+            pygame.image.load("assets/img/Boutons/MenuButton.png").convert_alpha(),
+            self.launch,
+            toLaunch="quit",
         )
-        self.buttons[-1].build("Quitter", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["quit"].build("Quitter", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
     def loop(self):
         """The bit of code called at each iteration"""
@@ -92,18 +84,17 @@ class MainMenu(Menu, Runnable):
         Args:
             toLaunch (str): The argument describing the button that's been pressed and what should be launched
         """
+
         if toLaunch == "game":
-            Animation("UI/animations/mainToSelect.json", self.screen)()
-            LevelSelectMenu(self.screen, self._draw)()
+            Animation("UI/animations/mainToSelect.json", self.screen, pickFrom=self.pickFrom)()
+            LevelSelectMenu(self.screen, self._draw, pickFrom=self.pickFrom)()
         elif toLaunch == "quit":
             quitMenu = QuitMenu(self.screen, self._draw)
             if quitMenu() == "q":
                 self.running = False
         elif toLaunch == "options":
-            Animation("UI/animations/mainToOptions.json", self.screen)()
-            OptionMenu(self.screen, self._draw)()
+            Animation("UI/animations/mainToOptions.json", self.screen, pickFrom=self.pickFrom)()
+            OptionMenu(self.screen, self._draw, pickFrom=self.pickFrom)()
         elif toLaunch == "credits":
-            Animation("UI/animations/mainToCredits.json", self.screen)()
-            CreditsMenu(self.screen, self._draw)()
-        else:
-            print(f"Launching {toLaunch}")
+            Animation("UI/animations/mainToCredits.json", self.screen, pickFrom=self.pickFrom)()
+            CreditsMenu(self.screen, self._draw, pickFrom=self.pickFrom)()

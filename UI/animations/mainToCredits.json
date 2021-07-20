@@ -3,25 +3,25 @@
     "background": "assets/img/FondMenu/FondMenuPrincipal.png",
     "elements": [
         {
-            "image": "assets/img/Boutons/jouer.png",
+            "image": "play",
             "from": [652, 464],
             "to": [1162, 464],
             "style": "sine"
         },
         {
-            "image": "assets/img/Boutons/credits.png",
+            "image": "credits",
             "from": [702, 524],
             "to": [702, 654],
             "style": "sine"
         },
         {
-            "image": "assets/img/Boutons/options.png",
+            "image": "options",
             "from": [752, 584],
             "to": [1166, 584],
             "style": "sine"
         },
         {
-            "image": "assets/img/Boutons/quit.png",
+            "image": "quit",
             "from": [802, 644],
             "to": [1166, 644],
             "style": "sine"

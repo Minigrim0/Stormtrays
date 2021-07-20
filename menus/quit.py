@@ -10,14 +10,14 @@ import src.constantes as constants
 class QuitMenu(Menu, Runnable):
     """A menu for the user to confirm his choice to quit the game"""
 
-    def __init__(self, screen, background: callable = None):
-        super().__init__(screen, background)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-        self.buttons.append(
-            Button((516, 297), (120, 50), pg.image.load(constants.reprise).convert_alpha(), self.cancel)
+        self.buttons["reprise"] = Button(
+            (516, 297), (120, 50), pg.image.load(constants.reprise).convert_alpha(), self.cancel
         )
-        self.buttons.append(
-            Button((516, 367), (120, 50), pg.image.load(constants.quitpaus).convert_alpha(), self.confirm)
+        self.buttons["confirmQuit"] = Button(
+            (516, 367), (120, 50), pg.image.load(constants.quitpaus).convert_alpha(), self.confirm
         )
 
         self.confirmQuit = pg.image.load(constants.ConfirmQuit).convert_alpha()

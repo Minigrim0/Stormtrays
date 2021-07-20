@@ -3,7 +3,6 @@ import pygame as pg
 from src import constantes as constants
 from src.runnable import Runnable
 
-from models.screen import Screen
 from models.gameOptions import GameOptions
 
 from menus.menu import Menu
@@ -15,16 +14,16 @@ from UI.animations.animation import Animation
 class CreditsMenu(Menu, Runnable):
     """The menu that shows the game's credits"""
 
-    def __init__(self, screen: Screen, background: callable = None):
-        super().__init__(screen, background)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
         options = GameOptions.getInstance()
         self.scroll = 0
         self.credits = pg.image.load(constants.Credits)
-        self.buttons.append(
-            Button((702, 654), (500, 50), pg.image.load("assets/img/Boutons/MenuButton.png").convert_alpha(), self.back)
+        self.buttons["back"] = Button(
+            (702, 654), (500, 50), pg.image.load("assets/img/Boutons/MenuButton.png").convert_alpha(), self.back
         )
-        self.buttons[-1].build("Retour", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["back"].build("Retour", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
     def loop(self):
         """The bit of code called at each iteration"""
@@ -55,7 +54,7 @@ class CreditsMenu(Menu, Runnable):
 
     def back(self):
         """Quits the credits menu"""
-        anim = Animation("UI/animations/mainToCredits.json", self.screen)
+        anim = Animation("UI/animations/mainToCredits.json", self.screen, pickFrom=self.pickFrom)
         anim.invert()
         anim()
         self.running = False

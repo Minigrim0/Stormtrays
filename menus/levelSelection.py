@@ -18,17 +18,17 @@ from UI.animations.animation import Animation
 class LevelSelectMenu(Menu, Runnable):
     """The level selection menu"""
 
-    def __init__(self, screen, background: callable = None):
-        super().__init__(screen, background)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.scrollAmount = 60
 
         self.semiThing = pg.image.load(constants.sombre).convert_alpha()
 
         options = GameOptions.getInstance()
-        self.buttons.append(
-            Button((654, 0), (500, 50), pg.image.load("assets/img/Boutons/MenuButton.png").convert_alpha(), self.back)
+        self.buttons["back"] = Button(
+            (654, 0), (500, 50), pg.image.load("assets/img/Boutons/MenuButton.png").convert_alpha(), self.back
         )
-        self.buttons[-1].build("Retour", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["back"].build("Retour", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
         self.cards: [Card] = []
         self.load()
@@ -100,7 +100,7 @@ class LevelSelectMenu(Menu, Runnable):
 
     def back(self):
         """Callback for the back button, gets the user back to the main menu"""
-        anim = Animation("UI/animations/mainToSelect.json", self.screen)
+        anim = Animation("UI/animations/mainToSelect.json", self.screen, pickFrom=self.pickFrom)
         anim.invert()
         anim()
         self.running = False

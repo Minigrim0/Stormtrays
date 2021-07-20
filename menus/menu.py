@@ -7,8 +7,9 @@ from models.screen import Screen
 class Menu:
     """The base class for all menus"""
 
-    def __init__(self, screen: Screen, background: callable = None):
+    def __init__(self, screen: Screen, background: callable = None, pickFrom: dict = {}):
         self.buttons: {Button} = {}
+        self.pickFromBase = pickFrom
         self.screen = screen
         self.backgroundCallback: callable = background
 
@@ -18,6 +19,10 @@ class Menu:
         from models.game import Game
 
         Game.getInstance().playMusic()
+
+    @property
+    def pickFrom(self):
+        return self.pickFromBase | {key: self.buttons[key].image for key in self.buttons.keys()}
 
     def draw(self):
         """Draws the menu's buttons on screen"""

@@ -14,8 +14,8 @@ from UI.animations.animation import Animation
 class OptionMenu(Menu, Runnable):
     """The menu of options"""
 
-    def __init__(self, screen, background: callable = None):
-        super().__init__(screen, background)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
         self.background = pg.image.load(constants.fondm).convert_alpha()
         self.Fond_Menu_Opt = pg.image.load(constants.Fond_Menu_Opti).convert_alpha()
@@ -33,30 +33,18 @@ class OptionMenu(Menu, Runnable):
         Moins = pg.image.load(constants.Moins__).convert_alpha()
         Plus = pg.image.load(constants.Plus__).convert_alpha()
 
-        self.buttons.append(Button((655, 302), (40, 40), Moins, self.updateVolume, -1))
-        self.buttons.append(Button((705, 302), (40, 40), Plus, self.updateVolume, 1))
-        self.buttons.append(Button((655, 347), (40, 40), Moins, self.updateDifficulty, -1))
-        self.buttons.append(Button((705, 347), (40, 40), Plus, self.updateDifficulty, 1))
-        self.buttons.append(
-            Button((516, 407), (120, 50), pg.image.load(constants.quitpaus).convert_alpha(), self.quitMenu)
+        self.buttons["lessVolume"] = Button((655, 302), (40, 40), Moins, self.updateVolume, -1)
+        self.buttons["moreVolume"] = Button((705, 302), (40, 40), Plus, self.updateVolume, 1)
+        self.buttons["lessDifficulty"] = Button((655, 347), (40, 40), Moins, self.updateDifficulty, -1)
+        self.buttons["moreDifficulty"] = Button((705, 347), (40, 40), Plus, self.updateDifficulty, 1)
+        self.buttons["quitOptions"] = Button(
+            (516, 407), (120, 50), pg.image.load(constants.quitpaus).convert_alpha(), self.quitMenu
         )
 
-        self.buttons.append(
-            Button((1102, 464), (500, 50), pg.image.load("assets/img/Boutons/MenuButton.png").convert_alpha())
-        )
-        self.buttons[-1].build("Jouer", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
-        self.buttons.append(
-            Button((1102, 524), (500, 50), pg.image.load("assets/img/Boutons/MenuButton.png").convert_alpha())
-        )
-        self.buttons[-1].build("Credits", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
-        self.buttons.append(
-            Button((1002, 584), (500, 50), pg.image.load("assets/img/Boutons/MenuButton.png").convert_alpha())
-        )
-        self.buttons[-1].build("Options", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
-        self.buttons.append(
-            Button((1102, 644), (500, 50), pg.image.load("assets/img/Boutons/MenuButton.png").convert_alpha())
-        )
-        self.buttons[-1].build("Quitter", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["play"] = Button((1102, 464), (500, 50), self.pickFromBase["play"])
+        self.buttons["credits"] = Button((1102, 524), (500, 50), self.pickFromBase["credits"])
+        self.buttons["options"] = Button((1002, 584), (500, 50), self.pickFromBase["options"])
+        self.buttons["quit"] = Button((1102, 644), (500, 50), self.pickFromBase["quit"])
 
     def loop(self):
         """The bit of code called at each iteration"""
@@ -99,7 +87,7 @@ class OptionMenu(Menu, Runnable):
 
     def quitMenu(self):
         """Quits the option menu"""
-        anim = Animation("UI/animations/mainToOptions.json", self.screen)
+        anim = Animation("UI/animations/mainToOptions.json", self.screen, pickFrom=self.pickFrom)
         anim.invert()
         anim()
         self.running = False
