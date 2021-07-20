@@ -1,6 +1,10 @@
 import json
 import pygame as pg
 
+from copy import copy
+
+from models.gameOptions import GameOptions
+
 import src.constantes as consts
 from src.tile import Tile
 from src.errors.invalidPositionException import InvalidPositionException
@@ -83,39 +87,38 @@ class Level:
         with open(nomfichier, "w") as f:
             f.write(json.dumps(level))
 
-    def build(self, nomfichier):
+    def build(self, nomfichier, editor=False):
         """Builds the level from a file
 
         Args:
             nomfichier ([type]): [description]
         """
+        options = GameOptions.getInstance()
         with open(nomfichier) as f:
             data = json.load(f)
-            self.map = data["map"]
+            print("Loading", options.fullPath("images", f'Fond/{data["background"]}.png'))
             self.background = pg.image.load(data["background"])
             self.size = data["size"]
+            self.initMap()
 
-        self.FondFenetre = pg.Surface((1152, 704))
+        self.background = pg.transform.scale(self.background, (1152, 704))
+        for y in range(self.size[1]):
+            for x in range(self.size[0]):
+                tile = data["map"][x][y]
+                if len(tile.keys()) == 0:
+                    continue
 
-        fondimgf = pg.transform.scale(self.background, (int(1152), int(704)))
-        self.FondFenetre.blit(fondimgf, (0, 0))
-        for y in range(11):
-            for x in range(18):
-                lettre, rot = self.map[x, y]
-                if lettre not in ("  ", "k1", "QG"):
-                    img = pg.transform.scale(self.img[lettre, rot], (int(65), int(65)))
-                    self.FondFenetre.blit(img, (int((x * 64)), int((y * 64))))
-                elif lettre == "k1":
-                    if rot in (90, 270):
-                        img = pg.transform.scale(self.img[lettre, rot], (64, 3 * 64))
-                        self.FondFenetre.blit(img, (int((x * 64)), int((y * 64))))
+                tile_position = (int((x * 64)), int((y * 64)))
+                self.map[x][y] = copy(self.tiles[tile["code"]])
+                self.map[x][y].rotate(amount=tile["rotation"])
+                self.map[x][y].move(tile_position)
+
+                if not editor:
+                    if self.map[x][y].code not in ("k1", "QG"):
+                        self.background.blit(self.map[x][y].image[0], tile_position)
+                    elif self.map[x][y].code == "k1":
+                        self.background.blit(self.map[x][y].image[0], tile_position)
                         self.pos_Chateau = [x, y + 1]
-                    else:
-                        img = pg.transform.scale(self.img[lettre, rot], (3 * 64, 64))
-                        self.FondFenetre.blit(img, (int((x * 64)), int((y * 64))))
-                        self.pos_Chateau = [x + 1, y]
-
-            self.FondFenetre.blit(self.nanim, (self.posx, self.posy))
 
     def placeTile(self, position: tuple, tile):
         """Places a tile at the given coordinates
