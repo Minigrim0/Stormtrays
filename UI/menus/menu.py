@@ -16,9 +16,9 @@ class Menu:
     @staticmethod
     def loop():
         """Plays music if needed"""
-        from models.game import Game
+        from models.stormtrays import Stormtrays
 
-        Game.getInstance().playMusic()
+        Stormtrays.getInstance().playMusic()
 
     @property
     def pickFrom(self):

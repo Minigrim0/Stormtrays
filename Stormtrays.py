@@ -1,22 +1,16 @@
 import pygame
 import pygame.locals
 import glob
-import random
 import src.constantes as constantes
-from src.invocation import Invocation
-from src.ennemis import Ennemi_IG
-from src.tourClasse import Tours, Tours_IG
 from src.perso import Perso
 
 from models.level import Level
-from models.game import Game
+from models.stormtrays import Stormtrays
 
 pygame.init()
 
-# ------------------------------------------------------------------
-
-game = Game.getInstance()
-game.run()
+stormtrays = Stormtrays.getInstance()
+stormtrays.run()
 
 # Images
 Coin = pygame.image.load(constantes.Coin).convert_alpha()
