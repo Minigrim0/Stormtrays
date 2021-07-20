@@ -35,7 +35,6 @@ class GameOptions:
         return self.settings[category]
 
     def fullPath(self, category, path):
-        print(f'self["paths"]["{category}"]', self["paths"][category])
         return os.path.join(self["paths"][category], path)
 
     def load(self):

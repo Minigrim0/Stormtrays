@@ -40,7 +40,6 @@ class LevelSelectMenu(Menu, Runnable):
         """Generates the levels' cards"""
         Compteur = 60
         options = GameOptions.getInstance()
-        print(options.fullPath("levels", "/*.json"))
         for index, level in enumerate(glob.glob(options.fullPath("levels", "*.json"))):
             with open(level) as f:
                 data = json.load(f)

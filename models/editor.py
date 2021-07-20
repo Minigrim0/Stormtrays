@@ -93,8 +93,8 @@ class Editor:
 
             try:
                 self.level.placeTile((x, y), tile)
-            except InvalidPositionException as e:
-                print(e)
+            except InvalidPositionException:
+                pass
 
         if self.choice == "QG":
             self.QGPos = (x * 64, y * 64)
