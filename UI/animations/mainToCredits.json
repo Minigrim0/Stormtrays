@@ -1,6 +1,6 @@
 {
     "duration": 1.5,
-    "background": "assets/img/FondMenu/FondMenuPrincipal.png",
+    "background": "assets/images/FondMenu/FondMenuPrincipal.png",
     "elements": [
         {
             "image": "play",
