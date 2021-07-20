@@ -4,7 +4,6 @@ import pygame
 from pygame.locals import MOUSEBUTTONDOWN, MOUSEMOTION
 
 import src.constantes as const
-from UI.components.button import Button
 
 
 class Screen:
@@ -35,6 +34,8 @@ class Screen:
             self.resize(self.fullSize)
         else:
             self.resize(self.nativeSize)
+
+        from UI.components.button import Button  # NOQA
 
         self.scaleButton = Button(
             (2, self.nativeSize[1] - 22), (20, 20), pygame.image.load(const.ScaleImg).convert_alpha()
