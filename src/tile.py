@@ -1,6 +1,6 @@
 import pygame
 
-from src.screen import Screen
+from models.screen import Screen
 
 
 class Tile:
@@ -26,6 +26,9 @@ class Tile:
                 tile or a game tile. Defaults to False.
         """
         screen.blit(self.image[int(editor)], self.position)
+
+    def move(self, pos):
+        self.position = pos
 
     def __repr__(self):
         return {"code": self.code, "rotation": self.rotation}
