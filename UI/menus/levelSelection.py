@@ -9,6 +9,7 @@ from src.runnable import Runnable
 import src.constantes as constants
 
 from models.gameOptions import GameOptions
+from models.game import Game
 
 from UI.components.card import Card
 from UI.components.button import Button
@@ -96,11 +97,9 @@ class LevelSelectMenu(Menu, Runnable):
 
     def runLevel(self, level):
         """Callback for the levels' cards, launches the selected level"""
-        # jeu = True
-        # lvl = level.File
-        print("Running a level", level)
-        self.running = False
-        # break
+        options = GameOptions.getInstance()
+        levelPath = options.fullPath("levels", f"{level}.json")
+        Game(self.screen, levelPath)()
 
     def back(self):
         """Callback for the back button, gets the user back to the main menu"""
