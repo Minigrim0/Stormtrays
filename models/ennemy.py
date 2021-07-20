@@ -24,15 +24,18 @@ class Ennemy:
             raise RuntimeError("Trying to instanciate a second object from a singleton class")
         Ennemy.instance = self
 
-        options = GameOptions.getInstance()
         self.ennemies: [EnnemyDO] = []
-        self.available_ennemies: [str] = []
+        self.available_ennemies: {str: {}} = {}
         self.ennemies_weight: [int] = []
+        self.load()
 
+    def load(self):
+        options = GameOptions.getInstance()
         for ennemyFile in glob.glob(options.fullPath("ennemies", "*.json")):
-            self.available_ennemies.append(os.path.splitext(os.path.split(ennemyFile)[1])[0])
             with open(ennemyFile) as ennemyInfo:
-                self.ennemies_weight.append(json.load(ennemyInfo)["weight"])
+                data = json.load(ennemyInfo)
+                self.ennemies_weight.append(data["weight"])
+                self.available_ennemies[os.path.splitext(os.path.split(ennemyFile)[1])[0]] = data
 
     def update(self):
         if self.level.Nombre_Ennemis_Tue >= 5000:
