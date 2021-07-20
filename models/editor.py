@@ -5,7 +5,7 @@ import pygame
 from copy import copy
 
 from src.tile import Tile
-from src.editorUI import EditorUI
+from UI.menus.editor import EditorUI
 
 import src.constantes as consts
 from src.exceptions.invalidPositionException import InvalidPositionException
