@@ -3,12 +3,12 @@ import pygame as pg
 from src import constantes as constants
 from src.runnable import Runnable
 
-from UI.components.button import Button
-
 from models.screen import Screen
+from models.gameOptions import GameOptions
 
 from menus.menu import Menu
 
+from UI.components.button import Button
 from UI.animations.animation import Animation
 
 
@@ -18,9 +18,13 @@ class CreditsMenu(Menu, Runnable):
     def __init__(self, screen: Screen, background: callable = None):
         super().__init__(screen, background)
 
+        options = GameOptions.getInstance()
         self.scroll = 0
         self.credits = pg.image.load(constants.Credits)
-        self.buttons.append(Button((702, 654), (500, 50), pg.image.load(constants.retour).convert_alpha(), self.back))
+        self.buttons.append(
+            Button((702, 654), (500, 50), pg.image.load("assets/img/Boutons/MenuButton.png").convert_alpha(), self.back)
+        )
+        self.buttons[-1].build("Retour", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
     def loop(self):
         """The bit of code called at each iteration"""

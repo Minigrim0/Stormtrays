@@ -8,9 +8,10 @@ from menus.menu import Menu
 from src.runnable import Runnable
 import src.constantes as constants
 
+from models.gameOptions import GameOptions
+
 from UI.components.card import Card
 from UI.components.button import Button
-
 from UI.animations.animation import Animation
 
 
@@ -23,7 +24,11 @@ class LevelSelectMenu(Menu, Runnable):
 
         self.semiThing = pg.image.load(constants.sombre).convert_alpha()
 
-        self.buttons.append(Button((654, 0), (500, 50), pg.image.load(constants.retour).convert_alpha(), self.back))
+        options = GameOptions.getInstance()
+        self.buttons.append(
+            Button((654, 0), (500, 50), pg.image.load("assets/img/Boutons/MenuButton.png").convert_alpha(), self.back)
+        )
+        self.buttons[-1].build("Retour", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
         self.cards: [Card] = []
         self.load()

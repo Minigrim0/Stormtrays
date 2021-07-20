@@ -2,7 +2,8 @@ import pygame
 
 import src.constantes as constantes
 from src.runnable import Runnable
-from UI.components.button import Button
+
+from models.gameOptions import GameOptions
 
 from menus.menu import Menu
 from menus.levelSelection import LevelSelectMenu
@@ -10,6 +11,7 @@ from menus.quit import QuitMenu
 from menus.options import OptionMenu
 from menus.credits import CreditsMenu
 
+from UI.components.button import Button
 from UI.animations.animation import Animation
 
 
@@ -20,38 +22,50 @@ class MainMenu(Menu, Runnable):
         super().__init__(screen, background)
         self.background = pygame.image.load(constantes.fondm).convert_alpha()
 
+        options = GameOptions.getInstance()
         self.buttons.append(
             Button(
-                (652, 464), (500, 50), pygame.image.load(constantes.joue).convert_alpha(), self.launch, toLaunch="game"
+                (652, 464),
+                (500, 50),
+                pygame.image.load("assets/img/Boutons/MenuButton.png").convert_alpha(),
+                self.launch,
+                toLaunch="game",
             )
         )
+        self.buttons[-1].build("Jouer", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+
         self.buttons.append(
             Button(
                 (752, 584),
                 (500, 50),
-                pygame.image.load(constantes.option).convert_alpha(),
+                pygame.image.load("assets/img/Boutons/MenuButton.png").convert_alpha(),
                 self.launch,
                 toLaunch="options",
             )
         )
+        self.buttons[-1].build("Options", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+
         self.buttons.append(
             Button(
                 (702, 524),
                 (500, 50),
-                pygame.image.load(constantes.credits_path).convert_alpha(),
+                pygame.image.load("assets/img/Boutons/MenuButton.png").convert_alpha(),
                 self.launch,
                 toLaunch="credits",
             )
         )
+        self.buttons[-1].build("Credits", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+
         self.buttons.append(
             Button(
                 (802, 644),
                 (500, 50),
-                pygame.image.load(constantes.quit_path).convert_alpha(),
+                pygame.image.load("assets/img/Boutons/MenuButton.png").convert_alpha(),
                 self.launch,
                 toLaunch="quit",
             )
         )
+        self.buttons[-1].build("Quitter", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
     def loop(self):
         """The bit of code called at each iteration"""

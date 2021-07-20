@@ -41,10 +41,22 @@ class OptionMenu(Menu, Runnable):
             Button((516, 407), (120, 50), pg.image.load(constants.quitpaus).convert_alpha(), self.quitMenu)
         )
 
-        self.buttons.append(Button((1102, 464), (500, 50), pg.image.load(constants.joue).convert_alpha()))
-        self.buttons.append(Button((1102, 524), (500, 50), pg.image.load(constants.credits_path).convert_alpha()))
-        self.buttons.append(Button((1002, 584), (500, 50), pg.image.load(constants.option).convert_alpha()))
-        self.buttons.append(Button((1102, 644), (500, 50), pg.image.load(constants.quit_path).convert_alpha()))
+        self.buttons.append(
+            Button((1102, 464), (500, 50), pg.image.load("assets/img/Boutons/MenuButton.png").convert_alpha())
+        )
+        self.buttons[-1].build("Jouer", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons.append(
+            Button((1102, 524), (500, 50), pg.image.load("assets/img/Boutons/MenuButton.png").convert_alpha())
+        )
+        self.buttons[-1].build("Credits", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons.append(
+            Button((1002, 584), (500, 50), pg.image.load("assets/img/Boutons/MenuButton.png").convert_alpha())
+        )
+        self.buttons[-1].build("Options", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons.append(
+            Button((1102, 644), (500, 50), pg.image.load("assets/img/Boutons/MenuButton.png").convert_alpha())
+        )
+        self.buttons[-1].build("Quitter", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
     def loop(self):
         """The bit of code called at each iteration"""
