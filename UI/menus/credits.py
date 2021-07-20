@@ -8,7 +8,7 @@ from models.gameOptions import GameOptions
 from UI.menus.menu import Menu
 
 from UI.components.button import Button
-from UI.animations.animation import Animation
+from UI.components.animation import Animation
 
 
 class CreditsMenu(Menu, Runnable):

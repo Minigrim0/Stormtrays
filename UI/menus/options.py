@@ -8,7 +8,7 @@ from UI.menus.menu import Menu
 from src.runnable import Runnable
 
 from UI.components.button import Button
-from UI.animations.animation import Animation
+from UI.components.animation import Animation
 
 
 class OptionMenu(Menu, Runnable):

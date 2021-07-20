@@ -12,7 +12,7 @@ from UI.menus.options import OptionMenu
 from UI.menus.credits import CreditsMenu
 
 from UI.components.button import Button
-from UI.animations.animation import Animation
+from UI.components.animation import Animation
 
 
 class MainMenu(Menu, Runnable):

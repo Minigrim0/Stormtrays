@@ -12,7 +12,7 @@ from models.gameOptions import GameOptions
 
 from UI.components.card import Card
 from UI.components.button import Button
-from UI.animations.animation import Animation
+from UI.components.animation import Animation
 
 
 class LevelSelectMenu(Menu, Runnable):
