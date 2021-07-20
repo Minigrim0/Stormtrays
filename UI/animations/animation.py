@@ -11,7 +11,7 @@ from UI.animations.animated_element import Animated
 class Animation(Runnable):
     """The button animation from main menu to levelSelection"""
 
-    def __init__(self, animation: str, screen: Screen):
+    def __init__(self, animation: str, screen: Screen, pickFrom: dict = None):
         super().__init__()
         self.screen: Screen = screen
         self.elements: list(Animated) = []
@@ -19,16 +19,19 @@ class Animation(Runnable):
 
         with open(animation) as animation:
             data = json.load(animation)
-            self.load(data)
+            self.load(data, pickFrom=pickFrom)
 
-    def load(self, data: dict):
+    def load(self, data: dict, pickFrom: dict = None):
         self.duration = data["duration"]
         self.background = pg.image.load(data["background"])
 
         for elem in data["elements"]:
+            key = elem["image"]
             self.elements.append(
                 Animated(
-                    pg.image.load(elem["image"]).convert_alpha(),
+                    pickFrom[key]
+                    if pickFrom is not None and key in pickFrom.keys()
+                    else pg.image.load(key).convert_alpha(),
                     tuple(elem["from"]),
                     tuple(elem["to"]),
                     style=elem["style"],
