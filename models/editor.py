@@ -8,7 +8,7 @@ from src.tile import Tile
 from UI.menus.editor import EditorUI
 
 import src.constantes as consts
-from src.exceptions.invalidPositionException import InvalidPositionException
+from src.errors.invalidPositionException import InvalidPositionException
 
 from models.screen import Screen
 from models.level import Level

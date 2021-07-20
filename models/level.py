@@ -3,7 +3,7 @@ import pygame as pg
 
 import src.constantes as consts
 from src.tile import Tile
-from src.exceptions.invalidPositionException import InvalidPositionException
+from src.errors.invalidPositionException import InvalidPositionException
 
 
 class Level:
