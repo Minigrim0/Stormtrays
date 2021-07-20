@@ -2,12 +2,16 @@ import os
 from tkinter import filedialog
 import pygame
 
+from copy import copy
+
+from src.tile import Tile
 from src.editorUI import EditorUI
-from models.screen import Screen
-from models.level import Level
 
 import src.constantes as consts
 from src.exceptions.invalidPositionException import InvalidPositionException
+
+from models.screen import Screen
+from models.level import Level
 
 
 class Editor:
@@ -27,19 +31,18 @@ class Editor:
             raise RuntimeError("Trying to instanciate a second object from a singleton")
         Editor.instance = self
 
-        self.level = Level.getInstance()
-        self.UI = EditorUI(self.level)
+        self.level: Level = Level.getInstance()
+        self.UI: EditorUI = EditorUI(self.level)
         self.UI.buttons["eraseButton"].setCallback(self.erase)
         self.UI.buttons["changeBackgroundButton"].setCallback(self.changeBackground)
         self.UI.buttons["loadButton"].setCallback(self.loadLevel)
         self.UI.buttons["saveButton"].setCallback(self.save)
-        for buttonID in ["c1", "t2", "t1", "x1", "p1", "v1", "k1", "QG"]:
-            self.UI.buttons[buttonID].setCallback(self.setChoice, buttonID)
+        for code in ["c1", "t2", "t1", "x1", "p1", "v1", "k1"]:
+            self.UI.buttons[code].setCallback(self.setChoice, self.level.tiles[code])
 
-        self.running = True
+        self.running: bool = True
 
-        self.choice = None
-        self.rot = 0
+        self.choice: Tile = None
         self.mousePosition = (0, 0)
         self.QGPos = None
         self.screen = None
@@ -70,11 +73,13 @@ class Editor:
                 self.UI.update(event)
                 self.placeTile(event)
 
-            if event.button == 3 and self.choice != "  ":
-                self.rot = (self.rot + 90) % 360
+            if event.button == 3 and self.choice is not None:
+                self.choice.rotate()
 
         if event.type == pygame.locals.MOUSEMOTION:
             self.mousePosition = (event.pos[0], event.pos[1])
+            if self.choice is not None:
+                self.choice.move(event.pos)
             if event.buttons[0] == 1 and self.choice != "  ":
                 self.placeTile(event)
 
@@ -85,11 +90,13 @@ class Editor:
             event (pygame.Event): The event that occured
         """
         if self.choice is not None:
-            tile = (self.choice, self.rot)
             x = event.pos[0] // 64
             y = event.pos[1] // 64
-            if self.choice == "p1":
-                tile = ("  ", 0)
+            if self.choice.code != "p1":
+                tile = copy(self.choice)
+                tile.move((x * 64, y * 64))
+            else:
+                tile = None
 
             try:
                 self.level.placeTile((x, y), tile)
@@ -111,18 +118,15 @@ class Editor:
         if self.UI.QGPos:
             screen.blit(self.UI.QGImg, (self.UI.QGPos))
 
-        if self.choice is not None and self.choice.strip() != "":
-            screen.blit(
-                self.level.editorImage[self.choice, self.rot],
-                ((self.mousePosition[0] // 64) * 64, (self.mousePosition[1] // 64) * 64),
-            )
+        if self.choice is not None:
+            self.choice.draw(screen, editor=True)
 
         screen.flip()
 
     def erase(self):
         """Empties the level, and resets the tile choice"""
         self.level.empty()
-        self.choice = "  "
+        self.choice = None
 
     def changeBackground(self):
         """Changes the level's background"""
@@ -131,21 +135,20 @@ class Editor:
             self.UI.fond_Edit = os.path.relpath(filename)
             self.UI.fond = pygame.image.load(self.UI.fond_Edit).convert_alpha()
 
-        self.choice = "  "
+        self.choice = None
 
     def loadLevel(self):
         """Loads an already created level to be modified/cloned"""
         filename = filedialog.askopenfilename(initialdir="levels", defaultextension=".json")
         if filename:
             self.level.build(filename)
-        self.choice = "  "
+        self.choice = None
 
     def save(self):
         """Saves the current level"""
         full_path = filedialog.asksaveasfilename(initialdir="levels", defaultextension=".json")
         if full_path:
             self.level.draw(self.screen)
-            # self.screen.flip()
 
             arect = pygame.Rect(0, 0, consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT)
             sub = self.screen.subsurface(arect)
@@ -158,7 +161,7 @@ class Editor:
 
             self.level.save(full_path, thumbnail_path)
 
-        self.choice = "  "
+        self.choice = None
 
     def setChoice(self, choice):
         """Sets the holded tile to the given choice
@@ -166,4 +169,5 @@ class Editor:
         Args:
             choice (str): The choice to set the user to
         """
-        self.choice = choice
+        self.choice = copy(choice)
+        self.choice.move(self.mousePosition)
