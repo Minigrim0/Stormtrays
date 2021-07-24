@@ -7,7 +7,7 @@ import pygame as pg
 from models.screen import Screen
 
 
-class imageAnimation:
+class ImageAnimation:
     def __init__(self, position: tuple, flippable: bool = False):
         self.images: list(pg.Surface) = []
         self.images_flipped: list(pg.Surface) = []

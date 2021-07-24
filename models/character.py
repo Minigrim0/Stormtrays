@@ -5,6 +5,8 @@ import math
 
 import src.constantes as constantes
 
+from UI.components.imageAnimation import ImageAnimation
+
 
 class Character:
     """Reprensents the user's character"""
@@ -53,22 +55,11 @@ class Character:
         self.AnimAttak = False
         self.IsMoving = False
 
-        self.King_1 = pygame.image.load(constantes.king_1).convert_alpha()
-        self.King_2 = pygame.image.load(constantes.king_2).convert_alpha()
-        self.King_3 = pygame.image.load(constantes.king_3).convert_alpha()
-        self.King_4 = pygame.image.load(constantes.king_4).convert_alpha()
-        self.King_5 = pygame.image.load(constantes.king_5).convert_alpha()
-        self.King_6 = pygame.image.load(constantes.king_6).convert_alpha()
-        self.King_Attak = pygame.image.load(constantes.king_Attak).convert_alpha()
-        self.King_Attak2 = pygame.image.load(constantes.king_Attak2).convert_alpha()
-        self.King_1_ret = pygame.image.load(constantes.king_1Ret).convert_alpha()
-        self.King_2_ret = pygame.image.load(constantes.king_2Ret).convert_alpha()
-        self.King_3_ret = pygame.image.load(constantes.king_3Ret).convert_alpha()
-        self.King_4_ret = pygame.image.load(constantes.king_4Ret).convert_alpha()
-        self.King_5_ret = pygame.image.load(constantes.king_5Ret).convert_alpha()
-        self.King_6_ret = pygame.image.load(constantes.king_6Ret).convert_alpha()
-        self.King_Attak_ret = pygame.image.load(constantes.kingRet_Attak).convert_alpha()
-        self.King_Attak2_ret = pygame.image.load(constantes.kingRet_Attak2).convert_alpha()
+        self.animations = {
+            "walk": ImageAnimation((0, 0), True),
+            "attack": ImageAnimation((0, 0), True)
+        }
+
 
         self.Perso_Tab = [self.King_1, self.King_2, self.King_3, self.King_4, self.King_5, self.King_6]
         self.Perso_Tab_ret = [
