@@ -6,10 +6,22 @@ import math
 import src.constantes as constantes
 
 
-class Perso:
+class King:
     """Reprensents the user's character"""
 
+    instance = None
+
+    @staticmethod
+    def getInstance():
+        if King.instance is None:
+            King()
+        return King.instance
+
     def __init__(self):
+        if King.instance is not None:
+            raise RuntimeError("Trying to instanciate a second object of a singleton class")
+        King.instance = self
+
         self.targetCoordx = 576
         self.targetCoordy = 352
         self.objectif = 10
