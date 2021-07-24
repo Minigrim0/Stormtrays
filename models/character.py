@@ -6,27 +6,26 @@ import math
 import src.constantes as constantes
 
 
-class King:
+class Character:
     """Reprensents the user's character"""
 
     instance = None
 
     @staticmethod
     def getInstance():
-        if King.instance is None:
-            King()
-        return King.instance
+        if Character.instance is None:
+            Character()
+        return Character.instance
 
     def __init__(self):
-        if King.instance is not None:
+        if Character.instance is not None:
             raise RuntimeError("Trying to instanciate a second object of a singleton class")
-        King.instance = self
+        Character.instance = self
 
         self.targetCoordx = 576
         self.targetCoordy = 352
         self.objectif = 10
-        self.Vitesse = 6
-        self.Degats = 3
+
         self.i = 0
         self.posx = 0
         self.posy = 0
@@ -37,6 +36,13 @@ class King:
         self.TimeCounter = 0
         self.TimeElapsed = 0
         self.T0 = time.process_time()
+
+        self.XpToAdd = 0
+        self.xp = 0
+        self.objectif = 10
+        self.Level_Roi = 0
+        self.Degats = 3
+        self.Vitesse = 5
 
         self.Is_Returned = False
         self.target = None
@@ -210,6 +216,27 @@ class King:
             self.target = Liste_Mechants[0]
             Liste_Mechants[0].IsAttacked = True
         self.vit(Liste_Mechants, niveau)
+
+    def update(self, timeElapsed):
+        if self.capacite1:
+            Icapacite1 += 1
+            if Icapacite1 == 160:
+                Icapacite1 = 0
+                King.capacite1 = False
+
+        LvlUp = self.level_up()
+        if CooldownInvoc > 0:
+            CooldownInvoc -= 1
+        TpsCoolDown = CooldownInvoc // 24
+
+        # Augmentation du niveau
+        if LvlUp:
+
+            AfficheLvlUp = True
+
+            King.Degats = King.Level_Roi * 0.5 + 3
+            King.Vitesse = King.Level_Roi * 0.25 + 5
+
 
     def vit(self, Liste_Mechants, niveau):
         """Updates the status of the character
