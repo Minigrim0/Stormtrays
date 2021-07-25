@@ -114,7 +114,7 @@ class Character:
             self.XpToAdd -= 1
             self.xp += 1
 
-    def update(self, timeElapsed):
+    def update(self, timeElapsed: int):
         """if self.capacite1:
             Icapacite1 += 1
             if Icapacite1 == 160:

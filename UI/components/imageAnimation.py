@@ -48,7 +48,7 @@ class ImageAnimation:
             )
             if self.flippable:
                 self.images_flipped.append(
-                    pg.transform.flip(self.images[-1], False, True)
+                    pg.transform.flip(self.images[-1], True, False)
                 )
 
     def play(self):
@@ -64,6 +64,15 @@ class ImageAnimation:
     def flip(self):
         if self.flippable:
             self.flipped = True
+
+    def setDirection(self, right: bool):
+        """Sets the direction of the animation
+
+        Args:
+            right (bool): Whether the animation should be directed to the right
+        """
+        print(not right)
+        self.flipped = not right
 
     def update(self, timeElapsed):
         self.last_step += timeElapsed
