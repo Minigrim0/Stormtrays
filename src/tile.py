@@ -30,6 +30,18 @@ class Tile:
         """
         screen.blit(self.image[int(editor)], self.position)
 
+    def direction(self):
+        if (self.code, self.rotation) in (("c1", 0), ("t1", 180), ("t2", 270)):
+            return (1, 0)
+        elif (self.code, self.rotation) in (("c1", 90), ("t1", 270), ("t2", 0)):
+            return (0, -1)
+        elif (self.code, self.rotation) in (("c1", 180), ("t1", 0), ("t2", 90)):
+            return (-1, 0)
+        elif (self.code, self.rotation) in (("c1", 270), ("t1", 90), ("t2", 180)):
+            return (0, 1)
+        elif self.code == "x1":
+            return (0, 0)
+
     def move(self, pos):
         self.position = pos
 
