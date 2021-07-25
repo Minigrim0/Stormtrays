@@ -1,4 +1,3 @@
-import os
 import glob
 import json
 
@@ -6,7 +5,6 @@ import random
 from src.ennemy import EnnemyDO
 
 from models.gameOptions import GameOptions
-from models.level import Level
 
 
 class Ennemy:
@@ -44,6 +42,8 @@ class Ennemy:
             self.invoke()
 
         for ennemy in self.ennemies:
+            if not ennemy.alive:
+                del self.ennemies[self.ennemies.index(ennemy)]
             ennemy.update(timeElapsed)
 
     def draw(self, screen):
