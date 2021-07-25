@@ -151,7 +151,6 @@ class Character:
             self.speed = self.Level_Roi * 0.25 + 5
 
         self.move(timeElapsed)
-        print(self.current_animation)
         self.getCurrentAnimation().update(timeElapsed)
 
     def handleEvent(self, event: pg.event):
@@ -172,11 +171,13 @@ class Character:
 
                 angle = findAngle(delta_x, delta_y)
 
-                self.posx_Old = self.posx
-                self.posy_Old = self.posy
+                movement_x = math.cos(angle) * self.speed * timeElapsed
+                movement_y = math.sin(angle) * self.speed * timeElapsed
 
-                self.posy += math.sin(angle) * self.speed * timeElapsed
-                self.posx += math.cos(angle) * self.speed * timeElapsed
+                self.posx += movement_x
+                self.posy += movement_y
+
+                self.getCurrentAnimation().setDirection(movement_x > 0)
                 self.current_animation = "walk"
             else:
                 self.current_animation = "attack"
@@ -187,11 +188,13 @@ class Character:
 
                 angle = findAngle(delta_x, delta_y)
 
-                self.posx_Old = self.posx
-                self.posy_Old = self.posy
+                movement_x = math.cos(angle) * self.speed * timeElapsed
+                movement_y = math.sin(angle) * self.speed * timeElapsed
 
-                self.posy += math.sin(angle) * self.speed * timeElapsed
-                self.posx += math.cos(angle) * self.speed * timeElapsed
+                self.posx += movement_x
+                self.posy += movement_y
+
+                self.getCurrentAnimation().setDirection(movement_x > 0)
                 self.current_animation = "walk"
             else:
                 self.current_animation = "idle"
