@@ -1,8 +1,6 @@
 {
     "Name": "Ghost",
-    "Img": "assets/images/ennemies/Ghost/Ghost1.png",
-    "ImgFolder": "assets/images/ennemies/Ghost/*.png",
-    "ImgFolderRet": "assets/images/ennemies/Ghost/Ret/*.png",
+    "ImgFolder": "assets/images/ennemies/Ghost/",
     "DeathSound": "../musique/mort-Ghost.wav",
     "Height": 64,
     "LifePts": 20,

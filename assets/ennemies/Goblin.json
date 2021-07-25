@@ -1,8 +1,6 @@
 {
     "Name": "Goblin",
-    "Img": "assets/images/ennemies/Goblin/Goblin1.png",
-    "ImgFolder": "assets/images/ennemies/Goblin/*.png",
-    "ImgFolderRet": "assets/images/ennemies/Goblin/Ret/*.png",
+    "ImgFolder": "assets/images/ennemies/Goblin/",
     "DeathSound": "../musique/mort-Goblin.wav",
     "Height": 48,
     "LifePts": 15,

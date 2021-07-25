@@ -1,8 +1,6 @@
 {
     "Name": "Dwarf",
-    "Img": "assets/images/ennemies/Nain/Dwarf1.png",
-    "ImgFolder": "assets/images/ennemies/Nain/*.png",
-    "ImgFolderRet": "assets/images/ennemies/Nain/Ret/*.png",
+    "ImgFolder": "assets/images/ennemies/Nain/",
     "DeathSound": "../musique/mort-Goblin.wav",
     "Height": 64,
     "LifePts": 100,

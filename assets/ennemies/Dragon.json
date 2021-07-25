@@ -1,8 +1,6 @@
 {
     "Name": "Dragon",
-    "Img": "assets/images/ennemies/Dragon/Dragon1.png",
-    "ImgFolder": "assets/images/ennemies/Dragon/*.png",
-    "ImgFolderRet": "assets/images/ennemies/Dragon/Ret/*.png",
+    "ImgFolder": "assets/images/ennemies/Dragon/",
     "DeathSound": "../musique/mort-Orc.wav",
     "Height": 50,
     "LifePts": 225,
