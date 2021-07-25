@@ -1,9 +1,10 @@
 import pygame as pg
-import random
 import time
 import math
 
-import src.constantes as constantes
+from src.ennemy import EnnemyDO
+from src.utils.distance_between import distance_between
+from src.utils.findAngle import findAngle
 
 from models.screen import Screen
 
@@ -26,8 +27,7 @@ class Character:
             raise RuntimeError("Trying to instanciate a second object of a singleton class")
         Character.instance = self
 
-        self.targetCoordx = 576
-        self.targetCoordy = 352
+        self.target = (576, 352)  # Either a position or an ennemy
         self.objectif = 10
 
         self.posx = 0
@@ -45,10 +45,9 @@ class Character:
         self.objectif = 10
         self.Level_Roi = 0
         self.Degats = 3
-        self.Vitesse = 5
+        self.speed = 75
 
         self.Is_Returned = False
-        self.target = None
         self.Anim_King = False
         self.Anim_King_Ret = False
         self.capacite1 = False
@@ -58,9 +57,9 @@ class Character:
 
         self.animations = {
             "idle": ImageAnimation("assets/images/character/animations/idle/", True),
-            "walk": ImageAnimation("assets/images/character/animations/walk/", True),
-            "attack": ImageAnimation("assets/images/character/animations/attack/", True),
-            "invoke": ImageAnimation("assets/images/character/animations/invoke/", True)
+            "walk": ImageAnimation("assets/images/character/animations/walk/", True, speed=5),
+            "attack": ImageAnimation("assets/images/character/animations/attack/", True, speed=3),
+            "invoke": ImageAnimation("assets/images/character/animations/invoke/", True, speed=5)
         }
         self.current_animation = "idle"
 
@@ -82,7 +81,7 @@ class Character:
 
             self.objectif = (self.Level_Roi ** 2) * 20
             self.Degats = self.Level_Roi * 0.5 + 3
-            self.Vitesse = self.Level_Roi * 0.25 + 5
+            self.speed = self.Level_Roi * 0.25 + 5
             return True
         return False
 
@@ -149,109 +148,50 @@ class Character:
         """
         if self.level_up():
             self.Degats = self.Level_Roi * 0.5 + 3
-            self.Vitesse = self.Level_Roi * 0.25 + 5
+            self.speed = self.Level_Roi * 0.25 + 5
 
+        self.move(timeElapsed)
+        print(self.current_animation)
         self.getCurrentAnimation().update(timeElapsed)
 
-    def handleEvent(self, event):
-        if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
-            self.targetCoordx, self.targetCoordy = event.pos
+    def handleEvent(self, event: pg.event):
+        if event.type == pg.MOUSEBUTTONDOWN and event.button == 3:
+            self.target = event.pos
 
     def draw(self, screen: Screen):
-        self.animations[self.current_animation].draw(screen, (self.posx, self.posy))
+        self.getCurrentAnimation().draw(screen, (self.posx, self.posy), centered=True)
 
-    def vit(self, Liste_Mechants, niveau):
-        """Updates the status of the character
+    def move(self, timeElapsed: float):
+        """Updates the status of the character"""
+        # self.AnimXp()
 
-        Args:
-            Liste_Mechants ([type]): [description]
-            niveau ([type]): [description]
-        """
-        self.AnimXp()
-
-        if self.AnimAttak:
-            if self.Is_Returned:
-                self.AnimKingAttakRet(Liste_Mechants, niveau)
-            elif not self.Is_Returned:
-                self.AnimKingAttak(Liste_Mechants, niveau)
-
-        elif self.target:
-            self.targetCoordx = self.target.PosAbsolue[0]
-            self.targetCoordy = self.target.PosAbsolue[1]
-
-            if (
-                math.sqrt(
-                    ((self.posx - self.target.PosAbsolue[0]) ** 2) + ((self.posy - self.target.PosAbsolue[1]) ** 2)
-                )
-                > self.Vitesse
-            ):
-
-                self.AnimAttak = False
-                delta_y = self.target.PosAbsolue[1] - self.posy
+        if isinstance(self.target, EnnemyDO):
+            if distance_between(self.target.position, (self.posx, self.posy)) > 10:
                 delta_x = self.target.PosAbsolue[0] - self.posx
+                delta_y = self.target.PosAbsolue[1] - self.posy
 
-                if delta_x != 0:
-                    angle = math.atan(delta_y / delta_x)
-                else:
-                    if delta_y < 0:
-                        angle = -math.pi / 2
-                    else:
-                        angle = math.pi / 2
-
-                if delta_x < 0:
-                    angle = angle + math.pi
-                    self.Is_Returned = True
-
-                else:
-                    self.Is_Returned = False
+                angle = findAngle(delta_x, delta_y)
 
                 self.posx_Old = self.posx
                 self.posy_Old = self.posy
 
-                self.posy = self.posy + math.sin(angle) * self.Vitesse
-                self.posx = self.posx + math.cos(angle) * self.Vitesse
-
-                self.i += 1
-                if self.Is_Returned:
-                    self.anim_ret()
-                else:
-                    self.anim()
+                self.posy += math.sin(angle) * self.speed * timeElapsed
+                self.posx += math.cos(angle) * self.speed * timeElapsed
+                self.current_animation = "walk"
             else:
-                self.AnimAttak = True
-
+                self.current_animation = "attack"
         else:
+            if distance_between(self.target, (self.posx, self.posy)) > 10:
+                delta_x = self.target[0] - self.posx
+                delta_y = self.target[1] - self.posy
 
-            if (
-                math.sqrt(((self.posx - self.targetCoordx) ** 2) + ((self.posy - self.targetCoordy) ** 2))
-                > self.Vitesse
-            ):
-
-                delta_y = self.targetCoordy - self.posy
-                delta_x = self.targetCoordx - self.posx
-
-                if delta_x != 0:
-                    angle = math.atan(delta_y / delta_x)
-                else:
-                    if delta_y < 0:
-                        angle = -math.pi / 2
-                    else:
-                        angle = math.pi / 2
-
-                if delta_x < 0:
-                    angle = angle + math.pi
-                    self.Is_Returned = True
-
-                else:
-                    self.Is_Returned = False
+                angle = findAngle(delta_x, delta_y)
 
                 self.posx_Old = self.posx
                 self.posy_Old = self.posy
 
-                self.posy = self.posy + math.sin(angle) * self.Vitesse
-                self.posx = self.posx + math.cos(angle) * self.Vitesse
-
-                self.i += 1
-                if self.Is_Returned:
-                    self.anim_ret()
-                else:
-                    self.anim()
+                self.posy += math.sin(angle) * self.speed * timeElapsed
+                self.posx += math.cos(angle) * self.speed * timeElapsed
+                self.current_animation = "walk"
+            else:
+                self.current_animation = "idle"
