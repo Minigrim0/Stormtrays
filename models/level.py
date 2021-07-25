@@ -8,6 +8,7 @@ from models.gameOptions import GameOptions
 import src.constantes as consts
 from src.tile import Tile
 from src.errors.invalidPositionException import InvalidPositionException
+from src.bastion import Bastion
 
 
 class Level:
@@ -48,15 +49,14 @@ class Level:
 
         # self.editorImage["QG", 0] = pg.image.load("img/QuestGiverF1.png").convert_alpha()
 
+        self.bastions: list(Bastion) = []
         self.gold = 500
-        self.Vie_Chateau = 100
         self.Nombre_Ennemis_Tue = 0
         self.background: pg.Surface = pg.image.load("assets/images/fond.png").convert_alpha()
         self.backgroundName = "fond1"
         self.size = [18, 11]
 
         self.GoldTab = []
-        self.pos_Chateau = None
         self.FondFenetre = None
         self.map = None
         self.initMap()
@@ -93,7 +93,6 @@ class Level:
         Args:
             nomfichier ([type]): [description]
         """
-        options = GameOptions.getInstance()
         with open(nomfichier) as f:
             data = json.load(f)
             self.background = pg.image.load(data["background"])
@@ -116,8 +115,8 @@ class Level:
                     if self.map[x][y].code not in ("k1", "QG"):
                         self.background.blit(self.map[x][y].image[0], tile_position)
                     elif self.map[x][y].code == "k1":
-                        self.background.blit(self.map[x][y].image[0], tile_position)
-                        self.pos_Chateau = [x, y + 1]
+                        bastion = Bastion((x, y), initial_health=100)
+                        self.bastions.append(bastion)
 
     def placeTile(self, position: tuple, tile):
         """Places a tile at the given coordinates
@@ -138,6 +137,8 @@ class Level:
             screen (Screen): The screen to blit the level on
         """
         screen.blit(self.background, (0, 0))
+        for bastion in self.bastions:
+            bastion.draw(screen)
 
         if editor:
             for y in range(self.size[1]):
@@ -180,3 +181,10 @@ class Level:
             Level_Difficulty = 1 * Difficulty
 
         return Level_Difficulty
+
+    def hitBastion(self, position: tuple, damage: int = 0) -> bool:
+        """Hits the bastion at the given coordinate (if any) with the given amount of damage"""
+        for bastion in self.bastions:
+            if bastion.position == position:
+                return True
+        return False
