@@ -1,8 +1,10 @@
 import pygame
 import src.constantes as constantes
 from src.gold import GoldAnim
+from src.utils.bound import bound
 
 from models.level import Level
+
 from UI.components.imageAnimation import ImageAnimation
 from UI.components.loading_bar import LoadingBar
 
@@ -101,24 +103,23 @@ class EnnemyDO:
             self.count = 0
             self.position = (self.position[0] + self.direction[0], self.position[1] + self.direction[1])
 
-            tile = level.map[self.position[0]][self.position[1]]
-            new_dir = tile.direction()
-            if new_dir is None:
-                self.pose_ennemi()
-            elif new_dir != (0, 0):
-                if new_dir[0] != self.direction[0]:
-                    self.animation.flip()
-                self.direction = new_dir
+            if level.hitCastle(self.position, damage=(self.health / 2)):
+                self.hit(2000)
+            else:
+                tile = level.map[self.position[0]][self.position[1]]
+                new_dir = tile.direction()
+                if new_dir is None:
+                    self.pose_ennemi()
+                elif new_dir != (0, 0):
+                    if new_dir[0] != self.direction[0]:
+                        self.animation.flip()
+                    self.direction = new_dir
 
         self.PosAbsolue = (
             self.position[0] * 64 + (self.count * self.direction[0]),
             self.position[1] * 64 + (self.count * self.direction[1]),
         )
         self.HitBox = pygame.Rect(self.PosAbsolue, (64, 64))
-
-        # if self.posx == niveau.pos_Chateau[0] and self.posy == niveau.pos_Chateau[1]:
-        #     niveau.Vie_Chateau -= self.vie // 1.5
-        #     self.enleve_vie(2000, Liste_Mechants, self, niveau, King)
 
     def hit(self, damage: int):
         """Hits the ennemy with the given amount of damage
@@ -127,6 +128,7 @@ class EnnemyDO:
             damage (int): The amount of damage to deal
         """
         self.health -= damage
+        self.health = bound(0, self.max_health, self.health)
         self.is_attacked = True
         self.healthBar.set_advancement(self.health)
 
