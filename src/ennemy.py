@@ -35,7 +35,6 @@ class EnnemyDO:
         self.speed = self.propriete["speed"]
         self.height = self.propriete["Height"]
 
-        print(self.height)
         self.healthBar = LoadingBar(
             (0, 0),
             (self.height, 5),
@@ -76,16 +75,7 @@ class EnnemyDO:
         self.animation.draw(screen, self.PosAbsolue)
 
     def update(self, timeElapsed: float):
-        """Makes the ennemy move
-
-        Args:
-            tableau ([type]): [description]
-            fenetre ([type]): [description]
-            niveau ([type]): [description]
-            Liste_Mechants ([type]): [description]
-            coin ([type]): [description]
-            King ([type]): [description]
-        """
+        """Makes the ennemy move"""
         self.animation.update(timeElapsed)
         self.healthBar.update(timeElapsed)
 
@@ -137,6 +127,14 @@ class EnnemyDO:
         """Returns true if the ennemy is alive"""
         return self.health > 0
 
+    @property
+    def centeredPosition(self) -> (int, int):
+        """Returns the centered position of the ennemy"""
+        return (
+            self.PosAbsolue[0] + self.height // 2,
+            self.PosAbsolue[1] + self.height // 2,
+        )
+
     def enleve_vie(self, viemoins, liste_mech, ennemi, niveau, King):
         """Makes the ennemy loose life
 
@@ -175,3 +173,7 @@ class EnnemyDO:
             niveau.Nombre_Ennemis_Tue += 1
             return True
         return False
+
+    def collide(self, position: tuple) -> bool:
+        """Returns true if the given position collides with the ennemy"""
+        return self.HitBox.collidepoint(position)
