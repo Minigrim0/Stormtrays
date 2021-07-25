@@ -130,6 +130,10 @@ class Level:
 
         self.map[position[0]][position[1]] = tile
 
+    def update(self, timeElapsed: float):
+        for bastion in self.bastions:
+            bastion.update(timeElapsed)
+
     def draw(self, screen, editor=False):
         """Draws the current level
 
@@ -186,5 +190,6 @@ class Level:
         """Hits the bastion at the given coordinate (if any) with the given amount of damage"""
         for bastion in self.bastions:
             if bastion.position == position:
+                bastion.hit(damage)
                 return True
         return False

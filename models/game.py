@@ -42,6 +42,7 @@ class Game(Runnable):
         # Time_50 = myfont2.render("0", 1, (0, 0, 0))
 
     def loop(self):
+        Level.getInstance().update(self.screen.timeElapsed)
         Ennemy.getInstance().update(self.screen.timeElapsed)
         Character.getInstance().update(self.screen.timeElapsed)
 
