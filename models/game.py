@@ -1,3 +1,5 @@
+import pygame as pg
+
 from models.screen import Screen
 from src.runnable import Runnable
 from src.invocation import Invocation
@@ -5,66 +7,48 @@ from src.tourClasse import Tours_IG
 
 from models.level import Level
 from models.ennemy import Ennemy
+from models.character import Character
 
 
 class Game(Runnable):
     def __init__(self, screen: Screen, levelPath: str):
+        super().__init__()
         self.level = Level.getInstance()
         self.level.build(levelPath)
+        self.screen = screen
 
-        double_invoque = False
+        # double_invoque = False
 
-        count = 0
-        Level_Number = 1
-        Liste_Tours_IG = []
-        Tab_Projectile = []
-        CooldownInvoc = 0
-        TpsCoolDown = 0
+        # count = 0
+        # Level_Number = 1
+        # Liste_Tours_IG = []
+        # Tab_Projectile = []
+        # CooldownInvoc = 0
+        # TpsCoolDown = 0
 
         self.level.gold = 500
         self.level.Vie_Chateau = 100
         self.level.Nombre_Ennemis_Tue = 0
-        King.XpToAdd = 0
-        King.xp = 0
-        King.objectif = 10
-        King.Level_Roi = 0
-        King.Degats = 3
-        King.Vitesse = 5
-        TpsLvl = 0
-        Icapacite1 = 0
-        HaveSeenLvl5Msg = False
-        ImgInvoc = True
-        Accelerex2 = False
-        invocation = None
-        Tps_Invoc_affiche = None
-        AfficheStatTour = False
+        # TpsLvl = 0
+        # Icapacite1 = 0
+        # HaveSeenLvl5Msg = False
+        # ImgInvoc = True
+        # Accelerex2 = False
+        # invocation = None
+        # Tps_Invoc_affiche = None
+        # AfficheStatTour = False
 
-        Compteur_Iteration = 0
-        Time_50 = myfont2.render("0", 1, (0, 0, 0))
+        # Compteur_Iteration = 0
+        # Time_50 = myfont2.render("0", 1, (0, 0, 0))
 
     def loop(self):
-        Ennemy.getInstance().update()
+        # Ennemy.getInstance().update()
+        Character.getInstance().update(self.screen.timeElapsed)
 
-        if King.capacite1:
-            Icapacite1 += 1
-            if Icapacite1 == 160:
-                Icapacite1 = 0
-                King.capacite1 = False
+        self.draw()
 
-        LvlUp = King.level_up()
-        if CooldownInvoc > 0:
-            CooldownInvoc -= 1
-        TpsCoolDown = CooldownInvoc // 24
-
-        # Augmentation du niveau
-        if LvlUp:
-
-            AfficheLvlUp = True
-
-            King.Degats = King.Level_Roi * 0.5 + 3
-            King.Vitesse = King.Level_Roi * 0.25 + 5
-
-        # Mort Chateau
+        self.handleEvent()
+        """
         if niveau.Vie_Chateau <= 0:
             jeu = False
             Ecran_Perdu = True
@@ -88,9 +72,17 @@ class Game(Runnable):
         Current_Xp = pygame.Surface(((King.xp / King.objectif) * 255, 18))
         Current_Xp.fill((0, 255, 40))
 
-    def draw(self):
         King.vit(King.Perso_Tab, King.Perso_Tab_ret)
+        """
 
+    def handleEvent(self):
+        for event in self.screen.getEvent():
+            if event.type == pg.KEYDOWN and event.key == pg.k_ESC:
+                self.running = False
+
+    def draw(self):
+        Character.getInstance().draw(self.screen)
+        """
         # Bouger les ennemis
         for ennemi in Liste_Mechants:
 
@@ -346,4 +338,5 @@ class Game(Runnable):
                     else:
                         screen.delais = 0.05
 
-        screen.flip()
+        """
+        self.screen.flip()
