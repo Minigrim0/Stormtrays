@@ -5,12 +5,24 @@ from models.level import Level
 from models.gameOptions import GameOptions
 from models.character import Character
 
+from UI.components.xp_bar import XPBar
+
 
 class GameUI:
     def __init__(self):
         self.font = GameOptions.getInstance().fonts["MedievalSharp-xOZ5"]["20"]
 
         self.stats_background = pg.image.load("assets/images/stats_background.png")
+
+        self.gold_amount: pg.Surface = None
+        self.bastion_health: pg.Surface = None
+        self.character_level: pg.Surface = None
+        self.ennemies_killed: pg.Surface = None
+        self.character_damage: pg.Surface = None
+        self.character_speed: pg.Surface = None
+
+        self.XPbar = XPBar((882, 86), (255, 18))
+
         self.update()
 
     def update(self):
@@ -33,3 +45,7 @@ class GameUI:
         screen.blit(self.character_level, (1020, 3))
         screen.blit(self.ennemies_killed, (1020, 27))
         screen.blit(self.character_damage, (1020, 53))
+
+        self.xp_bar.draw(screen)
+        # screen.blit(Obj_Lvl_Txt, (1152 - 155, 80))
+        # screen.blit(XpBar, (1152 - 282, 80))

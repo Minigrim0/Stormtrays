@@ -135,9 +135,6 @@ class Game(Runnable):
                             message_argent = TowerFont.render("Vous n'avez pas assez d'argent !", 1, (255, 0, 0))
                             screen.blit(message_argent, (15, 50))
 
-        screen.blit(Current_Xp, (1152 - 270, 86))
-        screen.blit(Obj_Lvl_Txt, (1152 - 155, 80))
-        screen.blit(XpBar, (1152 - 282, 80))
         screen.blit(pause, (820, 5))
 
         if Tps_Invoc_affiche and King.Level_Roi >= 5:
