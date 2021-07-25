@@ -4,6 +4,7 @@
     "DeathSound": "../musique/mort-Ghost.wav",
     "Height": 64,
     "LifePts": 20,
-    "Speed": 6,
-    "weight": 4
+    "speed": 4,
+    "weight": 4,
+    "animation_speed": 4
 }
