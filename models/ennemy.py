@@ -38,46 +38,46 @@ class Ennemy:
                 self.available_ennemies[os.path.splitext(os.path.split(ennemyFile)[1])[0]] = data
 
     def update(self):
-        if self.level.Nombre_Ennemis_Tue >= 5000:
-            double_invoque = True
+        # if self.level.Nombre_Ennemis_Tue >= 5000:
+        #     double_invoque = True
 
-        invoke = random.random() * Level_Difficulty
+        invoke = random.random() * 1
         if invoke <= 1:
             self.invoke()
 
     def invoke(self):
         invoque = random.randrange(10)
         if invoque == 0:
-            ennemi = EnnemyDO("../Ennemis/Orc.json")
+            ennemi = EnnemyDO("assets/ennemies/Orc.json")
             ennemi.pose_ennemi(self.level.map)
             self.ennemies.append(ennemi)
         elif invoque in (1, 2):
-            ennemi = EnnemyDO("../Ennemis/Goblin.json")
+            ennemi = EnnemyDO("assets/ennemies/Goblin.json")
             ennemi.pose_ennemi(self.level.map)
             self.ennemies.append(ennemi)
         elif invoque == 3:
-            ennemi = EnnemyDO("../Ennemis/Dwarf.json")
+            ennemi = EnnemyDO("assets/ennemies/Dwarf.json")
             ennemi.pose_ennemi(self.level.map)
             self.ennemies.append(ennemi)
         elif invoque == 4:
-            ennemi = EnnemyDO("../Ennemis/Knight.json")
+            ennemi = EnnemyDO("assets/ennemies/Knight.json")
             ennemi.pose_ennemi(self.level.map)
             self.ennemies.append(ennemi)
         elif invoque == 5:
-            ennemi = EnnemyDO("../Ennemis/Ghost.json")
+            ennemi = EnnemyDO("assets/ennemies/Ghost.json")
             ennemi.pose_ennemi(self.level.map)
             self.ennemies.append(ennemi)
         elif invoque == 6:
-            ennemi = EnnemyDO("../Ennemis/Golem.json")
+            ennemi = EnnemyDO("assets/ennemies/Golem.json")
             ennemi.pose_ennemi(self.level.map)
             self.ennemies.append(ennemi)
         elif invoque == 7:
             invoque = random.randrange(5)
             if invoque == 0:
-                ennemi = EnnemyDO("../Ennemis/Dragon.json")
+                ennemi = EnnemyDO("assets/ennemies/Dragon.json")
                 ennemi.pose_ennemi(self.level.map)
                 self.ennemies.append(ennemi)
         elif invoque in (8, 9, 10):
-            ennemi = EnnemyDO("../Ennemis/Wolf.json")
+            ennemi = EnnemyDO("assets/ennemies/Wolf.json")
             ennemi.pose_ennemi(self.level.map)
             self.ennemies.append(ennemi)
