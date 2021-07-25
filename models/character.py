@@ -56,10 +56,12 @@ class Character:
         self.IsMoving = False
 
         self.animations = {
-            "walk": ImageAnimation((0, 0), True),
-            "attack": ImageAnimation((0, 0), True)
+            "idle": ImageAnimation("assets/images/character/animations/idle/", True),
+            "walk": ImageAnimation("assets/images/character/animations/walk/", True),
+            "attack": ImageAnimation("assets/images/character/animations/attack/", True),
+            "invoke": ImageAnimation("assets/images/character/animations/invoke/", True)
         }
-
+        self.current_animation = "idle"
 
         self.Perso_Tab = [self.King_1, self.King_2, self.King_3, self.King_4, self.King_5, self.King_6]
         self.Perso_Tab_ret = [
@@ -91,20 +93,6 @@ class Character:
             self.Vitesse = self.Level_Roi * 0.25 + 5
             return True
         return False
-
-    def anim(self):
-        """Animates the character"""
-        if self.i == 12:
-            self.i = 0
-        self.nanim = self.Perso_Tab[self.i // 2]
-        self.Is_Returned = False
-
-    def anim_ret(self):
-        """Animates the character flipped"""
-        if self.i == 12:
-            self.i = 0
-        self.nanim = self.Perso_Tab_ret[self.i // 2]
-        self.Is_Returned = True
 
     def AnimKingAttakRet(self, Liste_Mechants, niveau):
         """Animates an attacked flipped
