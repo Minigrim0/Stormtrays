@@ -2,14 +2,13 @@ import pygame
 import src.constantes as constantes
 from src.gold import GoldAnim
 
-import json
 import glob
 
 
 class EnnemyDO:
     """Represent an in game ennemy, keeps the health etc..."""
 
-    def __init__(self, FichierEnnemi):
+    def __init__(self, data):
         self.posx = 0
         self.posy = 0
         self.count = 0
@@ -24,13 +23,11 @@ class EnnemyDO:
         self.Dir_y = 0
         self.Tics = 0
 
-        f = open(FichierEnnemi)
-        contenu = f.read()
-        self.propriete = json.loads(contenu)
+        self.propriete = data
 
         self.Name = self.propriete["Name"]
         self.image2Scale = pygame.image.load(self.propriete["Img"]).convert_alpha()
-        self.meurt = pygame.mixer.Sound(self.propriete["DeathSound"])
+        # self.meurt = pygame.mixer.Sound(self.propriete["DeathSound"])
         self.vie = self.propriete["LifePts"]
         self.vie_bas = self.propriete["LifePts"]
         self.vitesse = self.propriete["Speed"]
@@ -63,13 +60,13 @@ class EnnemyDO:
 
         x = 0
         for y in range(11):
-            position = tableau[x, y]
+            position = tableau[x][y]
             if position == ("c1", 0):
                 self.posy = y
                 self.PosAbsolue = (0, y * 64)
                 self.HitBox = pygame.Rect((0, y), (64, 64))
 
-    def BlitInPlace(self, screen):
+    def draw(self, screen):
         """Blits the ennemy on the screen
 
         Args:
@@ -190,7 +187,7 @@ class EnnemyDO:
         if self.vie <= 0:
             constantes.DicoEnnemisKilled[self.Name] += 1
             liste_mech.remove(ennemi)
-            self.meurt.play()
+            # self.meurt.play()
             if King.capacite1 is True:
                 FlyingGold = GoldAnim(
                     (self.PosAbsolue[0] + self.Height // 2, self.PosAbsolue[1] + self.Height // 2), self.vie_bas
