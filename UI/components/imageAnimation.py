@@ -10,7 +10,10 @@ from models.screen import Screen
 class ImageAnimation:
     """An animation of images"""
 
-    def __init__(self, folder_path: str = None, flippable: bool = False, callback: callable = None, speed: int = 2):
+    def __init__(
+        self, folder_path: str = None, flippable: bool = False,
+        callback: callable = None, speed: int = 2, image_size: tuple = (-1, -1)
+    ):
         self.images: list(pg.Surface) = []
         self.images_flipped: list(pg.Surface) = []
 
@@ -24,9 +27,9 @@ class ImageAnimation:
         self.trigger = callback
 
         if folder_path is not None:
-            self.loadFolder(folder_path)
+            self.loadFolder(folder_path, image_size=image_size)
 
-    def loadFolder(self, folder_path: str):
+    def loadFolder(self, folder_path: str, image_size: tuple):
         """Loads an animation from a folder
 
         Args:
@@ -46,6 +49,10 @@ class ImageAnimation:
             self.images.append(
                 pg.image.load(image).convert_alpha()
             )
+
+            if image_size != (-1, -1):
+                self.images[-1] = pg.transform.scale(self.images[-1], image_size)
+
             if self.flippable:
                 self.images_flipped.append(
                     pg.transform.flip(self.images[-1], True, False)

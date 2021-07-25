@@ -41,7 +41,8 @@ class EnnemyDO:
             max_val=self.max_health, initial_val=self.max_health
         )
         self.animation = ImageAnimation(
-            self.propriete["ImgFolder"], flippable=True, speed=self.propriete["animation_speed"])
+            self.propriete["ImgFolder"], flippable=True,
+            speed=self.propriete["animation_speed"], image_size=(self.height, self.height))
 
         self.HitBox = None
         self.Vie_Rect = None
