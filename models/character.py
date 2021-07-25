@@ -1,9 +1,11 @@
-import pygame
+import pygame as pg
 import random
 import time
 import math
 
 import src.constantes as constantes
+
+from models.screen import Screen
 
 from UI.components.imageAnimation import ImageAnimation
 
@@ -28,7 +30,6 @@ class Character:
         self.targetCoordy = 352
         self.objectif = 10
 
-        self.i = 0
         self.posx = 0
         self.posy = 0
         self.xp = 0
@@ -63,20 +64,11 @@ class Character:
         }
         self.current_animation = "idle"
 
-        self.Perso_Tab = [self.King_1, self.King_2, self.King_3, self.King_4, self.King_5, self.King_6]
-        self.Perso_Tab_ret = [
-            self.King_1_ret,
-            self.King_2_ret,
-            self.King_3_ret,
-            self.King_4_ret,
-            self.King_5_ret,
-            self.King_6_ret,
-        ]
-
-        self.nanim = self.King_1
-
         self.posx_Old = None
         self.posy_Old = None
+
+    def getCurrentAnimation(self):
+        return self.animations[self.current_animation]
 
     def level_up(self):
         """Upgrades the character skills
@@ -93,35 +85,6 @@ class Character:
             self.Vitesse = self.Level_Roi * 0.25 + 5
             return True
         return False
-
-    def AnimKingAttakRet(self, Liste_Mechants, niveau):
-        """Animates an attacked flipped
-
-        Args:
-            Liste_Mechants ([type]): [description]
-            niveau ([type]): [description]
-            Coin ([type]): [description]
-        """
-        self.Anim_King_i += 1
-
-        if self.Anim_King_i == 8:
-            self.i = 6
-            self.anim_ret()
-            self.Anim_King_i = 0
-            self.Is_Returned = True
-            self.AnimAttak = False
-
-            if not self.target:
-                self.AnimAttak = False
-
-        elif self.Anim_King_i >= 4:
-            self.nanim = self.King_Attak2_ret
-            if self.target.enleve_vie(self.Degats / 4, Liste_Mechants, self.target, niveau, self):
-                self.XpToAdd += self.target.vie_bas / 3
-                self.target = False
-
-        elif self.Anim_King_i >= 1:
-            self.nanim = self.King_Attak_ret
 
     def AnimKingAttak(self, Liste_Mechants, niveau):
         """Animates an attack
@@ -173,49 +136,29 @@ class Character:
             self.XpToAdd -= 1
             self.xp += 1
 
-    def AnimMenus(self, Liste_Mechants, niveau):
-        """Animates the character in the menu
-
-        Args:
-            Liste_Mechants ([type]): [description]
-            niveau ([type]): [description]
-        """
-        self.Vitesse = 10
-
-        if not Liste_Mechants:
-            TimeElapsed = time.process_time() - self.T0
-            self.T0 = time.process_time()
-            self.TimeCounter += TimeElapsed
-
-            if self.TimeCounter >= random.randrange(4, 10):
-                self.TimeCounter = 0
-                self.targetCoordx = random.randrange(1056)
-                self.targetCoordy = random.randrange(608)
-        else:
-            self.target = Liste_Mechants[0]
-            Liste_Mechants[0].IsAttacked = True
-        self.vit(Liste_Mechants, niveau)
-
     def update(self, timeElapsed):
-        if self.capacite1:
+        """if self.capacite1:
             Icapacite1 += 1
             if Icapacite1 == 160:
                 Icapacite1 = 0
                 King.capacite1 = False
 
-        LvlUp = self.level_up()
         if CooldownInvoc > 0:
             CooldownInvoc -= 1
         TpsCoolDown = CooldownInvoc // 24
+        """
+        if self.level_up():
+            self.Degats = self.Level_Roi * 0.5 + 3
+            self.Vitesse = self.Level_Roi * 0.25 + 5
 
-        # Augmentation du niveau
-        if LvlUp:
+        self.getCurrentAnimation().update(timeElapsed)
 
-            AfficheLvlUp = True
+    def handleEvent(self, event):
+        if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
+            self.targetCoordx, self.targetCoordy = event.pos
 
-            King.Degats = King.Level_Roi * 0.5 + 3
-            King.Vitesse = King.Level_Roi * 0.25 + 5
-
+    def draw(self, screen: Screen):
+        self.animations[self.current_animation].draw(screen, (self.posx, self.posy))
 
     def vit(self, Liste_Mechants, niveau):
         """Updates the status of the character
