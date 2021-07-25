@@ -50,6 +50,12 @@ class Ennemy:
         for ennemy in self.ennemies:
             ennemy.draw(screen)
 
+    def getEnnemy(self, position: tuple) -> EnnemyDO:
+        """Returns the first ennemy at the given position or None"""
+        for ennemy in self.ennemies:
+            if ennemy.collide(position):
+                return ennemy
+
     def invoke(self):
         ennemy = random.choices(self.available_ennemies, weights=self.ennemies_weights)[0]
 
