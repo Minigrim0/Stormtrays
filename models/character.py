@@ -36,8 +36,8 @@ class Character:
         self.XpToAdd = 0
         self.xp = 0
         self.objectif = 10
-        self.Level_Roi = 0
-        self.Degats = 3
+        self.level = 0
+        self.damage = 3
         self.speed = 200
 
         self.Is_Returned = False
@@ -65,11 +65,11 @@ class Character:
         """
         if self.xp >= self.objectif:
             self.xp = self.xp - self.objectif
-            self.Level_Roi += 1
+            self.level += 1
 
-            self.objectif = (self.Level_Roi ** 2) * 20
-            self.Degats = self.Level_Roi * 0.5 + 3
-            self.speed = self.Level_Roi * 0.25 + 5
+            self.objectif = (self.level ** 2) * 20
+            self.damage = self.level * 0.5 + 3
+            self.speed = self.level * 0.25 + 5
             return True
         return False
 
@@ -79,7 +79,7 @@ class Character:
 
     def hit(self):
         """Hits the character's target, automatically called after attack animation"""
-        self.target.hit(self.Degats)
+        self.target.hit(self.damage)
         if not self.target.alive:
             self.target = (self.posx, self.posy)
         self.setAnimation("idle")
@@ -96,8 +96,8 @@ class Character:
         TpsCoolDown = CooldownInvoc // 24
         """
         if self.level_up():
-            self.Degats = self.Level_Roi * 0.5 + 3
-            self.speed = self.Level_Roi * 0.25 + 5
+            self.damage = self.level * 0.5 + 3
+            self.speed = self.level * 0.25 + 5
 
         self.move(timeElapsed)
         self.getCurrentAnimation().update(timeElapsed)
