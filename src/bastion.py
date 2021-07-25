@@ -19,7 +19,7 @@ class Bastion:
         self.underAttack: tuple(bool, int) = (False, 0)
 
         self.healthBar = LoadingBar(
-            (self.position[0] - 10, self.position[1]),
+            self._blit_position,
             (64, 5),
             max_val=self.initial_health,
             initial_val=self.initial_health
@@ -29,7 +29,7 @@ class Bastion:
         """Updates the healthbar of the bastion"""
         self.healthBar.update(timeElapsed)
         if self.underAttack[0]:
-            self.underAttack = (True, self.underAttack[1] + 1 * timeElapsed)
+            self.underAttack = (True, self.underAttack[1] + (1 * timeElapsed))
 
             if self.underAttack[1] > 5:
                 self.underAttack = (False, 0)
@@ -42,6 +42,7 @@ class Bastion:
 
     @property
     def _blit_position(self) -> tuple:
+        """Returns the real position to blit the bastion to"""
         return (self.position[0] * 64, self.position[1] * 64)
 
     def draw(self, screen: Screen):

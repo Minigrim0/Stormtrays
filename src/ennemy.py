@@ -103,7 +103,7 @@ class EnnemyDO:
             self.count = 0
             self.position = (self.position[0] + self.direction[0], self.position[1] + self.direction[1])
 
-            if level.hitCastle(self.position, damage=(self.health / 2)):
+            if level.hitBastion(self.position, damage=(self.health / 2)):
                 self.hit(2000)
             else:
                 tile = level.map[self.position[0]][self.position[1]]
