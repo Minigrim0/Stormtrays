@@ -11,18 +11,15 @@ class EnnemyDO:
     """Represent an in game ennemy, keeps the health etc..."""
 
     def __init__(self, data):
-        self.posx = 0
-        self.posy = 0
+        self.position = (0, 0)
         self.count = 0
         self.PosAbsolue = (0, 0)
-        self.i = 0
+
         self.Returned = False
-        self.IsAttacked = False
+        self.is_attacked = False
         self.BlitLife = False
-        self.tab = []
-        self.tab_ret = []
-        self.Dir_x = 0
-        self.Dir_y = 0
+
+        self.direction = (1, 0)
         self.Tics = 0
 
         self.pose_ennemi()
@@ -38,7 +35,7 @@ class EnnemyDO:
 
         print(self.height)
         self.healthBar = LoadingBar(
-            (self.posx, self.posy - 10),
+            (0, 0),
             (self.height, 5),
             max_val=self.max_health, initial_val=self.max_health
         )
@@ -54,15 +51,15 @@ class EnnemyDO:
         Args:
             tableau ([type]): [description]
         """
-        self.posx = 0
-        self.posy = 0
+        self.position = (0, 0)
         level = Level.getInstance()
+        self.direction = (1, 0)
 
         x = 0
         for y in range(11):
             tile = level.map[x][y]
             if tile is not None and (tile.code, tile.rotation) == ("c1", 0):
-                self.posy = y
+                self.position = (0, y)
                 self.PosAbsolue = (0, y * 64)
                 self.HitBox = pygame.Rect((0, y), (64, 64))
 
@@ -72,7 +69,8 @@ class EnnemyDO:
         Args:
             screen ([type]): [description]
         """
-        self.healthBar.draw(screen, self.PosAbsolue)
+        if self.is_attacked:
+            self.healthBar.draw(screen, self.PosAbsolue)
         self.animation.draw(screen, self.PosAbsolue)
 
     def update(self, timeElapsed: float):
@@ -91,45 +89,50 @@ class EnnemyDO:
 
         level = Level.getInstance()
 
-        if self.IsAttacked:
+        if self.is_attacked:
             self.Tics += 1
-            self.BlitLife = True
         if self.Tics == 50:
-            self.IsAttacked = False
-            self.BlitLife = False
+            self.is_attacked = False
             self.Tics = 0
-
-        tile = level.map[self.posx][self.posy]
-
-        new_dir = tile.direction()
-        if new_dir is None:
-            self.pose_ennemi()
-        elif new_dir != (0, 0):
-            self.Dir_x, self.Dir_y = new_dir
 
         self.count += self.speed * 64 * timeElapsed
         if self.count >= 64:
+
             self.count = 0
-            self.posx += self.Dir_x
-            self.posy += self.Dir_y
-        else:
-            self.PosAbsolue = (
-                self.posx * 64 + (self.count * self.Dir_x),
-                self.posy * 64 + (self.count * self.Dir_y),
-            )
-            self.HitBox = pygame.Rect(self.PosAbsolue, (64, 64))
+            self.position = (self.position[0] + self.direction[0], self.position[1] + self.direction[1])
+
+            tile = level.map[self.position[0]][self.position[1]]
+            new_dir = tile.direction()
+            if new_dir is None:
+                self.pose_ennemi()
+            elif new_dir != (0, 0):
+                if new_dir[0] != self.direction[0]:
+                    self.animation.flip()
+                self.direction = new_dir
+
+        self.PosAbsolue = (
+            self.position[0] * 64 + (self.count * self.direction[0]),
+            self.position[1] * 64 + (self.count * self.direction[1]),
+        )
+        self.HitBox = pygame.Rect(self.PosAbsolue, (64, 64))
 
         # if self.posx == niveau.pos_Chateau[0] and self.posy == niveau.pos_Chateau[1]:
         #     niveau.Vie_Chateau -= self.vie // 1.5
         #     self.enleve_vie(2000, Liste_Mechants, self, niveau, King)
 
-    def hit(self, damage):
+    def hit(self, damage: int):
+        """Hits the ennemy with the given amount of damage
+
+        Args:
+            damage (int): The amount of damage to deal
+        """
         self.health -= damage
-        self.IsAttacked = True
+        self.is_attacked = True
         self.healthBar.set_advancement(self.health)
 
     @property
-    def alive(self):
+    def alive(self) -> bool:
+        """Returns true if the ennemy is alive"""
         return self.health > 0
 
     def enleve_vie(self, viemoins, liste_mech, ennemi, niveau, King):
@@ -146,7 +149,7 @@ class EnnemyDO:
             [type]: [description]
         """
         self.health -= viemoins
-        self.IsAttacked = True
+        self.is_attacked = True
         self.Tics = 0
 
         if self.health <= 0:
