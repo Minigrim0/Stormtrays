@@ -74,7 +74,7 @@ class EnnemyDO:
         """
         screen.blit(self.image, (self.PosAbsolue))
 
-    def bouge(self, tableau, fenetre, niveau, Liste_Mechants, King):
+    def update(self, timeElapsed: float):
         """Makes the ennemy move
 
         Args:

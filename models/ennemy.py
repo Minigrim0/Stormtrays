@@ -38,13 +38,13 @@ class Ennemy:
                 self.available_ennemies.append(data)
                 self.ennemies_weights.append(data["weight"])
 
-    def update(self):
+    def update(self, timeElapsed: float):
         invoke = random.random() * 100
         if invoke <= 1:
             self.invoke()
 
         for ennemy in self.ennemies:
-            ennemy.update(screen)
+            ennemy.update(timeElapsed)
 
     def draw(self, screen):
         for ennemy in self.ennemies:
