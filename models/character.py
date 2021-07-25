@@ -7,6 +7,7 @@ from src.utils.distance_between import distance_between
 from src.utils.findAngle import findAngle
 
 from models.screen import Screen
+from models.ennemy import Ennemy
 
 from UI.components.imageAnimation import ImageAnimation
 
@@ -28,43 +29,32 @@ class Character:
         Character.instance = self
 
         self.target = (576, 352)  # Either a position or an ennemy
-        self.objectif = 10
 
         self.posx = 0
         self.posy = 0
-        self.xp = 0
-        self.Level_Roi = 0
-        self.Anim_King_i = 0
-        self.XpToAdd = 0
-        self.TimeCounter = 0
-        self.TimeElapsed = 0
-        self.T0 = time.process_time()
 
         self.XpToAdd = 0
         self.xp = 0
         self.objectif = 10
         self.Level_Roi = 0
         self.Degats = 3
-        self.speed = 100
+        self.speed = 200
 
         self.Is_Returned = False
-        self.Anim_King = False
-        self.Anim_King_Ret = False
         self.capacite1 = False
         self.capacite2 = False
-        self.AnimAttak = False
-        self.IsMoving = False
 
         self.animations = {
             "idle": ImageAnimation("assets/images/character/animations/idle/", flippable=True),
             "walk": ImageAnimation("assets/images/character/animations/walk/", flippable=True, speed=8),
             "attack": ImageAnimation(
-                "assets/images/character/animations/attack/", flippable=True, speed=3, callback=self.hit),
+                "assets/images/character/animations/attack/", flippable=True, speed=6, callback=self.hit),
             "invoke": ImageAnimation("assets/images/character/animations/invoke/", flippable=True, speed=5)
         }
         self.current_animation = "idle"
 
-    def getCurrentAnimation(self):
+    def getCurrentAnimation(self) -> ImageAnimation:
+        """Returns the currently playing animation"""
         return self.animations[self.current_animation]
 
     def level_up(self):
@@ -83,36 +73,16 @@ class Character:
             return True
         return False
 
+    def setAnimation(self, animation: str):
+        self.current_animation = animation
+        self.getCurrentAnimation().reset()
+
     def hit(self):
-        """Animates an attack
-
-        Args:
-            Liste_Mechants ([type]): [description]
-            niveau ([type]): [description]
-            Coin ([type]): [description]
-        """
-        self.target.enleve_vie(self.Degats / 4, self.target, self)
-
-    def AnimXp(self):
-        """Animates the xp adding"""
-        if self.XpToAdd > 90:
-            self.XpToAdd -= 10
-            self.xp += 10
-        elif self.XpToAdd <= 90 and self.XpToAdd > 70:
-            self.XpToAdd -= 9
-            self.xp += 9
-        elif self.XpToAdd <= 70 and self.XpToAdd > 50:
-            self.XpToAdd -= 7
-            self.xp += 7
-        elif self.XpToAdd <= 50 and self.XpToAdd > 30:
-            self.XpToAdd -= 5
-            self.xp += 5
-        elif self.XpToAdd <= 30 and self.XpToAdd > 10:
-            self.XpToAdd -= 3
-            self.xp += 3
-        elif self.XpToAdd <= 10 and self.XpToAdd > 0:
-            self.XpToAdd -= 1
-            self.xp += 1
+        """Hits the character's target, automatically called after attack animation"""
+        self.target.hit(self.Degats)
+        if not self.target.alive:
+            self.target = (self.posx, self.posy)
+        self.setAnimation("idle")
 
     def update(self, timeElapsed: int):
         """if self.capacite1:
@@ -133,8 +103,12 @@ class Character:
         self.getCurrentAnimation().update(timeElapsed)
 
     def handleEvent(self, event: pg.event):
+        if self.current_animation == "attack":
+            return
+
         if event.type == pg.MOUSEBUTTONDOWN and event.button == 3:
-            self.target = event.pos
+            ennemy = Ennemy.getInstance().getEnnemy(event.pos)
+            self.target = ennemy if ennemy is not None else event.pos
 
     def draw(self, screen: Screen):
         self.getCurrentAnimation().draw(screen, (self.posx, self.posy), centered=True)
@@ -142,11 +116,13 @@ class Character:
     def move(self, timeElapsed: float):
         """Updates the status of the character"""
         # self.AnimXp()
+        if self.current_animation == "attack":
+            return
 
         if isinstance(self.target, EnnemyDO):
-            if distance_between(self.target.position, (self.posx, self.posy)) > 10:
-                delta_x = self.target.PosAbsolue[0] - self.posx
-                delta_y = self.target.PosAbsolue[1] - self.posy
+            if distance_between(self.target.centeredPosition, (self.posx, self.posy)) > 10:
+                delta_x = self.target.centeredPosition[0] - self.posx
+                delta_y = self.target.centeredPosition[1] - self.posy
 
                 angle = findAngle(delta_x, delta_y)
 
@@ -157,9 +133,9 @@ class Character:
                 self.posy += movement_y
 
                 self.getCurrentAnimation().setDirection(movement_x > 0)
-                self.current_animation = "walk"
+                self.setAnimation("walk")
             else:
-                self.current_animation = "attack"
+                self.setAnimation("attack")
         else:
             if distance_between(self.target, (self.posx, self.posy)) > 10:
                 delta_x = self.target[0] - self.posx
@@ -174,6 +150,6 @@ class Character:
                 self.posy += movement_y
 
                 self.getCurrentAnimation().setDirection(movement_x > 0)
-                self.current_animation = "walk"
+                self.setAnimation("walk")
             else:
-                self.current_animation = "idle"
+                self.setAnimation("idle")
