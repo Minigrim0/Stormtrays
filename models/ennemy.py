@@ -42,7 +42,6 @@ class Ennemy:
         invoke = random.random() * 100
         if invoke <= 1:
             self.invoke()
-        
 
         for ennemy in self.ennemies:
             ennemy.update(screen)

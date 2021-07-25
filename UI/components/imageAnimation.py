@@ -71,7 +71,6 @@ class ImageAnimation:
         Args:
             right (bool): Whether the animation should be directed to the right
         """
-        print(not right)
         self.flipped = not right
 
     def update(self, timeElapsed):
