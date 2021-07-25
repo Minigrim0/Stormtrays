@@ -1,11 +1,11 @@
 {
-    "Name" : "Knight",
-    "Img" : "../Img/Ennemis/Chevalier/Chevalier1.png",
-    "ImgFolder" : "../Img/Ennemis/Chevalier/*.png",
-    "ImgFolderRet" : "../Img/Ennemis/Chevalier/Ret/*.png",
-    "DeathSound" : "../musique/mort-Chevalier.wav",
-    "Height" : 64,
-    "LifePts" : 35,
-    "Speed" : 4,
+    "Name": "Knight",
+    "Img": "assets/images/ennemies/Chevalier/Chevalier1.png",
+    "ImgFolder": "assets/images/ennemies/Chevalier/*.png",
+    "ImgFolderRet": "assets/images/ennemies/Chevalier/Ret/*.png",
+    "DeathSound": "../musique/mort-Chevalier.wav",
+    "Height": 64,
+    "LifePts": 35,
+    "Speed": 4,
     "weight": 5
 }

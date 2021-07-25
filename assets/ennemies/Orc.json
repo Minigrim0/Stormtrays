@@ -1,11 +1,11 @@
 {
-    "Name" : "Orc",
-    "Img" : "../Img/Ennemis/Orc/Orc1.png",
-    "ImgFolder" : "../Img/Ennemis/Orc/*.png",
-    "ImgFolderRet" : "../Img/Ennemis/Orc/Ret/*.png",
-    "DeathSound" : "../musique/mort-Orc.wav",
-    "Height" : 80,
-    "LifePts" : 60,
-    "Speed" : 3,
+    "Name": "Orc",
+    "Img": "assets/images/ennemies/Orc/Orc1.png",
+    "ImgFolder": "assets/images/ennemies/Orc/*.png",
+    "ImgFolderRet": "assets/images/ennemies/Orc/Ret/*.png",
+    "DeathSound": "../musique/mort-Orc.wav",
+    "Height": 80,
+    "LifePts": 60,
+    "Speed": 3,
     "weight": 4
 }

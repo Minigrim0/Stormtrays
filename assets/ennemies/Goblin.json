@@ -1,11 +1,11 @@
 {
-    "Name" : "Goblin",
-    "Img" : "../Img/Ennemis/Goblin/Goblin1.png",
-    "ImgFolder" : "../Img/Ennemis/Goblin/*.png",
-    "ImgFolderRet" : "../Img/Ennemis/Goblin/Ret/*.png",
-    "DeathSound" : "../musique/mort-Goblin.wav",
-    "Height" : 48,
-    "LifePts" : 15,
-    "Speed" : 8,
+    "Name": "Goblin",
+    "Img": "assets/images/ennemies/Goblin/Goblin1.png",
+    "ImgFolder": "assets/images/ennemies/Goblin/*.png",
+    "ImgFolderRet": "assets/images/ennemies/Goblin/Ret/*.png",
+    "DeathSound": "../musique/mort-Goblin.wav",
+    "Height": 48,
+    "LifePts": 15,
+    "Speed": 8,
     "weight": 7
 }
