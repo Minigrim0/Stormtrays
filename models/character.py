@@ -45,7 +45,7 @@ class Character:
         self.objectif = 10
         self.Level_Roi = 0
         self.Degats = 3
-        self.speed = 75
+        self.speed = 100
 
         self.Is_Returned = False
         self.Anim_King = False
@@ -56,15 +56,13 @@ class Character:
         self.IsMoving = False
 
         self.animations = {
-            "idle": ImageAnimation("assets/images/character/animations/idle/", True),
-            "walk": ImageAnimation("assets/images/character/animations/walk/", True, speed=5),
-            "attack": ImageAnimation("assets/images/character/animations/attack/", True, speed=3),
-            "invoke": ImageAnimation("assets/images/character/animations/invoke/", True, speed=5)
+            "idle": ImageAnimation("assets/images/character/animations/idle/", flippable=True),
+            "walk": ImageAnimation("assets/images/character/animations/walk/", flippable=True, speed=8),
+            "attack": ImageAnimation(
+                "assets/images/character/animations/attack/", flippable=True, speed=3, callback=self.hit),
+            "invoke": ImageAnimation("assets/images/character/animations/invoke/", flippable=True, speed=5)
         }
         self.current_animation = "idle"
-
-        self.posx_Old = None
-        self.posy_Old = None
 
     def getCurrentAnimation(self):
         return self.animations[self.current_animation]
@@ -85,7 +83,7 @@ class Character:
             return True
         return False
 
-    def AnimKingAttak(self, Liste_Mechants, niveau):
+    def hit(self):
         """Animates an attack
 
         Args:
@@ -93,26 +91,7 @@ class Character:
             niveau ([type]): [description]
             Coin ([type]): [description]
         """
-        self.Anim_King_i += 1
-
-        if self.Anim_King_i == 8:
-            self.i = 6
-            self.anim()
-            self.Anim_King_i = 0
-            self.Is_Returned = False
-            self.AnimAttak = False
-
-            if not self.target:
-                self.AnimAttak = False
-
-        elif self.Anim_King_i >= 4:
-            self.nanim = self.King_Attak2
-            if self.target.enleve_vie(self.Degats / 4, Liste_Mechants, self.target, niveau, self):
-                self.XpToAdd += self.target.vie_bas / 3
-                self.target = False
-
-        elif self.Anim_King_i >= 1 and self.Anim_King_i < 4:
-            self.nanim = self.King_Attak
+        self.target.enleve_vie(self.Degats / 4, self.target, self)
 
     def AnimXp(self):
         """Animates the xp adding"""
