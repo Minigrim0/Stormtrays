@@ -23,6 +23,8 @@ class EnnemyDO:
         self.Dir_y = 0
         self.Tics = 0
 
+        self.pose_ennemi()
+
         self.propriete = data
 
         self.Name = self.propriete["Name"]
@@ -49,7 +51,7 @@ class EnnemyDO:
         self.HitBox = None
         self.Vie_Rect = None
 
-    def pose_ennemi(self, tableau):
+    def pose_ennemi(self):
         """Adds an ennemy to the game
 
         Args:
@@ -57,11 +59,12 @@ class EnnemyDO:
         """
         self.posx = 0
         self.posy = 0
+        level = Level.getInstance()
 
         x = 0
         for y in range(11):
-            position = tableau[x][y]
-            if position == ("c1", 0):
+            tile = level.map[x][y]
+            if tile is not None and (tile.code, tile.rotation) == ("c1", 0):
                 self.posy = y
                 self.PosAbsolue = (0, y * 64)
                 self.HitBox = pygame.Rect((0, y), (64, 64))
