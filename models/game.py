@@ -77,10 +77,14 @@ class Game(Runnable):
 
     def handleEvent(self):
         for event in self.screen.getEvent():
-            if event.type == pg.KEYDOWN and event.key == pg.k_ESC:
+
+            Character.getInstance().handleEvent(event)
+
+            if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
                 self.running = False
 
     def draw(self):
+        self.level.draw(self.screen)
         Character.getInstance().draw(self.screen)
         """
         # Bouger les ennemis
