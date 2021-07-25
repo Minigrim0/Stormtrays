@@ -9,6 +9,8 @@ from models.level import Level
 from models.ennemy import Ennemy
 from models.character import Character
 
+from UI.components.game_ui import GameUI
+
 
 class Game(Runnable):
     def __init__(self, screen: Screen, levelPath: str):
@@ -27,8 +29,9 @@ class Game(Runnable):
         # TpsCoolDown = 0
 
         self.level.gold = 500
-        self.level.Vie_Chateau = 100
         self.level.Nombre_Ennemis_Tue = 0
+
+        self.ui = GameUI()
         # TpsLvl = 0
         # Icapacite1 = 0
         # HaveSeenLvl5Msg = False
@@ -45,6 +48,7 @@ class Game(Runnable):
         Level.getInstance().update(self.screen.timeElapsed)
         Ennemy.getInstance().update(self.screen.timeElapsed)
         Character.getInstance().update(self.screen.timeElapsed)
+        self.ui.update()
 
         self.draw()
 
@@ -57,13 +61,7 @@ class Game(Runnable):
         frappe = 0
 
         # Construction + Affichage + Boutons
-        Argent_Possede_Affiche = myfont2.render("Or : %i" % niveau.gold, 1, (0, 0, 0))
-        Vie_Chateau_Affiche = myfont2.render("Bastion : %i pv." % niveau.Vie_Chateau, 1, (0, 0, 0))
-        Level_Num_Affiche = myfont2.render("Niveau %i" % King.Level_Roi, 1, (0, 0, 0))
-        Ennemi_Tue_Affiche = myfont2.render("Victimes : %i" % niveau.Nombre_Ennemis_Tue, 1, (0, 0, 0))
-        Degats_Roi_Affiche = myfont2.render("Dégats : %i" % King.Degats, 1, (0, 0, 0))
-        Vitesse_Roi_Affiche = myfont2.render("Vitesse : %i " % King.Vitesse, 1, (0, 0, 0))
-        Obj_Lvl_Txt = myfont2.render("{}/{}".format(King.xp, King.objectif), 1, (0, 0, 0))
+        Obj_Lvl_Txt = self.font.render("{}/{}".format(King.xp, King.objectif), 1, (0, 0, 0))
 
         if TpsCoolDown != 0:
             Tps_Invoc_affiche = myfont2.render(str(TpsCoolDown), 1, (255, 255, 255))
@@ -89,6 +87,8 @@ class Game(Runnable):
 
         Ennemy.getInstance().draw(self.screen)
         Character.getInstance().draw(self.screen)
+
+        self.ui.draw(self.screen)
         """
         # Bouger les ennemis
         for ennemi in Liste_Mechants:
@@ -135,14 +135,6 @@ class Game(Runnable):
                             message_argent = TowerFont.render("Vous n'avez pas assez d'argent !", 1, (255, 0, 0))
                             screen.blit(message_argent, (15, 50))
 
-        screen.blit(King.nanim, (King.posx, King.posy))
-        screen.blit(FondHautDroite, (1152 - 282, 0))
-        screen.blit(Argent_Possede_Affiche, (1152 - 280, 5))
-        screen.blit(Vie_Chateau_Affiche, (1152 - 280, 27))
-        screen.blit(Vitesse_Roi_Affiche, (1152 - 280, 54))
-        screen.blit(Level_Num_Affiche, (1152 - 132, 5))
-        screen.blit(Ennemi_Tue_Affiche, (1152 - 132, 27))
-        screen.blit(Degats_Roi_Affiche, (1152 - 132, 54))
         screen.blit(Current_Xp, (1152 - 270, 86))
         screen.blit(Obj_Lvl_Txt, (1152 - 155, 80))
         screen.blit(XpBar, (1152 - 282, 80))
