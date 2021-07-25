@@ -10,7 +10,7 @@ from models.screen import Screen
 class ImageAnimation:
     """An animation of images"""
 
-    def __init__(self, folder_path: str = None, flippable: bool = False, callback: callable = None):
+    def __init__(self, folder_path: str = None, flippable: bool = False, callback: callable = None, speed: int = 2):
         self.images: list(pg.Surface) = []
         self.images_flipped: list(pg.Surface) = []
 
@@ -20,7 +20,7 @@ class ImageAnimation:
 
         self.step: int = 0
         self.playing: bool = True
-        self.speed: int = 1  # 1 image par seconde
+        self.speed: int = speed
         self.trigger = callback
 
         if folder_path is not None:
@@ -74,8 +74,15 @@ class ImageAnimation:
             self.step += 1
             self.step %= len(self.images)
 
-    def draw(self, screen: Screen, position: tuple):
+    def currentFrame(self):
         if self.flipped:
-            screen.blit(self.images_flipped[self.step], position)
+            return self.images_flipped[self.step]
         else:
-            screen.blit(self.images[self.step], position)
+            return self.images[self.step]
+
+    def draw(self, screen: Screen, position: tuple, centered: bool = False):
+        # pg.draw.rect(self.currentFrame(), (255, 0, 0), pg.Rect((0, 0), self.currentFrame().get_size()), width=2)
+        if centered:
+            size = self.currentFrame().get_size()
+            position = (position[0] - (size[0] // 2), position[1] - (size[1] // 2))
+        screen.blit(self.currentFrame(), position)
