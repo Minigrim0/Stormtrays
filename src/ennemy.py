@@ -29,15 +29,21 @@ class EnnemyDO:
 
         self.propriete = data
 
-        self.Name = self.propriete["Name"]
+        self.name = self.propriete["Name"]
         # self.meurt = pygame.mixer.Sound(self.propriete["DeathSound"])
-        self.vie = self.propriete["LifePts"]
-        self.vie_bas = self.propriete["LifePts"]
-        self.vitesse = self.propriete["Speed"]
+        self.health = self.propriete["LifePts"]
+        self.max_health = self.propriete["LifePts"]
+        self.speed = self.propriete["speed"]
         self.height = self.propriete["Height"]
 
-        self.healthBar = LoadingBar((self.posx - 10, self.posy), (self.height, 5), initial_adv=self.height)
-        self.animation = ImageAnimation(self.propriete["ImgFolder"], flippable=True, speed=6)
+        print(self.height)
+        self.healthBar = LoadingBar(
+            (self.posx, self.posy - 10),
+            (self.height, 5),
+            max_val=self.max_health, initial_val=self.max_health
+        )
+        self.animation = ImageAnimation(
+            self.propriete["ImgFolder"], flippable=True, speed=self.propriete["animation_speed"])
 
         self.HitBox = None
         self.Vie_Rect = None
@@ -66,7 +72,7 @@ class EnnemyDO:
         Args:
             screen ([type]): [description]
         """
-        self.healthBar.draw(screen)
+        self.healthBar.draw(screen, self.PosAbsolue)
         self.animation.draw(screen, self.PosAbsolue)
 
     def update(self, timeElapsed: float):
@@ -80,12 +86,11 @@ class EnnemyDO:
             coin ([type]): [description]
             King ([type]): [description]
         """
-        self.healthBar.set_advancement(self.vie * (self.height / self.vie_bas))
-
         self.animation.update(timeElapsed)
-        self.healthBar.move((self.posx - 10, self.posy))
+        self.healthBar.update(timeElapsed)
 
         level = Level.getInstance()
+
         if self.IsAttacked:
             self.Tics += 1
             self.BlitLife = True
@@ -102,22 +107,30 @@ class EnnemyDO:
         elif new_dir != (0, 0):
             self.Dir_x, self.Dir_y = new_dir
 
-        self.count += 1
-        if self.count == round(64 / self.vitesse):
-
+        self.count += self.speed * 64 * timeElapsed
+        if self.count >= 64:
             self.count = 0
             self.posx += self.Dir_x
             self.posy += self.Dir_y
         else:
             self.PosAbsolue = (
-                self.posx * 64 + (self.count * self.vitesse * self.Dir_x),
-                self.posy * 64 + (self.count * self.vitesse * self.Dir_y),
+                self.posx * 64 + (self.count * self.Dir_x),
+                self.posy * 64 + (self.count * self.Dir_y),
             )
             self.HitBox = pygame.Rect(self.PosAbsolue, (64, 64))
 
         # if self.posx == niveau.pos_Chateau[0] and self.posy == niveau.pos_Chateau[1]:
         #     niveau.Vie_Chateau -= self.vie // 1.5
         #     self.enleve_vie(2000, Liste_Mechants, self, niveau, King)
+
+    def hit(self, damage):
+        self.health -= damage
+        self.IsAttacked = True
+        self.healthBar.set_advancement(self.health)
+
+    @property
+    def alive(self):
+        return self.health > 0
 
     def enleve_vie(self, viemoins, liste_mech, ennemi, niveau, King):
         """Makes the ennemy loose life
@@ -132,27 +145,27 @@ class EnnemyDO:
         Returns:
             [type]: [description]
         """
-        self.vie -= viemoins
+        self.health -= viemoins
         self.IsAttacked = True
         self.Tics = 0
 
-        if self.vie <= 0:
-            constantes.DicoEnnemisKilled[self.Name] += 1
+        if self.health <= 0:
+            constantes.DicoEnnemisKilled[self.name] += 1
             liste_mech.remove(ennemi)
             # self.meurt.play()
             if King.capacite1 is True:
                 FlyingGold = GoldAnim(
-                    (self.PosAbsolue[0] + self.height // 2, self.PosAbsolue[1] + self.height // 2), self.vie_bas
+                    (self.PosAbsolue[0] + self.height // 2, self.PosAbsolue[1] + self.height // 2), self.max_health
                 )
-                constantes.GoldGained[0] += self.vie_bas
+                constantes.GoldGained[0] += self.max_health
                 niveau.GoldTab.append(FlyingGold)
-                niveau.gold += self.vie_bas
+                niveau.gold += self.max_health
 
             else:
-                FlyingGold = GoldAnim((self.PosAbsolue[0] + 32, self.PosAbsolue[1] + 32), self.vie_bas // 2)
-                constantes.GoldGained[0] += self.vie_bas // 2
+                FlyingGold = GoldAnim((self.PosAbsolue[0] + 32, self.PosAbsolue[1] + 32), self.max_health // 2)
+                constantes.GoldGained[0] += self.max_health // 2
                 niveau.GoldTab.append(FlyingGold)
-                niveau.gold += self.vie_bas // 2
+                niveau.gold += self.max_health // 2
 
             niveau.Nombre_Ennemis_Tue += 1
             return True
