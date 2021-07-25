@@ -2,7 +2,6 @@ import pygame
 import pygame.locals
 import glob
 import src.constantes as constantes
-from src.perso import Perso
 
 from models.level import Level
 from models.stormtrays import Stormtrays
