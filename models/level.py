@@ -51,7 +51,7 @@ class Level:
 
         self.bastions: list(Bastion) = []
         self.gold = 500
-        self.Nombre_Ennemis_Tue = 0
+        self.killed_ennemies = 0
         self.background: pg.Surface = pg.image.load("assets/images/fond.png").convert_alpha()
         self.backgroundName = "fond1"
         self.size = [18, 11]
@@ -115,7 +115,7 @@ class Level:
                     if self.map[x][y].code not in ("k1", "QG"):
                         self.background.blit(self.map[x][y].image[0], tile_position)
                     elif self.map[x][y].code == "k1":
-                        bastion = Bastion((x, y), initial_health=100)
+                        bastion = Bastion((x, y), initial_health=10000)
                         self.bastions.append(bastion)
 
     def placeTile(self, position: tuple, tile):
@@ -163,25 +163,25 @@ class Level:
 
         Difficulty = 11 - Difficulte
 
-        if self.Nombre_Ennemis_Tue >= 0:
+        if self.killed_ennemies >= 0:
             Level_Difficulty = 10 * Difficulty
-        if self.Nombre_Ennemis_Tue >= 10:
+        if self.killed_ennemies >= 10:
             Level_Difficulty = 9 * Difficulty
-        if self.Nombre_Ennemis_Tue >= 25:
+        if self.killed_ennemies >= 25:
             Level_Difficulty = 8 * Difficulty
-        if self.Nombre_Ennemis_Tue >= 50:
+        if self.killed_ennemies >= 50:
             Level_Difficulty = 7 * Difficulty
-        if self.Nombre_Ennemis_Tue >= 100:
+        if self.killed_ennemies >= 100:
             Level_Difficulty = 6 * Difficulty
-        if self.Nombre_Ennemis_Tue >= 200:
+        if self.killed_ennemies >= 200:
             Level_Difficulty = 5 * Difficulty
-        if self.Nombre_Ennemis_Tue >= 400:
+        if self.killed_ennemies >= 400:
             Level_Difficulty = 4 * Difficulty
-        if self.Nombre_Ennemis_Tue >= 750:
+        if self.killed_ennemies >= 750:
             Level_Difficulty = 3 * Difficulty
-        if self.Nombre_Ennemis_Tue >= 1000:
+        if self.killed_ennemies >= 1000:
             Level_Difficulty = 2 * Difficulty
-        if self.Nombre_Ennemis_Tue >= 2500:
+        if self.killed_ennemies >= 2500:
             Level_Difficulty = 1 * Difficulty
 
         return Level_Difficulty
