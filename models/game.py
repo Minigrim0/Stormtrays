@@ -42,7 +42,7 @@ class Game(Runnable):
         # Time_50 = myfont2.render("0", 1, (0, 0, 0))
 
     def loop(self):
-        # Ennemy.getInstance().update()
+        Ennemy.getInstance().update()
         Character.getInstance().update(self.screen.timeElapsed)
 
         self.draw()
@@ -85,6 +85,8 @@ class Game(Runnable):
 
     def draw(self):
         self.level.draw(self.screen)
+
+        Ennemy.getInstance().draw(self.screen)
         Character.getInstance().draw(self.screen)
         """
         # Bouger les ennemis
