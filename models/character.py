@@ -61,20 +61,11 @@ class Character:
         return self.animations[self.current_animation]
 
     def level_up(self):
-        """Upgrades the character skills
+        """Upgrades the character skills"""
+        self.level += 1
 
-        Returns:
-            [type]: [description]
-        """
-        if self.xp >= self.objectif:
-            self.xp = self.xp - self.objectif
-            self.level += 1
-
-            self.objectif = (self.level ** 2) * 20
-            self.damage = self.level * 0.5 + 3
-            self.speed = self.level * 0.25 + 5
-            return True
-        return False
+        self.damage = self.level * 0.5 + 3
+        self.speed = self.level * 0.25 + 5
 
     def setAnimation(self, animation: str, direction: bool = None):
         """Sets the character animation to the given one, keeping track of the direction unless forced
@@ -95,9 +86,7 @@ class Character:
         """Hits the character's target, automatically called after attack animation"""
         self.target.hit(self.damage)
         if not self.target.alive:
-            from models.game import Game
-
-            Game.getInstance().add_xp(self.target.max_health)
+            self.ui.add_xp(self.target.max_health)
             self.target = (self.posx, self.posy)
         self.setAnimation("idle")
 
@@ -112,10 +101,6 @@ class Character:
             CooldownInvoc -= 1
         TpsCoolDown = CooldownInvoc // 24
         """
-        if self.level_up():
-            self.damage = self.level * 0.5 + 3
-            self.speed = self.level * 0.25 + 5
-
         self.move(timeElapsed)
         self.getCurrentAnimation().update(timeElapsed)
 
