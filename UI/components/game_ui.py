@@ -9,7 +9,21 @@ from UI.components.xp_bar import XPBar
 
 
 class GameUI:
+    """Represents the UI of a game"""
+
+    instance = None
+
+    @staticmethod
+    def getInstance():
+        if GameUI.instance is None:
+            GameUI()
+        return GameUI.instance
+
     def __init__(self):
+        if GameUI.instance is not None:
+            raise RuntimeError("Trying to instanciate a second object from a signleton class")
+        GameUI.instance = self
+
         self.font = GameOptions.getInstance().fonts["MedievalSharp-xOZ5"]["20"]
 
         self.stats_background = pg.image.load("assets/images/stats_background.png")
