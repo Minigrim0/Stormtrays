@@ -21,7 +21,7 @@ class GameUI:
         self.character_damage: pg.Surface = None
         self.character_speed: pg.Surface = None
 
-        self.xp_bar = XPBar((882, 86), (255, 18))
+        self.xp_bar = XPBar((882, 86), (255, 18), fg_color=(0, 255, 40), bg_color=(-1, -1, -1))
 
         self.update()
 
