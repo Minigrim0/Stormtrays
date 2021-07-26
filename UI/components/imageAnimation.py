@@ -71,6 +71,7 @@ class ImageAnimation:
     def reset(self):
         self.playing = False
         self.step = 0
+        self.current_loop = 0
 
     def flip(self):
         if self.flippable:
@@ -82,7 +83,7 @@ class ImageAnimation:
 
     def update(self, timeElapsed):
         """Updates the animation frame, time,..."""
-        if self.playing():
+        if self.playing:
             self.last_step += timeElapsed
             if self.last_step > (1 / self.speed):
                 self._stepUp()
@@ -98,10 +99,10 @@ class ImageAnimation:
         """Bit of code executed at each loop's end"""
         self.current_loop += 1
         self.step %= len(self.images)
-        if self.current_loop > self.loop and self.loop > 0:
+        if self.current_loop >= self.loop and self.loop > 0:
+            self.reset()
             if self.trigger is not None:
                 self.trigger()
-            self.pause()
 
     def currentFrame(self):
         """Returns the animation's current frame"""

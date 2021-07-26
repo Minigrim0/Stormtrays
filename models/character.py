@@ -45,10 +45,10 @@ class Character:
         self.capacite2 = False
 
         self.animations = {
-            "idle": ImageAnimation("assets/images/character/animations/idle/", flippable=True),
-            "walk": ImageAnimation("assets/images/character/animations/walk/", flippable=True, speed=8),
+            "idle": ImageAnimation("assets/images/character/animations/idle/", loop=-1, flippable=True),
+            "walk": ImageAnimation("assets/images/character/animations/walk/", loop=-1, flippable=True, speed=8),
             "attack": ImageAnimation(
-                "assets/images/character/animations/attack/", flippable=True, speed=6, callback=self.hit),
+                "assets/images/character/animations/attack/", flippable=True, speed=9, loop=2, callback=self.hit),
             "invoke": ImageAnimation("assets/images/character/animations/invoke/", flippable=True, speed=5)
         }
         self.current_animation = "idle"
@@ -73,9 +73,20 @@ class Character:
             return True
         return False
 
-    def setAnimation(self, animation: str):
-        self.current_animation = animation
-        self.getCurrentAnimation().reset()
+    def setAnimation(self, animation: str, direction: bool = None):
+        """Sets the character animation to the given one, keeping track of the direction unless forced
+
+        Args:
+            animation (str): The name of the animation to play
+            direction (bool, optional): The direction of the animation. None means "keep current". Defaults to None.
+        """
+        if animation != self.current_animation:
+            direction = not self.getCurrentAnimation().flipped if direction is None else direction
+            self.current_animation = animation
+            animation = self.getCurrentAnimation()
+            animation.reset()
+        self.getCurrentAnimation().setDirection(direction)
+        self.getCurrentAnimation().play()
 
     def hit(self):
         """Hits the character's target, automatically called after attack animation"""
@@ -132,8 +143,7 @@ class Character:
                 self.posx += movement_x
                 self.posy += movement_y
 
-                self.getCurrentAnimation().setDirection(movement_x > 0)
-                self.setAnimation("walk")
+                self.setAnimation("walk", direction=(movement_x > 0))
             else:
                 self.setAnimation("attack")
         else:
@@ -149,7 +159,6 @@ class Character:
                 self.posx += movement_x
                 self.posy += movement_y
 
-                self.getCurrentAnimation().setDirection(movement_x > 0)
-                self.setAnimation("walk")
+                self.setAnimation("walk", direction=(movement_x > 0))
             else:
                 self.setAnimation("idle")
