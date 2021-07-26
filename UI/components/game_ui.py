@@ -37,11 +37,12 @@ class GameUI:
 
         self.xp_bar = XPBar((882, 86), (255, 18), fg_color=(0, 255, 40), bg_color=(-1, -1, -1))
 
-        self.update()
+        self.update(0)
 
-    def update(self):
+    def update(self, timeElapsed: float):
         level = Level.getInstance()
         character = Character.getInstance()
+        self.xp_bar.update(timeElapsed)
 
         self.gold_amount = self.font.render("Or : %i" % level.gold, 1, (0, 0, 0))
         # self.bastion_health = self.font.render("Bastion : %i pv." % level.Vie_Chateau, 1, (0, 0, 0))

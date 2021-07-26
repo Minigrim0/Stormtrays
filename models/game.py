@@ -31,7 +31,6 @@ class Game(Runnable):
         self.level.gold = 500
         self.level.Nombre_Ennemis_Tue = 0
 
-        self.ui = GameUI.getInstance()
         # TpsLvl = 0
         # Icapacite1 = 0
         # HaveSeenLvl5Msg = False
@@ -48,7 +47,7 @@ class Game(Runnable):
         Level.getInstance().update(self.screen.timeElapsed)
         Ennemy.getInstance().update(self.screen.timeElapsed)
         Character.getInstance().update(self.screen.timeElapsed)
-        self.ui.update()
+        GameUI.getInstance().update(self.screen.timeElapsed)
 
         self.draw()
 
@@ -70,7 +69,6 @@ class Game(Runnable):
 
     def handleEvent(self):
         for event in self.screen.getEvent():
-
             Character.getInstance().handleEvent(event)
 
             if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
@@ -81,8 +79,7 @@ class Game(Runnable):
 
         Ennemy.getInstance().draw(self.screen)
         Character.getInstance().draw(self.screen)
-
-        self.ui.draw(self.screen)
+        GameUI.getInstance().draw(self.screen)
         """
         # Bouger les ennemis
         for ennemi in Liste_Mechants:
