@@ -21,7 +21,7 @@ class GameUI:
         self.character_damage: pg.Surface = None
         self.character_speed: pg.Surface = None
 
-        self.XPbar = XPBar((882, 86), (255, 18))
+        self.xp_bar = XPBar((882, 86), (255, 18))
 
         self.update()
 
@@ -47,5 +47,3 @@ class GameUI:
         screen.blit(self.character_damage, (1020, 53))
 
         self.xp_bar.draw(screen)
-        # screen.blit(Obj_Lvl_Txt, (1152 - 155, 80))
-        # screen.blit(XpBar, (1152 - 282, 80))
