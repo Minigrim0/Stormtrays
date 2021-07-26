@@ -90,7 +90,6 @@ class EnnemyDO:
 
         self.count += self.speed * 64 * timeElapsed
         if self.count >= 64:
-
             self.count = 0
             self.position = (self.position[0] + self.direction[0], self.position[1] + self.direction[1])
 

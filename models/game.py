@@ -60,16 +60,10 @@ class Game(Runnable):
 
         frappe = 0
 
-        # Construction + Affichage + Boutons
-        Obj_Lvl_Txt = self.font.render("{}/{}".format(King.xp, King.objectif), 1, (0, 0, 0))
-
         if TpsCoolDown != 0:
             Tps_Invoc_affiche = myfont2.render(str(TpsCoolDown), 1, (255, 255, 255))
         else:
             Tps_Invoc_affiche = None
-
-        Current_Xp = pygame.Surface(((King.xp / King.objectif) * 255, 18))
-        Current_Xp.fill((0, 255, 40))
 
         King.vit(King.Perso_Tab, King.Perso_Tab_ret)
         """
