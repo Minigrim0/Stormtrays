@@ -22,6 +22,8 @@ class XPBar(LoadingBar):
         self.font = GameOptions.getInstance().fonts["MedievalSharp-xOZ5"]["14"]
         self.xp_text: pg.Surface = None
         self.text_position: tuple = (0, 0)
+
+        self.stashed = 0
         self.add_xp(0)
 
     @property
@@ -50,7 +52,11 @@ class XPBar(LoadingBar):
 
     def add_xp(self, amount: int):
         """Adds a certain amount of xp and update the text/bar in accordance"""
-        self.advancement += amount
+        if self.advancement + amount > self.objective:
+            self.stashed += self.advancement - self.objective
+            self.set_advancement(self.objective)
+        else:
+            self.set_advancement(self.advancement + amount)
         self.xp_text = self.font.render(
             f"{self.advancement}/{self.max_advancement}",
             1, (0, 0, 0)
