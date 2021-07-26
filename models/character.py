@@ -36,9 +36,9 @@ class Character:
         self.XpToAdd = 0
         self.xp = 0
         self.objectif = 10
-        self.level = 0
+        self.level = 1
         self.damage = 3
-        self.speed = 200
+        self.speed = 5
 
         from UI.components.game_ui import GameUI
         self.ui = GameUI.getInstance()
@@ -101,6 +101,8 @@ class Character:
             CooldownInvoc -= 1
         TpsCoolDown = CooldownInvoc // 24
         """
+        if isinstance(self.target, EnnemyDO) and not self.target.alive:
+            self.target = (self.posx, self.posy)
         self.move(timeElapsed)
         self.getCurrentAnimation().update(timeElapsed)
 
@@ -115,6 +117,10 @@ class Character:
     def draw(self, screen: Screen):
         self.getCurrentAnimation().draw(screen, (self.posx, self.posy), centered=True)
 
+    @property
+    def real_speed(self) -> float:
+        return self.speed * 64
+
     def move(self, timeElapsed: float):
         """Updates the status of the character"""
         # self.AnimXp()
@@ -128,8 +134,8 @@ class Character:
 
                 angle = findAngle(delta_x, delta_y)
 
-                movement_x = math.cos(angle) * self.speed * timeElapsed
-                movement_y = math.sin(angle) * self.speed * timeElapsed
+                movement_x = math.cos(angle) * self.real_speed * timeElapsed
+                movement_y = math.sin(angle) * self.real_speed * timeElapsed
 
                 self.posx += movement_x
                 self.posy += movement_y
@@ -144,8 +150,8 @@ class Character:
 
                 angle = findAngle(delta_x, delta_y)
 
-                movement_x = math.cos(angle) * self.speed * timeElapsed
-                movement_y = math.sin(angle) * self.speed * timeElapsed
+                movement_x = math.cos(angle) * self.real_speed * timeElapsed
+                movement_y = math.sin(angle) * self.real_speed * timeElapsed
 
                 self.posx += movement_x
                 self.posy += movement_y
