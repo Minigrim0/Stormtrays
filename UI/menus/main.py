@@ -84,7 +84,6 @@ class MainMenu(Menu, Runnable):
         Args:
             toLaunch (str): The argument describing the button that's been pressed and what should be launched
         """
-
         if toLaunch == "game":
             Animation("UI/animations/mainToSelect.json", self.screen, pickFrom=self.pickFrom)()
             LevelSelectMenu(self.screen, self._draw, pickFrom=self.pickFrom)()

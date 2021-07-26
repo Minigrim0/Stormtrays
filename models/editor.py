@@ -48,7 +48,6 @@ class Editor(Runnable):
 
     def loop(self):
         """Shows the editor and handles the actions to create/save/load levels"""
-
         self.draw()
         self.handleEvent()
 
@@ -56,7 +55,6 @@ class Editor(Runnable):
 
     def handleEvent(self):
         """Handles eventual events from the user"""
-
         for event in self.screen.getEvent():
             if event.type == pygame.locals.MOUSEBUTTONDOWN:
                 if event.button == 1:
