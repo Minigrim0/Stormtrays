@@ -12,7 +12,8 @@ class ImageAnimation:
 
     def __init__(
         self, folder_path: str = None, flippable: bool = False,
-        callback: callable = None, speed: int = 2, image_size: tuple = (-1, -1)
+        callback: callable = None, speed: int = 2, image_size: tuple = (-1, -1),
+        loop: int = 1
     ):
         self.images: list(pg.Surface) = []
         self.images_flipped: list(pg.Surface) = []
@@ -25,6 +26,9 @@ class ImageAnimation:
         self.playing: bool = True
         self.speed: int = speed
         self.trigger = callback
+
+        self.loop = loop  # -1 means infinite
+        self.current_loop = 0
 
         if folder_path is not None:
             self.loadFolder(folder_path, image_size=image_size)
@@ -73,29 +77,41 @@ class ImageAnimation:
             self.flipped = True
 
     def setDirection(self, right: bool):
-        """Sets the direction of the animation
-
-        Args:
-            right (bool): Whether the animation should be directed to the right
-        """
+        """Sets the direction of the animation"""
         self.flipped = not right
 
     def update(self, timeElapsed):
-        self.last_step += timeElapsed
-        if self.last_step > (1 / self.speed):
-            if self.trigger is not None:
-                self.trigger()
-            self.last_step = 0
-            self.step += 1
-            self.step %= len(self.images)
+        """Updates the animation frame, time,..."""
+        if self.playing():
+            self.last_step += timeElapsed
+            if self.last_step > (1 / self.speed):
+                self._stepUp()
+
+    def _stepUp(self):
+        """Called at each animation step"""
+        self.last_step = 0
+        self.step += 1
+        if self.step == len(self.images):
+            self._endLoop()
+
+    def _endLoop(self):
+        """Bit of code executed at each loop's end"""
+        if self.trigger is not None:
+            self.trigger()
+        self.current_loop += 1
+        self.step %= len(self.images)
+        if self.current_loop > self.loop:
+            self.pause
 
     def currentFrame(self):
+        """Returns the animation's current frame"""
         if self.flipped:
             return self.images_flipped[self.step]
         else:
             return self.images[self.step]
 
     def draw(self, screen: Screen, position: tuple, centered: bool = False):
+        """Draws the current frame on the screen, at the given position"""
         # pg.draw.rect(self.currentFrame(), (255, 0, 0), pg.Rect((0, 0), self.currentFrame().get_size()), width=2)
         if centered:
             size = self.currentFrame().get_size()
