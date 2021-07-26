@@ -47,3 +47,7 @@ class GameUI:
         screen.blit(self.character_damage, (1020, 53))
 
         self.xp_bar.draw(screen)
+
+    def add_xp(self, amount: int):
+        """Adds xp to the xp_bar, and call the level_up function of the Character if the objective is reached"""
+        self.xp_bar.add_xp(amount)

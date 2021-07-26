@@ -92,6 +92,9 @@ class Character:
         """Hits the character's target, automatically called after attack animation"""
         self.target.hit(self.damage)
         if not self.target.alive:
+            from models.game import Game
+
+            Game.getInstance().add_xp(self.target.max_health)
             self.target = (self.posx, self.posy)
         self.setAnimation("idle")
 

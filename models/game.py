@@ -330,3 +330,7 @@ class Game(Runnable):
 
         """
         self.screen.flip()
+
+    def add_xp(self, amount: int):
+        """Adds the given amount of xp to the xp_bar of the game_ui, leveling up the character if necessary"""
+        self.ui.add_xp(amount)
