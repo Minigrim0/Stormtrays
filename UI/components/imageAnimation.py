@@ -66,7 +66,7 @@ class ImageAnimation:
 
     def reset(self):
         self.playing = False
-        self.stop = 0
+        self.step = 0
 
     def flip(self):
         if self.flippable:
