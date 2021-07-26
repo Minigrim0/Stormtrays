@@ -8,13 +8,15 @@ from UI.components.loading_bar import LoadingBar
 
 
 class XPBar(LoadingBar):
-    def __init__(self, position: tuple, size: tuple):
+    def __init__(self, position: tuple, size: tuple, fg_color: tuple = (76, 187, 23), bg_color: tuple = (138, 7, 7)):
         self.setObjective(20)
 
         super().__init__(
             position,
             size,
-            max_val=self.objective
+            max_val=self.objective,
+            fg_color=fg_color,
+            bg_color=bg_color
         )
 
         self.font = GameOptions.getInstance().fonts["MedievalSharp-xOZ5"]["14"]

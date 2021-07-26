@@ -20,8 +20,11 @@ class LoadingBar:
         self.fg_color = fg_color
         self.bg_color = bg_color
 
-        self.bg_image = pg.Surface(self.size)
-        self.bg_image.fill(self.bg_color)
+        if self.bg_color == (-1, -1, -1):
+            self.bg_image = None
+        else:
+            self.bg_image = pg.Surface(self.size)
+            self.bg_image.fill(self.bg_color)
 
         self._buildImage(force=True)
 
@@ -54,7 +57,8 @@ class LoadingBar:
     def draw(self, screen: Screen, position: tuple = None):
         """Draws the bar on the screen"""
         position = position if position is not None else self.position
-        screen.blit(self.bg_image, position)
+        if self.bg_image is not None:
+            screen.blit(self.bg_image, position)
         if self.advancement > 0:
             screen.blit(self.fg_image, position)
 
