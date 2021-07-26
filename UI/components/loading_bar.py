@@ -20,6 +20,8 @@ class LoadingBar:
         self.fg_color = fg_color
         self.bg_color = bg_color
 
+        self.fg_image: pg.Surface = None
+
         if self.bg_color == (-1, -1, -1):
             self.bg_image = None
         else:
@@ -59,7 +61,7 @@ class LoadingBar:
         position = position if position is not None else self.position
         if self.bg_image is not None:
             screen.blit(self.bg_image, position)
-        if self.advancement > 0:
+        if self.advancement > 0 and self.fg_image is not None:
             screen.blit(self.fg_image, position)
 
     def move(self, new_pos: tuple):

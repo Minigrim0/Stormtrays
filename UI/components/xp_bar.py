@@ -40,12 +40,13 @@ class XPBar(LoadingBar):
         super().update(timeElapsed)
         if self._percentAdvanced == 1:
             character = Character.getInstance()
-            self.setObjective((character.level ** 2) * 20)
             character.level_up()
+            self.setObjective((character.level ** 2) * 20)
             self.set_advancement(0)
 
-            self.bg_image = pg.Surface(self.size)
-            self.bg_image.fill(self.bg_color)
+            if self.bg_color != (-1, -1, -1):
+                self.bg_image = pg.Surface(self.size)
+                self.bg_image.fill(self.bg_color)
 
     def draw(self, screen: Screen):
         """Displays the bar and its text on the screen"""
