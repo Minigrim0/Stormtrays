@@ -96,11 +96,11 @@ class ImageAnimation:
 
     def _endLoop(self):
         """Bit of code executed at each loop's end"""
-        if self.trigger is not None:
-            self.trigger()
         self.current_loop += 1
         self.step %= len(self.images)
         if self.current_loop > self.loop and self.loop > 0:
+            if self.trigger is not None:
+                self.trigger()
             self.pause()
 
     def currentFrame(self):
