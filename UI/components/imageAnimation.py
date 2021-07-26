@@ -100,8 +100,8 @@ class ImageAnimation:
             self.trigger()
         self.current_loop += 1
         self.step %= len(self.images)
-        if self.current_loop > self.loop:
-            self.pause
+        if self.current_loop > self.loop and self.loop > 0:
+            self.pause()
 
     def currentFrame(self):
         """Returns the animation's current frame"""
