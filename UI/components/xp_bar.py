@@ -38,9 +38,11 @@ class XPBar(LoadingBar):
     def update(self, timeElapsed: float):
         """Updates the bar"""
         super().update(timeElapsed)
-        if self._percentAdvanced == 100:
+        if self._percentAdvanced == 1:
             character = Character.getInstance()
             self.setObjective((character.level ** 2) * 20)
+            character.level_up()
+            self.set_advancement(0)
 
             self.bg_image = pg.Surface(self.size)
             self.bg_image.fill(self.bg_color)
