@@ -4,7 +4,7 @@
     "DeathSound": "../musique/mort-Goblin.wav",
     "Height": 64,
     "LifePts": 10,
-    "speed": 6,
+    "speed": 4,
     "weight": 8,
     "animation_speed": 12
 }

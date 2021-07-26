@@ -4,7 +4,7 @@
     "DeathSound": "../musique/mort-Chevalier.wav",
     "Height": 64,
     "LifePts": 35,
-    "speed": 2,
+    "speed": 1.5,
     "weight": 5,
     "animation_speed": 6
 }
