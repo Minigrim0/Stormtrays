@@ -30,26 +30,27 @@ class ImageAnimation:
         self.loop = loop  # -1 means infinite
         self.current_loop = 0
 
+        self.multipart = False
+
         if folder_path is not None:
             self.loadFolder(folder_path, image_size=image_size)
 
-    def loadFolder(self, folder_path: str, image_size: tuple):
-        """Loads an animation from a folder
+    def _loadMultipart(self, setup: dict, folder_path: str):
+        cut_size = tuple(setup["size"])
+        self.original_image = pg.image.load(os.path.join(folder_path, setup["file"])).convert_alpha()
+        self.flipped_original_image = pg.transform.flip(self.original_image, True, False)
+        rect_size = (
+            self.original_image.get_size()[0] / cut_size[0],
+            self.original_image.get_size()[1] / cut_size[1]
+        )
+        for y in range(cut_size[1]):
+            for x in range(cut_size[0]):
+                self.images.append(
+                    pg.Rect((x * rect_size[0], y * rect_size[1]), rect_size)
+                )
 
-        Args:
-            folder_path (str): The path to the animation folder
-        """
-        setup_file = os.path.join(folder_path, "setup.json")
-        if not os.path.exists(setup_file):
-            logging.warning("No setup file found for {}, trying fuzzy load".format(folder_path))
-            images_format = os.path.join(folder_path, "*.png")
-        else:
-            with open(setup_file) as setup_file:
-                setup = json.load(setup_file)
-            file_format = setup["format"]
-            images_format = os.path.join(folder_path, file_format)
-
-        for image in sorted(glob.glob(images_format)):
+    def _loadFormat(self, image_format: str, image_size: tuple = (-1, -1)):
+        for image in sorted(glob.glob(image_format)):
             self.images.append(
                 pg.image.load(image).convert_alpha()
             )
@@ -61,6 +62,27 @@ class ImageAnimation:
                 self.images_flipped.append(
                     pg.transform.flip(self.images[-1], True, False)
                 )
+
+    def loadFolder(self, folder_path: str, image_size: tuple):
+        """Loads an animation from a folder
+
+        Args:
+            folder_path (str): The path to the animation folder
+        """
+        setup_file = os.path.join(folder_path, "setup.json")
+        if not os.path.exists(setup_file):
+            logging.warning("No setup file found for {}, trying fuzzy load".format(folder_path))
+            images_format = os.path.join(folder_path, "*.png")
+            self._loadFormat(images_format, image_size=image_size)
+        else:
+            with open(setup_file) as setup_file:
+                setup = json.load(setup_file)
+            self.multipart = setup["multipart"]
+            if self.multipart is True:
+                self._loadMultipart(setup, folder_path)
+            else:
+                images_format = os.path.join(folder_path, setup["format"])
+                self._loadFormat(images_format, image_size=image_size)
 
     def play(self):
         self.playing = True
@@ -114,7 +136,13 @@ class ImageAnimation:
     def draw(self, screen: Screen, position: tuple, centered: bool = False):
         """Draws the current frame on the screen, at the given position"""
         # pg.draw.rect(self.currentFrame(), (255, 0, 0), pg.Rect((0, 0), self.currentFrame().get_size()), width=2)
-        if centered:
-            size = self.currentFrame().get_size()
-            position = (position[0] - (size[0] // 2), position[1] - (size[1] // 2))
-        screen.blit(self.currentFrame(), position)
+        if self.multipart:
+            if centered:
+                size = self.currentFrame()
+                position = (position[0] - (size.w // 2), position[1] - (size.h // 2))
+            screen.blit(self.original_image, position, area=self.currentFrame())
+        else:
+            if centered:
+                size = self.currentFrame().get_size()
+                position = (position[0] - (size[0] // 2), position[1] - (size[1] // 2))
+            screen.blit(self.currentFrame(), position)
