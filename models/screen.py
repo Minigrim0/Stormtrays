@@ -95,14 +95,14 @@ class Screen:
         )
         pygame.display.flip()
 
-    def blit(self, surface: pygame.Surface, pos: tuple):
+    def blit(self, surface: pygame.Surface, pos: tuple, *args, **kwargs):
         """Draws an image to the screen
 
         Args:
             surface (pygame.Surface): The surface to draw
             pos (tuple): The position to drae it on
         """
-        self.fenetre.blit(surface, pos)
+        self.fenetre.blit(surface, pos, *args, **kwargs)
 
     def getEvent(self):
         """Handles user events, reacting of needed, and yielding
