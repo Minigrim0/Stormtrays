@@ -1,3 +1,4 @@
+import math as m
 import pygame as pg
 
 from models.screen import Screen
@@ -13,9 +14,11 @@ class LoadingBar:
         self.position = pos
         self.size = size
 
-        self.current_advancement = initial_val
-        self.advancement = initial_val
-        self.max_advancement = max_val
+        self.current_advancement: int = initial_val
+        self.old_advancement: int = initial_val
+        self.advancement: int = initial_val
+        self.max_advancement: int = max_val
+        self.time: int = 0
 
         self.fg_color = fg_color
         self.bg_color = bg_color
@@ -30,31 +33,56 @@ class LoadingBar:
 
         self._buildImage(force=True)
 
-    def _buildImage(self, force: bool = False):
-        """Builds the foreground image if the moving_speed is not null"""
-        if self.moving_speed != 0 or (force and self._percentAdvanced > 0):
-            self.fg_image = pg.Surface((int(self._percentAdvanced * self.size[0]), self.size[1]))
-            self.fg_image.fill(self.fg_color)
-
     @property
     def _percentAdvanced(self) -> float:
         return self.current_advancement / self.max_advancement
 
-    def set_advancement(self, advancement: int):
-        """Sets the advancement of the loading"""
-        self.advancement = advancement
-
     @property
     def moving_speed(self) -> int:
-        return self.advancement - self.current_advancement
+        A_x = self.advancement - self.old_advancement
+
+        wt = (self.time * 2) * m.pi
+
+        # First derivative of the position A(x - sin(pi * x) / pi)
+        return A_x * (1 - m.cos(wt))
+
+    def _buildImage(self, force: bool = False):
+        """Builds the foreground image if the moving_speed is not null"""
+        if self.size[0] > 0 or (force and int(self._percentAdvanced) > 0):
+            self.fg_image = pg.Surface((int(self._percentAdvanced * self.size[0]), self.size[1]))
+            self.fg_image.fill(self.fg_color)
+
+    def reset(self):
+        """Resets the advancement of the bar"""
+        self.current_advancement = 0
+        self.advancement = 0
+        self.old_advancement = 0
+        self.time = 0
+
+    def set_advancement(self, advancement: int):
+        """Sets the advancement of the loading"""
+        self.old_advancement = self.advancement
+        self.advancement = advancement
+        self.time = 0
 
     def update(self, timeElapsed: int):
         """Updates the bar according to its advancement"""
-        if abs(self.moving_speed) > 2:
-            self.current_advancement += self.moving_speed * timeElapsed
+        if self.old_advancement != self.advancement:
+            self.time += timeElapsed
+
+        speed = self.moving_speed
+        if (
+            abs(speed) > 1e-3 and
+            abs(self.current_advancement - self.advancement) > abs(
+                (self.current_advancement + speed * timeElapsed) - self.advancement
+            )
+        ):
+            self.current_advancement += speed * timeElapsed
             self._buildImage()
         else:
             self.current_advancement = self.advancement
+            self.old_advancement = self.advancement
+            self.time = 0
 
     def draw(self, screen: Screen, position: tuple = None):
         """Draws the bar on the screen"""
