@@ -18,8 +18,7 @@ class EnnemyDO:
         self.PosAbsolue = (0, 0)
 
         self.Returned = False
-        self.is_attacked = False
-        self.BlitLife = False
+        self.under_attack = (False, 0)
 
         self.direction = (1, 0)
         self.Tics = 0
@@ -73,7 +72,7 @@ class EnnemyDO:
         Args:
             screen ([type]): [description]
         """
-        if self.is_attacked:
+        if self.under_attack[0]:
             self.healthBar.draw(screen, self.PosAbsolue)
         self.animation.draw(screen, self.PosAbsolue)
 
@@ -84,11 +83,13 @@ class EnnemyDO:
 
         level = Level.getInstance()
 
-        if self.is_attacked:
-            self.Tics += 1
-        if self.Tics == 50:
-            self.is_attacked = False
-            self.Tics = 0
+        if self.under_attack[0]:
+            self.under_attack = (
+                self.under_attack[0],
+                self.under_attack[1] + timeElapsed
+            )
+        if self.under_attack[1] >= 5:
+            self.under_attack = (False, 0)
 
         self.count += self.speed * 64 * timeElapsed
         if self.count >= 64:
@@ -121,7 +122,7 @@ class EnnemyDO:
         """
         self.health -= damage
         self.health = bound(0, self.max_health, self.health)
-        self.is_attacked = True
+        self.under_attack = (True, 0)
         self.healthBar.set_advancement(self.health)
 
     @property
@@ -151,7 +152,7 @@ class EnnemyDO:
             [type]: [description]
         """
         self.health -= viemoins
-        self.is_attacked = True
+        self.under_attack = True
         self.Tics = 0
 
         if self.health <= 0:
