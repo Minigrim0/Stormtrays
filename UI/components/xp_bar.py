@@ -49,7 +49,7 @@ class XPBar(LoadingBar):
         character = Character.getInstance()
         character.level_up()
         self.setObjective((character.level ** 2) * 20)
-        self.set_advancement(0)
+        self.reset()
 
         if self.bg_color != (-1, -1, -1):
             self.bg_image = pg.Surface(self.size)
@@ -72,7 +72,13 @@ class XPBar(LoadingBar):
         """Updates the bar"""
         super().update(timeElapsed)
         self.level_up_animation.update(timeElapsed)
-        if self._percentAdvanced == 1:
+        if self.current_advancement != self.advancement:
+            self.xp_text = self.font.render(
+                f"{int(self.current_advancement) + 1}/{self.max_advancement}",
+                1, (0, 0, 0)
+            )
+
+        if self._percentAdvanced >= 1:
             self._levelUp()
             self.level_up_animation.play()
 
@@ -93,10 +99,6 @@ class XPBar(LoadingBar):
             self.set_advancement(self.objective)
         else:
             self.set_advancement(self.advancement + amount)
-        self.xp_text = self.font.render(
-            f"{self.advancement}/{self.max_advancement}",
-            1, (0, 0, 0)
-        )
 
         text_size = self.xp_text.get_size()
         self.text_position = (

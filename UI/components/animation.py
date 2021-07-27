@@ -9,7 +9,7 @@ from UI.components.animated_element import Animated
 
 
 class Animation(Runnable):
-    """The button animation from main menu to levelSelection"""
+    """Represents a blocking animation"""
 
     def __init__(self, animation: str, screen: Screen, pickFrom: dict = None):
         super().__init__()
