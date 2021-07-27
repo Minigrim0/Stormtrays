@@ -9,7 +9,11 @@ from UI.components.imageAnimation import ImageAnimation
 
 
 class XPBar(LoadingBar):
-    def __init__(self, position: tuple, size: tuple, fg_color: tuple = (76, 187, 23), bg_color: tuple = (138, 7, 7)):
+    def __init__(
+        self, position: tuple, size: tuple,
+        fg_color: tuple = (76, 187, 23), bg_color: tuple = (138, 7, 7),
+        overlay: str = None
+    ):
         self.setObjective(20)
 
         super().__init__(
@@ -20,14 +24,24 @@ class XPBar(LoadingBar):
             bg_color=bg_color
         )
 
-        self.font = GameOptions.getInstance().fonts["MedievalSharp-xOZ5"]["14"]
+        self.overlay: pg.Surface = None if overlay is None else pg.image.load(overlay).convert_alpha()
+
+        self.overlay_position: tuple = (0, 0)
+        if self.overlay is not None:
+            overlay_size = self.overlay.get_size()
+            self.overlay_position = (
+                self.position[0] + ((self.size[0] - overlay_size[0]) // 2),
+                self.position[1] + ((self.size[1] - overlay_size[1]) // 2)
+            )
+
+        self.font: pg.Font = GameOptions.getInstance().fonts["MedievalSharp-xOZ5"]["14"]
         self.xp_text: pg.Surface = None
         self.text_position: tuple = (0, 0)
 
-        self.level_up_animation = ImageAnimation("assets/images/animations/level_up", loop=1, speed=10)
+        self.level_up_animation: ImageAnimation = ImageAnimation("assets/images/animations/level_up", loop=1, speed=10)
         self.level_up_animation.pause()
 
-        self.stashed = 0
+        self.stashed: int = 0
         self.add_xp(0)
 
     def _levelUp(self):
@@ -66,6 +80,8 @@ class XPBar(LoadingBar):
         """Displays the bar and its text on the screen"""
         super().draw(screen)
         screen.blit(self.xp_text, self.text_position)
+        if self.overlay is not None:
+            screen.blit(self.overlay, self.overlay_position)
 
         if self.level_up_animation.playing:
             self.level_up_animation.draw(screen, (1152 // 2, 768 // 2), centered=True)
