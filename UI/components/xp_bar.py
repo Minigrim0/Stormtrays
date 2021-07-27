@@ -5,6 +5,7 @@ from models.character import Character
 from models.gameOptions import GameOptions
 
 from UI.components.loading_bar import LoadingBar
+from UI.components.imageAnimation import ImageAnimation
 
 
 class XPBar(LoadingBar):
@@ -22,6 +23,9 @@ class XPBar(LoadingBar):
         self.font = GameOptions.getInstance().fonts["MedievalSharp-xOZ5"]["14"]
         self.xp_text: pg.Surface = None
         self.text_position: tuple = (0, 0)
+
+        self.level_up_animation = ImageAnimation("assets/images/animations/level_up", loop=1, speed=10)
+        self.level_up_animation.pause()
 
         self.stashed = 0
         self.add_xp(0)
@@ -53,13 +57,18 @@ class XPBar(LoadingBar):
     def update(self, timeElapsed: float):
         """Updates the bar"""
         super().update(timeElapsed)
+        self.level_up_animation.update(timeElapsed)
         if self._percentAdvanced == 1:
             self._levelUp()
+            self.level_up_animation.play()
 
     def draw(self, screen: Screen):
         """Displays the bar and its text on the screen"""
         super().draw(screen)
         screen.blit(self.xp_text, self.text_position)
+
+        if self.level_up_animation.playing:
+            self.level_up_animation.draw(screen, (1152 // 2, 768 // 2), centered=True)
 
     def add_xp(self, amount: int):
         """Adds a certain amount of xp and update the text/bar in accordance"""
