@@ -42,7 +42,9 @@ class EnnemyDO:
         )
         self.animation = ImageAnimation(
             self.propriete["ImgFolder"], flippable=True, loop=-1,
-            speed=self.propriete["animation_speed"], image_size=(self.height, self.height))
+            speed=self.propriete["animation_speed"], image_size=(self.height, self.height),
+            bank_name=self.name
+        )
 
         self.HitBox = None
         self.Vie_Rect = None
