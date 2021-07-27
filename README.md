@@ -8,10 +8,10 @@ TODO
 
 ## TODO List
 
-* [ ] fix xp bar animation (sine animation, see menu buttons)
-* [ ] fix visible duration of ennemy's health bar
+* [x] fix xp bar animation (sine animation, see menu buttons)
+* [x] fix visible duration of ennemy's health bar
 * [ ] re-implement towers
-* [ ] Implement image-banks to avoid loading same images multiple times (Ennemies)
+* [x] Implement image-banks to avoid loading same images multiple times (Ennemies)
 * [ ] Add starting tile
 * [ ] Allow multiple bastions per level
 * [ ] Re-implement character powers (Invocation, time freeze, double money)
