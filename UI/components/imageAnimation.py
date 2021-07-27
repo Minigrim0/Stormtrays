@@ -5,6 +5,7 @@ import logging
 
 import pygame as pg
 from models.screen import Screen
+from models.image_bank import ImageBank
 
 
 class ImageAnimation:
@@ -13,7 +14,7 @@ class ImageAnimation:
     def __init__(
         self, folder_path: str = None, flippable: bool = False,
         callback: callable = None, speed: int = 2, image_size: tuple = (-1, -1),
-        loop: int = 1
+        loop: int = 1, bank_name: str = None
     ):
         self.images: list(pg.Surface) = []
         self.images_flipped: list(pg.Surface) = []
@@ -32,8 +33,13 @@ class ImageAnimation:
 
         self.multipart = False
 
-        if folder_path is not None:
+        bank = ImageBank.getInstance()
+        if (bank_name is None or not bank.exists(bank_name)) and folder_path is not None:
             self.loadFolder(folder_path, image_size=image_size)
+            if bank_name is not None:
+                bank.set(bank_name, (self.images, self.images_flipped))
+        elif bank_name is not None and bank.exists(bank_name):
+            self.images, self.images_flipped = bank[bank_name]
 
     def _loadMultipart(self, setup: dict, folder_path: str):
         cut_size = tuple(setup["size"])

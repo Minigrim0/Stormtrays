@@ -1,3 +1,6 @@
+import logging
+
+
 class ImageBank:
     """Represents a bank of images, to avoid loading images multiple times"""
 
@@ -23,4 +26,5 @@ class ImageBank:
         return name in self.images.keys()
 
     def set(self, name: str, value):
+        logging.debug(f"BANK: Registering {name}")
         self.images[name] = value
