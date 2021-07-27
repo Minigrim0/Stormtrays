@@ -19,6 +19,7 @@ class Character:
 
     @staticmethod
     def getInstance():
+        """Singleton pattern"""
         if Character.instance is None:
             Character()
         return Character.instance
@@ -84,29 +85,31 @@ class Character:
 
     def hit(self):
         """Hits the character's target, automatically called after attack animation"""
-        self.target.hit(self.damage)
-        if not self.target.alive:
-            self.ui.add_xp(self.target.max_health)
-            self.target = (self.posx, self.posy)
+        if isinstance(self.target, EnnemyDO):
+            self.target.hit(self.damage)
+            if not self.target.alive:
+                self.ui.add_xp(self.target.max_health)
+                self.target = (self.posx, self.posy)
         self.setAnimation("idle")
 
-    def update(self, timeElapsed: int):
-        """if self.capacite1:
-            Icapacite1 += 1
-            if Icapacite1 == 160:
-                Icapacite1 = 0
-                King.capacite1 = False
+    def update(self, timeElapsed: float):
+        """Updates the character, makes him move"""
+        # if self.capacite1:
+        #     Icapacite1 += 1
+        #     if Icapacite1 == 160:
+        #         Icapacite1 = 0
+        #         King.capacite1 = False
+        # if CooldownInvoc > 0:
+        #     CooldownInvoc -= 1
+        # TpsCoolDown = CooldownInvoc // 24
 
-        if CooldownInvoc > 0:
-            CooldownInvoc -= 1
-        TpsCoolDown = CooldownInvoc // 24
-        """
         if isinstance(self.target, EnnemyDO) and not self.target.alive:
             self.target = (self.posx, self.posy)
         self.move(timeElapsed)
         self.getCurrentAnimation().update(timeElapsed)
 
     def handleEvent(self, event: pg.event):
+        """Handles user events"""
         if self.current_animation == "attack":
             return
 
@@ -119,11 +122,11 @@ class Character:
 
     @property
     def real_speed(self) -> float:
+        """Returns the speed in pixel/sec instead of tiles/sec"""
         return self.speed * 64
 
     def move(self, timeElapsed: float):
         """Updates the status of the character"""
-        # self.AnimXp()
         if self.current_animation == "attack":
             return
 
