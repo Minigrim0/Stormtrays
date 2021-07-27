@@ -26,6 +26,21 @@ class XPBar(LoadingBar):
         self.stashed = 0
         self.add_xp(0)
 
+    def _levelUp(self):
+        """Updates the bar's objective"""
+        character = Character.getInstance()
+        character.level_up()
+        self.setObjective((character.level ** 2) * 20)
+        self.set_advancement(0)
+
+        if self.bg_color != (-1, -1, -1):
+            self.bg_image = pg.Surface(self.size)
+            self.bg_image.fill(self.bg_color)
+
+        stashed = self.stashed
+        self.stashed = 0
+        self.add_xp(stashed)
+
     @property
     def objective(self) -> int:
         """Hides the real variable behind objective"""
@@ -39,14 +54,7 @@ class XPBar(LoadingBar):
         """Updates the bar"""
         super().update(timeElapsed)
         if self._percentAdvanced == 1:
-            character = Character.getInstance()
-            character.level_up()
-            self.setObjective((character.level ** 2) * 20)
-            self.set_advancement(0)
-
-            if self.bg_color != (-1, -1, -1):
-                self.bg_image = pg.Surface(self.size)
-                self.bg_image.fill(self.bg_color)
+            self._levelUp()
 
     def draw(self, screen: Screen):
         """Displays the bar and its text on the screen"""
@@ -56,7 +64,7 @@ class XPBar(LoadingBar):
     def add_xp(self, amount: int):
         """Adds a certain amount of xp and update the text/bar in accordance"""
         if self.advancement + amount > self.objective:
-            self.stashed += self.advancement - self.objective
+            self.stashed += self.advancement + amount - self.objective
             self.set_advancement(self.objective)
         else:
             self.set_advancement(self.advancement + amount)
