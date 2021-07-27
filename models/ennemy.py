@@ -14,6 +14,7 @@ class Ennemy:
 
     @staticmethod
     def getInstance():
+        """Singleton pattern"""
         if Ennemy.instance is None:
             Ennemy()
         return Ennemy.instance
@@ -29,6 +30,7 @@ class Ennemy:
         self.load()
 
     def load(self):
+        """Loads available ennemies"""
         options = GameOptions.getInstance()
         for ennemyFile in glob.glob(options.fullPath("ennemies", "*.json")):
             with open(ennemyFile) as ennemyInfo:
@@ -37,6 +39,7 @@ class Ennemy:
                 self.ennemies_weights.append(data["weight"])
 
     def update(self, timeElapsed: float):
+        """Updates living ennemies + tries to spawn more"""
         invoke = random.random() * 100
         if invoke <= 1:
             self.invoke()
@@ -47,6 +50,7 @@ class Ennemy:
             ennemy.update(timeElapsed)
 
     def draw(self, screen):
+        """Draws ennemies on screen"""
         for ennemy in self.ennemies:
             ennemy.draw(screen)
 
@@ -57,6 +61,7 @@ class Ennemy:
                 return ennemy
 
     def invoke(self):
+        """Invokes an ennemy, by choosing randomly in the weighted ennemy list"""
         ennemy = random.choices(self.available_ennemies, weights=self.ennemies_weights)[0]
 
         ennemi = EnnemyDO(ennemy)
