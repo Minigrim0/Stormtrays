@@ -65,7 +65,7 @@ class GameUI:
         self.character_speed = self.font.render("Vitesse : %i " % character.speed, 1, (0, 0, 0))
 
     def handleEvent(self, event):
-        self.popup.handleEvent(event)
+        self.tower_menu.handleEvent(event)
 
     def draw(self, screen: Screen):
         screen.blit(self.stats_background, (870, 0))
@@ -77,7 +77,7 @@ class GameUI:
         screen.blit(self.ennemies_killed, (1020, 27))
         screen.blit(self.character_damage, (1020, 53))
 
-        self.popup.draw(screen)
+        self.tower_menu.draw(screen)
         self.xp_bar.draw(screen)
 
     def add_xp(self, amount: int):
