@@ -44,6 +44,11 @@ class XPBar(LoadingBar):
         self.stashed: int = 0
         self.add_xp(0)
 
+    @property
+    def objective(self) -> int:
+        """Hides the real variable behind objective"""
+        return self.max_advancement
+
     def _levelUp(self):
         """Updates the bar's objective"""
         character = Character.getInstance()
@@ -59,10 +64,17 @@ class XPBar(LoadingBar):
         self.stashed = 0
         self.add_xp(stashed)
 
-    @property
-    def objective(self) -> int:
-        """Hides the real variable behind objective"""
-        return self.max_advancement
+    def _genText(self):
+        self.xp_text = self.font.render(
+            f"{int(self.current_advancement)}/{self.max_advancement}",
+            1, (0, 0, 0)
+        )
+
+        text_size = self.xp_text.get_size()
+        self.text_position = (
+            self.position[0] + ((self.size[0] - text_size[0]) // 2),
+            self.position[1] + ((self.size[1] - text_size[1]) // 2)
+        )
 
     def setObjective(self, amount: int):
         """Sets the value of the hidden max_advancement variable"""
@@ -73,10 +85,7 @@ class XPBar(LoadingBar):
         super().update(timeElapsed)
         self.level_up_animation.update(timeElapsed)
         if self.current_advancement != self.advancement:
-            self.xp_text = self.font.render(
-                f"{int(self.current_advancement) + 1}/{self.max_advancement}",
-                1, (0, 0, 0)
-            )
+            self._genText()
 
         if self._percentAdvanced >= 1:
             self._levelUp()
@@ -99,9 +108,4 @@ class XPBar(LoadingBar):
             self.set_advancement(self.objective)
         else:
             self.set_advancement(self.advancement + amount)
-
-        text_size = self.xp_text.get_size()
-        self.text_position = (
-            self.position[0] + ((self.size[0] - text_size[0]) // 2),
-            self.position[1] + ((self.size[1] - text_size[1]) // 2)
-        )
+        self._genText()
