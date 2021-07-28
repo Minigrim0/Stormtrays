@@ -3,7 +3,6 @@ import pygame as pg
 from models.screen import Screen
 from src.runnable import Runnable
 from src.invocation import Invocation
-from src.tourClasse import Tours_IG
 
 from models.level import Level
 from models.ennemy import Ennemy
