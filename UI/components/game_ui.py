@@ -37,7 +37,7 @@ class GameUI:
         self.character_speed: pg.Surface = None
 
         self.tower_menu = Popup(
-            position=(0, 604),
+            position=(15, 610),
             background=pg.image.load("assets/images/overlays/tower_menu.png"),
             button_position=(32, 654),
             button_size=(45, 45),

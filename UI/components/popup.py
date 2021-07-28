@@ -19,7 +19,7 @@ class Popup:
 
         self.button = Button(button_position, button_size, button_image, callback=self.toggleVisibility)
         self.cross_button = Button(
-            (self.position[0] + background_size[0] - 5, self.position[0] + background_size[0] - 15),
+            (self.position[0] + background_size[0] - 15, self.position[1] - 5),
             (20, 20),
             pg.image.load("UI/assets/images/cross.png"),
             callback=self.toggleVisibility
@@ -33,13 +33,18 @@ class Popup:
 
     def handleEvent(self, event):
         if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
-            self.button.click(event.pos)
-            for button in self.buttons:
-                button.click(event.pos)
+
+            if self.opened:
+                self.cross_button.click(event.pos)
+                for button in self.buttons:
+                    button.click(event.pos)
+            else:
+                self.button.click(event.pos)
 
     def draw(self, screen):
         if self.opened:
             screen.blit(self.background, self.position)
+            self.cross_button.draw(screen)
             for button in self.buttons:
                 button.draw(screen)
         else:
