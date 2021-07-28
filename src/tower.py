@@ -1,46 +1,11 @@
 import pygame
 import math
-import json
 import glob
 
 import src.utils as utils
 
 
-class Tours:
-    """Represents a tower in the menu"""
-
-    def __init__(self, fichiertour, num, myfont1):
-        f = open(fichiertour)
-        contenu = f.read()
-        self.propriete = json.loads(contenu)
-        self.Project_Image = self.propriete["ProjectileImg"]
-        self.vitesse = self.propriete["vitesse tir"]
-        self.VitesseProject = self.propriete["VitesseProj"]
-        self.RoundTrajec = self.propriete["RoundTraj"]
-        self.DirImg = self.propriete["DirImage"]
-        self.degats = self.propriete["degats"]
-        self.portee = self.propriete["portee"]
-        self.prix = self.propriete["prix"]
-        self.Zone = self.propriete["Zone"]
-        self.image_menu_load = self.propriete["img"]
-        self.nom = self.propriete["nom"]
-
-        self.image_menu = pygame.image.load(self.image_menu_load).convert_alpha()
-        self.tourrect = pygame.Rect((18 + (64 * num) + (num * 10), round((704) - (72))), (64, 64))
-        self.prix_affiche = myfont1.render(str(self.prix), 1, (0, 0, 0))
-
-    def affichemenu(self, fenetre, num):
-        """Shows the tower in the menu
-
-        Args:
-            fenetre ([type]): [description]
-            num ([type]): [description]
-        """
-        fenetre.blit(self.image_menu, (18 + (60 * num) + (num * 10), (704) - (72)))
-        fenetre.blit(self.prix_affiche, (18 + (60 * num) + (num * 10), (704) - (72)))
-
-
-class Tours_IG:
+class TowerDO:
     """Represents an in-game tower"""
 
     def __init__(self, Type_Tour, ImgsDir):
