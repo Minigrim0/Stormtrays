@@ -70,6 +70,7 @@ class Game(Runnable):
     def handleEvent(self):
         for event in self.screen.getEvent():
             Character.getInstance().handleEvent(event)
+            GameUI.getInstance().handleEvent(event)
 
             if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
                 self.running = False
@@ -81,11 +82,6 @@ class Game(Runnable):
         Character.getInstance().draw(self.screen)
         GameUI.getInstance().draw(self.screen)
         """
-        # Bouger les ennemis
-        for ennemi in Liste_Mechants:
-
-            ennemi.bouge(niveau.map, screen, niveau, Liste_Mechants, King)
-            ennemi.meurt.set_volume(Volume / 10)
 
         for projectileObj in Tab_Projectile:
             projectileObj.Avance(screen, Liste_Mechants, niveau, Tab_Projectile, King)

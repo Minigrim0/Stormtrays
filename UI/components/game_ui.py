@@ -6,6 +6,7 @@ from models.gameOptions import GameOptions
 from models.character import Character
 
 from UI.components.xp_bar import XPBar
+from UI.components.popup import Popup
 
 
 class GameUI:
@@ -35,10 +36,19 @@ class GameUI:
         self.character_damage: pg.Surface = None
         self.character_speed: pg.Surface = None
 
+        self.tower_menu = Popup(
+            position=(0, 604),
+            background=pg.image.load("assets/images/overlays/tower_menu.png"),
+            button_position=(32, 654),
+            button_size=(45, 45),
+            button_image=pg.image.load("assets/images/Boutons/tower_button.png").convert_alpha()
+        )
+
         self.xp_bar = XPBar(
             (870, 86), (270, 18),
             fg_color=(0, 255, 40), bg_color=(-1, -1, -1),
-            overlay="assets/images/overlays/xp_bar.png")
+            overlay="assets/images/overlays/xp_bar.png"
+        )
 
         self.update(0)
 
@@ -54,6 +64,9 @@ class GameUI:
         self.character_damage = self.font.render("Dégats : %i" % character.damage, 1, (0, 0, 0))
         self.character_speed = self.font.render("Vitesse : %i " % character.speed, 1, (0, 0, 0))
 
+    def handleEvent(self, event):
+        self.popup.handleEvent(event)
+
     def draw(self, screen: Screen):
         screen.blit(self.stats_background, (870, 0))
 
@@ -64,8 +77,12 @@ class GameUI:
         screen.blit(self.ennemies_killed, (1020, 27))
         screen.blit(self.character_damage, (1020, 53))
 
+        self.popup.draw(screen)
         self.xp_bar.draw(screen)
 
     def add_xp(self, amount: int):
         """Adds xp to the xp_bar, and call the level_up function of the Character if the objective is reached"""
         self.xp_bar.add_xp(amount)
+
+    def toggleTowerMenu(self):
+        self.show_towers = not self.show_towers
