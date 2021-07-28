@@ -1,13 +1,13 @@
 {
-"nom" : "Catapulte tres rapide",
-"degats" : 4,
-"vitesse tir" : 12,
-"portee" : 2,
-"img" : "Img/Tours/Catapulte/Catapulte1.png",
-"prix" : 500,
-"DirImage" : "Img/Tours/Catapulte/*.png",
-"Zone" : "Y",
-"RoundTraj" : 0.5,
-"VitesseProj" : 12.5,
-"ProjectileImg" : "Img/Tours/CatapultProj.png"
+    "nom" : "Catapulte tres rapide",
+    "degats" : 4,
+    "vitesse tir" : 12,
+    "portee" : 2,
+    "img" : "Img/Tours/Catapulte/Catapulte1.png",
+    "prix" : 500,
+    "DirImage" : "Img/Tours/Catapulte/*.png",
+    "Zone" : "Y",
+    "RoundTraj" : 0.5,
+    "VitesseProj" : 12.5,
+    "ProjectileImg" : "Img/Tours/CatapultProj.png"
 }
