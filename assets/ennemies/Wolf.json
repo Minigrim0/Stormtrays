@@ -1,6 +1,6 @@
 {
     "name": "Wolf",
-    "animation": "assets/images/animations/ennemies/Wolf/",
+    "animation": "assets/images/animations/ennemies/wolf/",
     "DeathSound": "../musique/mort-Goblin.wav",
     "height": 64,
     "health": 10,

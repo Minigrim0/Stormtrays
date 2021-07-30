@@ -1,6 +1,6 @@
 {
     "name": "Ghost",
-    "animation": "assets/images/animations/ennemies/Ghost/",
+    "animation": "assets/images/animations/ennemies/ghost/",
     "DeathSound": "../musique/mort-Ghost.wav",
     "height": 64,
     "health": 20,

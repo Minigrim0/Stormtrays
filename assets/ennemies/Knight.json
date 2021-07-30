@@ -1,6 +1,6 @@
 {
     "name": "Knight",
-    "animation": "assets/images/animations/ennemies/Chevalier/",
+    "animation": "assets/images/animations/ennemies/knight/",
     "DeathSound": "../musique/mort-Chevalier.wav",
     "height": 64,
     "health": 35,

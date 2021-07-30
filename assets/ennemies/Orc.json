@@ -1,6 +1,6 @@
 {
     "name": "Orc",
-    "animation": "assets/images/animations/ennemies/Orc/",
+    "animation": "assets/images/animations/ennemies/orc/",
     "DeathSound": "../musique/mort-Orc.wav",
     "height": 80,
     "health": 60,

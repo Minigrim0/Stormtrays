@@ -1,6 +1,6 @@
 {
     "name": "Dwarf",
-    "animation": "assets/images/animations/ennemies/Nain/",
+    "animation": "assets/images/animations/ennemies/dwarf/",
     "DeathSound": "../musique/mort-Goblin.wav",
     "height": 64,
     "health": 100,

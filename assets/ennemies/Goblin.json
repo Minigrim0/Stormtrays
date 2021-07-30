@@ -1,6 +1,6 @@
 {
     "name": "Goblin",
-    "animation": "assets/images/animations/ennemies/Goblin/",
+    "animation": "assets/images/animations/ennemies/goblin/",
     "DeathSound": "../musique/mort-Goblin.wav",
     "height": 48,
     "health": 15,
