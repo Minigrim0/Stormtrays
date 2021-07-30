@@ -19,6 +19,9 @@ class ImageAnimation:
         self.images: list(pg.Surface) = []
         self.images_flipped: list(pg.Surface) = []
 
+        self.original_image: pg.Surface = None
+        self.flipped_original_image: pg.Surface = None
+
         self.flippable: bool = flippable
         self.flipped = False
         self.last_step: int = 0  # The time since last step
@@ -37,9 +40,17 @@ class ImageAnimation:
         if (bank_name is None or not bank.exists(bank_name)) and folder_path is not None:
             self.loadFolder(folder_path, image_size=image_size)
             if bank_name is not None:
-                bank.set(bank_name, (self.images, self.images_flipped))
+                bank.set(
+                    bank_name,
+                    (
+                        self.images, self.images_flipped, self.multipart,
+                        self.original_image, self.flipped_original_image
+                    )
+                )
         elif bank_name is not None and bank.exists(bank_name):
-            self.images, self.images_flipped = bank[bank_name]
+            self.images, self.images_flipped, self.multipart, self.original_image, self.flipped_original_image = bank[
+                bank_name
+            ]
 
     def _loadMultipart(self, setup: dict, folder_path: str):
         cut_size = tuple(setup["size"])
@@ -54,6 +65,7 @@ class ImageAnimation:
                 self.images.append(
                     pg.Rect((x * rect_size[0], y * rect_size[1]), rect_size)
                 )
+        self.images_flipped = self.images
 
     def _loadFormat(self, image_format: str, image_size: tuple = (-1, -1)):
         for image in sorted(glob.glob(image_format)):
