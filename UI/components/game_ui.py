@@ -27,7 +27,7 @@ class GameUI:
 
         self.font = GameOptions.getInstance().fonts["MedievalSharp-xOZ5"]["20"]
 
-        self.stats_background = pg.image.load("assets/images/stats_background.png")
+        self.stats_background = pg.image.load("assets/images/overlays/stats_background.png")
 
         self.gold_amount: pg.Surface = None
         self.bastion_health: pg.Surface = None
