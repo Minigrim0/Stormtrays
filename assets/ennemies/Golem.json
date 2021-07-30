@@ -1,9 +1,9 @@
 {
-    "Name": "Golem",
-    "ImgFolder": "assets/images/ennemies/Golem/",
+    "name": "Golem",
+    "animation": "assets/images/animations/ennemies/Golem/",
     "DeathSound": "../musique/mort-Goblin.wav",
-    "Height": 64,
-    "LifePts": 15,
+    "hieght": 64,
+    "health": 15,
     "speed": 1.7,
     "weight": 5,
     "animation_speed": 6

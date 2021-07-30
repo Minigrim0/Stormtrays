@@ -1,9 +1,9 @@
 {
-    "Name": "Dragon",
-    "ImgFolder": "assets/images/ennemies/Dragon/",
+    "name": "Dragon",
+    "animation": "assets/images/animations/ennemies/dragon/",
     "DeathSound": "../musique/mort-Orc.wav",
-    "Height": 50,
-    "LifePts": 225,
+    "height": 50,
+    "health": 225,
     "speed": 0.5,
     "weight": 1,
     "animation_speed": 8

@@ -1,9 +1,9 @@
 {
-    "Name": "Goblin",
-    "ImgFolder": "assets/images/ennemies/Goblin/",
+    "name": "Goblin",
+    "animation": "assets/images/animations/ennemies/Goblin/",
     "DeathSound": "../musique/mort-Goblin.wav",
-    "Height": 48,
-    "LifePts": 15,
+    "height": 48,
+    "health": 15,
     "speed": 3,
     "weight": 7,
     "animation_speed": 10
