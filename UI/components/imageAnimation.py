@@ -52,9 +52,18 @@ class ImageAnimation:
                 bank_name
             ]
 
-    def _loadMultipart(self, setup: dict, folder_path: str):
+    def _loadMultipart(self, setup: dict, folder_path: str, image_size: tuple = (-1, -1)):
         cut_size = tuple(setup["size"])
         self.original_image = pg.image.load(os.path.join(folder_path, setup["file"])).convert_alpha()
+
+        if image_size != (-1, -1):
+            self.original_image = pg.transform.scale(
+                self.original_image,
+                (
+                    cut_size[0] * image_size[0],
+                    cut_size[1] * image_size[1]
+                )
+            )
         self.flipped_original_image = pg.transform.flip(self.original_image, True, False)
         rect_size = (
             self.original_image.get_size()[0] / cut_size[0],
@@ -97,7 +106,7 @@ class ImageAnimation:
                 setup = json.load(setup_file)
             self.multipart = setup["multipart"]
             if self.multipart is True:
-                self._loadMultipart(setup, folder_path)
+                self._loadMultipart(setup, folder_path, image_size=image_size)
             else:
                 images_format = os.path.join(folder_path, setup["format"])
                 self._loadFormat(images_format, image_size=image_size)
@@ -158,7 +167,10 @@ class ImageAnimation:
             if centered:
                 size = self.currentFrame()
                 position = (position[0] - (size.w // 2), position[1] - (size.h // 2))
-            screen.blit(self.original_image, position, area=self.currentFrame())
+            if self.flipped:
+                screen.blit(self.flipped_original_image, position, area=self.currentFrame())
+            else:
+                screen.blit(self.original_image, position, area=self.currentFrame())
         else:
             if centered:
                 size = self.currentFrame().get_size()
