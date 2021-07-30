@@ -27,12 +27,12 @@ class EnnemyDO:
 
         self.propriete = data
 
-        self.name = self.propriete["Name"]
+        self.name = self.propriete["name"]
         # self.meurt = pygame.mixer.Sound(self.propriete["DeathSound"])
-        self.health = self.propriete["LifePts"]
-        self.max_health = self.propriete["LifePts"]
+        self.health = self.propriete["health"]
+        self.max_health = self.propriete["health"]
         self.speed = self.propriete["speed"]
-        self.height = self.propriete["Height"]
+        self.height = self.propriete["height"]
 
         self.healthBar = LoadingBar(
             (0, 0),
@@ -40,7 +40,7 @@ class EnnemyDO:
             max_val=self.max_health, initial_val=self.max_health
         )
         self.animation = ImageAnimation(
-            self.propriete["ImgFolder"], flippable=True, loop=-1,
+            self.propriete["animation"], flippable=True, loop=-1,
             speed=self.propriete["animation_speed"], image_size=(self.height, self.height),
             bank_name=self.name
         )

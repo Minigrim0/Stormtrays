@@ -48,11 +48,11 @@ class Character:
         self.capacite2 = False
 
         self.animations = {
-            "idle": ImageAnimation("assets/images/character/animations/idle/", loop=-1, flippable=True),
-            "walk": ImageAnimation("assets/images/character/animations/walk/", loop=-1, flippable=True, speed=8),
+            "idle": ImageAnimation("assets/images/animations/character/idle/", loop=-1, flippable=True),
+            "walk": ImageAnimation("assets/images/animations/character/walk/", loop=-1, flippable=True, speed=8),
             "attack": ImageAnimation(
-                "assets/images/character/animations/attack/", flippable=True, speed=9, loop=2, callback=self.hit),
-            "invoke": ImageAnimation("assets/images/character/animations/invoke/", flippable=True, speed=5)
+                "assets/images/animations/character/attack/", flippable=True, speed=9, loop=2, callback=self.hit),
+            "invoke": ImageAnimation("assets/images/animations/character/invoke/", flippable=True, speed=5)
         }
         self.current_animation = "idle"
 
