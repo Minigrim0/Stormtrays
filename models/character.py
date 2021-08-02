@@ -117,6 +117,7 @@ class Character:
             self.target = ennemy if ennemy is not None else event.pos
 
     def draw(self, screen: Screen):
+        """Draws the character on screen"""
         self.getCurrentAnimation().draw(screen, (self.posx, self.posy), centered=True)
 
     @property

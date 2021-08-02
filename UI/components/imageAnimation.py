@@ -14,7 +14,8 @@ class ImageAnimation:
     def __init__(
         self, folder_path: str = None, flippable: bool = False,
         callback: callable = None, speed: int = 2, image_size: tuple = (-1, -1),
-        loop: int = 1, bank_name: str = None
+        loop: int = 1, bank_name: str = None,
+        callback_on: list = [-1]
     ):
         self.images: list(pg.Surface) = []
         self.images_flipped: list(pg.Surface) = []
@@ -36,6 +37,8 @@ class ImageAnimation:
 
         self.multipart = False
 
+        self.callback_on = callback_on  # When to call the callback
+
         bank = ImageBank.getInstance()
         if (bank_name is None or not bank.exists(bank_name)) and folder_path is not None:
             self.loadFolder(folder_path, image_size=image_size)
@@ -53,6 +56,7 @@ class ImageAnimation:
             ]
 
     def _loadMultipart(self, setup: dict, folder_path: str, image_size: tuple = (-1, -1)):
+        """Loads an animation from a single """
         cut_size = tuple(setup["size"])
         self.original_image = pg.image.load(os.path.join(folder_path, setup["file"])).convert_alpha()
 
@@ -74,9 +78,13 @@ class ImageAnimation:
                 self.images.append(
                     pg.Rect((x * rect_size[0], y * rect_size[1]), rect_size)
                 )
-        self.images_flipped = self.images
+                if self.flippable:
+                    self.images_flipped.append(
+                        pg.Rect((self.original_image.get_size()[0] - 64 - (x * rect_size[0]), y * rect_size[1]), rect_size)
+                    )
 
     def _loadFormat(self, image_format: str, image_size: tuple = (-1, -1)):
+        """Loads images in a folder following a certain format (Ex: *.png)"""
         for image in sorted(glob.glob(image_format)):
             self.images.append(
                 pg.image.load(image).convert_alpha()
@@ -112,17 +120,21 @@ class ImageAnimation:
                 self._loadFormat(images_format, image_size=image_size)
 
     def play(self):
+        """Sets the animation state to playing"""
         self.playing = True
 
     def pause(self):
+        """Pauses the animation"""
         self.playing = False
 
     def reset(self):
+        """Resets the animation"""
         self.playing = False
         self.step = 0
         self.current_loop = 0
 
     def flip(self):
+        """Flips the animation in the y axis"""
         if self.flippable:
             self.flipped = True
 
@@ -141,7 +153,11 @@ class ImageAnimation:
         """Called at each animation step"""
         self.last_step = 0
         self.step += 1
+        if self.step in self.callback_on:
+            self.trigger()
         if self.step == len(self.images):
+            if -1 in self.callback_on and self.trigger is not None:
+                self.trigger()
             self._endLoop()
 
     def _endLoop(self):
@@ -150,8 +166,6 @@ class ImageAnimation:
         self.step %= len(self.images)
         if self.current_loop >= self.loop and self.loop > 0:
             self.reset()
-            if self.trigger is not None:
-                self.trigger()
 
     def currentFrame(self):
         """Returns the animation's current frame"""
@@ -162,7 +176,6 @@ class ImageAnimation:
 
     def draw(self, screen: Screen, position: tuple, centered: bool = False):
         """Draws the current frame on the screen, at the given position"""
-        # pg.draw.rect(self.currentFrame(), (255, 0, 0), pg.Rect((0, 0), self.currentFrame().get_size()), width=2)
         if self.multipart:
             if centered:
                 size = self.currentFrame()
