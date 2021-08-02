@@ -3,7 +3,7 @@ import math
 
 from src.ennemy import EnnemyDO
 from src.utils.distance_between import distance_between
-from src.utils.findAngle import findAngle
+from src.utils.find_angle import findAngle
 
 from models.screen import Screen
 from models.ennemy import Ennemy
