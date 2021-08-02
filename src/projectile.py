@@ -72,7 +72,7 @@ class ProjectileDO:
                 self.tower.add_count("damage", self.degats)
 
                 if self.zone_damage is not True:
-                    break
+                    return
 
     def update(self, timeElapsed: float):
         """Updates the position of the projectile according to its speed"""

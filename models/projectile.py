@@ -49,9 +49,9 @@ class Projectile:
 
     def update(self, timeElapsed: float):
         for projectile in self.projectiles:
+            projectile.update(timeElapsed)
             if projectile.hasHit:
                 del self.projectiles[self.projectiles.index(projectile)]
-            projectile.update(timeElapsed)
 
     def draw(self, screen: Screen):
         for projectile in self.projectiles:
