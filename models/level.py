@@ -3,8 +3,6 @@ import pygame as pg
 
 from copy import copy
 
-from models.gameOptions import GameOptions
-
 import src.constantes as consts
 from src.tile import Tile
 from src.errors.invalidPositionException import InvalidPositionException

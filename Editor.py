@@ -12,7 +12,7 @@ from models.gameOptions import GameOptions
 pygame.init()
 
 options = GameOptions.getInstance()
-options.load()
+
 screen = Screen(
     (constantes.WINDOW_WIDTH + 158, constantes.WINDOW_HEIGHT),
     "Stormtray's Editor",

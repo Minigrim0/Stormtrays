@@ -66,3 +66,6 @@ class Ennemy:
 
         ennemi = EnnemyDO(ennemy)
         self.ennemies.append(ennemi)
+
+    def getEnnemyList(self):
+        return self.ennemies
