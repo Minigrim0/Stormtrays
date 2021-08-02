@@ -27,7 +27,7 @@ class ImageAnimation:
         self.last_step: int = 0  # The time since last step
 
         self.step: int = 0
-        self.playing: bool = True
+        self.playing: bool = False
         self.speed: int = speed
         self.trigger = callback
 
