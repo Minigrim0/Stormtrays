@@ -98,8 +98,8 @@ class Tower:
             elif self.popup.opened:
                 for tower_button in self.tower_buttons:
                     tower_button.click(event.pos)
-
-            self.popup.handleEvent(event)
+            else:
+                self.popup.handleEvent(event)
 
         elif event.type == pg.MOUSEMOTION and self.selectedTower is not None:
             self.selectedTower.setPosition(
