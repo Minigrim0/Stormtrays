@@ -10,12 +10,12 @@ TODO
 
 * [x] fix xp bar animation (sine animation, see menu buttons)
 * [x] fix visible duration of ennemy's health bar
-* [ ] re-implement towers
+* [X] re-implement towers
 * [x] Implement image-banks to avoid loading same images multiple times (Ennemies)
 * [ ] Add starting tile
 * [ ] Allow multiple bastions per level
 * [ ] Re-implement character powers (Invocation, time freeze, double money)
-* [ ] Allow ImageAnimation trigger to be called a different times during the animation
+* [X] Allow ImageAnimation trigger to be called a different times during the animation
 * [ ] Implement automatic builds
 * [ ] Implement size changing for map in editor
 * [ ] Profile the execution to find optimizations
