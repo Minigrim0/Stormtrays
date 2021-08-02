@@ -1,10 +1,11 @@
 {
     "name" : "Catapulte Basique",
     "damage" : 8,
-    "fire_rate" : 24,
+    "fire_rate" : 6,
     "range" : 3,
     "animation" : "assets/images/animations/towers/catapult/",
     "thumbnail": "assets/images/towers/catapult.png",
     "price" : 200,
-    "projectile" : "boulder"
+    "projectile" : "boulder",
+    "shoot_on": [2]
 }

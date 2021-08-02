@@ -1,7 +1,7 @@
 {
     "name" : "Archer",
     "damage" : 30,
-    "fire_rate" : 36,
+    "fire_rate" : 1,
     "range" : 5,
     "animation" : "assets/images/animations/towers/archer/",
     "thumbnail": "assets/images/towers/archer.png",
