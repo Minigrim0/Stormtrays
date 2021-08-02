@@ -62,11 +62,7 @@ class EnnemyDO:
         )
 
     def pose_ennemi(self):
-        """Adds an ennemy to the game
-
-        Args:
-            tableau ([type]): [description]
-        """
+        """Adds an ennemy to the game"""
         self.position = (0, 0)
         level = Level.getInstance()
         self.direction = (1, 0)
@@ -80,7 +76,7 @@ class EnnemyDO:
                 self.HitBox = pygame.Rect((0, y), (64, 64))
 
     def update(self, timeElapsed: float):
-        """Makes the ennemy move"""
+        """Makes the ennemy move and updates it's health bar"""
         self.animation.update(timeElapsed)
         self.healthBar.update(timeElapsed)
 
@@ -118,21 +114,13 @@ class EnnemyDO:
         self.HitBox = pygame.Rect(self.absolute_position, (64, 64))
 
     def draw(self, screen):
-        """Blits the ennemy on the screen
-
-        Args:
-            screen ([type]): [description]
-        """
+        """Blits the ennemy and its health bar on the screen"""
         if self.under_attack[0]:
             self.healthBar.draw(screen, self.absolute_position)
         self.animation.draw(screen, self.absolute_position)
 
     def hit(self, damage: int):
-        """Hits the ennemy with the given amount of damage
-
-        Args:
-            damage (int): The amount of damage to deal
-        """
+        """Hits the ennemy with the given amount of damage"""
         self.health -= damage
         self.health = bound(0, self.max_health, self.health)
         self.under_attack = (True, 0)
