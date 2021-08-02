@@ -15,7 +15,7 @@ class EnnemyDO:
     def __init__(self, data):
         self.position = (0, 0)
         self.count = 0
-        self.PosAbsolue = (0, 0)
+        self.absolute_position = (0, 0)
 
         self.Returned = False
         self.under_attack = (False, 0)
@@ -64,7 +64,7 @@ class EnnemyDO:
             tile = level.map[x][y]
             if tile is not None and (tile.code, tile.rotation) == ("c1", 0):
                 self.position = (0, y)
-                self.PosAbsolue = (0, y * 64)
+                self.absolute_position = (0, y * 64)
                 self.HitBox = pygame.Rect((0, y), (64, 64))
 
     def draw(self, screen):
@@ -74,8 +74,8 @@ class EnnemyDO:
             screen ([type]): [description]
         """
         if self.under_attack[0]:
-            self.healthBar.draw(screen, self.PosAbsolue)
-        self.animation.draw(screen, self.PosAbsolue)
+            self.healthBar.draw(screen, self.absolute_position)
+        self.animation.draw(screen, self.absolute_position)
 
     def update(self, timeElapsed: float):
         """Makes the ennemy move"""
@@ -109,11 +109,11 @@ class EnnemyDO:
                         self.animation.flip()
                     self.direction = new_dir
 
-        self.PosAbsolue = (
+        self.absolute_position = (
             self.position[0] * 64 + (self.count * self.direction[0]),
             self.position[1] * 64 + (self.count * self.direction[1]),
         )
-        self.HitBox = pygame.Rect(self.PosAbsolue, (64, 64))
+        self.HitBox = pygame.Rect(self.absolute_position, (64, 64))
 
     def hit(self, damage: int):
         """Hits the ennemy with the given amount of damage
@@ -135,8 +135,8 @@ class EnnemyDO:
     def centeredPosition(self) -> (int, int):
         """Returns the centered position of the ennemy"""
         return (
-            self.PosAbsolue[0] + self.height // 2,
-            self.PosAbsolue[1] + self.height // 2,
+            self.absolute_position[0] + self.height // 2,
+            self.absolute_position[1] + self.height // 2,
         )
 
     def enleve_vie(self, viemoins, liste_mech, ennemi, niveau, King):
@@ -162,14 +162,14 @@ class EnnemyDO:
             # self.meurt.play()
             if King.capacite1 is True:
                 FlyingGold = GoldAnim(
-                    (self.PosAbsolue[0] + self.height // 2, self.PosAbsolue[1] + self.height // 2), self.max_health
+                    (self.absolute_position[0] + self.height // 2, self.absolute_position[1] + self.height // 2), self.max_health
                 )
                 constantes.GoldGained[0] += self.max_health
                 niveau.GoldTab.append(FlyingGold)
                 niveau.gold += self.max_health
 
             else:
-                FlyingGold = GoldAnim((self.PosAbsolue[0] + 32, self.PosAbsolue[1] + 32), self.max_health // 2)
+                FlyingGold = GoldAnim((self.absolute_position[0] + 32, self.absolute_position[1] + 32), self.max_health // 2)
                 constantes.GoldGained[0] += self.max_health // 2
                 niveau.GoldTab.append(FlyingGold)
                 niveau.gold += self.max_health // 2
