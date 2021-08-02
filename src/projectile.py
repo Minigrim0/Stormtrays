@@ -6,6 +6,8 @@ from models.screen import Screen
 from models.ennemy import Ennemy
 
 from src.utils.rotCenter import rot_center
+from src.utils.distance_between import distance_between
+from src.ennemy import EnnemyDO
 
 
 class ProjectileDO:
@@ -24,7 +26,6 @@ class ProjectileDO:
             self.target.absolute_position[0] + self.target.speed * self.target.direction[0] * time_before_impact,
             self.target.absolute_position[1] + self.target.speed * self.target.direction[1] * time_before_impact
         )
-        self.final_pos = ennemy_final_position
 
         self.delta_x = ennemy_final_position[0] - tower.absolute_position[0]
         self.delta_y = ennemy_final_position[1] - tower.absolute_position[1]
@@ -44,8 +45,10 @@ class ProjectileDO:
 
         self.image = rot_center(image2rot, Angle)
 
-        self.Centre_d_x = (ennemy_final_position[0] + tower.absolute_position[0]) / 2
-        self.Centre_d_y = (ennemy_final_position[1] + tower.absolute_position[1]) / 2
+        self.trajectory_top = (
+            (ennemy_final_position[0] + tower.absolute_position[0]) / 2,
+            (ennemy_final_position[1] + tower.absolute_position[1]) / 2
+        )
 
         self.degats = self.tower.damage
 
@@ -54,32 +57,32 @@ class ProjectileDO:
         self.position: tuple = tower.absolute_position
 
     @property
-    def hasHit(self):
+    def hasHit(self) -> bool:
+        """Returns an indication on whether the projectile has hit its target or not"""
         return self.advancement >= 1
 
     def _dealDamage(self):
-        ennemy_list = Ennemy.getInstance().getEnnemyList()
+        """Deals damage to one or multiple ennemies in a small range around the impact"""
+        ennemy_list: [EnnemyDO] = Ennemy.getInstance().getEnnemyList()
 
-        for ennemi in ennemy_list:
-            dist = math.sqrt(
-                ((self.position[0] - ennemi.absolute_position[0]) ** 2) + ((self.position[1] - ennemi.absolute_position[1]) ** 2)
-            )
-            if dist < 64:
-                died = ennemi.hit(self.degats)
-                if died:
-                    self.tower.EnnemiKilled += 1
-                self.tower.TotalDegats += self.degats
+        for ennemy in ennemy_list:
+            if distance_between(self.position, ennemy.absolute_position) < 64:
+                if ennemy.hit(self.degats):
+                    self.tower.add_count("kills", 1)
+                self.tower.add_count("damage", self.degats)
+
                 if self.zone_damage is not True:
                     break
 
     def update(self, timeElapsed: float):
+        """Updates the position of the projectile according to its speed"""
         self.advancement += timeElapsed * 64 * self.vitesse / self.Dist
 
         if self.advancement >= 1:
             self._dealDamage()
 
-        x0 = self.Centre_d_x + self.advancement * (self.delta_x / 2)
-        y0 = self.Centre_d_y + self.advancement * (self.delta_y / 2)
+        x0 = self.trajectory_top[0] + self.advancement * (self.delta_x / 2)
+        y0 = self.trajectory_top[1] + self.advancement * (self.delta_y / 2)
 
         height = (1 - self.advancement ** 2) * self.curvature * self.Dist
 
@@ -89,5 +92,5 @@ class ProjectileDO:
         )
 
     def draw(self, screen: Screen):
-        """Makes a projectile move"""
+        """Draws the projectile on screen"""
         screen.blit(self.image, self.position)

@@ -39,6 +39,11 @@ class TowerDO:
             callback_on=callback_on
         )
 
+        self.counters: dict = {
+            "kills": 0,
+            "damage": 0
+        }
+
     @property
     def flipped(self) -> bool:
         """Returns a boolean indicating whether the tower is flipped or not"""
@@ -136,3 +141,10 @@ class TowerDO:
     def setPosition(self, position: tuple):
         """Sets the position of the tower (used when the tower is in the "hand" of the player)"""
         self.position = position
+
+    def add_count(self, name: str, amount: float):
+        """Adds the given value to the given counter"""
+        if name in self.counters.keys():
+            self.counters[name] += amount
+        else:
+            self.counters[name] = amount
