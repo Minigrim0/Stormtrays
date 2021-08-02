@@ -80,7 +80,10 @@ class ImageAnimation:
                 )
                 if self.flippable:
                     self.images_flipped.append(
-                        pg.Rect((self.original_image.get_size()[0] - 64 - (x * rect_size[0]), y * rect_size[1]), rect_size)
+                        pg.Rect(
+                            (self.original_image.get_size()[0] - rect_size[0] - (x * rect_size[0]), y * rect_size[1]),
+                            rect_size
+                        )
                     )
 
     def _loadFormat(self, image_format: str, image_size: tuple = (-1, -1)):
