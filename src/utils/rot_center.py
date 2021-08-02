@@ -1,7 +1,7 @@
 import pygame as pg
 
 
-def rot_center(image: pg.Surface, angle: float) -> pg.Surface:
+def rotCenter(image: pg.Surface, angle: float) -> pg.Surface:
     """Rotate an image on its center
 
     Args:

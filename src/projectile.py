@@ -5,7 +5,7 @@ import pygame as pg
 from models.screen import Screen
 from models.ennemy import Ennemy
 
-from src.utils.rotCenter import rot_center
+from src.utils.rot_center import rotCenter
 from src.utils.distance_between import distance_between
 from src.ennemy import EnnemyDO
 
