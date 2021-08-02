@@ -1,6 +1,5 @@
 import pygame
-import src.constantes as constantes
-from src.gold import GoldAnim
+
 from src.utils.bound import bound
 
 from models.level import Level
@@ -49,6 +48,19 @@ class EnnemyDO:
         self.HitBox = None
         self.Vie_Rect = None
 
+    @property
+    def alive(self) -> bool:
+        """Returns true if the ennemy is alive"""
+        return self.health > 0
+
+    @property
+    def centeredPosition(self) -> (int, int):
+        """Returns the centered position of the ennemy"""
+        return (
+            self.absolute_position[0] + self.height // 2,
+            self.absolute_position[1] + self.height // 2,
+        )
+
     def pose_ennemi(self):
         """Adds an ennemy to the game
 
@@ -66,16 +78,6 @@ class EnnemyDO:
                 self.position = (0, y)
                 self.absolute_position = (0, y * 64)
                 self.HitBox = pygame.Rect((0, y), (64, 64))
-
-    def draw(self, screen):
-        """Blits the ennemy on the screen
-
-        Args:
-            screen ([type]): [description]
-        """
-        if self.under_attack[0]:
-            self.healthBar.draw(screen, self.absolute_position)
-        self.animation.draw(screen, self.absolute_position)
 
     def update(self, timeElapsed: float):
         """Makes the ennemy move"""
@@ -115,6 +117,16 @@ class EnnemyDO:
         )
         self.HitBox = pygame.Rect(self.absolute_position, (64, 64))
 
+    def draw(self, screen):
+        """Blits the ennemy on the screen
+
+        Args:
+            screen ([type]): [description]
+        """
+        if self.under_attack[0]:
+            self.healthBar.draw(screen, self.absolute_position)
+        self.animation.draw(screen, self.absolute_position)
+
     def hit(self, damage: int):
         """Hits the ennemy with the given amount of damage
 
@@ -125,58 +137,6 @@ class EnnemyDO:
         self.health = bound(0, self.max_health, self.health)
         self.under_attack = (True, 0)
         self.healthBar.set_advancement(self.health)
-
-    @property
-    def alive(self) -> bool:
-        """Returns true if the ennemy is alive"""
-        return self.health > 0
-
-    @property
-    def centeredPosition(self) -> (int, int):
-        """Returns the centered position of the ennemy"""
-        return (
-            self.absolute_position[0] + self.height // 2,
-            self.absolute_position[1] + self.height // 2,
-        )
-
-    def enleve_vie(self, viemoins, liste_mech, ennemi, niveau, King):
-        """Makes the ennemy loose life
-
-        Args:
-            viemoins ([type]): [description]
-            liste_mech ([type]): [description]
-            ennemi ([type]): [description]
-            niveau ([type]): [description]
-            King ([type]): [description]
-
-        Returns:
-            [type]: [description]
-        """
-        self.health -= viemoins
-        self.under_attack = True
-        self.Tics = 0
-
-        if self.health <= 0:
-            constantes.DicoEnnemisKilled[self.name] += 1
-            liste_mech.remove(ennemi)
-            # self.meurt.play()
-            if King.capacite1 is True:
-                FlyingGold = GoldAnim(
-                    (self.absolute_position[0] + self.height // 2, self.absolute_position[1] + self.height // 2), self.max_health
-                )
-                constantes.GoldGained[0] += self.max_health
-                niveau.GoldTab.append(FlyingGold)
-                niveau.gold += self.max_health
-
-            else:
-                FlyingGold = GoldAnim((self.absolute_position[0] + 32, self.absolute_position[1] + 32), self.max_health // 2)
-                constantes.GoldGained[0] += self.max_health // 2
-                niveau.GoldTab.append(FlyingGold)
-                niveau.gold += self.max_health // 2
-
-            niveau.Nombre_Ennemis_Tue += 1
-            return True
-        return False
 
     def collide(self, position: tuple) -> bool:
         """Returns true if the given position collides with the ennemy"""
