@@ -44,6 +44,7 @@ class EnnemyDO:
             speed=self.propriete["animation_speed"], image_size=(self.height, self.height),
             bank_name=self.name
         )
+        self.animation.play()
 
         self.HitBox = None
         self.Vie_Rect = None
