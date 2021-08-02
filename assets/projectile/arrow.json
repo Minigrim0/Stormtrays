@@ -1,0 +1,5 @@
+{
+    "image": "assets/images/projectile/arrow.png",
+    "speed": 12,
+    "curvature": 0.5
+}
