@@ -54,7 +54,7 @@ class Tower:
         for tower_file in glob.glob(options.fullPath("towers", "*.json")):
             with open(tower_file) as tower_info:
                 data = json.load(tower_info)
-                data["thumbnail"] = pg.image.load("UI/assets/images/missing.png")
+                data["thumbnail"] = pg.image.load(data["thumbnail"])
                 price = font.render(str(data["price"]), 1, (0, 0, 0))
                 data["thumbnail"].blit(price, (0, 0))
                 self.available_towers.append(data)
@@ -64,7 +64,7 @@ class Tower:
         for index, tower in enumerate(self.available_towers):
             self.tower_buttons.append(
                 Button(
-                    (18 + (70 * index), 632),
+                    (20 + (70 * index), 615),
                     (64, 64),
                     image=tower["thumbnail"],
                     callback=self.selectTower,
