@@ -40,7 +40,7 @@ class Character:
         self.damage = 3
         self.speed = 5
 
-        from UI.components.game_ui import GameUI
+        from UI.menus.game_ui import GameUI
         self.ui = GameUI.getInstance()
 
         self.Is_Returned = False

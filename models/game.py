@@ -8,7 +8,7 @@ from models.level import Level
 from models.ennemy import Ennemy
 from models.character import Character
 
-from UI.components.game_ui import GameUI
+from UI.menus.game_ui import GameUI
 
 
 class Game(Runnable):
