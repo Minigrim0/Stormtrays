@@ -16,7 +16,7 @@ options.load()
 screen = Screen(
     (constantes.WINDOW_WIDTH + 158, constantes.WINDOW_HEIGHT),
     "Stormtray's Editor",
-    options.fullPath("images", "Icon.png"),
+    "UI/assets/images/icon.png",
     False,
 )
 
