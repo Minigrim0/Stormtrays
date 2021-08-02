@@ -7,6 +7,7 @@ import src.constantes as consts
 from src.tile import Tile
 from src.errors.invalidPositionException import InvalidPositionException
 from src.bastion import Bastion
+from src.gold import Gold
 
 
 class Level:
@@ -54,7 +55,7 @@ class Level:
         self.backgroundName = "fond1"
         self.size = [18, 11]
 
-        self.GoldTab = []
+        self.gold_anim: [Gold] = []
         self.FondFenetre = None
         self.map = None
         self.initMap()
@@ -135,6 +136,9 @@ class Level:
     def update(self, timeElapsed: float):
         for bastion in self.bastions:
             bastion.update(timeElapsed)
+        for gold in self.gold_anim:
+            if gold.update(timeElapsed):
+                del self.gold_anim[self.gold_anim.index(gold)]
 
     def draw(self, screen, editor=False):
         """Draws the current level
@@ -151,6 +155,9 @@ class Level:
                 for x in range(self.size[0]):
                     if self.map[x][y] is not None:
                         self.map[x][y].draw(screen, editor=editor)
+
+        for gold in self.gold_anim:
+            gold.draw(screen)
 
     def Set_Difficulty(self, Difficulte):
         """Changes variables relative to the diffculty information
@@ -195,3 +202,11 @@ class Level:
                 bastion.hit(damage)
                 return True
         return False
+
+    def addGold(self, amount, position):
+        self.gold_anim.append(
+            Gold(
+                position,
+                amount
+            )
+        )

@@ -5,6 +5,7 @@ import random
 from src.ennemy import EnnemyDO
 
 from models.game_options import GameOptions
+from models.level import Level
 
 
 class Ennemy:
@@ -46,6 +47,13 @@ class Ennemy:
 
         for ennemy in self.ennemies:
             if not ennemy.alive:
+                Level.getInstance().addGold(
+                    ennemy.max_health,
+                    (
+                        ennemy.absolute_position[0] + (ennemy.height // 2),
+                        ennemy.absolute_position[1] + (ennemy.height // 2)
+                    )
+                )
                 del self.ennemies[self.ennemies.index(ennemy)]
             ennemy.update(timeElapsed)
 
