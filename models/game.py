@@ -8,6 +8,7 @@ from models.level import Level
 from models.ennemy import Ennemy
 from models.character import Character
 from models.tower import Tower
+from models.projectile import Projectile
 
 from UI.menus.game_ui import GameUI
 
@@ -49,6 +50,7 @@ class Game(Runnable):
         Character.getInstance().update(self.screen.timeElapsed)
         GameUI.getInstance().update(self.screen.timeElapsed)
         Tower.getInstance().update(self.screen.timeElapsed)
+        Projectile.getInstance().update(self.screen.timeElapsed)
 
         self.draw()
 
@@ -84,6 +86,7 @@ class Game(Runnable):
         Tower.getInstance().draw(self.screen)
         Character.getInstance().draw(self.screen)
         GameUI.getInstance().draw(self.screen)
+        Projectile.getInstance().draw(self.screen)
         """
 
         for projectileObj in Tab_Projectile:
