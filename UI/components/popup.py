@@ -52,3 +52,6 @@ class Popup:
 
     def toggleVisibility(self):
         self.opened = not self.opened
+
+    def close(self):
+        self.opened = False
