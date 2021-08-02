@@ -102,7 +102,12 @@ class Tower:
             self.popup.handleEvent(event)
 
         elif event.type == pg.MOUSEMOTION and self.selectedTower is not None:
-            self.selectedTower.setPosition(event.pos)
+            self.selectedTower.setPosition(
+                (
+                    event.pos[0] - 32,
+                    event.pos[1] - 32
+                )
+            )
 
     def selectTower(self, tower_data: dict):
         self.selectedTower = TowerDO(tower_data)
