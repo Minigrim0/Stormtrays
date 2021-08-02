@@ -5,6 +5,5 @@
     "range" : 5,
     "animation" : "assets/images/animations/towers/archer/",
     "price" : 75,
-    "zone" : false,
     "projectile" : "arrow"
 }

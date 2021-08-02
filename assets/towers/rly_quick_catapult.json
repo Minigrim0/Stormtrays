@@ -5,6 +5,5 @@
     "range" : 2,
     "animation" : "assets/images/animations/towers/catapult/",
     "price" : 500,
-    "zone" : true,
     "projectile" : "boulder"
 }

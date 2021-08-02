@@ -5,6 +5,5 @@
     "range" : 7,
     "animation" : "assets/images/animations/towers/balist/",
     "price" : 15000,
-    "zone" : false,
     "projectile" : "arrow"
 }
