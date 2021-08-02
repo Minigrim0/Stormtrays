@@ -65,5 +65,4 @@ class Ennemy:
         ennemy = random.choices(self.available_ennemies, weights=self.ennemies_weights)[0]
 
         ennemi = EnnemyDO(ennemy)
-        ennemi.pose_ennemi()
         self.ennemies.append(ennemi)
