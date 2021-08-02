@@ -204,6 +204,7 @@ class Level:
         return False
 
     def addGold(self, amount, position):
+        self.gold += amount
         self.gold_anim.append(
             Gold(
                 position,
