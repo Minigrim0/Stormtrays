@@ -18,10 +18,9 @@ class TowerDO:
         self.position: tuple = position
         self.range = tower_data["range"]
         self.damage = tower_data["damage"]
+        self.fire_rate = tower_data["fire_rate"]
 
         self.target: EnnemyDO = None
-
-        self.t0 = tower_data["fire_rate"] / 6
 
         self.EnnemiKilled = 0
         self.TotalDegats = 0
@@ -29,18 +28,21 @@ class TowerDO:
         self.projectile_model = Projectile.getInstance()[tower_data["projectile"]]
         self.Rect = None
 
+        callback_on = tower_data["shoot_on"] if "shoot_on" in tower_data.keys() else [-1]
+
         self.animation = ImageAnimation(
             tower_data["animation"],
             flippable=True,
             callback=self.shoot,
             speed=tower_data["fire_rate"],
-            bank_name=tower_data["animation"]
+            bank_name=tower_data["animation"],
+            callback_on=callback_on
         )
 
     @property
     def flipped(self) -> bool:
         """Returns a boolean indicating whether the tower is flipped or not"""
-        return self.animation.flipped
+        return not self.animation.flipped
 
     @property
     def absolute_position(self) -> tuple:
@@ -55,15 +57,14 @@ class TowerDO:
         target = target if target is not None else self.target
 
         t = self.timeToImpact(target)
-        return target.alive and (t - self.t0) * self.projectile_model["speed"] <= self.range * 64
+        return target.alive and (t - (1 / self.fire_rate)) * self.projectile_model["speed"] <= self.range * 64
 
     def _acquireTarget(self):
         """Finds the first in-range ennemy to target it"""
         for ennemy in Ennemy.getInstance().getEnnemyList():
             if self._targetInRange(ennemy):
                 self.target = ennemy
-                if self.target.position[0] > self.position[0]:
-                    self.animation.flip()
+                self.animation.setDirection(self.target.position[0] < self.position[0])
                 break
 
     def place(self):
@@ -87,12 +88,8 @@ class TowerDO:
     def update(self, timeElapsed: float):
         """Updates the in-game towers and the tower menu"""
         if self.placed:
-            if self.target is not None:
-                if self._targetInRange():
-                    self.animation.play()
-                else:
-                    self.animation.reset()
-                    self._acquireTarget()
+            if self.target is not None and not self.animation.playing and self._targetInRange():
+                self.animation.play()
             else:
                 self._acquireTarget()
 
@@ -127,8 +124,8 @@ class TowerDO:
         Cos_Beta = target.direction[0] * delta_x + target.direction[1] * delta_y
 
         a = (self.projectile_model["speed"] ** 2) - target.speed ** 2
-        b = (2 * target.speed * Cos_Beta) - (2 * (self.projectile_model["speed"] ** 2) * self.t0)
-        c = (self.projectile_model["speed"] ** 2) * (self.t0 ** 2) - Dist2
+        b = (2 * target.speed * Cos_Beta) - (2 * (self.projectile_model["speed"] ** 2) * (1 / self.fire_rate))
+        c = (self.projectile_model["speed"] ** 2) * ((1 / self.fire_rate) ** 2) - Dist2
 
         Ro = (b ** 2) - (4 * a * c)
 
