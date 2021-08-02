@@ -17,6 +17,7 @@ class TowerDO:
         self.placed: bool = False
         self.position: tuple = position
         self.range = tower_data["range"]
+        self.damage = tower_data["damage"]
 
         self.target: EnnemyDO = None
 
@@ -50,8 +51,8 @@ class TowerDO:
     def _targetInRange(self, target: EnnemyDO = None):
         target = target if target is not None else self.target
 
-        t = self.Time2Impact(target)
-        return (t - self.t0) * self.projectile_model["speed"] <= self.range * 64
+        t = self.timeToImpact(target)
+        return target.alive and (t - self.t0) * self.projectile_model["speed"] <= self.range * 64
 
     def _acquireTarget(self):
         for ennemy in Ennemy.getInstance().getEnnemyList():
@@ -86,23 +87,21 @@ class TowerDO:
                     self.animation.play()
                 else:
                     self.animation.reset()
+                    self._acquireTarget()
             else:
                 self._acquireTarget()
 
             self.animation.update(timeElapsed)
 
     def shoot(self):
-        """Attacks the first ennemy in its sight
+        """Attacks the first ennemy in its sight"""
+        Projectile.getInstance().shootProjectile(
+            self.projectile_model["name"],
+            self,
+            self.timeToImpact(self.target)
+        )
 
-        Args:
-            pos_tour ([type]): [description]
-            Liste_Mechants ([type]): [description]
-            Tab_Projectile ([type]): [description]
-        """
-        print("Shooting projectile")
-        # Tab_Projectile.append(self.projectile)
-
-    def Time2Impact(self, ennemi):
+    def timeToImpact(self, target):
         """Calculates the time until impact
 
         Args:
@@ -111,12 +110,12 @@ class TowerDO:
         Returns:
             [type]: [description]
         """
-        delta_x = self.absolute_position[0] - ennemi.absolute_position[0]
-        delta_y = self.absolute_position[1] - ennemi.absolute_position[1]
+        delta_x = self.absolute_position[0] - target.absolute_position[0]
+        delta_y = self.absolute_position[1] - target.absolute_position[1]
         Dist2 = delta_x ** 2 + delta_y ** 2
 
         # Cos Angle Tour|Dir Ennemi
-        Cos_Beta = ennemi.direction[0] * delta_x + ennemi.direction[1] * delta_y
+        Cos_Beta = target.direction[0] * delta_x + target.direction[1] * delta_y
 
         # Triangle Tour/Ennemi/Impact
         # B^2 = A^2 + C^2 - 2AC cos(Beta)
@@ -124,9 +123,8 @@ class TowerDO:
         # B = Distance Tour|Impact = Vitesse Projectile * (temps - tempsTir)
         # C = Distance Tour|Ennemi
         # Equation second ° pour T : a * t^2 + b * t + c = 0
-        print(self.projectile_model)
-        a = self.projectile_model["speed"] ** 2 - ennemi.speed ** 2
-        b = (2 * ennemi.speed * Cos_Beta) - (2 * self.projectile_model["speed"] ** 2 * self.t0)
+        a = self.projectile_model["speed"] ** 2 - target.speed ** 2
+        b = (2 * target.speed * Cos_Beta) - (2 * self.projectile_model["speed"] ** 2 * self.t0)
         c = (self.projectile_model["speed"] ** 2 * self.t0 ** 2) - Dist2
 
         Ro = b ** 2 - 4 * a * c
