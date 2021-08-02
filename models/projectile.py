@@ -38,12 +38,11 @@ class Projectile:
                 projectile = json.load(projectile_data)
                 self.available_projectiles[projectile["name"]] = projectile
 
-    def shootProjectile(self, name, tower, target, time_before_impact):
+    def shootProjectile(self, name, tower, time_before_impact):
         self.projectiles.append(
             ProjectileDO(
                 self[name],
                 tower,
-                target,
                 time_before_impact
             )
         )

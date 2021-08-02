@@ -3,6 +3,7 @@ import math
 import pygame as pg
 
 from models.screen import Screen
+from models.ennemy import Ennemy
 
 from src.utils.rotCenter import rot_center
 
@@ -10,16 +11,23 @@ from src.utils.rotCenter import rot_center
 class ProjectileDO:
     """Represents a projectile launched by a tower"""
 
-    def __init__(self, data: dict, tower, target, time_before_impact):
+    def __init__(self, data: dict, tower, time_before_impact):
         self.vitesse = data["speed"]
+        self.curvature = data["curvature"]
+        self.tower = tower
+        self.target = tower.target
+        self.zone_damage = data["zone"]
 
         image2rot = pg.image.load(data["image"]).convert_alpha()
 
-        NewPosEnnemi_x = target.PosAbsolue[0] + target.vitesse * target.Dir_x * time_before_impact
-        NewPosEnnemi_y = target.PosAbsolue[1] + target.vitesse * target.Dir_y * time_before_impact
+        ennemy_final_position = (
+            self.target.absolute_position[0] + self.target.speed * self.target.direction[0] * time_before_impact,
+            self.target.absolute_position[1] + self.target.speed * self.target.direction[1] * time_before_impact
+        )
+        self.final_pos = ennemy_final_position
 
-        self.delta_x = NewPosEnnemi_x - tower.absolute_position[0] * 64
-        self.delta_y = NewPosEnnemi_y - tower.absolute_position[1] * 64
+        self.delta_x = ennemy_final_position[0] - tower.absolute_position[0]
+        self.delta_y = ennemy_final_position[1] - tower.absolute_position[1]
 
         self.Dist = math.sqrt(self.delta_x ** 2 + self.delta_y ** 2)
 
@@ -29,55 +37,57 @@ class ProjectileDO:
                 Angle -= math.pi
             Angle = Angle * 180 / math.pi
         else:
-            if target.posy < tower.absolute_position[1]:
+            if self.target.position[1] < tower.absolute_position[1]:
                 Angle = -90
             else:
                 Angle = 90
 
         self.image = rot_center(image2rot, Angle)
 
-        self.Centre_d_x = (NewPosEnnemi_x + tower.absolute_position[0] * 64) / 2
-        self.Centre_d_y = (NewPosEnnemi_y + tower.absolute_position[1] * 64) / 2
+        self.Centre_d_x = (ennemy_final_position[0] + tower.absolute_position[0]) / 2
+        self.Centre_d_y = (ennemy_final_position[1] + tower.absolute_position[1]) / 2
 
-        self.degats = tower.damage
+        self.degats = self.tower.damage
 
-        self.Compteur = -1
+        self.advancement = -1
 
-        self.tower = tower
+        self.position: tuple = tower.absolute_position
+
+    @property
+    def hasHit(self):
+        return self.advancement >= 1
+
+    def _dealDamage(self):
+        ennemy_list = Ennemy.getInstance().getEnnemyList()
+
+        for ennemi in ennemy_list:
+            dist = math.sqrt(
+                ((self.position[0] - ennemi.absolute_position[0]) ** 2) + ((self.position[1] - ennemi.absolute_position[1]) ** 2)
+            )
+            if dist < 64:
+                died = ennemi.hit(self.degats)
+                if died:
+                    self.tower.EnnemiKilled += 1
+                self.tower.TotalDegats += self.degats
+                if self.zone_damage is not True:
+                    break
 
     def update(self, timeElapsed: float):
-        pass
+        self.advancement += timeElapsed * 64 * self.vitesse / self.Dist
+
+        if self.advancement >= 1:
+            self._dealDamage()
+
+        x0 = self.Centre_d_x + self.advancement * (self.delta_x / 2)
+        y0 = self.Centre_d_y + self.advancement * (self.delta_y / 2)
+
+        height = (1 - self.advancement ** 2) * self.curvature * self.Dist
+
+        self.position = (
+            x0,
+            y0 - height
+        )
 
     def draw(self, screen: Screen):
-        """Makes a projectile move
-
-        Args:
-            fenetre ([type]): [description]
-            ListeEnnemis ([type]): [description]
-            niveau ([type]): [description]
-            Tab_Projectile ([type]): [description]
-            King ([type]): [description]
-        """
-        self.Compteur += 2 * self.vitesse / self.Dist
-
-        x0 = self.Centre_d_x + self.Compteur * (self.delta_x / 2)
-        y0 = self.Centre_d_y + self.Compteur * (self.delta_y / 2)
-
-        h = (1 - self.Compteur ** 2) * self.tower.RoundTraj * self.Dist
-
-        x = x0
-        y = y0 - h
-
-        screen.blit(self.image, (x, y))
-
-        if self.Compteur >= 1:
-            for ennemi in ListeEnnemis:
-                dist = math.sqrt(((x - ennemi.PosAbsolue[0]) ** 2) + ((y - ennemi.PosAbsolue[1]) ** 2))
-                if dist < 64:
-                    died = ennemi.enleve_vie(self.degats, ListeEnnemis, ennemi, niveau, King)
-                    if died:
-                        self.tower.EnnemiKilled += 1
-                    self.tower.TotalDegats += self.degats
-                    if self.tower.Zone_Degats != "Y":
-                        break
-            Tab_Projectile.remove(self)
+        """Makes a projectile move"""
+        screen.blit(self.image, self.position)
