@@ -4,6 +4,7 @@
     "fire_rate" : 6,
     "range" : 7,
     "animation" : "assets/images/animations/towers/balist/",
+    "thumbnail": "assets/images/towers/balist.png",
     "price" : 15000,
     "projectile" : "arrow"
 }

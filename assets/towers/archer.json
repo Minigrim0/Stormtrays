@@ -4,6 +4,7 @@
     "fire_rate" : 36,
     "range" : 5,
     "animation" : "assets/images/animations/towers/archer/",
+    "thumbnail": "assets/images/towers/archer.png",
     "price" : 75,
     "projectile" : "arrow"
 }

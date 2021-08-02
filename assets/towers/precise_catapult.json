@@ -4,6 +4,7 @@
     "fire_rate" : 48,
     "range" : 10,
     "animation" : "assets/images/animations/towers/catapult/",
+    "thumbnail": "assets/images/towers/catapult.png",
     "price" : 400,
     "projectile" : "boulder"
 }
