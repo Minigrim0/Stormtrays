@@ -1,13 +1,10 @@
 {
-    "nom" : "Catapulte Rapide",
-    "degats" : 6,
-    "vitesse tir" : 18,
-    "portee" : 3,
-    "img" : "Img/Tours/Catapulte/Catapulte1.png",
-    "prix" : 400,
-    "DirImage" : "Img/Tours/Catapulte/*.png",
-    "Zone" : "Y",
-    "RoundTraj" : 0.5,
-    "VitesseProj" : 12.5,
-    "ProjectileImg" : "Img/Tours/CatapultProj.png"
+    "name" : "Catapulte Rapide",
+    "damage" : 6,
+    "fire_rate" : 18,
+    "range" : 3,
+    "animation" : "assets/images/animations/towers/catapult/",
+    "price" : 400,
+    "zone" : true,
+    "projectile" : "boulder"
 }

@@ -1,13 +1,10 @@
 {
-    "nom" : "Baliste",
-    "degats" : 10,
-    "vitesse tir" : 6,
-    "portee" : 7,
-    "img" : "Img/Tours/Baliste/Baliste1.png",
-    "prix" : 15000,
-    "DirImage" : "Img/Tours/Baliste/*.png",
-    "Zone" : "N",
-    "RoundTraj" : 0.1,
-    "VitesseProj" : 50,
-    "ProjectileImg" : "Img/Tours/BalisteProj.png"
+    "name" : "Baliste",
+    "damage" : 10,
+    "fire_rate" : 6,
+    "range" : 7,
+    "animation" : "assets/images/animations/towers/balist/",
+    "price" : 15000,
+    "zone" : false,
+    "projectile" : "arrow"
 }
