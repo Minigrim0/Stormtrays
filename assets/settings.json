@@ -3,7 +3,8 @@
         "levels": "assets/levels/",
         "ennemies": "assets/ennemies/",
         "towers": "assets/towers/",
-        "images": "assets/images/"
+        "images": "assets/images/",
+        "projectile": "assets/projectile/"
     },
     "Game": {
         "First_Open" : 0,
