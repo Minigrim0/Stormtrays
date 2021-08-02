@@ -27,7 +27,7 @@ class Stormtrays:
 
         self.screen = Screen.getInstance((1152, 704), "Stormtrays", "UI/assets/images/icon.png", False)
 
-        GameOptions.getInstance().load()
+        GameOptions.getInstance()
 
         self.songList = []
         for song in glob.glob("../musique/Themes/*.wav"):

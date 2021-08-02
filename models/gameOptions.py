@@ -29,15 +29,14 @@ class GameOptions:
 
         self.fonts = {}
 
+        self._load()
+
     def __getitem__(self, category: str) -> dict:
         if category not in self.settings.keys():
             return None
         return self.settings[category]
 
-    def fullPath(self, category, path):
-        return os.path.join(self["paths"][category], path)
-
-    def load(self):
+    def _load(self):
         """Loads the game's fonts"""
         for font in glob.glob("UI/assets/fonts/*/*.ttf"):
             filename = os.path.splitext(os.path.split(font)[1])[0]
@@ -47,6 +46,9 @@ class GameOptions:
 
         with open("assets/settings.json") as settings:
             self.settings = json.load(settings)
+
+    def fullPath(self, category, path):
+        return os.path.join(self["paths"][category], path)
 
     def changeDifficulty(self, value):
         """Changes the difficulty of the game from the given amount (and makes sure it's in its bounds)"""
