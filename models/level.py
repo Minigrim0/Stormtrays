@@ -59,6 +59,10 @@ class Level:
         self.map = None
         self.initMap()
 
+    @property
+    def health(self):
+        return sum([x.health for x in self.bastions])
+
     def initMap(self):
         """Empties the level"""
         self.map = []

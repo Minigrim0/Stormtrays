@@ -50,7 +50,7 @@ class GameUI:
         self.xp_bar.update(timeElapsed)
 
         self.gold_amount = self.font.render("Or : %i" % level.gold, 1, (0, 0, 0))
-        # self.bastion_health = self.font.render("Bastion : %i pv." % level.Vie_Chateau, 1, (0, 0, 0))
+        self.bastion_health = self.font.render("Vie : %i pv." % level.health, 1, (0, 0, 0))
         self.character_level = self.font.render("Niveau %i" % character.level, 1, (0, 0, 0))
         self.ennemies_killed = self.font.render("Victimes : %i" % character.kills, 1, (0, 0, 0))
         self.character_damage = self.font.render("Dégats : %i" % character.damage, 1, (0, 0, 0))
@@ -63,7 +63,7 @@ class GameUI:
         screen.blit(self.stats_background, (870, 0))
 
         screen.blit(self.gold_amount, (872, 5))
-        # screen.blit(self.bastion_health, (872, 27))
+        screen.blit(self.bastion_health, (872, 27))
         screen.blit(self.character_speed, (872, 54))
         screen.blit(self.character_level, (1020, 3))
         screen.blit(self.ennemies_killed, (1020, 27))
