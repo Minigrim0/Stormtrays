@@ -35,10 +35,12 @@ class LoadingBar:
 
     @property
     def _percentAdvanced(self) -> float:
+        """Returns the filling rate of the bar"""
         return self.current_advancement / self.max_advancement
 
     @property
-    def moving_speed(self) -> int:
+    def moving_speed(self) -> float:
+        """Returns the in/decrease speed of the bar"""
         A_x = self.advancement - self.old_advancement
 
         wt = (self.time * 2) * m.pi
@@ -93,4 +95,5 @@ class LoadingBar:
             screen.blit(self.fg_image, position)
 
     def move(self, new_pos: tuple):
+        """Moves the bar to a new location"""
         self.position = new_pos
