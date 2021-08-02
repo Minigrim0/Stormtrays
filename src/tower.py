@@ -7,7 +7,7 @@ from models.projectile import Projectile
 
 from src.ennemy import EnnemyDO
 
-from UI.components.imageAnimation import ImageAnimation
+from UI.components.image_animation import ImageAnimation
 
 
 class TowerDO:

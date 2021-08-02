@@ -5,7 +5,7 @@ from src.utils.bound import bound
 
 from models.level import Level
 
-from UI.components.imageAnimation import ImageAnimation
+from UI.components.image_animation import ImageAnimation
 from UI.components.loading_bar import LoadingBar
 
 

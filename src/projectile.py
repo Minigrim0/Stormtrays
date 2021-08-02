@@ -43,7 +43,7 @@ class ProjectileDO:
             else:
                 Angle = 90
 
-        self.image = rot_center(image2rot, Angle)
+        self.image = rotCenter(image2rot, Angle)
 
         self.trajectory_top = (
             (ennemy_final_position[0] + tower.absolute_position[0]) / 2,

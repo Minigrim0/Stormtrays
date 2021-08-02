@@ -8,7 +8,7 @@ from src.utils.find_angle import findAngle
 from models.screen import Screen
 from models.ennemy import Ennemy
 
-from UI.components.imageAnimation import ImageAnimation
+from UI.components.image_animation import ImageAnimation
 
 
 class Character:

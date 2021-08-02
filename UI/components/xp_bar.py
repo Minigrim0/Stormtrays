@@ -5,7 +5,7 @@ from models.character import Character
 from models.game_options import GameOptions
 
 from UI.components.loading_bar import LoadingBar
-from UI.components.imageAnimation import ImageAnimation
+from UI.components.image_animation import ImageAnimation
 
 
 class XPBar(LoadingBar):
