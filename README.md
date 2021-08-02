@@ -1,12 +1,12 @@
 # Stromtrays
 
-A tower defense written in python with pygame
+A tower defense game written in python with pygame
 
 ## Installation
 
 TODO
 
-## TODO List
+## TODO
 
 * [x] fix xp bar animation (sine animation, see menu buttons)
 * [x] fix visible duration of ennemy's health bar
@@ -20,6 +20,9 @@ TODO
 * [ ] Implement size changing for map in editor
 * [ ] Profile the execution to find optimizations
 * [ ] Re-implement difficulty parameter
+* [ ] Add gold animations
+* [ ] Make placing towers cost money and gain xp
+* [ ] Show tower names on hover when in tower menu
 
 ## Deepsource status
 
