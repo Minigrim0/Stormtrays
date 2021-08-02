@@ -7,6 +7,7 @@ from src.invocation import Invocation
 from models.level import Level
 from models.ennemy import Ennemy
 from models.character import Character
+from models.tower import Tower
 
 from UI.menus.game_ui import GameUI
 
@@ -47,6 +48,7 @@ class Game(Runnable):
         Ennemy.getInstance().update(self.screen.timeElapsed)
         Character.getInstance().update(self.screen.timeElapsed)
         GameUI.getInstance().update(self.screen.timeElapsed)
+        Tower.getInstance().update(self.screen.timeElapsed)
 
         self.draw()
 
@@ -70,6 +72,7 @@ class Game(Runnable):
         for event in self.screen.getEvent():
             Character.getInstance().handleEvent(event)
             GameUI.getInstance().handleEvent(event)
+            Tower.getInstance().handleEvent(event)
 
             if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
                 self.running = False
@@ -78,6 +81,7 @@ class Game(Runnable):
         self.level.draw(self.screen)
 
         Ennemy.getInstance().draw(self.screen)
+        Tower.getInstance().draw(self.screen)
         Character.getInstance().draw(self.screen)
         GameUI.getInstance().draw(self.screen)
         """
