@@ -4,7 +4,7 @@ import json
 import random
 from src.ennemy import EnnemyDO
 
-from models.gameOptions import GameOptions
+from models.game_options import GameOptions
 
 
 class Ennemy:

@@ -2,7 +2,7 @@ import json
 import glob
 
 from models.screen import Screen
-from models.gameOptions import GameOptions
+from models.game_options import GameOptions
 
 from src.projectile import ProjectileDO
 

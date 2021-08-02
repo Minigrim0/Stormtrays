@@ -5,7 +5,7 @@ import pygame
 import src.constantes as constants
 from UI.menus.main import MainMenu
 from models.screen import Screen
-from models.gameOptions import GameOptions
+from models.game_options import GameOptions
 
 
 class Stormtrays:

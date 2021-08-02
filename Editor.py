@@ -7,7 +7,7 @@ import src.constantes as constantes
 
 from models.screen import Screen
 from models.editor import Editor
-from models.gameOptions import GameOptions
+from models.game_options import GameOptions
 
 pygame.init()
 

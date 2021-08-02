@@ -2,7 +2,7 @@ import pygame as pg
 
 from UI.components.button import Button
 
-from models.gameOptions import GameOptions
+from models.game_options import GameOptions
 
 
 class Card(Button):

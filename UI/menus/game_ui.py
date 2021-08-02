@@ -2,7 +2,7 @@ import pygame as pg
 
 from models.screen import Screen
 from models.level import Level
-from models.gameOptions import GameOptions
+from models.game_options import GameOptions
 from models.character import Character
 
 from UI.components.xp_bar import XPBar

@@ -2,7 +2,7 @@ import pygame
 import src.constantes as const
 from UI.components.button import Button
 
-from models.gameOptions import GameOptions
+from models.game_options import GameOptions
 
 
 class EditorUI:

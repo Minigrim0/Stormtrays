@@ -8,7 +8,7 @@ from UI.menus.menu import Menu
 from src.runnable import Runnable
 import src.constantes as constants
 
-from models.gameOptions import GameOptions
+from models.game_options import GameOptions
 from models.game import Game
 
 from UI.components.card import Card

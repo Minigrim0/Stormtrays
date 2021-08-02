@@ -13,7 +13,7 @@ from src.runnable import Runnable
 
 from models.screen import Screen
 from models.level import Level
-from models.gameOptions import GameOptions
+from models.game_options import GameOptions
 
 
 class Editor(Runnable):

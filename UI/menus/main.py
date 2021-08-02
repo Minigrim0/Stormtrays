@@ -3,7 +3,7 @@ import pygame
 import src.constantes as constantes
 from src.runnable import Runnable
 
-from models.gameOptions import GameOptions
+from models.game_options import GameOptions
 
 from UI.menus.menu import Menu
 from UI.menus.levelSelection import LevelSelectMenu

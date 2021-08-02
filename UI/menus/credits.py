@@ -3,7 +3,7 @@ import pygame as pg
 from src import constantes as constants
 from src.runnable import Runnable
 
-from models.gameOptions import GameOptions
+from models.game_options import GameOptions
 
 from UI.menus.menu import Menu
 

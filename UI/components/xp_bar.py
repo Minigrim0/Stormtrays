@@ -2,7 +2,7 @@ import pygame as pg
 
 from models.screen import Screen
 from models.character import Character
-from models.gameOptions import GameOptions
+from models.game_options import GameOptions
 
 from UI.components.loading_bar import LoadingBar
 from UI.components.imageAnimation import ImageAnimation

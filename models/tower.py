@@ -5,7 +5,7 @@ import copy
 import pygame as pg
 
 from models.screen import Screen
-from models.gameOptions import GameOptions
+from models.game_options import GameOptions
 
 from src.tower import TowerDO
 
