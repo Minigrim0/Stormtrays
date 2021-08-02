@@ -1,16 +1,25 @@
-class Projectile:
+import math
+
+import pygame as pg
+
+from models.screen import Screen
+
+from src.utils.rotCenter import rot_center
+
+
+class ProjectileDO:
     """Represents a projectile launched by a tower"""
 
-    def __init__(self, t, tower, ennemi):
-        self.vitesse = tower.vitesse_Projectile
+    def __init__(self, data: dict, tower, target, time_before_impact):
+        self.vitesse = data["speed"]
 
-        image2rot = pygame.image.load(tower.Projectile_Image).convert_alpha()
+        image2rot = pg.image.load(data["image"]).convert_alpha()
 
-        NewPosEnnemi_x = ennemi.PosAbsolue[0] + ennemi.vitesse * ennemi.Dir_x * t
-        NewPosEnnemi_y = ennemi.PosAbsolue[1] + ennemi.vitesse * ennemi.Dir_y * t
+        NewPosEnnemi_x = target.PosAbsolue[0] + target.vitesse * target.Dir_x * time_before_impact
+        NewPosEnnemi_y = target.PosAbsolue[1] + target.vitesse * target.Dir_y * time_before_impact
 
-        self.delta_x = NewPosEnnemi_x - tower.Position_IG[0] * 64
-        self.delta_y = NewPosEnnemi_y - tower.Position_IG[1] * 64
+        self.delta_x = NewPosEnnemi_x - tower.absolute_position[0] * 64
+        self.delta_y = NewPosEnnemi_y - tower.absolute_position[1] * 64
 
         self.Dist = math.sqrt(self.delta_x ** 2 + self.delta_y ** 2)
 
@@ -20,23 +29,26 @@ class Projectile:
                 Angle -= math.pi
             Angle = Angle * 180 / math.pi
         else:
-            if ennemi.posy < tower.Position_IG[1]:
+            if target.posy < tower.absolute_position[1]:
                 Angle = -90
             else:
                 Angle = 90
 
-        self.image = utils.rot_center(image2rot, Angle)
+        self.image = rot_center(image2rot, Angle)
 
-        self.Centre_d_x = (NewPosEnnemi_x + tower.Position_IG[0] * 64) / 2
-        self.Centre_d_y = (NewPosEnnemi_y + tower.Position_IG[1] * 64) / 2
+        self.Centre_d_x = (NewPosEnnemi_x + tower.absolute_position[0] * 64) / 2
+        self.Centre_d_y = (NewPosEnnemi_y + tower.absolute_position[1] * 64) / 2
 
-        self.degats = tower.degats
+        self.degats = tower.damage
 
         self.Compteur = -1
 
         self.tower = tower
 
-    def Avance(self, fenetre, ListeEnnemis, niveau, Tab_Projectile, King):
+    def update(self, timeElapsed: float):
+        pass
+
+    def draw(self, screen: Screen):
         """Makes a projectile move
 
         Args:
@@ -56,7 +68,7 @@ class Projectile:
         x = x0
         y = y0 - h
 
-        fenetre.blit(self.image, (x, y))
+        screen.blit(self.image, (x, y))
 
         if self.Compteur >= 1:
             for ennemi in ListeEnnemis:
