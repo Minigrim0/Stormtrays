@@ -48,25 +48,25 @@ class Tower:
     def _load(self):
         """Loads information about the available tower"""
         options = GameOptions.getInstance()
-        for tower_file in glob.glob(options.fullPath("ennemies", "*.json")):
+
+        font = options.fonts["MedievalSharp-xOZ5"]["14"]
+
+        for tower_file in glob.glob(options.fullPath("towers", "*.json")):
             with open(tower_file) as tower_info:
                 data = json.load(tower_info)
-                data["thumbnail"] = pg.image.load(data["img"]).convert_alpha()
+                data["thumbnail"] = pg.image.load("UI/assets/images/missing.png")
+                price = font.render(str(data["price"]), 1, (0, 0, 0))
+                data["thumbnail"].blit(price, (0, 0))
                 self.available_towers.append(data)
 
     def _build(self):
-        font = GameOptions.getInstance().fonts["MedievalSharp-xOZ5"]["14"]
-
+        """Build the buttons of the tower menu"""
         for index, tower in enumerate(self.available_towers):
-            image = copy(tower["thumbnail"])
-            price = font.render(tower["price"], 1, (0, 0, 0))
-            image.blit(price, (0, 0))
-
             self.tower_buttons.append(
                 Button(
                     (18 + (70 * index), 632),
                     (64, 64),
-                    image=image,
+                    image=tower["thumbnail"],
                     callback=self.selectTower,
                     tower_data=tower
                 )
@@ -83,11 +83,27 @@ class Tower:
         for tower in self.towers:
             tower.draw(screen)
 
-    def handleEvent(self, event):
-        self.popup.handleEvent(event)
+        if self.popup.opened:
+            for tower_button in self.tower_buttons:
+                tower_button.draw(screen)
+        elif self.selectedTower is not None:
+            self.selectedTower.draw(screen)
 
-    def toggleTowerMenu(self):
-        self.show_towers = not self.show_towers
+    def handleEvent(self, event):
+        if event.type == pg.MOUSEBUTTONDOWN:
+            if self.selectedTower is not None and self.selectedTower.place():
+                self.towers.append(self.selectedTower)
+                self.selectedTower = None
+
+            elif self.popup.opened:
+                for tower_button in self.tower_buttons:
+                    tower_button.click(event.pos)
+
+            self.popup.handleEvent(event)
+
+        elif event.type == pg.MOUSEMOTION and self.selectedTower is not None:
+            self.selectedTower.setPosition(event.pos)
 
     def selectTower(self, tower_data: dict):
         self.selectedTower = TowerDO(tower_data)
+        self.popup.close()
