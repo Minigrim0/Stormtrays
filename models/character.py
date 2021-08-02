@@ -40,6 +40,8 @@ class Character:
         self.damage = 3
         self.speed = 5
 
+        self.kills = 0
+
         from UI.menus.game_ui import GameUI
         self.ui = GameUI.getInstance()
 
@@ -87,6 +89,7 @@ class Character:
         if isinstance(self.target, EnnemyDO):
             self.target.hit(self.damage)
             if not self.target.alive:
+                self.kills += 1
                 self.ui.add_xp(self.target.max_health)
                 self.target = (self.posx, self.posy)
         self.setAnimation("idle")
