@@ -20,7 +20,7 @@ TODO
 * [ ] Implement size changing for map in editor
 * [ ] Profile the execution to find optimizations
 * [ ] Re-implement difficulty parameter
-* [ ] Add gold animations
+* [X] Add gold animations
 * [ ] Make placing towers cost money and gain xp
 * [ ] Show tower names on hover when in tower menu
 
