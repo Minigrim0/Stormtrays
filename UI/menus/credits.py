@@ -9,6 +9,7 @@ from UI.menus.menu import Menu
 
 from UI.components.button import Button
 from UI.components.animation import Animation
+from UI.components.credits import Credits
 
 
 class CreditsMenu(Menu, Runnable):
@@ -18,8 +19,7 @@ class CreditsMenu(Menu, Runnable):
         super().__init__(*args, **kwargs)
 
         options = GameOptions.getInstance()
-        self.scroll = 0
-        self.credits = pg.image.load(constants.Credits)
+        self.scroll = 704
         self.buttons["back"] = Button(
             (702, 654),
             (500, 50),
@@ -28,9 +28,11 @@ class CreditsMenu(Menu, Runnable):
         )
         self.buttons["back"].build("Retour", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
+        self.credits = Credits("assets/credits.json")
+
     def loop(self):
         """The bit of code called at each iteration"""
-        if self.scroll > 2700:
+        if self.scroll < 0 - self.credits.height:
             self.back()
 
         self.draw()
@@ -40,8 +42,8 @@ class CreditsMenu(Menu, Runnable):
 
     def _draw(self):
         """Draws the buttons/images on screen"""
-        self.screen.blit(self.credits, (0, -self.scroll))
-        self.scroll += 40 * self.screen.timeElapsed
+        self.credits.draw(self.screen, self.scroll)
+        self.scroll -= 40 * self.screen.timeElapsed
 
     def handleEvent(self):
         """Handles the user inputs"""
@@ -51,9 +53,9 @@ class CreditsMenu(Menu, Runnable):
 
             if event.type == pg.locals.MOUSEBUTTONDOWN:
                 if event.button == 5:
-                    self.scroll += 40
-                elif event.button == 4:
                     self.scroll -= 40
+                elif event.button == 4:
+                    self.scroll += 40
 
     def back(self):
         """Quits the credits menu"""
