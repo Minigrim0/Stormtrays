@@ -21,8 +21,8 @@ TODO
 * [ ] Profile the execution to find optimizations
 * [ ] Re-implement difficulty parameter
 * [X] Add gold animations
-* [ ] Make placing towers cost money and gain xp
-* [ ] Show tower names on hover when in tower menu
+* [X] Make placing towers cost money
+* [X] Show tower names on hover when in tower menu
 
 ## Deepsource status
 
