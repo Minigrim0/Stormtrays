@@ -59,7 +59,13 @@ class CreditsMenu(Menu, Runnable):
 
     def back(self):
         """Quits the credits menu"""
-        anim = Animation("UI/animations/mainToCredits.json", self.screen, pickFrom=self.pickFrom)
+        anim = Animation(
+            "UI/animations/mainToCredits.json",
+            self.screen,
+            pickFrom=self.pickFrom,
+            background=self.backgroundCallback if self.backgroundCallback is not None else self._draw,
+            **self.background_kwargs
+        )
         anim.invert()
         anim()
         self.running = False

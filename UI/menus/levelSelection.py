@@ -103,7 +103,13 @@ class LevelSelectMenu(Menu, Runnable):
 
     def back(self):
         """Callback for the back button, gets the user back to the main menu"""
-        anim = Animation("UI/animations/mainToSelect.json", self.screen, pickFrom=self.pickFrom)
+        anim = Animation(
+            "UI/animations/mainToSelect.json",
+            self.screen,
+            pickFrom=self.pickFrom,
+            background=self.backgroundCallback if self.backgroundCallback is not None else self._draw,
+            **self.background_kwargs
+        )
         anim.invert()
         anim()
         self.running = False

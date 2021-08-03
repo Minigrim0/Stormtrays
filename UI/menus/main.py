@@ -98,15 +98,15 @@ class MainMenu(Menu, Runnable):
             toLaunch (str): The argument describing the button that's been pressed and what should be launched
         """
         if toLaunch == "game":
-            Animation("UI/animations/mainToSelect.json", self.screen, pickFrom=self.pickFrom)()
+            Animation("UI/animations/mainToSelect.json", self.screen, pickFrom=self.pickFrom, background=self._draw)()
             LevelSelectMenu(self.screen, pickFrom=self.pickFrom, background=self._draw)()
         elif toLaunch == "quit":
             quitMenu = QuitMenu(self.screen, background=self._draw)
             if quitMenu() == "q":
                 self.running = False
         elif toLaunch == "options":
-            Animation("UI/animations/mainToOptions.json", self.screen, pickFrom=self.pickFrom)()
+            Animation("UI/animations/mainToOptions.json", self.screen, pickFrom=self.pickFrom, background=self._draw)()
             OptionMenu(self.screen, pickFrom=self.pickFrom, background=self._draw)()
         elif toLaunch == "credits":
-            Animation("UI/animations/mainToCredits.json", self.screen, pickFrom=self.pickFrom)()
+            Animation("UI/animations/mainToCredits.json", self.screen, pickFrom=self.pickFrom, background=self._draw)()
             CreditsMenu(self.screen, pickFrom=self.pickFrom, background=self._draw, draw_title=False)()
