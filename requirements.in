@@ -1,0 +1,10 @@
+pygame==2.0.1
+
+# Dev
+flake8
+black
+rope
+pip-tools
+
+# Build
+pyinstaller

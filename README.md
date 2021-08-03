@@ -4,7 +4,25 @@ A tower defense game written in python with pygame
 
 ## Installation
 
-TODO
+```bash
+git clone <this repo>
+cd Stormtrays
+python3 -m venv ve
+source ve/bin/activate
+pip install -r requirements.txt
+```
+
+## Launching the game
+
+```
+python3 Stormtrays.py
+```
+
+## Launching the editor
+
+```
+python3 Editor.py
+```
 
 ## TODO
 
@@ -23,6 +41,9 @@ TODO
 * [X] Add gold animations
 * [X] Make placing towers cost money
 * [X] Show tower names on hover when in tower menu
+* [ ] Draw level grid when placing a tower
+* [ ] Make ennemys health bars not sine (Too many updates on the advancement makes it buggy)
+* [ ] Implement bombs
 
 ## Deepsource status
 

@@ -4,3 +4,4 @@ screen/
 ve/
 .vscode/
 assets/images/animations/alt-character/*
+*.spec
