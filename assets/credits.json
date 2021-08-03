@@ -1,6 +1,12 @@
 {
     "categories": [
         {
+            "name": "Programming",
+            "values": [
+                "Minigrim0"
+            ]
+        },
+        {
             "name": "Character animations",
             "values": [
                 "Mihemine",
@@ -16,25 +22,23 @@
             ]
         },
         {
-            "name": "Programming",
+            "name": "",
             "values": [
-                "Minigrim0"
-            ]
-        },
-        {
-            "name": "This game was made using pygame",
-            "values": [
+                "This game was made using pygame",
                 {
                     "image": ".meta/pygame.png",
                     "position": "centered"
                 },
-                "You can contribute on",
+                "You can contribute to this project on",
                 [
                     {
                         "image": ".meta/github.png",
                         "position": "left"
                     },
-                    "https://github.com/Minigrim0/Stormtrays"
+                    {
+                        "text": "https://github.com/Minigrim0/Stormtrays",
+                        "position": "right"
+                    }
                 ]
             ]
         }
