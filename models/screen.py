@@ -3,6 +3,8 @@ import pygame
 
 from pygame.locals import MOUSEBUTTONDOWN, MOUSEMOTION
 
+from models.game_options import GameOptions
+
 
 class Screen:
     """The singleton class that handles the screen related actions"""
@@ -21,7 +23,6 @@ class Screen:
             raise RuntimeError("Trying to instanciate another instance of a singleton")
         Screen.instance = self
 
-        self.font = pygame.font.SysFont("Viner Hand ITC", 25)
         self.nativeSize = size
 
         info = pygame.display.Info()
@@ -182,4 +183,5 @@ class Screen:
         self.FPS = 1 / self.timeElapsed
 
         if self.showFPS:
-            self.fenetre.blit(self.font.render(str(round(self.FPS)), 1, (0, 0, 0)), (0, 0))
+            font = GameOptions.getInstance().fonts["MedievalSharp-xOZ5"]["14"]
+            self.fenetre.blit(font.render(str(round(self.FPS)), 1, (0, 0, 0)), (0, 0))
