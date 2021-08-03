@@ -211,3 +211,9 @@ class Level:
                 amount
             )
         )
+
+    def pay(self, amount: int):
+        self.gold -= amount
+
+    def canAfford(self, amount: int):
+        return self.gold - amount > 0

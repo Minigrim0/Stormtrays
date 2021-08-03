@@ -6,6 +6,7 @@ import pygame as pg
 
 from models.screen import Screen
 from models.game_options import GameOptions
+from models.level import Level
 
 from src.tower import TowerDO
 
@@ -41,6 +42,11 @@ class Tower:
         self.available_towers: list(dict) = []  # Available towers to draw in the menu
         self.tower_buttons: [Button] = []
 
+        options = GameOptions.getInstance()
+        self.font = options.fonts["MedievalSharp-xOZ5"]["25"]
+        self.hovered_tower_name: pg.Surface = None
+        self.missing_funds: pg.Surface = self.font.render("Vous n'avez pas assez d'argent", 1, (200, 100, 100))
+
         self.selectedTower: TowerDO = None
         self._load()
         self._build()
@@ -72,6 +78,10 @@ class Tower:
                 )
             )
 
+    def _setTowerHover(self, tower_data: dict):
+        self.hovered_tower_name = self.font.render(tower_data["name"], 1, (0, 0, 0))
+        self.hovered_tower = tower_data
+
     def update(self, timeElapsed: float):
         """Updates the state of the in game towers"""
         for tower in self.towers:
@@ -86,29 +96,51 @@ class Tower:
         if self.popup.opened:
             for tower_button in self.tower_buttons:
                 tower_button.draw(screen)
+            if self.hovered_tower_name is not None:
+                screen.blit(self.hovered_tower_name, (10, 10))
+                if Level.getInstance().gold < self.hovered_tower["price"]:
+                    screen.blit(self.missing_funds, (10, 40))
         elif self.selectedTower is not None:
             self.selectedTower.draw(screen)
 
     def handleEvent(self, event):
+        """Handles the user's events, selecting towers, opening/closing the tower menu, ..."""
         if event.type == pg.MOUSEBUTTONDOWN:
-            if self.selectedTower is not None and self.selectedTower.place():
-                self.towers.append(self.selectedTower)
+            if event.button == 1:
+                if self.selectedTower is not None and self.selectedTower.place():
+                    self.towers.append(self.selectedTower)
+                    Level.getInstance().pay(self.selectedTower.price)
+                    self.selectedTower = None
+
+                elif self.popup.opened:
+                    for tower_button in self.tower_buttons:
+                        tower_button.click(event.pos)
+
+                if self.selectedTower is None:
+                    self.popup.handleEvent(event)
+
+            elif event.button == 3:
                 self.selectedTower = None
+                self.popup.close()
+                self.hovered_tower = None
+                self.hovered_tower_name = None
 
-            elif self.popup.opened:
-                for tower_button in self.tower_buttons:
-                    tower_button.click(event.pos)
-            else:
-                self.popup.handleEvent(event)
-
-        elif event.type == pg.MOUSEMOTION and self.selectedTower is not None:
-            self.selectedTower.setPosition(
-                (
-                    event.pos[0] - 32,
-                    event.pos[1] - 32
+        elif event.type == pg.MOUSEMOTION:
+            if self.selectedTower is not None:
+                self.selectedTower.setPosition(
+                    (
+                        event.pos[0] - 32,
+                        event.pos[1] - 32
+                    )
                 )
-            )
+            elif self.popup.opened:
+                for button in self.tower_buttons:
+                    if button.collide(event.pos):
+                        self._setTowerHover(tower_data=button.ckwargs["tower_data"])
+                        break
+                    self.hovered_tower_name = None
 
     def selectTower(self, tower_data: dict):
-        self.selectedTower = TowerDO(tower_data)
-        self.popup.close()
+        if Level.getInstance().canAfford(tower_data["price"]):
+            self.selectedTower = TowerDO(tower_data)
+            self.popup.close()
