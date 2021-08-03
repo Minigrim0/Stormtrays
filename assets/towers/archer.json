@@ -6,5 +6,6 @@
     "animation" : "assets/images/animations/towers/archer/",
     "thumbnail": "assets/images/towers/archer.png",
     "price" : 75,
-    "projectile" : "arrow"
+    "projectile" : "arrow",
+    "shoot_on": [4]
 }
