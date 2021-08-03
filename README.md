@@ -24,6 +24,15 @@ python3 Stormtrays.py
 python3 Editor.py
 ```
 
+## Building an executable
+
+```
+pyinstaller Stormtrays.py
+pyinstaller Editor.py
+```
+
+Then run the executable located at `dist/Stormtrays/Stormtrays` and `dist/Editor/Editor`
+
 ## TODO
 
 * [x] fix xp bar animation (sine animation, see menu buttons)
