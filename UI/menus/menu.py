@@ -7,11 +7,12 @@ from models.screen import Screen
 class Menu:
     """The base class for all menus"""
 
-    def __init__(self, screen: Screen, background: callable = None, pickFrom: dict = {}):
+    def __init__(self, screen: Screen, pickFrom: dict = {}, background: callable = None, **background_kwargs):
         self.buttons: {Button} = {}
         self.pickFromBase = pickFrom
         self.screen = screen
         self.backgroundCallback: callable = background
+        self.background_kwargs = background_kwargs
 
     @staticmethod
     def loop():
@@ -27,7 +28,7 @@ class Menu:
     def draw(self):
         """Draws the menu's buttons on screen"""
         if self.backgroundCallback is not None:
-            self.backgroundCallback()
+            self.backgroundCallback(**self.background_kwargs)
 
         self._draw()
 

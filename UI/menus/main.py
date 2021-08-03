@@ -20,9 +20,20 @@ class MainMenu(Menu, Runnable):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.background = pygame.image.load(constantes.fondm).convert_alpha()
 
         options = GameOptions.getInstance()
+
+        self.background = pygame.image.load(f"{options['paths']['images']}menu_background.png").convert_alpha()
+        self.title = options.fonts["MedievalSharp-xOZ5"]["60"].render(
+            "StormTrays",
+            1,
+            (0, 0, 0)
+        )
+        self._build()
+
+    def _build(self):
+        options = GameOptions.getInstance()
+
         self.buttons["play"] = Button(
             (652, 464),
             (500, 50),
@@ -68,9 +79,11 @@ class MainMenu(Menu, Runnable):
 
         self.handleEvent()
 
-    def _draw(self):
+    def _draw(self, draw_title=True):
         """Draws the buttons/images on screen"""
         self.screen.blit(self.background, (0, 0))
+        if draw_title:
+            self.screen.blit(self.title, (50, 50))
 
     def handleEvent(self):
         """Handles the user inputs"""
@@ -86,14 +99,14 @@ class MainMenu(Menu, Runnable):
         """
         if toLaunch == "game":
             Animation("UI/animations/mainToSelect.json", self.screen, pickFrom=self.pickFrom)()
-            LevelSelectMenu(self.screen, self._draw, pickFrom=self.pickFrom)()
+            LevelSelectMenu(self.screen, pickFrom=self.pickFrom, background=self._draw)()
         elif toLaunch == "quit":
-            quitMenu = QuitMenu(self.screen, self._draw)
+            quitMenu = QuitMenu(self.screen, background=self._draw)
             if quitMenu() == "q":
                 self.running = False
         elif toLaunch == "options":
             Animation("UI/animations/mainToOptions.json", self.screen, pickFrom=self.pickFrom)()
-            OptionMenu(self.screen, self._draw, pickFrom=self.pickFrom)()
+            OptionMenu(self.screen, pickFrom=self.pickFrom, background=self._draw)()
         elif toLaunch == "credits":
             Animation("UI/animations/mainToCredits.json", self.screen, pickFrom=self.pickFrom)()
-            CreditsMenu(self.screen, self._draw, pickFrom=self.pickFrom)()
+            CreditsMenu(self.screen, pickFrom=self.pickFrom, background=self._draw, draw_title=False)()
