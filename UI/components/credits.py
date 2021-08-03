@@ -14,7 +14,6 @@ class Credits:
         self.elements: [{}] = []
 
         self._build()
-        print(self.elements)
 
     @property
     def height(self):
@@ -26,20 +25,31 @@ class Credits:
             for category in data["categories"]:
                 self._buildCategory(category)
 
+                # Add spacer between categories
+                self.elements.append(
+                    {
+                        "image": None,
+                        "position_x": 0,
+                        "height": 40
+                    }
+                )
+
     def _buildCategory(self, category_data: dict):
         self._buildTitle(category_data["name"])
 
         for element in category_data["values"]:
             if isinstance(element, dict):
                 self._buildElementFromDict(element)
-            if isinstance(element, list):
-                print("list", element)
+            elif isinstance(element, list):
+                self._buildElementFromList(element)
+            elif isinstance(element, str):
+                self._buildElementFromString(element)
             else:
-                print("str", element)
+                print("Unhandled", type(element))
 
     def _buildTitle(self, title: str):
         options: GameOptions = GameOptions.getInstance()
-        title_font = options.fonts["MedievalSharp-xOZ5"]["100"]
+        title_font = options.fonts["MedievalSharp-xOZ5"]["60"]
         title = title_font.render(title, 1, (0, 0, 0))
         self.elements.append(
             {
@@ -68,10 +78,57 @@ class Credits:
         self.elements.append(
             {
                 "image": element,
-                "position_x": self._getElementXPosition(element.get_size[0], "centered"),
-                "height": element.get_size[1]
+                "position_x": self._getElementXPosition(element.get_size()[0], "centered"),
+                "height": element.get_size()[1]
             }
         )
+
+    def _buildElementFromList(self, element_list: list):
+        options: GameOptions = GameOptions.getInstance()
+        element_font = options.fonts["MedievalSharp-xOZ5"]
+        images = []
+        for element in element_list:
+            if isinstance(element, dict):
+                if "image" in element.keys():
+                    images.append(
+                        pg.image.load(element["image"])
+                    )
+                elif "text" in element.keys():
+                    font_size = str(element["size"]) if "size" in element.keys() else "40"
+                    images.append(
+                        element_font[font_size].render(element["text"], 1, (0, 0, 0))
+                    )
+            elif isinstance(element, str):
+                images.append(
+                    element_font["40"].render(element, 1, (0, 0, 0))
+                )
+        final_image = self._mergeImages(images)
+        self.elements.append(
+            {
+                "image": final_image,
+                "position_x": self._getElementXPosition(final_image.get_size()[0], "centered"),
+                "height": final_image.get_size()[1]
+            }
+        )
+
+    def _mergeImages(self, images: [pg.Surface]) -> pg.Surface:
+        final_size = (
+            sum([img.get_size()[0] for img in images]),
+            max([img.get_size()[1] for img in images])
+        )
+        final_image = pg.Surface(final_size, pg.SRCALPHA)
+        x_offset = 0
+        for image in images:
+            final_image.blit(
+                image,
+                (
+                    x_offset,
+                    (final_size[1] - image.get_size()[1]) // 2
+                )
+            )
+            x_offset += image.get_size()[0]
+
+        return final_image
 
     def _getElementXPosition(self, element_size: int, position: str, min_pos_x: int = 0, max_pos_x: int = 1152) -> int:
         if position == "centered":
@@ -83,8 +140,9 @@ class Credits:
 
     def draw(self, screen: Screen, y_offset: int):
         for element in self.elements:
-            screen.blit(
-                element["image"],
-                (element["position_x"], y_offset)
-            )
+            if element["image"] is not None:
+                screen.blit(
+                    element["image"],
+                    (element["position_x"], y_offset)
+                )
             y_offset += element["height"] + 10

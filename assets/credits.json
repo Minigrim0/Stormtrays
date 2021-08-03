@@ -30,16 +30,10 @@
                     "position": "centered"
                 },
                 "You can contribute to this project on",
-                [
-                    {
-                        "image": ".meta/github.png",
-                        "position": "left"
-                    },
-                    {
-                        "text": "https://github.com/Minigrim0/Stormtrays",
-                        "position": "right"
-                    }
-                ]
+                {
+                    "image": ".meta/github.png"
+                },
+                "https://github.com/Minigrim0/Stormtrays"
             ]
         }
     ]

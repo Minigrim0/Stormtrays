@@ -41,7 +41,7 @@ class GameOptions:
         for font in glob.glob("UI/assets/fonts/*/*.ttf"):
             filename = os.path.splitext(os.path.split(font)[1])[0]
             self.fonts[filename] = {}
-            for size in [12, 14, 20, 25, 35, 40, 100]:
+            for size in [12, 14, 20, 25, 35, 40, 60, 100]:
                 self.fonts[filename][str(size)] = pg.font.Font(font, size)
 
         with open("assets/settings.json") as settings:
