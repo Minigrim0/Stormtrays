@@ -2,12 +2,11 @@ import math
 
 import pygame as pg
 
-from models.screen import Screen
 from models.ennemy import Ennemy
-
-from src.utils.rot_center import rotCenter
-from src.utils.distance_between import distance_between
+from models.screen import Screen
 from src.ennemy import EnnemyDO
+from src.utils.distance_between import distance_between
+from src.utils.rot_center import rotCenter
 
 
 class ProjectileDO:

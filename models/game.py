@@ -1,15 +1,13 @@
 import pygame as pg
 
-from models.screen import Screen
-from src.runnable import Runnable
-from src.invocation import Invocation
-
-from models.level import Level
-from models.ennemy import Ennemy
 from models.character import Character
-from models.tower import Tower
+from models.ennemy import Ennemy
+from models.level import Level
 from models.projectile import Projectile
-
+from models.screen import Screen
+from models.tower import Tower
+from src.invocation import Invocation
+from src.runnable import Runnable
 from UI.menus.game_ui import GameUI
 
 

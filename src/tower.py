@@ -1,12 +1,11 @@
-import pygame
 import math
 
-from models.screen import Screen
+import pygame
+
 from models.ennemy import Ennemy
 from models.projectile import Projectile
-
+from models.screen import Screen
 from src.ennemy import EnnemyDO
-
 from UI.components.image_animation import ImageAnimation
 
 

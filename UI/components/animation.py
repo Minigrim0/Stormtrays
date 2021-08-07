@@ -1,10 +1,9 @@
 import json
+
 import pygame as pg
 
-from src.runnable import Runnable
-
 from models.screen import Screen
-
+from src.runnable import Runnable
 from UI.components.animated_element import Animated
 
 

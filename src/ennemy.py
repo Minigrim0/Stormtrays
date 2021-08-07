@@ -1,9 +1,7 @@
 import pygame
 
-from src.utils.bound import bound
-
 from models.level import Level
-
+from src.utils.bound import bound
 from UI.components.image_animation import ImageAnimation
 from UI.components.loading_bar import LoadingBar
 

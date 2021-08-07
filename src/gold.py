@@ -2,9 +2,9 @@ import math
 
 import pygame as pg
 
-from models.screen import Screen
 from models.game_options import GameOptions
 from models.image_bank import ImageBank
+from models.screen import Screen
 
 
 class Gold:

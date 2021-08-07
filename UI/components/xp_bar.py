@@ -1,11 +1,10 @@
 import pygame as pg
 
-from models.screen import Screen
 from models.character import Character
 from models.game_options import GameOptions
-
-from UI.components.loading_bar import LoadingBar
+from models.screen import Screen
 from UI.components.image_animation import ImageAnimation
+from UI.components.loading_bar import LoadingBar
 
 
 class XPBar(LoadingBar):

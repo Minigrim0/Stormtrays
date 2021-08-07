@@ -1,9 +1,8 @@
-import json
 import glob
+import json
 
-from models.screen import Screen
 from models.game_options import GameOptions
-
+from models.screen import Screen
 from src.projectile import ProjectileDO
 
 

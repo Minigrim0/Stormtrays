@@ -1,4 +1,4 @@
-from math import pi, atan
+from math import atan, pi
 
 
 def findAngle(delta_x: int, delta_y: int):

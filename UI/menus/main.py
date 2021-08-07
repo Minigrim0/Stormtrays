@@ -1,18 +1,15 @@
 import pygame
 
 import src.constantes as constantes
-from src.runnable import Runnable
-
 from models.game_options import GameOptions
-
-from UI.menus.menu import Menu
-from UI.menus.levelSelection import LevelSelectMenu
-from UI.menus.quit import QuitMenu
-from UI.menus.options import OptionMenu
-from UI.menus.credits import CreditsMenu
-
-from UI.components.button import Button
+from src.runnable import Runnable
 from UI.components.animation import Animation
+from UI.components.button import Button
+from UI.menus.credits import CreditsMenu
+from UI.menus.levelSelection import LevelSelectMenu
+from UI.menus.menu import Menu
+from UI.menus.options import OptionMenu
+from UI.menus.quit import QuitMenu
 
 
 class MainMenu(Menu, Runnable):

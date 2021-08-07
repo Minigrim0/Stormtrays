@@ -1,19 +1,17 @@
-import os
 import glob
 import json
+import os
 
 import pygame as pg
 
-from UI.menus.menu import Menu
-from src.runnable import Runnable
 import src.constantes as constants
-
-from models.game_options import GameOptions
 from models.game import Game
-
-from UI.components.card import Card
-from UI.components.button import Button
+from models.game_options import GameOptions
+from src.runnable import Runnable
 from UI.components.animation import Animation
+from UI.components.button import Button
+from UI.components.card import Card
+from UI.menus.menu import Menu
 
 
 class LevelSelectMenu(Menu, Runnable):

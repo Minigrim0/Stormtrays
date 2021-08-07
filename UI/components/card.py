@@ -1,8 +1,7 @@
 import pygame as pg
 
-from UI.components.button import Button
-
 from models.game_options import GameOptions
+from UI.components.button import Button
 
 
 class Card(Button):

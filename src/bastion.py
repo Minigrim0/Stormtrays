@@ -1,7 +1,6 @@
 import pygame as pg
 
 from models.screen import Screen
-
 from UI.components.loading_bar import LoadingBar
 
 

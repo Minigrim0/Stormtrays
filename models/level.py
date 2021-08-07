@@ -1,13 +1,13 @@
 import json
-import pygame as pg
-
 from copy import copy
 
+import pygame as pg
+
 import src.constantes as consts
-from src.tile import Tile
-from src.errors.invalidPositionException import InvalidPositionException
 from src.bastion import Bastion
+from src.errors.invalidPositionException import InvalidPositionException
 from src.gold import Gold
+from src.tile import Tile
 
 
 class Level:

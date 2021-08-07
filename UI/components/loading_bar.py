@@ -1,4 +1,5 @@
 import math as m
+
 import pygame as pg
 
 from models.screen import Screen

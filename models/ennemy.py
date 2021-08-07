@@ -1,11 +1,10 @@
 import glob
 import json
-
 import random
-from src.ennemy import EnnemyDO
 
 from models.game_options import GameOptions
 from models.level import Level
+from src.ennemy import EnnemyDO
 
 
 class Ennemy:

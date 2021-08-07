@@ -1,15 +1,12 @@
 import pygame as pg
 
+from models.game_options import GameOptions
 from src import constantes as constants
 from src.runnable import Runnable
-
-from models.game_options import GameOptions
-
-from UI.menus.menu import Menu
-
-from UI.components.button import Button
 from UI.components.animation import Animation
+from UI.components.button import Button
 from UI.components.credits import Credits
+from UI.menus.menu import Menu
 
 
 class CreditsMenu(Menu, Runnable):

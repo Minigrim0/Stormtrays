@@ -1,19 +1,17 @@
 import os
+from copy import copy
 from tkinter import filedialog
+
 import pygame
 
-from copy import copy
-
-from src.tile import Tile
-from UI.menus.editor import EditorUI
-
 import src.constantes as consts
+from models.game_options import GameOptions
+from models.level import Level
+from models.screen import Screen
 from src.errors.invalidPositionException import InvalidPositionException
 from src.runnable import Runnable
-
-from models.screen import Screen
-from models.level import Level
-from models.game_options import GameOptions
+from src.tile import Tile
+from UI.menus.editor import EditorUI
 
 
 class Editor(Runnable):

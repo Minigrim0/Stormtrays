@@ -1,10 +1,9 @@
 import pygame as pg
 
-from UI.menus.menu import Menu
-from src.runnable import Runnable
-
-from UI.components.button import Button
 import src.constantes as constants
+from src.runnable import Runnable
+from UI.components.button import Button
+from UI.menus.menu import Menu
 
 
 class QuitMenu(Menu, Runnable):

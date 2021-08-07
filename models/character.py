@@ -1,13 +1,12 @@
-import pygame as pg
 import math
 
+import pygame as pg
+
+from models.ennemy import Ennemy
+from models.screen import Screen
 from src.ennemy import EnnemyDO
 from src.utils.distance_between import distance_between
 from src.utils.find_angle import findAngle
-
-from models.screen import Screen
-from models.ennemy import Ennemy
-
 from UI.components.image_animation import ImageAnimation
 
 

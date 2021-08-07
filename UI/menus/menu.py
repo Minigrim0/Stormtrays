@@ -1,7 +1,7 @@
 from pygame.locals import MOUSEBUTTONDOWN
 
-from UI.components.button import Button
 from models.screen import Screen
+from UI.components.button import Button
 
 
 class Menu:

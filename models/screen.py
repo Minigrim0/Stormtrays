@@ -1,6 +1,6 @@
 import time
-import pygame
 
+import pygame
 from pygame.locals import MOUSEBUTTONDOWN, MOUSEMOTION
 
 from models.game_options import GameOptions

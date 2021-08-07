@@ -1,15 +1,13 @@
-import json
-import glob
 import copy
+import glob
+import json
 
 import pygame as pg
 
-from models.screen import Screen
 from models.game_options import GameOptions
 from models.level import Level
-
+from models.screen import Screen
 from src.tower import TowerDO
-
 from UI.components.button import Button
 from UI.components.popup import Popup
 

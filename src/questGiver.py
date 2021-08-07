@@ -1,7 +1,9 @@
+import json
+
 import pygame
 import pygame.locals
-from constantes import GoldGained, DicoTowersBought, DicoEnnemisKilled
-import json
+
+from constantes import DicoEnnemisKilled, DicoTowersBought, GoldGained
 
 
 class QuestGiver:

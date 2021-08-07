@@ -1,8 +1,8 @@
 import pygame
-import src.constantes as const
-from UI.components.button import Button
 
+import src.constantes as const
 from models.game_options import GameOptions
+from UI.components.button import Button
 
 
 class EditorUI:

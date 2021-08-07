@@ -1,11 +1,12 @@
-import os
 import glob
 import json
 import logging
+import os
 
 import pygame as pg
-from models.screen import Screen
+
 from models.image_bank import ImageBank
+from models.screen import Screen
 
 
 class ImageAnimation:
