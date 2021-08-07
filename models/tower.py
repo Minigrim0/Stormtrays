@@ -96,7 +96,7 @@ class Tower:
                 tower_button.draw(screen)
             if self.hovered_tower_name is not None:
                 screen.blit(self.hovered_tower_name, (10, 10))
-                if Level.getInstance().gold < self.hovered_tower["price"]:
+                if Level.getInstance().canAfford(self.hovered_tower["price"]):
                     screen.blit(self.missing_funds, (10, 40))
         elif self.selectedTower is not None:
             self.selectedTower.draw(screen)

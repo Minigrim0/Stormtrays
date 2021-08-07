@@ -6,7 +6,7 @@ import pygame as pg
 import src.constantes as consts
 from src.bastion import Bastion
 from src.errors.invalidPositionException import InvalidPositionException
-from src.gold import Gold
+from src.coin import Coin
 from src.tile import Tile
 
 
@@ -66,7 +66,7 @@ class Level:
         self.backgroundName = "fond1"
         self.size = [18, 11]
 
-        self.gold_anim: [Gold] = []
+        self.coins: [Coin] = []
         self.FondFenetre = None
         self.map = None
         self.initMap()
@@ -147,9 +147,9 @@ class Level:
     def update(self, timeElapsed: float):
         for bastion in self.bastions:
             bastion.update(timeElapsed)
-        for gold in self.gold_anim:
-            if gold.update(timeElapsed):
-                del self.gold_anim[self.gold_anim.index(gold)]
+        for coin in self.coins:
+            if coin.update(timeElapsed):
+                del self.coins[self.coins.index(coin)]
 
     def draw(self, screen, editor=False):
         """Draws the current level
@@ -167,7 +167,7 @@ class Level:
                     if self.map[x][y] is not None:
                         self.map[x][y].draw(screen, editor=editor)
 
-        for gold in self.gold_anim:
+        for gold in self.coins:
             gold.draw(screen)
 
     def Set_Difficulty(self, Difficulte):
@@ -216,8 +216,8 @@ class Level:
 
     def addGold(self, amount, position):
         self.gold += amount
-        self.gold_anim.append(
-            Gold(
+        self.coins.append(
+            Coin(
                 position,
                 amount
             )

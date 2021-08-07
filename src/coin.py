@@ -7,7 +7,7 @@ from models.image_bank import ImageBank
 from models.screen import Screen
 
 
-class Gold:
+class Coin:
     """A flying gold image to show the winned gold when an ennemy has been killed"""
 
     def __init__(self, pos: tuple, amount: int):
