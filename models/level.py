@@ -62,7 +62,7 @@ class Level:
         self.bastions: list(Bastion) = []
         self.gold = 500
         self.killed_ennemies = 0
-        self.background: pg.Surface = pg.image.load("assets/images/fond.png").convert_alpha()
+        self.background: pg.Surface = None
         self.backgroundName = "fond1"
         self.size = [18, 11]
 
