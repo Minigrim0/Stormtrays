@@ -1,6 +1,11 @@
 # Stromtrays
+<p>
+<img src="https://deepsource.io/gh/Minigrim0/Stormtrays.svg/?label=active+issues&show_trend=true&token=9zXI6PGE43X7aVUJL0rgA6Qf)](https://deepsource.io/gh/Minigrim0/Stormtrays/?ref=repository-badge" alt="deepsource status" title="deepsource status" />
+</p>
 
-A tower defense game written in python with pygame
+<p>
+    A tower defense game written in python with <a href="https://pygame.org"><img src=".meta/pygame.png" height=20 alt="pygame" title="pygame" /></a>
+</p>
 
 ## Installation
 
@@ -53,7 +58,3 @@ Then run the executable located at `dist/Stormtrays/Stormtrays` and `dist/Editor
 * [ ] Draw level grid when placing a tower
 * [ ] Make ennemys health bars not sine (Too many updates on the advancement makes it buggy)
 * [ ] Implement bombs
-
-## Deepsource status
-
-[![DeepSource](https://deepsource.io/gh/Minigrim0/Stormtrays.svg/?label=active+issues&show_trend=true&token=9zXI6PGE43X7aVUJL0rgA6Qf)](https://deepsource.io/gh/Minigrim0/Stormtrays/?ref=repository-badge)
