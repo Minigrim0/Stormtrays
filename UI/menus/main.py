@@ -1,6 +1,5 @@
 import pygame
 
-import src.constantes as constantes
 from models.game_options import GameOptions
 from src.runnable import Runnable
 from UI.components.animation import Animation
@@ -20,7 +19,8 @@ class MainMenu(Menu, Runnable):
 
         options = GameOptions.getInstance()
 
-        self.background = pygame.image.load(f"{options['paths']['images']}menu_background.png").convert_alpha()
+        self.background = pygame.image.load(
+            f"{options['paths']['images']}backgrounds/menu_background.png").convert_alpha()
         self.title = options.fonts["MedievalSharp-xOZ5"]["60"].render(
             "StormTrays",
             1,
