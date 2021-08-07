@@ -2,6 +2,7 @@ import pygame as pg
 
 import src.constantes as constants
 from models.game_options import GameOptions
+from models.screen import Screen
 from src.runnable import Runnable
 from UI.components.animation import Animation
 from UI.components.button import Button
@@ -13,12 +14,13 @@ class OptionMenu(Menu, Runnable):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        options = GameOptions.getInstance()
 
         self.background = pg.image.load(constants.fondm).convert_alpha()
-        self.Fond_Menu_Opt = pg.image.load(constants.Fond_Menu_Opti).convert_alpha()
-        self.OptionsTxt = pg.image.load(constants.OptionsTxt__).convert_alpha()
+        self.option_menu_background = pg.image.load(constants.Fond_Menu_Opti).convert_alpha()
+        self.menu_background_position = (Screen.getInstance().get_size()[0] - self.option_menu_background.get_size()[0]) / 2
 
-        options = GameOptions.getInstance()
+        self._build()
 
         self.Diffictxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
             "Difficulté : {}".format(options.difficulty), 1, (0, 0, 0)
@@ -27,8 +29,12 @@ class OptionMenu(Menu, Runnable):
             "Volume : {}".format(int(options.volume * 10)), 1, (0, 0, 0)
         )
 
-        Moins = pg.image.load(constants.Moins__).convert_alpha()
-        Plus = pg.image.load(constants.Plus__).convert_alpha()
+        Moins = options.fonts["MedievalSharp-xOZ5"]["40"].render(
+            "-", 1, (0, 0, 0)
+        )
+        Plus = options.fonts["MedievalSharp-xOZ5"]["40"].render(
+            "+", 1, (0, 0, 0)
+        )
 
         self.buttons["lessVolume"] = Button((655, 302), (40, 40), Moins, self.updateVolume, -1)
         self.buttons["moreVolume"] = Button((705, 302), (40, 40), Plus, self.updateVolume, 1)
@@ -43,6 +49,20 @@ class OptionMenu(Menu, Runnable):
         self.buttons["options"] = Button((1002, 584), (500, 50), self.pickFromBase["options"])
         self.buttons["quit"] = Button((1102, 644), (500, 50), self.pickFromBase["quit"])
 
+    def _build(self):
+        options = GameOptions.getInstance()
+
+        title = options.fonts["MedievalSharp-xOZ5"]["60"].render(
+            "Options", 1, (0, 0, 0)
+        )
+
+        title_pos = (self.option_menu_background.get_size()[0] - title.get_size()[0]) / 2
+
+        self.option_menu_background.blit(
+            title,
+            (title_pos, 15)
+        )
+
     def loop(self):
         """The bit of code called at each iteration"""
         super().loop()
@@ -54,8 +74,7 @@ class OptionMenu(Menu, Runnable):
 
     def _draw(self):
         """Draws the buttons/images on screen, called by Menu class, in between background and buttons"""
-        self.screen.blit(self.Fond_Menu_Opt, (386, 142))
-        self.screen.blit(self.OptionsTxt, (386, 132))
+        self.screen.blit(self.option_menu_background, (386, 142))
         self.screen.blit(self.Volumetxt, (410, 302))
         self.screen.blit(self.Diffictxt, (410, 347))
 
