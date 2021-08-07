@@ -5,8 +5,8 @@ import pygame as pg
 
 import src.constantes as consts
 from src.bastion import Bastion
-from src.errors.invalidPositionException import InvalidPositionException
 from src.coin import Coin
+from src.errors.invalidPositionException import InvalidPositionException
 from src.tile import Tile
 
 

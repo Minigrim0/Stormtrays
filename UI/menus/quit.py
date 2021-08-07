@@ -1,8 +1,8 @@
 import pygame as pg
 
+import src.constantes as constants
 from models.game_options import GameOptions
 from models.screen import Screen
-import src.constantes as constants
 from src.runnable import Runnable
 from UI.components.button import Button
 from UI.menus.menu import Menu
