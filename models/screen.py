@@ -23,25 +23,26 @@ class Screen:
             raise RuntimeError("Trying to instanciate another instance of a singleton")
         Screen.instance = self
 
-        self.nativeSize = size
+        self.initial_size = size
 
         info = pygame.display.Info()
         self.fullSize = (info.current_w, info.current_h)
+        self.screen = None
 
         self.fullScreen = fullScreen
         if self.fullScreen:
             self.resize(self.fullSize)
         else:
-            self.resize(self.nativeSize)
+            self.resize(self.initial_size)
 
         from UI.components.button import Button  # NOQA
 
         self.scaleButton = Button(
-            (2, self.nativeSize[1] - 22), (20, 20), pygame.image.load("UI/assets/images/scale.png").convert_alpha()
+            (2, self.initial_size[1] - 22), (20, 20), pygame.image.load("UI/assets/images/scale.png").convert_alpha()
         )
         self.scaleButton.callback = self.rescale
 
-        self.fenetre = pygame.Surface(self.nativeSize)
+        self.fenetre = pygame.Surface(self.initial_size)
 
         pygame.display.set_caption(name)
         if icon is not None and icon != "":
@@ -50,7 +51,6 @@ class Screen:
         self.timeElapsed = 0
         self.startTime = time.time()
 
-        self.frameCounter = 0
         self.FPS = 0
         self.showFPS = False
 
@@ -60,7 +60,7 @@ class Screen:
         if self.fullScreen:
             self.resize(self.fullSize)
         else:
-            self.resize(self.nativeSize)
+            self.resize(self.initial_size)
 
     def resize(self, size: tuple):
         """Resizes the screen to the given size
@@ -69,38 +69,33 @@ class Screen:
             size (tuple): the new size for the screen
         """
         if self.fullScreen:
-            self.fenetreAffiche = pygame.display.set_mode(self.fullSize, pygame.locals.FULLSCREEN)
+            self.screen = pygame.display.set_mode(self.fullSize, pygame.locals.FULLSCREEN)
         else:
-            self.fenetreAffiche = pygame.display.set_mode(size, pygame.locals.RESIZABLE)
+            self.screen = pygame.display.set_mode(size, pygame.locals.RESIZABLE)
 
-        taillex = size[0] / self.nativeSize[0]
-        tailley = size[1] / self.nativeSize[1]
+        taillex = size[0] / self.initial_size[0]
+        tailley = size[1] / self.initial_size[1]
         self.taille = min(taillex, tailley)
 
         self.posAffiche = (
-            (size[0] - int(self.taille * self.nativeSize[0])) // 2,
-            (size[1] - int(self.taille * self.nativeSize[1])) // 2,
+            (size[0] - int(self.taille * self.initial_size[0])) // 2,
+            (size[1] - int(self.taille * self.initial_size[1])) // 2,
         )
 
     def flip(self):
         """Refreshes the screen"""
         self.update()
         self.scaleButton.draw(self)
-        self.fenetreAffiche.blit(
-            pygame.transform.smoothscale(
-                self.fenetre, (int(self.nativeSize[0] * self.taille), int(self.nativeSize[1] * self.taille))
+        self.screen.blit(
+            pygame.transform.scale(
+                self.fenetre, (int(self.initial_size[0] * self.taille), int(self.initial_size[1] * self.taille))
             ),
             self.posAffiche,
         )
         pygame.display.flip()
 
     def blit(self, surface: pygame.Surface, pos: tuple, *args, **kwargs):
-        """Draws an image to the screen
-
-        Args:
-            surface (pygame.Surface): The surface to draw
-            pos (tuple): The position to drae it on
-        """
+        """Draws an image to the screen"""
         self.fenetre.blit(surface, pos, *args, **kwargs)
 
     def getEvent(self):
@@ -126,37 +121,20 @@ class Screen:
 
             yield event
 
+    def get_size(self):
+        print(self.screen.get_size())
+        return self.screen.get_size()
+
     def isPosOutOfScreen(self, pos: tuple):
-        """Checks whether the position is out of the rendered screen or not
-
-        Args:
-            pos (tuple): The position to check
-
-        Returns:
-            bool: whether the given position is out of the screen or not
-        """
-        return pos[0] < 0 or pos[1] < 0 or pos[0] >= self.nativeSize[0] or pos[1] >= self.nativeSize[1]
+        """Checks whether the position is out of the rendered screen or not"""
+        return pos[0] < 0 or pos[1] < 0 or pos[0] >= self.initial_size[0] or pos[1] >= self.initial_size[1]
 
     def convertToRelativePos(self, pos: tuple):
-        """Converts an real position to a relative position
-
-        Args:
-            pos (tuple): The position to convert
-
-        Returns:
-            tuple: the converted position
-        """
+        """Converts an real position to a relative position"""
         return (int((pos[0] - self.posAffiche[0]) / self.taille), int((pos[1] - self.posAffiche[1]) / self.taille))
 
     def subsurface(self, rect: pygame.Rect):
-        """Returns a subsurface of the screen
-
-        Args:
-            rect (pygame.Rect): The subsurface area to get
-
-        Returns:
-            pygame.Surface: The subsurface described by the given arguments
-        """
+        """Returns a subsurface of the screen"""
         return self.fenetre.subsurface(rect)
 
     def handleFKeys(self, event: pygame.event.Event):
@@ -184,4 +162,4 @@ class Screen:
 
         if self.showFPS:
             font = GameOptions.getInstance().fonts["MedievalSharp-xOZ5"]["14"]
-            self.fenetre.blit(font.render(str(round(self.FPS)), 1, (0, 0, 0)), (0, 0))
+            self.fenetre.blit(font.render(str(round(self.FPS)), 0, (0, 0, 0)), (0, 0))
