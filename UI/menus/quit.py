@@ -21,7 +21,9 @@ class QuitMenu(Menu, Runnable):
             (516, 367), (120, 50), pg.image.load(constants.quitpaus).convert_alpha(), self.confirm
         )
 
-        self.menu_background: pg.Surface = pg.image.load(constants.Fond_Menu_Opti).convert_alpha()
+        options = GameOptions.getInstance()
+
+        self.menu_background = pg.image.load(options.fullPath("images", "background/menu_backgroud.png")).convert_alpha()
         self.menu_background_position = (
             (Screen.getInstance().get_size()[0] - self.menu_background.get_size()[0]) / 2,
             (Screen.getInstance().get_size()[1] - self.menu_background.get_size()[1]) / 2

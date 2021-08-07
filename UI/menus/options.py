@@ -16,8 +16,7 @@ class OptionMenu(Menu, Runnable):
         super().__init__(*args, **kwargs)
         options = GameOptions.getInstance()
 
-        self.background = pg.image.load(constants.fondm).convert_alpha()
-        self.menu_background = pg.image.load(constants.Fond_Menu_Opti).convert_alpha()
+        self.menu_background = pg.image.load(options.fullPath("images", "background/menu_backgroud.png")).convert_alpha()
         self.menu_background_position = (
             (Screen.getInstance().get_size()[0] - self.menu_background.get_size()[0]) / 2,
             (Screen.getInstance().get_size()[1] - self.menu_background.get_size()[1]) / 2
