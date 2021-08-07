@@ -20,7 +20,6 @@ poubelle = "assets/images/poubelle.png", "assets/images/poubelle.png"
 fort1 = "assets/images/fort1.png", "assets/images/fort1.png"
 Vide1 = "assets/images/Vide.png", "assets/images/VideE.png"
 
-fondm = "assets/images/FondMenu/FondMenuPrincipal.png"
 LoadingScreen = "assets/images/FondMenu/LoadingScreen.png"
 LoadLevelImg = "assets/images/FondMenu/LoadLevel.png"
 LoadBar = "assets/images/FondMenu/LoadBar.png"
