@@ -12,7 +12,7 @@ class Bastion:
 
         self.initial_health = initial_health
         self.health = initial_health
-        self.image = pg.image.load("assets/images/fort1.png").convert_alpha()
+        self.image = pg.image.load("assets/images/tiles/fort.png").convert_alpha()
 
         # Whether the bastion is under attack and how long since last attack
         self.underAttack: tuple(bool, int) = (False, 0)

@@ -1,4 +1,4 @@
-import pygame
+import pygame as pg
 
 from models.screen import Screen
 
@@ -8,7 +8,7 @@ class Tile:
 
     def __init__(self, code: str, image: tuple, position: tuple = None, rotation: int = 0):
         self.code = code
-        self.image = image
+        self.image: (pg.Surface, pg.Surface) = image
         self.rotation = rotation
         self.position = position
 
@@ -16,8 +16,8 @@ class Tile:
         """Rotates the image by 90 degrees"""
         self.rotation = (self.rotation + amount) % 4
         self.image = (
-            pygame.transform.rotate(self.image[0], amount * 90),
-            pygame.transform.rotate(self.image[1], amount * 90),
+            pg.transform.rotate(self.image[0], amount * 90) if self.image[0] is not None else None,
+            pg.transform.rotate(self.image[1], amount * 90) if self.image[1] is not None else None,
         )
 
     def draw(self, screen: Screen, editor=False):
@@ -28,7 +28,8 @@ class Tile:
             editor (bool, optional): Whether to draw it as an editor
                 tile or a game tile. Defaults to False.
         """
-        screen.blit(self.image[int(editor)], self.position)
+        if self.image[int(editor)] is not None:
+            screen.blit(self.image[int(editor)], self.position)
 
     def direction(self):
         if (self.code, self.rotation) in (("c1", 0), ("t1", 2), ("t2", 3)):

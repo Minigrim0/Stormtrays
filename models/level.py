@@ -32,19 +32,30 @@ class Level:
         self.tiles = {}
 
         images = [
-            (consts.chem1, "c1"),
-            (consts.tour2, "t2"),
-            (consts.tour1, "t1"),
-            (consts.croix1, "x1"),
+            (("assets/images/tiles/straight.png", "assets/images/tiles/straight_edit.png"), "c1"),
+            (("assets/images/tiles/turn.png", "assets/images/tiles/left_turn_edit.png"), "t2"),
+            (("assets/images/tiles/turn.png", "assets/images/tiles/right_turn_edit.png"), "t1"),
+            ("assets/images/tiles/cross.png", "x1"),
             (consts.poubelle, "p1"),
-            (consts.fort1, "k1"),
-            (consts.Vide1, "v1"),
+            ("assets/images/tiles/fort.png", "k1"),
+            ((None, "assets/images/blocked_edit.png"), "v1"),
         ]
 
         for path, code in images:
-            self.tiles[code] = Tile(
-                code, (pg.image.load(path[0]).convert_alpha(), pg.image.load(path[1]).convert_alpha())
-            )
+            if isinstance(path, tuple):
+                self.tiles[code] = Tile(
+                    code, (
+                        pg.image.load(path[0]).convert_alpha() if path[0] is not None else None,
+                        pg.image.load(path[1]).convert_alpha() if path[0] is not None else None
+                    )
+                )
+            elif isinstance(path, str):
+                self.tiles[code] = Tile(
+                    code, (
+                        pg.image.load(path).convert_alpha(),
+                        pg.image.load(path).convert_alpha()
+                    )
+                )
 
         # self.editorImage["QG", 0] = pg.image.load("img/QuestGiverF1.png").convert_alpha()
 
@@ -116,7 +127,7 @@ class Level:
 
                 if not editor:
                     if self.map[x][y].code not in ("k1", "QG"):
-                        self.background.blit(self.map[x][y].image[0], tile_position)
+                        self.map[x][y].draw(self.background)
                     elif self.map[x][y].code == "k1":
                         bastion = Bastion((x, y), initial_health=10000)
                         self.bastions.append(bastion)
