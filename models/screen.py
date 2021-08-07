@@ -122,8 +122,7 @@ class Screen:
             yield event
 
     def get_size(self):
-        print(self.screen.get_size())
-        return self.screen.get_size()
+        return self.initial_size
 
     def isPosOutOfScreen(self, pos: tuple):
         """Checks whether the position is out of the rendered screen or not"""

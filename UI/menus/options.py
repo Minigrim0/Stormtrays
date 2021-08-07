@@ -17,8 +17,12 @@ class OptionMenu(Menu, Runnable):
         options = GameOptions.getInstance()
 
         self.background = pg.image.load(constants.fondm).convert_alpha()
-        self.option_menu_background = pg.image.load(constants.Fond_Menu_Opti).convert_alpha()
-        self.menu_background_position = (Screen.getInstance().get_size()[0] - self.option_menu_background.get_size()[0]) / 2
+        self.menu_background = pg.image.load(constants.Fond_Menu_Opti).convert_alpha()
+        self.menu_background_position = (
+            (Screen.getInstance().get_size()[0] - self.menu_background.get_size()[0]) / 2,
+            (Screen.getInstance().get_size()[1] - self.menu_background.get_size()[1]) / 2
+        )
+        print(self.menu_background.get_size()[0], self.menu_background_position)
 
         self._build()
 
@@ -56,9 +60,9 @@ class OptionMenu(Menu, Runnable):
             "Options", 1, (0, 0, 0)
         )
 
-        title_pos = (self.option_menu_background.get_size()[0] - title.get_size()[0]) / 2
+        title_pos = (self.menu_background.get_size()[0] - title.get_size()[0]) / 2
 
-        self.option_menu_background.blit(
+        self.menu_background.blit(
             title,
             (title_pos, 15)
         )
@@ -74,7 +78,7 @@ class OptionMenu(Menu, Runnable):
 
     def _draw(self):
         """Draws the buttons/images on screen, called by Menu class, in between background and buttons"""
-        self.screen.blit(self.option_menu_background, (386, 142))
+        self.screen.blit(self.menu_background, self.menu_background_position)
         self.screen.blit(self.Volumetxt, (410, 302))
         self.screen.blit(self.Diffictxt, (410, 347))
 

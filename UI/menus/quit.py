@@ -1,5 +1,7 @@
 import pygame as pg
 
+from models.game_options import GameOptions
+from models.screen import Screen
 import src.constantes as constants
 from src.runnable import Runnable
 from UI.components.button import Button
@@ -19,13 +21,32 @@ class QuitMenu(Menu, Runnable):
             (516, 367), (120, 50), pg.image.load(constants.quitpaus).convert_alpha(), self.confirm
         )
 
-        self.confirmQuit = pg.image.load(constants.ConfirmQuit).convert_alpha()
+        self.menu_background: pg.Surface = pg.image.load(constants.Fond_Menu_Opti).convert_alpha()
+        self.menu_background_position = (
+            (Screen.getInstance().get_size()[0] - self.menu_background.get_size()[0]) / 2,
+            (Screen.getInstance().get_size()[1] - self.menu_background.get_size()[1]) / 2
+        )
+        self._build()
 
         self.toReturn: str = None  # Either "q" or "c"
 
     def __call__(self) -> str:
         super().__call__()
         return self.toReturn
+
+    def _build(self):
+        options = GameOptions.getInstance()
+
+        title = options.fonts["MedievalSharp-xOZ5"]["60"].render(
+            "Quitter ?", 1, (0, 0, 0)
+        )
+
+        title_pos = (self.menu_background.get_size()[0] - title.get_size()[0]) / 2
+
+        self.menu_background.blit(
+            title,
+            (title_pos, 15)
+        )
 
     def loop(self):
         """The bit of code called at each iteration"""
@@ -38,7 +59,7 @@ class QuitMenu(Menu, Runnable):
 
     def _draw(self):
         """Draws the buttons/images on screen and refreshes it"""
-        self.screen.blit(self.confirmQuit, (376, 152))
+        self.screen.blit(self.menu_background, self.menu_background_position)
 
     def handleEvent(self):
         """Handles the user inputs"""
