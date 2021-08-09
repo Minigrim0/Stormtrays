@@ -23,7 +23,9 @@ class QuitMenu(Menu, Runnable):
 
         options = GameOptions.getInstance()
 
-        self.menu_background = pg.image.load(options.fullPath("images", "background/menu_backgroud.png")).convert_alpha()
+        self.menu_background = pg.image.load(
+            options.fullPath("images", "backgrounds/submenu_background.png")
+        ).convert_alpha()
         self.menu_background_position = (
             (Screen.getInstance().get_size()[0] - self.menu_background.get_size()[0]) / 2,
             (Screen.getInstance().get_size()[1] - self.menu_background.get_size()[1]) / 2
