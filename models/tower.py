@@ -43,6 +43,7 @@ class Tower:
         self.font = options.fonts["MedievalSharp-xOZ5"]["25"]
         self.hovered_tower_name: pg.Surface = None
         self.missing_funds: pg.Surface = self.font.render("Vous n'avez pas assez d'argent", 1, (200, 100, 100))
+        self.grid: pg.Surface = None
 
         self.selectedTower: TowerDO = None
         self._load()
@@ -75,8 +76,21 @@ class Tower:
                 )
             )
 
-        # for x in range()
-        # self.grid =
+        level: Level = Level.getInstance()
+        screen: Screen = Screen.getInstance()
+
+        self.grid = pg.Surface(screen.initial_size, pg.SRCALPHA)
+        for x in range(1, level.size[0]):
+            pg.draw.line(
+                self.grid, (0, 0, 0),
+                (x * level.tile_size[0], 0), (x * level.tile_size[0], screen.initial_size[1])
+            )
+
+        for y in range(1, level.size[1]):
+            pg.draw.line(
+                self.grid, (0, 0, 0),
+                (0, y * level.tile_size[1]), (screen.initial_size[0], y * level.tile_size[1])
+            )
 
     def _setTowerHover(self, tower_data: dict):
         self.hovered_tower_name = self.font.render(tower_data["name"], 1, (0, 0, 0))
@@ -98,9 +112,10 @@ class Tower:
                 tower_button.draw(screen)
             if self.hovered_tower_name is not None:
                 screen.blit(self.hovered_tower_name, (10, 10))
-                if Level.getInstance().canAfford(self.hovered_tower["price"]):
+                if not Level.getInstance().canAfford(self.hovered_tower["price"]):
                     screen.blit(self.missing_funds, (10, 40))
         elif self.selectedTower is not None:
+            screen.blit(self.grid, (0, 0))
             self.selectedTower.draw(screen)
 
     def handleEvent(self, event):

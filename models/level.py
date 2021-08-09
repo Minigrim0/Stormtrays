@@ -3,6 +3,8 @@ from copy import copy
 
 import pygame as pg
 
+from models.screen import Screen
+
 import src.constantes as consts
 from src.bastion import Bastion
 from src.coin import Coin
@@ -74,6 +76,14 @@ class Level:
     @property
     def health(self):
         return sum([x.health for x in self.bastions])
+
+    @property
+    def tile_size(self):
+        screen: Screen = Screen.getInstance()
+        return (
+            screen.initial_size[0] / self.size[0],
+            screen.initial_size[1] / self.size[1],
+        )
 
     def initMap(self):
         """Empties the level"""

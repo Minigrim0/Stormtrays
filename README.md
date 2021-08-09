@@ -55,6 +55,6 @@ Then run the executable located at `dist/Stormtrays/Stormtrays` and `dist/Editor
 * [X] Add gold animations
 * [X] Make placing towers cost money
 * [X] Show tower names on hover when in tower menu
-* [ ] Draw level grid when placing a tower
+* [X] Draw level grid when placing a tower
 * [ ] Make ennemys health bars not sine (Too many updates on the advancement makes it buggy)
 * [ ] Implement bombs
