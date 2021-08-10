@@ -44,17 +44,23 @@ Then run the executable located at `dist/Stormtrays/Stormtrays` and `dist/Editor
 * [x] fix visible duration of ennemy's health bar
 * [X] re-implement towers
 * [x] Implement image-banks to avoid loading same images multiple times (Ennemies)
-* [ ] Add starting tile (V2.1)
-* [ ] Allow multiple bastions per level (V2.1)
-* [ ] Re-implement character powers (Invocation, time freeze, double money) (V2.2)
 * [X] Allow ImageAnimation trigger to be called a different times during the animation
-* [ ] Implement automatic builds
-* [ ] Implement size changing for map in editor (V2.3)
-* [ ] Profile the execution to find optimizations
-* [ ] Re-implement difficulty parameter
 * [X] Add gold animations
 * [X] Make placing towers cost money
 * [X] Show tower names on hover when in tower menu
 * [X] Draw level grid when placing a tower
 * [ ] Make ennemys health bars not sine (Too many updates on the advancement makes it buggy)
+* [ ] Implement automatic builds
+* [ ] Profile the execution to find optimizations
+* [ ] Re-implement difficulty parameter
+* [ ] Add end menu
+* [ ] Implement time acceleration
+* [ ] Implement pause menu
+* [ ] Reset game when leaving
+
+## Later
 * [ ] Implement bombs (V2.1)
+* [ ] Add starting tile (V2.1)
+* [ ] Allow multiple bastions per level (V2.1)
+* [ ] Re-implement character powers (Invocation, time freeze, double money) (V2.2)
+* [ ] Implement size changing for map in editor (V2.3)
