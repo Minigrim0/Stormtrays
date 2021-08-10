@@ -31,6 +31,8 @@ class Editor(Runnable):
             raise RuntimeError("Trying to instanciate a second object from a singleton")
         Editor.instance = self
 
+        super().__init__()
+
         self.level: Level = Level.getInstance()
         self.UI: EditorUI = EditorUI(self.level)
         self.UI.buttons["eraseButton"].setCallback(self.erase)
