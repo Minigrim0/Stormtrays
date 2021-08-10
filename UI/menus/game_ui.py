@@ -7,6 +7,7 @@ from models.screen import Screen
 
 from UI.components.xp_bar import XPBar
 from UI.components.button import Button
+from UI.menus.pause import PauseMenu
 
 
 class GameUI:
@@ -39,13 +40,18 @@ class GameUI:
 
         self.buttons: [Button] = [
             Button(
-                (800, 10), (40, 40),
+                (810, 20), (40, 40),
                 image=[
                     pg.image.load(options.fullPath("images", "buttons/speed.png")),
                     pg.image.load(options.fullPath("images", "buttons/speedx.png")),
                 ],
                 toggleable=True,
                 callback=self.toggleSpeed
+            ),
+            Button(
+                (760, 20), (40, 40),
+                image=pg.image.load(options.fullPath("images", "buttons/pause.png")),
+                callback=self.pauseMenu
             )
         ]
 
@@ -93,6 +99,11 @@ class GameUI:
         """Adds xp to the xp_bar, and call the level_up function of the Character if the objective is reached"""
         self.xp_bar.add_xp(amount)
 
-    def toggleSpeed(self):
+    @staticmethod
+    def toggleSpeed():
         options = GameOptions.getInstance()
         options.toggleGameSpeed()
+
+    @staticmethod
+    def pauseMenu():
+        PauseMenu()()
