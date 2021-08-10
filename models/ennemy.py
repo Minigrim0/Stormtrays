@@ -40,8 +40,9 @@ class Ennemy:
 
     def update(self, elapsed_time: float):
         """Updates living ennemies + tries to spawn more"""
-        invoke = random.random() * 1000/Level.getInstance().spawn_rate
-        if invoke <= 1:
+        options = GameOptions.getInstance()
+        invoke = (random.random() * (1000/options.game_speed))/Level.getInstance().spawn_rate
+        if invoke <= 1:  # We start with once in a thousand tries
             self.invoke()
 
         for ennemy in self.ennemies:
