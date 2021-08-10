@@ -4,7 +4,9 @@ from models.character import Character
 from models.game_options import GameOptions
 from models.level import Level
 from models.screen import Screen
+
 from UI.components.xp_bar import XPBar
+from UI.components.button import Button
 
 
 class GameUI:
@@ -23,7 +25,8 @@ class GameUI:
             raise RuntimeError("Trying to instanciate a second object from a signleton class")
         GameUI.instance = self
 
-        self.font = GameOptions.getInstance().fonts["MedievalSharp-xOZ5"]["20"]
+        options: GameOptions = GameOptions.getInstance()
+        self.font = options.fonts["MedievalSharp-xOZ5"]["20"]
 
         self.stats_background = pg.image.load("assets/images/overlays/stats_background.png")
 
@@ -33,6 +36,18 @@ class GameUI:
         self.ennemies_killed: pg.Surface = None
         self.character_damage: pg.Surface = None
         self.character_speed: pg.Surface = None
+
+        self.buttons: [Button] = [
+            Button(
+                (800, 10), (40, 40),
+                image=[
+                    pg.image.load(options.fullPath("images", "buttons/speed.png")),
+                    pg.image.load(options.fullPath("images", "buttons/speedx.png")),
+                ],
+                toggleable=True,
+                callback=self.toggleSpeed
+            )
+        ]
 
         self.xp_bar = XPBar(
             (870, 86), (270, 18),
@@ -55,7 +70,9 @@ class GameUI:
         self.character_speed = self.font.render("Vitesse : %i " % character.speed, 1, (0, 0, 0))
 
     def handleEvent(self, event):
-        pass
+        if event.type == pg.MOUSEBUTTONDOWN:
+            for button in self.buttons:
+                button.click(event.pos)
 
     def draw(self, screen: Screen):
         screen.blit(self.stats_background, (870, 0))
@@ -66,6 +83,9 @@ class GameUI:
         screen.blit(self.character_level, (1020, 3))
         screen.blit(self.ennemies_killed, (1020, 27))
         screen.blit(self.character_damage, (1020, 53))
+
+        for button in self.buttons:
+            button.draw(screen)
 
         self.xp_bar.draw(screen)
 
