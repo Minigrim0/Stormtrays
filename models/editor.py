@@ -136,7 +136,7 @@ class Editor(Runnable):
             arect = pygame.Rect(0, 0, consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT)
             sub = self.screen.subsurface(arect)
             sub = pygame.transform.scale(sub, (39 * 5, 22 * 5))
-            dirname, filename = os.path.split(full_path)
+            _dirname, filename = os.path.split(full_path)
             filename, _ext = os.path.splitext(filename)
 
             thumbnail_path = os.path.join(options.fullPath("levels", "thumbnails"), filename + ".png")
