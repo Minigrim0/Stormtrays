@@ -20,7 +20,8 @@ class Button:
         if self.toggleable and len(self.image) == 1:
             raise RuntimeError("No second image available for toggleable button")
 
-    def toPos(self, position: tuple, insize: tuple, outsize: tuple):
+    @staticmethod
+    def toPos(position: tuple, insize: tuple, outsize: tuple):
         final_position = []
         for axis, var in enumerate(position):
             if type(var) is int:

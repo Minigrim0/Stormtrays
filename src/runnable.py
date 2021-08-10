@@ -10,11 +10,13 @@ class Runnable:
     def __call__(self, *args, **kwargs):
         self.run(*args, **kwargs)
 
-    def _start(self, *args, **kwargs):
+    @staticmethod
+    def _start(*args, **kwargs):
         """The method called before the runnable loop is launched"""
         logging.warning("Calling not implemented method _start")
 
-    def _end(self):
+    @staticmethod
+    def _end():
         """The method called before the runnable loop ends"""
         logging.warning("Calling not implemented method _end")
 
@@ -26,6 +28,7 @@ class Runnable:
             self.loop()
         self._end()
 
-    def loop(self):
+    @staticmethod
+    def loop():
         """Loop must be overriden in child class"""
         raise NotImplementedError()

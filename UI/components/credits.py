@@ -111,7 +111,8 @@ class Credits:
             }
         )
 
-    def _mergeImages(self, images: [pg.Surface]) -> pg.Surface:
+    @staticmethod
+    def _mergeImages(images: [pg.Surface]) -> pg.Surface:
         final_size = (
             sum([img.get_size()[0] for img in images]),
             max([img.get_size()[1] for img in images])
@@ -130,7 +131,8 @@ class Credits:
 
         return final_image
 
-    def _getElementXPosition(self, element_size: int, position: str, min_pos_x: int = 0, max_pos_x: int = 1152) -> int:
+    @staticmethod
+    def _getElementXPosition(element_size: int, position: str, min_pos_x: int = 0, max_pos_x: int = 1152) -> int:
         if position == "centered":
             return (max_pos_x - element_size) / 2
         elif position == "left":

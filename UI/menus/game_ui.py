@@ -110,7 +110,8 @@ class GameUI:
         options = GameOptions.getInstance()
         options.toggleGameSpeed()
 
-    def pauseMenu(self):
+    @staticmethod
+    def pauseMenu():
         from models.game import Game
         PauseMenu(background=Game.getInstance()._draw)()
 
