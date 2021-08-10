@@ -23,7 +23,7 @@ class Menu:
 
     @property
     def pickFrom(self):
-        return self.pickFromBase | {key: self.buttons[key].image for key in self.buttons.keys()}
+        return self.pickFromBase | {key: self.buttons[key].image for key in self.buttons}
 
     def draw(self):
         """Draws the menu's buttons on screen"""
