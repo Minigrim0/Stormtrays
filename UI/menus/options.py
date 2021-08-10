@@ -40,18 +40,20 @@ class OptionMenu(Menu, Runnable):
             "+", 1, (0, 0, 0)
         )
 
-        self.buttons["lessVolume"] = Button((655, 302), (40, 40), Moins, self.updateVolume, -1)
-        self.buttons["moreVolume"] = Button((705, 302), (40, 40), Plus, self.updateVolume, 1)
-        self.buttons["lessDifficulty"] = Button((655, 347), (40, 40), Moins, self.updateDifficulty, -1)
-        self.buttons["moreDifficulty"] = Button((705, 347), (40, 40), Plus, self.updateDifficulty, 1)
+        self.buttons["lessVolume"] = Button((655, 302), (40, 40), image=Moins, callback=self.updateVolume, value=-1)
+        self.buttons["moreVolume"] = Button((705, 302), (40, 40), image=Plus, callback=self.updateVolume, value=1)
+        self.buttons["lessDifficulty"] = Button(
+            (655, 347), (40, 40), image=Moins, callback=self.updateDifficulty, value=-1)
+        self.buttons["moreDifficulty"] = Button(
+            (705, 347), (40, 40), image=Plus, callback=self.updateDifficulty, value=1)
         self.buttons["quitOptions"] = Button(
-            (516, 407), (120, 50), pg.image.load(constants.quitpaus).convert_alpha(), self.quitMenu
+            (516, 407), (120, 50), image=pg.image.load(constants.quitpaus).convert_alpha(), callback=self.quitMenu
         )
 
-        self.buttons["play"] = Button((1102, 464), (500, 50), self.pickFromBase["play"])
-        self.buttons["credits"] = Button((1102, 524), (500, 50), self.pickFromBase["credits"])
-        self.buttons["options"] = Button((1002, 584), (500, 50), self.pickFromBase["options"])
-        self.buttons["quit"] = Button((1102, 644), (500, 50), self.pickFromBase["quit"])
+        self.buttons["play"] = Button((1102, 464), (500, 50), image=self.pickFromBase["play"])
+        self.buttons["credits"] = Button((1102, 524), (500, 50), image=self.pickFromBase["credits"])
+        self.buttons["options"] = Button((1002, 584), (500, 50), image=self.pickFromBase["options"])
+        self.buttons["quit"] = Button((1102, 644), (500, 50), image=self.pickFromBase["quit"])
 
     def _build(self):
         options = GameOptions.getInstance()

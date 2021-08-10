@@ -38,7 +38,8 @@ class Screen:
         from UI.components.button import Button  # NOQA
 
         self.scaleButton = Button(
-            (2, self.initial_size[1] - 22), (20, 20), pygame.image.load("UI/assets/images/scale.png").convert_alpha()
+            (2, self.initial_size[1] - 22), (20, 20),
+            image=pygame.image.load("UI/assets/images/scale.png").convert_alpha()
         )
         self.scaleButton.callback = self.rescale
 

@@ -34,8 +34,8 @@ class MainMenu(Menu, Runnable):
         self.buttons["play"] = Button(
             (652, 464),
             (500, 50),
-            pygame.image.load(f"{options['paths']['images']}buttons/MenuButton.png").convert_alpha(),
-            self.launch,
+            image=pygame.image.load(f"{options['paths']['images']}buttons/MenuButton.png").convert_alpha(),
+            callback=self.launch,
             toLaunch="game",
         )
         self.buttons["play"].build("Jouer", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
@@ -43,8 +43,8 @@ class MainMenu(Menu, Runnable):
         self.buttons["options"] = Button(
             (752, 584),
             (500, 50),
-            pygame.image.load(f"{options['paths']['images']}buttons/MenuButton.png").convert_alpha(),
-            self.launch,
+            image=pygame.image.load(f"{options['paths']['images']}buttons/MenuButton.png").convert_alpha(),
+            callback=self.launch,
             toLaunch="options",
         )
         self.buttons["options"].build("Options", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
@@ -52,8 +52,8 @@ class MainMenu(Menu, Runnable):
         self.buttons["credits"] = Button(
             (702, 524),
             (500, 50),
-            pygame.image.load(f"{options['paths']['images']}buttons/MenuButton.png").convert_alpha(),
-            self.launch,
+            image=pygame.image.load(f"{options['paths']['images']}buttons/MenuButton.png").convert_alpha(),
+            callback=self.launch,
             toLaunch="credits",
         )
         self.buttons["credits"].build("Credits", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
@@ -61,8 +61,8 @@ class MainMenu(Menu, Runnable):
         self.buttons["quit"] = Button(
             (802, 644),
             (500, 50),
-            pygame.image.load(f"{options['paths']['images']}buttons/MenuButton.png").convert_alpha(),
-            self.launch,
+            image=pygame.image.load(f"{options['paths']['images']}buttons/MenuButton.png").convert_alpha(),
+            callback=self.launch,
             toLaunch="quit",
         )
         self.buttons["quit"].build("Quitter", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))

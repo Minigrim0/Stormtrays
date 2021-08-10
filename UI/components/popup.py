@@ -17,11 +17,11 @@ class Popup:
 
         background_size = self.background.get_size()
 
-        self.button = Button(button_position, button_size, button_image, callback=self.toggleVisibility)
+        self.button = Button(button_position, button_size, image=button_image, callback=self.toggleVisibility)
         self.cross_button = Button(
             (self.position[0] + background_size[0] - 15, self.position[1] - 5),
             (20, 20),
-            pg.image.load("UI/assets/images/cross.png"),
+            image=pg.image.load("UI/assets/images/cross.png"),
             callback=self.toggleVisibility
         )
 
