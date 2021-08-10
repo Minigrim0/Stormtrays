@@ -5,6 +5,7 @@ from models.ennemy import Ennemy
 from models.level import Level
 from models.projectile import Projectile
 from models.screen import Screen
+from models.game_options import GameOptions
 from models.tower import Tower
 from src.invocation import Invocation
 from src.runnable import Runnable
@@ -41,6 +42,13 @@ class Game(Runnable):
 
         # Compteur_Iteration = 0
         # Time_50 = myfont2.render("0", 1, (0, 0, 0))
+
+    def _end(self):
+        """Called at the end of the last loop of the runnable"""
+        # Make sure the reinit the game speed
+
+        options = GameOptions.getInstance()
+        options.setSpeed(1)
 
     def loop(self):
         Level.getInstance().update(self.screen.elapsed_time)
