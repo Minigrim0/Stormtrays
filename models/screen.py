@@ -48,11 +48,16 @@ class Screen:
         if icon is not None and icon != "":
             pygame.display.set_icon(pygame.image.load(icon).convert_alpha())
 
-        self.timeElapsed = 0
+        self.time_elapsed = 0
         self.startTime = time.time()
 
         self.FPS = 0
         self.showFPS = False
+
+    @property
+    def elapsed_time(self):
+        options = GameOptions.getInstance()
+        return self.time_elapsed * options.game_speed
 
     def rescale(self):
         """Resizes the screen to either fullscreen or native size"""
@@ -155,9 +160,9 @@ class Screen:
 
     def update(self):
         """Updates the time variables, and calculate FPS if necessary"""
-        self.timeElapsed = time.time() - self.startTime
+        self.time_elapsed = time.time() - self.startTime
         self.startTime = time.time()
-        self.FPS = 1 / self.timeElapsed
+        self.FPS = 1 / self.time_elapsed
 
         if self.showFPS:
             font = GameOptions.getInstance().fonts["MedievalSharp-xOZ5"]["14"]
