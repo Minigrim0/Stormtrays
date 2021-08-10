@@ -55,10 +55,14 @@ Then run the executable located at `dist/Stormtrays/Stormtrays` and `dist/Editor
 * [X] Implement pause menu
 * [X] Add end menu
 * [X] Reset game when leaving
+* [ ] Block placing towers everywhere (And show blocked tiles)
+* [ ] Show pause menu when clicking escape
 * [ ] Implement automatic builds
 * [ ] Profile the execution to find optimizations
+* [ ] Fix deepsource issues
 
 ## Later
+* [ ] Implement tower stats
 * [ ] Implement bombs (V2.1)
 * [ ] Add starting tile (V2.1)
 * [ ] Allow multiple bastions per level (V2.1)
