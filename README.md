@@ -51,7 +51,7 @@ Then run the executable located at `dist/Stormtrays/Stormtrays` and `dist/Editor
 * [X] Draw level grid when placing a tower
 * [X] Make ennemys health bars not sine (Too many updates on the advancement makes it buggy)
 * [X] Re-implement difficulty parameter
-* [ ] Implement time acceleration
+* [X] Implement time acceleration
 * [ ] Implement pause menu
 * [ ] Add end menu
 * [ ] Reset game when leaving
