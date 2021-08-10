@@ -4,6 +4,8 @@ import pygame as pg
 
 from models.ennemy import Ennemy
 from models.screen import Screen
+from models.level import Level
+
 from src.ennemy import EnnemyDO
 from src.utils.distance_between import distance_between
 from src.utils.rot_center import rotCenter
@@ -66,8 +68,10 @@ class ProjectileDO:
 
         for ennemy in ennemy_list:
             if distance_between(self.position, ennemy.absolute_position) < 64:
-                if ennemy.hit(self.degats):
+                ennemy.hit(self.degats)
+                if not ennemy.alive:
                     self.tower.add_count("kills", 1)
+                    Level.getInstance().add_count("tower_kills", 1)
                 self.tower.add_count("damage", self.degats)
 
                 if self.zone_damage is not True:

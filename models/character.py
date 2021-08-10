@@ -4,6 +4,8 @@ import pygame as pg
 
 from models.ennemy import Ennemy
 from models.screen import Screen
+from models.level import Level
+
 from src.ennemy import EnnemyDO
 from src.utils.distance_between import distance_between
 from src.utils.find_angle import findAngle
@@ -89,6 +91,7 @@ class Character:
             self.target.hit(self.damage)
             if not self.target.alive:
                 self.kills += 1
+                Level.getInstance().add_count("player_kills", 1)
                 self.ui.add_xp(self.target.max_health)
                 self.target = (self.posx, self.posy)
         self.setAnimation("idle")

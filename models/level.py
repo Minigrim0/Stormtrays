@@ -62,9 +62,13 @@ class Level:
 
         # self.editorImage["QG", 0] = pg.image.load("img/QuestGiverF1.png").convert_alpha()
 
+        self.counters = {
+            "tower_kills": 0,
+            "player_kills": 0
+        }
+
         self.bastions: list(Bastion) = []
         self.gold = 500
-        self.killed_ennemies = 0
 
         self.background: pg.Surface = None
         self.backgroundName = "fond1"
@@ -74,6 +78,10 @@ class Level:
         self.FondFenetre = None
         self.map = None
         self.initMap()
+
+    @property
+    def killed_ennemies(self) -> int:
+        return self.counters["player_kills"] + self.counters["tower_kills"]
 
     @property
     def health(self):
@@ -92,7 +100,7 @@ class Level:
         """Returns the spawn rate of the ennemies, based on the difficulty and the amount of killed ennemies"""
         options = GameOptions.getInstance()
 
-        return options.difficulty * self.killed_ennemies
+        return (0.2 * options.difficulty) * (0.1 * self.killed_ennemies) + 1
 
     def _build(self, nomfichier, editor=False):
         """Builds the level from a file
@@ -211,3 +219,6 @@ class Level:
 
     def canAfford(self, amount: int):
         return self.gold - amount > 0
+
+    def add_count(self, counter: str, amount: int):
+        self.counters[counter] += 1
