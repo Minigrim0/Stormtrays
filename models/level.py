@@ -231,4 +231,4 @@ class Level:
         return self.gold - amount > 0
 
     def add_count(self, counter: str, amount: int):
-        self.counters[counter] += 1
+        self.counters[counter] += amount
