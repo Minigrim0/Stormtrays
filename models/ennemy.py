@@ -77,3 +77,6 @@ class Ennemy:
 
     def getEnnemyList(self):
         return self.ennemies
+
+    def reset(self):
+        self.ennemies = []

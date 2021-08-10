@@ -42,12 +42,12 @@ class Character:
 
         self.kills = 0
 
-        from UI.menus.game_ui import GameUI
-        self.ui = GameUI.getInstance()
-
         self.Is_Returned = False
         self.capacite1 = False
         self.capacite2 = False
+
+        from UI.menus.game_ui import GameUI
+        self.ui = GameUI.getInstance()
 
         self.animations = {
             "idle": ImageAnimation("assets/images/animations/character/idle/", loop=-1, flippable=True),
@@ -166,3 +166,23 @@ class Character:
                 self.setAnimation("walk", direction=(movement_x > 0))
             else:
                 self.setAnimation("idle")
+
+    def reset(self):
+        self.target = (576, 352)
+
+        self.posx = 0
+        self.posy = 0
+
+        self.XpToAdd = 0
+        self.xp = 0
+        self.objectif = 10
+        self.level = 1
+        self.damage = 3
+        self.speed = 5
+
+        self.kills = 0
+
+        self.Is_Returned = False
+        self.capacite1 = False
+        self.capacite2 = False
+        self.current_animation = "idle"

@@ -73,7 +73,6 @@ class Level:
         self.size = [18, 11]
 
         self.coins: [Coin] = []
-        self.FondFenetre = None
         self.map = None
         self.initMap()
 
@@ -106,6 +105,8 @@ class Level:
         Args:
             nomfichier ([type]): [description]
         """
+        self.reset()
+
         with open(nomfichier) as f:
             data = json.load(f)
             self.background = pg.image.load(data["background"])
@@ -130,6 +131,17 @@ class Level:
                     elif self.map[x][y].code == "k1":
                         bastion = Bastion((x, y), initial_health=100)
                         self.bastions.append(bastion)
+
+    def reset(self):
+        self.counters = {
+            "tower_kills": 0,
+            "player_kills": 0
+        }
+
+        self.bastions: list(Bastion) = []
+        self.gold = 500
+
+        self.coins: [Coin] = []
 
     def initMap(self):
         """Empties the level"""

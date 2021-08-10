@@ -53,8 +53,8 @@ Then run the executable located at `dist/Stormtrays/Stormtrays` and `dist/Editor
 * [X] Re-implement difficulty parameter
 * [X] Implement time acceleration
 * [X] Implement pause menu
-* [ ] Add end menu
-* [ ] Reset game when leaving
+* [X] Add end menu
+* [X] Reset game when leaving
 * [ ] Implement automatic builds
 * [ ] Profile the execution to find optimizations
 

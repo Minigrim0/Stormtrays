@@ -148,3 +148,8 @@ class Tower:
         if Level.getInstance().canAfford(tower_data["price"]):
             self.selectedTower = TowerDO(tower_data)
             self.popup.close()
+
+    def reset(self):
+        self.towers = []  # In game Towers
+        self.hovered_tower_name = None
+        self.selectedTower: TowerDO = None

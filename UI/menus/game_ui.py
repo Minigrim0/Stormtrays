@@ -37,7 +37,14 @@ class GameUI:
         self.character_damage: pg.Surface = None
         self.character_speed: pg.Surface = None
 
-        self.buttons: [Button] = [
+        self.buttons: [Button] = None
+        self.xp_bar: XPBar = None
+
+        self._build()
+
+    def _build(self):
+        options: GameOptions = GameOptions.getInstance()
+        self.buttons = [
             Button(
                 (810, 20), (40, 40),
                 image=[
@@ -106,3 +113,7 @@ class GameUI:
     def pauseMenu(self):
         from models.game import Game
         PauseMenu(background=Game.getInstance()._draw)()
+
+    def reset(self):
+        self.xp_bar.resetBar()
+        self.update(0)

@@ -108,3 +108,11 @@ class XPBar(LoadingBar):
         else:
             self.set_advancement(self.advancement + amount)
         self._genText()
+
+    def resetBar(self):
+        self.setObjective(20)
+        self.stashed = 0
+        self.current_advancement = 0
+        self.advancement = 0
+        self.old_advancement = 0
+        self._genText()

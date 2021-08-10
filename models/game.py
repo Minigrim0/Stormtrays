@@ -31,9 +31,6 @@ class Game(Runnable):
         self.level = Level.getInstance()
         self.screen: Screen = None
 
-        self.level.gold = 500
-        self.level.Nombre_Ennemis_Tue = 0
-
         # CooldownInvoc = 0
         # TpsCoolDown = 0
 
@@ -46,8 +43,13 @@ class Game(Runnable):
         # Time_50 = myfont2.render("0", 1, (0, 0, 0))
 
     def _start(self, screen: Screen, levelPath: str):
+        print("STARTING GAME")
         self.level._build(levelPath)
         self.screen = screen
+        Tower.getInstance().reset()
+        Ennemy.getInstance().reset()
+        Character.getInstance().reset()
+        GameUI.getInstance().reset()
 
     def _end(self):
         """Called at the end of the last loop of the runnable"""
