@@ -13,11 +13,22 @@ from UI.menus.game_ui import GameUI
 
 
 class Game(Runnable):
-    def __init__(self, screen: Screen, levelPath: str):
+    instance = None
+
+    @staticmethod
+    def getInstance():
+        if Game.instance is None:
+            Game()
+        return Game.instance
+
+    def __init__(self):
+        if Game.instance is not None:
+            raise RuntimeError("Trying to instanciate a second class from a singleton")
+        Game.instance = self
+
         super().__init__()
         self.level = Level.getInstance()
-        self.level._build(levelPath)
-        self.screen = screen
+        self.screen: Screen = None
 
         self.level.gold = 500
         self.level.Nombre_Ennemis_Tue = 0
@@ -32,6 +43,10 @@ class Game(Runnable):
         # Tps_Invoc_affiche = None
         # Compteur_Iteration = 0
         # Time_50 = myfont2.render("0", 1, (0, 0, 0))
+
+    def _start(self, screen: Screen, levelPath: str):
+        self.level._build(levelPath)
+        self.screen = screen
 
     def _end(self):
         """Called at the end of the last loop of the runnable"""
@@ -71,7 +86,7 @@ class Game(Runnable):
         Level.getInstance().update(self.screen.elapsed_time)
         Ennemy.getInstance().update(self.screen.elapsed_time)
         Character.getInstance().update(self.screen.elapsed_time)
-        GameUI.getInstance().update(self.screen.elapsed_time, menu_background=self._draw)
+        GameUI.getInstance().update(self.screen.elapsed_time)
         Tower.getInstance().update(self.screen.elapsed_time)
         Projectile.getInstance().update(self.screen.elapsed_time)
 

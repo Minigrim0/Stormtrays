@@ -97,7 +97,7 @@ class LevelSelectMenu(Menu, Runnable):
         """Callback for the levels' cards, launches the selected level"""
         options = GameOptions.getInstance()
         levelPath = options.fullPath("levels", f"{level}.json")
-        Game(self.screen, levelPath)()
+        Game.getInstance()(self.screen, levelPath)
 
     def back(self):
         """Callback for the back button, gets the user back to the main menu"""
