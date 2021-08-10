@@ -49,6 +49,7 @@ class GameOptions:
             self.settings = json.load(settings)
 
     def fullPath(self, category, path):
+        """Returns the concatenated full path for a category and a sub path"""
         return os.path.join(self["paths"][category], path)
 
     def changeDifficulty(self, value):
@@ -63,4 +64,5 @@ class GameOptions:
         pg.mixer.music.set_volume(self.volume / 10)
 
     def toggleGameSpeed(self):
+        """Toggles the speed of the game between *4 et *1"""
         self.game_speed = 1 if self.game_speed == 4 else 4

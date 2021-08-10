@@ -61,7 +61,7 @@ class LoadingBar:
     def _buildImage(self, force: bool = False):
         """Builds the foreground image if the moving_speed is not null"""
         if self.size[0] > 0 or (force and int(self._percentAdvanced) > 0):
-            self.fg_image = pg.Surface((int(self._percentAdvanced * self.size[0]), self.size[1]))
+            self.fg_image = pg.Surface((int(self._percentAdvanced * self.size[0]) + 1, self.size[1]))
             self.fg_image.fill(self.fg_color)
 
     def reset(self):
