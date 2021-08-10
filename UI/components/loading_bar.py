@@ -53,10 +53,9 @@ class LoadingBar:
 
             # First derivative of the position A(x - sin(pi * x) / pi)
             return A_x * (1 - m.cos(wt))
-        elif self.animation_type == "linear":
+        if self.animation_type == "linear":
             return self.speed * (-1) ** (self.advancement < self.current_advancement)
-        else:
-            return 0
+        return 0
 
     def _buildImage(self, force: bool = False):
         """Builds the foreground image if the moving_speed is not null"""

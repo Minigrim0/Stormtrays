@@ -135,9 +135,9 @@ class Credits:
     def _getElementXPosition(element_size: int, position: str, min_pos_x: int = 0, max_pos_x: int = 1152) -> int:
         if position == "centered":
             return (max_pos_x - element_size) / 2
-        elif position == "left":
+        if position == "left":
             return min_pos_x
-        elif position == "right":
+        if position == "right":
             return max_pos_x - element_size
         return 0
 

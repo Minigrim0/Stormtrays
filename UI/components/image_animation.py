@@ -175,8 +175,7 @@ class ImageAnimation:
         """Returns the animation's current frame"""
         if self.flipped:
             return self.images_flipped[self.step]
-        else:
-            return self.images[self.step]
+        return self.images[self.step]
 
     def draw(self, screen: Screen, position: tuple, centered: bool = False):
         """Draws the current frame on the screen, at the given position"""
