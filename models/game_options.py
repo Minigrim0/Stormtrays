@@ -26,6 +26,7 @@ class GameOptions:
 
         self.volume = 5
         self.difficulty = 5
+        self.game_speed = 1
 
         self.fonts = {}
 
@@ -60,3 +61,6 @@ class GameOptions:
         self.volume += value
         self.volume = bound(0, 10, self.volume)
         pg.mixer.music.set_volume(self.volume / 10)
+
+    def toggleGameSpeed(self):
+        self.game_speed = 1 if self.game_speed == 4 else 4
