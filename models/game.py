@@ -71,7 +71,7 @@ class Game(Runnable):
         Level.getInstance().update(self.screen.elapsed_time)
         Ennemy.getInstance().update(self.screen.elapsed_time)
         Character.getInstance().update(self.screen.elapsed_time)
-        GameUI.getInstance().update(self.screen.elapsed_time)
+        GameUI.getInstance().update(self.screen.elapsed_time, menu_background=self._draw)
         Tower.getInstance().update(self.screen.elapsed_time)
         Projectile.getInstance().update(self.screen.elapsed_time)
 

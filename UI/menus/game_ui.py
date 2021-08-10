@@ -61,9 +61,13 @@ class GameUI:
             overlay="assets/images/overlays/xp_bar.png"
         )
 
+        self.menu_background: callable = None
+
         self.update(0)
 
-    def update(self, elapsed_time: float):
+    def update(self, elapsed_time: float, menu_background: callable = None):
+        self.menu_background = menu_background
+
         level = Level.getInstance()
         character = Character.getInstance()
         self.xp_bar.update(elapsed_time)
@@ -104,6 +108,5 @@ class GameUI:
         options = GameOptions.getInstance()
         options.toggleGameSpeed()
 
-    @staticmethod
-    def pauseMenu():
-        PauseMenu()()
+    def pauseMenu(self):
+        PauseMenu(background=self.menu_background)()
