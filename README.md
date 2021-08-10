@@ -52,7 +52,7 @@ Then run the executable located at `dist/Stormtrays/Stormtrays` and `dist/Editor
 * [X] Make ennemys health bars not sine (Too many updates on the advancement makes it buggy)
 * [X] Re-implement difficulty parameter
 * [X] Implement time acceleration
-* [ ] Implement pause menu
+* [X] Implement pause menu
 * [ ] Add end menu
 * [ ] Reset game when leaving
 * [ ] Implement automatic builds
