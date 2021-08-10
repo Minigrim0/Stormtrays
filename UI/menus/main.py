@@ -34,7 +34,7 @@ class MainMenu(Menu, Runnable):
         self.buttons["play"] = Button(
             (652, 464),
             (500, 50),
-            pygame.image.load(f"{options['paths']['images']}Boutons/MenuButton.png").convert_alpha(),
+            pygame.image.load(f"{options['paths']['images']}buttons/MenuButton.png").convert_alpha(),
             self.launch,
             toLaunch="game",
         )
@@ -43,7 +43,7 @@ class MainMenu(Menu, Runnable):
         self.buttons["options"] = Button(
             (752, 584),
             (500, 50),
-            pygame.image.load(f"{options['paths']['images']}Boutons/MenuButton.png").convert_alpha(),
+            pygame.image.load(f"{options['paths']['images']}buttons/MenuButton.png").convert_alpha(),
             self.launch,
             toLaunch="options",
         )
@@ -52,7 +52,7 @@ class MainMenu(Menu, Runnable):
         self.buttons["credits"] = Button(
             (702, 524),
             (500, 50),
-            pygame.image.load(f"{options['paths']['images']}Boutons/MenuButton.png").convert_alpha(),
+            pygame.image.load(f"{options['paths']['images']}buttons/MenuButton.png").convert_alpha(),
             self.launch,
             toLaunch="credits",
         )
@@ -61,7 +61,7 @@ class MainMenu(Menu, Runnable):
         self.buttons["quit"] = Button(
             (802, 644),
             (500, 50),
-            pygame.image.load(f"{options['paths']['images']}Boutons/MenuButton.png").convert_alpha(),
+            pygame.image.load(f"{options['paths']['images']}buttons/MenuButton.png").convert_alpha(),
             self.launch,
             toLaunch="quit",
         )

@@ -27,7 +27,7 @@ class LevelSelectMenu(Menu, Runnable):
         self.buttons["back"] = Button(
             (654, 0),
             (500, 50),
-            pg.image.load(options.fullPath("images", "Boutons/MenuButton.png")).convert_alpha(),
+            pg.image.load(options.fullPath("images", "buttons/MenuButton.png")).convert_alpha(),
             self.back,
         )
         self.buttons["back"].build("Retour", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))

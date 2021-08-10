@@ -33,7 +33,7 @@ class Tower:
             background=pg.image.load("assets/images/overlays/tower_menu.png"),
             button_position=(32, 654),
             button_size=(45, 45),
-            button_image=pg.image.load("assets/images/Boutons/tower_button.png").convert_alpha()
+            button_image=pg.image.load("assets/images/buttons/tower_button.png").convert_alpha()
         )
 
         self.towers: list(TowerDO) = []  # In game Towers
@@ -84,10 +84,10 @@ class Tower:
         self.hovered_tower_name = self.font.render(tower_data["name"], 1, (0, 0, 0))
         self.hovered_tower = tower_data
 
-    def update(self, timeElapsed: float):
+    def update(self, elapsed_time: float):
         """Updates the state of the in game towers"""
         for tower in self.towers:
-            tower.update(timeElapsed)
+            tower.update(elapsed_time)
 
     def draw(self, screen: Screen):
         """Draws the in game towers and the tower menu on the screen"""
