@@ -146,10 +146,10 @@ class ImageAnimation:
         """Sets the direction of the animation"""
         self.flipped = not right
 
-    def update(self, timeElapsed):
+    def update(self, elapsed_time):
         """Updates the animation frame, time,..."""
         if self.playing:
-            self.last_step += timeElapsed
+            self.last_step += elapsed_time
             if self.last_step > (1 / self.speed):
                 self._stepUp()
 

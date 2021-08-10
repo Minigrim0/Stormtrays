@@ -38,7 +38,7 @@ class Ennemy:
                 self.available_ennemies.append(data)
                 self.ennemies_weights.append(data["weight"])
 
-    def update(self, timeElapsed: float):
+    def update(self, elapsed_time: float):
         """Updates living ennemies + tries to spawn more"""
         invoke = random.random() * 1000/Level.getInstance().spawn_rate
         if invoke <= 1:
@@ -54,7 +54,7 @@ class Ennemy:
                     )
                 )
                 del self.ennemies[self.ennemies.index(ennemy)]
-            ennemy.update(timeElapsed)
+            ennemy.update(elapsed_time)
 
     def draw(self, screen):
         """Draws ennemies on screen"""

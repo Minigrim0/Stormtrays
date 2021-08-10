@@ -171,11 +171,11 @@ class Level:
 
         self.map[position[0]][position[1]] = tile
 
-    def update(self, timeElapsed: float):
+    def update(self, elapsed_time: float):
         for bastion in self.bastions:
-            bastion.update(timeElapsed)
+            bastion.update(elapsed_time)
         for coin in self.coins:
-            if coin.update(timeElapsed):
+            if coin.update(elapsed_time):
                 del self.coins[self.coins.index(coin)]
 
     def draw(self, screen, editor=False):

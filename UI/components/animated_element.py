@@ -37,14 +37,14 @@ class Animated:
 
         return speed_x, speed_y
 
-    def update(self, timeElapsed):
+    def update(self, elapsed_time):
         """Updates the position of the object depending on time"""
-        self.time += timeElapsed
+        self.time += elapsed_time
         speed_x, speed_y = self.getSpeeds()
 
         self.current_position = (
-            self.current_position[0] + speed_x * timeElapsed,
-            self.current_position[1] + speed_y * timeElapsed,
+            self.current_position[0] + speed_x * elapsed_time,
+            self.current_position[1] + speed_y * elapsed_time,
         )
 
     def draw(self, screen):

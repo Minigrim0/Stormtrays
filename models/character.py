@@ -96,7 +96,7 @@ class Character:
                 self.target = (self.posx, self.posy)
         self.setAnimation("idle")
 
-    def update(self, timeElapsed: float):
+    def update(self, elapsed_time: float):
         """Updates the character, makes him move"""
         # if self.capacite1:
         #     Icapacite1 += 1
@@ -109,8 +109,8 @@ class Character:
 
         if isinstance(self.target, EnnemyDO) and not self.target.alive:
             self.target = (self.posx, self.posy)
-        self.move(timeElapsed)
-        self.getCurrentAnimation().update(timeElapsed)
+        self.move(elapsed_time)
+        self.getCurrentAnimation().update(elapsed_time)
 
     def handleEvent(self, event: pg.event):
         """Handles user events"""
@@ -130,7 +130,7 @@ class Character:
         """Returns the speed in pixel/sec instead of tiles/sec"""
         return self.speed * 64
 
-    def move(self, timeElapsed: float):
+    def move(self, elapsed_time: float):
         """Updates the status of the character"""
         if self.current_animation == "attack":
             return
@@ -142,8 +142,8 @@ class Character:
 
                 angle = findAngle(delta_x, delta_y)
 
-                movement_x = math.cos(angle) * self.real_speed * timeElapsed
-                movement_y = math.sin(angle) * self.real_speed * timeElapsed
+                movement_x = math.cos(angle) * self.real_speed * elapsed_time
+                movement_y = math.sin(angle) * self.real_speed * elapsed_time
 
                 self.posx += movement_x
                 self.posy += movement_y
@@ -158,8 +158,8 @@ class Character:
 
                 angle = findAngle(delta_x, delta_y)
 
-                movement_x = math.cos(angle) * self.real_speed * timeElapsed
-                movement_y = math.sin(angle) * self.real_speed * timeElapsed
+                movement_x = math.cos(angle) * self.real_speed * elapsed_time
+                movement_y = math.sin(angle) * self.real_speed * elapsed_time
 
                 self.posx += movement_x
                 self.posy += movement_y

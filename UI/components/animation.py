@@ -50,9 +50,9 @@ class Animation(Runnable):
     def loop(self):
         self.draw()
         for animated in self.elements:
-            animated.update(self.screen.timeElapsed)
+            animated.update(self.screen.elapsed_time)
             animated.draw(self.screen)
-        self.totalTime -= self.screen.timeElapsed
+        self.totalTime -= self.screen.elapsed_time
         self.handleEvent()
 
         if self.totalTime <= 0:

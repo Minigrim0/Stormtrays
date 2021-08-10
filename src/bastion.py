@@ -24,11 +24,11 @@ class Bastion:
             initial_val=self.initial_health
         )
 
-    def update(self, timeElapsed: float):
+    def update(self, elapsed_time: float):
         """Updates the healthbar of the bastion"""
-        self.healthBar.update(timeElapsed)
+        self.healthBar.update(elapsed_time)
         if self.underAttack[0]:
-            self.underAttack = (True, self.underAttack[1] + (1 * timeElapsed))
+            self.underAttack = (True, self.underAttack[1] + (1 * elapsed_time))
 
             if self.underAttack[1] > 5:
                 self.underAttack = (False, 0)

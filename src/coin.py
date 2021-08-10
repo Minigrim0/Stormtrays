@@ -24,14 +24,14 @@ class Coin:
         font = GameOptions.getInstance().fonts["MedievalSharp-xOZ5"]["14"]
         self.NbrsAffiche = font.render(str(self.amount), 1, (0, 0, 0))
 
-    def update(self, timeElapsed):
+    def update(self, elapsed_time):
         """Updates the position and life_span of the gold coin
 
         Returns:
             bool: whether the animation is over or not
         """
-        self.life_span -= timeElapsed
-        self.posy -= 64 * timeElapsed
+        self.life_span -= elapsed_time
+        self.posy -= 64 * elapsed_time
         if self.life_span <= 0:
             return True
 

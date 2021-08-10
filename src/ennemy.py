@@ -74,22 +74,22 @@ class EnnemyDO:
                 self.absolute_position = (0, y * 64)
                 self.HitBox = pygame.Rect((0, y), (64, 64))
 
-    def update(self, timeElapsed: float):
+    def update(self, elapsed_time: float):
         """Makes the ennemy move and updates it's health bar"""
-        self.animation.update(timeElapsed)
-        self.healthBar.update(timeElapsed)
+        self.animation.update(elapsed_time)
+        self.healthBar.update(elapsed_time)
 
         level = Level.getInstance()
 
         if self.under_attack[0]:
             self.under_attack = (
                 self.under_attack[0],
-                self.under_attack[1] + timeElapsed
+                self.under_attack[1] + elapsed_time
             )
         if self.under_attack[1] >= 5:
             self.under_attack = (False, 0)
 
-        self.count += self.speed * 64 * timeElapsed
+        self.count += self.speed * 64 * elapsed_time
         if self.count >= 64:
             self.count = 0
             self.position = (self.position[0] + self.direction[0], self.position[1] + self.direction[1])

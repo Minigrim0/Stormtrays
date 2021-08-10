@@ -80,19 +80,19 @@ class LoadingBar:
             self.current_advancement = advancement
             self.old_advancement = advancement
 
-    def update(self, timeElapsed: int):
+    def update(self, elapsed_time: int):
         """Updates the bar according to its advancement"""
         if self.old_advancement != self.advancement:
-            self.time += timeElapsed
+            self.time += elapsed_time
 
             speed = self.moving_speed
             if (
                 abs(speed) > 1e-3 and
                 abs(self.current_advancement - self.advancement) > abs(
-                    (self.current_advancement + speed * timeElapsed) - self.advancement
+                    (self.current_advancement + speed * elapsed_time) - self.advancement
                 )
             ):
-                self.current_advancement += speed * timeElapsed
+                self.current_advancement += speed * elapsed_time
                 self._buildImage()
             else:
                 self.current_advancement = self.advancement

@@ -77,9 +77,9 @@ class ProjectileDO:
                 if self.zone_damage is not True:
                     return
 
-    def update(self, timeElapsed: float):
+    def update(self, elapsed_time: float):
         """Updates the position of the projectile according to its speed"""
-        self.advancement += timeElapsed * 64 * self.vitesse / self.Dist
+        self.advancement += elapsed_time * 64 * self.vitesse / self.Dist
 
         if self.advancement >= 1:
             self._dealDamage()

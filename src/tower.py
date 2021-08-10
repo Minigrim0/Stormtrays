@@ -90,7 +90,7 @@ class TowerDO:
         else:
             self.animation.draw(screen, self.position)
 
-    def update(self, timeElapsed: float):
+    def update(self, elapsed_time: float):
         """Updates the in-game towers and the tower menu"""
         if self.placed:
             if self.target is not None and not self.animation.playing and self._targetInRange():
@@ -98,7 +98,7 @@ class TowerDO:
             else:
                 self._acquireTarget()
 
-            self.animation.update(timeElapsed)
+            self.animation.update(elapsed_time)
 
     def shoot(self):
         """Attacks the first ennemy in its sight"""

@@ -4,7 +4,6 @@ from models.character import Character
 from models.game_options import GameOptions
 from models.level import Level
 from models.screen import Screen
-from UI.components.popup import Popup
 from UI.components.xp_bar import XPBar
 
 
@@ -43,10 +42,10 @@ class GameUI:
 
         self.update(0)
 
-    def update(self, timeElapsed: float):
+    def update(self, elapsed_time: float):
         level = Level.getInstance()
         character = Character.getInstance()
-        self.xp_bar.update(timeElapsed)
+        self.xp_bar.update(elapsed_time)
 
         self.gold_amount = self.font.render("Or : %i" % level.gold, 1, (0, 0, 0))
         self.bastion_health = self.font.render("Vie : %i pv." % level.health, 1, (0, 0, 0))
@@ -73,3 +72,7 @@ class GameUI:
     def add_xp(self, amount: int):
         """Adds xp to the xp_bar, and call the level_up function of the Character if the objective is reached"""
         self.xp_bar.add_xp(amount)
+
+    def toggleSpeed(self):
+        options = GameOptions.getInstance()
+        options.toggleGameSpeed()

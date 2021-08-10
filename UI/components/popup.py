@@ -28,7 +28,7 @@ class Popup:
     def addButton(self, button: Button):
         self.buttons.append(button)
 
-    def update(self, timeElapsed):
+    def update(self, elapsed_time):
         pass
 
     def handleEvent(self, event):

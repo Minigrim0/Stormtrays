@@ -46,9 +46,9 @@ class Projectile:
             )
         )
 
-    def update(self, timeElapsed: float):
+    def update(self, elapsed_time: float):
         for projectile in self.projectiles:
-            projectile.update(timeElapsed)
+            projectile.update(elapsed_time)
             if projectile.hasHit:
                 del self.projectiles[self.projectiles.index(projectile)]
 

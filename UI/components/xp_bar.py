@@ -79,10 +79,10 @@ class XPBar(LoadingBar):
         """Sets the value of the hidden max_advancement variable"""
         self.max_advancement = amount
 
-    def update(self, timeElapsed: float):
+    def update(self, elapsed_time: float):
         """Updates the bar"""
-        super().update(timeElapsed)
-        self.level_up_animation.update(timeElapsed)
+        super().update(elapsed_time)
+        self.level_up_animation.update(elapsed_time)
         if self.current_advancement != self.advancement:
             self._genText()
 

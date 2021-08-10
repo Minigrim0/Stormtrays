@@ -40,7 +40,7 @@ class CreditsMenu(Menu, Runnable):
     def _draw(self):
         """Draws the buttons/images on screen"""
         self.credits.draw(self.screen, self.scroll)
-        self.scroll -= 40 * self.screen.timeElapsed
+        self.scroll -= 40 * self.screen.elapsed_time
 
     def handleEvent(self):
         """Handles the user inputs"""
