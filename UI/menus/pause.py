@@ -2,11 +2,11 @@ from copy import copy
 
 import pygame as pg
 
-from models.screen import Screen
 from models.game_options import GameOptions
+from models.screen import Screen
 from src.runnable import Runnable
-from UI.menus.menu import Menu
 from UI.components.button import Button
+from UI.menus.menu import Menu
 
 
 class PauseMenu(Menu, Runnable):

@@ -3,9 +3,8 @@ import math
 import pygame as pg
 
 from models.ennemy import Ennemy
-from models.screen import Screen
 from models.level import Level
-
+from models.screen import Screen
 from src.ennemy import EnnemyDO
 from src.utils.distance_between import distance_between
 from src.utils.rot_center import rotCenter

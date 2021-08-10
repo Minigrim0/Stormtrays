@@ -2,10 +2,10 @@ import pygame as pg
 
 from models.character import Character
 from models.ennemy import Ennemy
+from models.game_options import GameOptions
 from models.level import Level
 from models.projectile import Projectile
 from models.screen import Screen
-from models.game_options import GameOptions
 from models.tower import Tower
 from src.invocation import Invocation
 from src.runnable import Runnable

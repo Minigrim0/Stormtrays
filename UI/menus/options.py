@@ -46,7 +46,9 @@ class OptionMenu(Menu, Runnable):
         self.buttons["moreDifficulty"] = Button(
             (705, 347), (40, 40), image=Plus, callback=self.updateDifficulty, value=1)
         self.buttons["quitOptions"] = Button(
-            (516, 407), (120, 50), image=pg.image.load(options.fullPath("images", "buttons/small_button.png")).convert_alpha(), callback=self.quitMenu
+            (516, 407), (120, 50),
+            image=pg.image.load(options.fullPath("images", "buttons/small_button.png")).convert_alpha(),
+            callback=self.quitMenu
         )
         self.buttons["quitOptions"].build(
             "Retour", options.fonts["MedievalSharp-xOZ5"]["25"],

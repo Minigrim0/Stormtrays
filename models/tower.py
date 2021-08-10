@@ -8,8 +8,8 @@ from models.level import Level
 from models.screen import Screen
 from src.tower import TowerDO
 from UI.components.button import Button
-from UI.components.popup import Popup
 from UI.components.grid import Grid
+from UI.components.popup import Popup
 
 
 class Tower:

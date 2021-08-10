@@ -3,9 +3,8 @@ from copy import copy
 
 import pygame as pg
 
-from models.screen import Screen
 from models.game_options import GameOptions
-
+from models.screen import Screen
 from src.bastion import Bastion
 from src.coin import Coin
 from src.errors.invalidPositionException import InvalidPositionException

@@ -4,9 +4,8 @@ from models.character import Character
 from models.game_options import GameOptions
 from models.level import Level
 from models.screen import Screen
-
-from UI.components.xp_bar import XPBar
 from UI.components.button import Button
+from UI.components.xp_bar import XPBar
 from UI.menus.pause import PauseMenu
 
 
