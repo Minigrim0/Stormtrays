@@ -22,8 +22,8 @@ class Animation(Runnable):
         self.background = None  # Either a pg.Surface or a callable
         self.background_kwargs = background_kwargs
 
-        with open(animation) as animation:
-            data = json.load(animation)
+        with open(animation) as animation_file:
+            data = json.load(animation_file)
             self.load(data, pickFrom=pickFrom, background=background)
 
     def load(self, data: dict, pickFrom: dict = None, background: callable = None):
