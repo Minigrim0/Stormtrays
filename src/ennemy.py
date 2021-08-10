@@ -34,7 +34,8 @@ class EnnemyDO:
         self.healthBar = LoadingBar(
             (0, 0),
             (self.height, 5),
-            max_val=self.max_health, initial_val=self.max_health
+            max_val=self.max_health, initial_val=self.max_health,
+            animation_type="linear", speed=50
         )
         self.animation = ImageAnimation(
             self.propriete["animation"], flippable=True, loop=-1,

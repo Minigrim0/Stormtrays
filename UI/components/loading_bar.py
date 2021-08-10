@@ -10,7 +10,8 @@ class LoadingBar:
 
     def __init__(
         self, pos: tuple, size: tuple, max_val: int = 100, initial_val: int = 0,
-        fg_color: tuple = (76, 187, 23), bg_color: tuple = (138, 7, 7)
+        fg_color: tuple = (76, 187, 23), bg_color: tuple = (138, 7, 7),
+        animation_type="sine", speed=1
     ):
         self.position = pos
         self.size = size
@@ -32,6 +33,9 @@ class LoadingBar:
             self.bg_image = pg.Surface(self.size)
             self.bg_image.fill(self.bg_color)
 
+        self.animation_type = animation_type  # Either sine, linear or none
+        self.speed = speed  # When animation = sine represents the time the animation will take (Otherwise the speed)
+
         self._buildImage(force=True)
 
     @property
@@ -42,12 +46,17 @@ class LoadingBar:
     @property
     def moving_speed(self) -> float:
         """Returns the in/decrease speed of the bar"""
-        A_x = self.advancement - self.old_advancement
+        if self.animation_type == "sine":
+            A_x = self.advancement - self.old_advancement
 
-        wt = (self.time * 2) * m.pi
+            wt = (self.time * 2) * m.pi
 
-        # First derivative of the position A(x - sin(pi * x) / pi)
-        return A_x * (1 - m.cos(wt))
+            # First derivative of the position A(x - sin(pi * x) / pi)
+            return A_x * (1 - m.cos(wt))
+        elif self.animation_type == "linear":
+            return self.speed * (-1) ** (self.advancement < self.current_advancement)
+        else:
+            return 0
 
     def _buildImage(self, force: bool = False):
         """Builds the foreground image if the moving_speed is not null"""
@@ -67,25 +76,32 @@ class LoadingBar:
         self.old_advancement = self.advancement
         self.advancement = advancement
         self.time = 0
+        if self.animation_type == "none":
+            self.current_advancement = advancement
+            self.old_advancement = advancement
 
     def update(self, timeElapsed: int):
         """Updates the bar according to its advancement"""
         if self.old_advancement != self.advancement:
             self.time += timeElapsed
 
-        speed = self.moving_speed
-        if (
-            abs(speed) > 1e-3 and
-            abs(self.current_advancement - self.advancement) > abs(
-                (self.current_advancement + speed * timeElapsed) - self.advancement
-            )
-        ):
-            self.current_advancement += speed * timeElapsed
-            self._buildImage()
-        else:
-            self.current_advancement = self.advancement
-            self.old_advancement = self.advancement
-            self.time = 0
+            speed = self.moving_speed
+            print(self.current_advancement - self.advancement)
+            print((self.current_advancement + speed * timeElapsed) - self.advancement)
+            print("\n\n\n")
+            if (
+                abs(speed) > 1e-3 and
+                abs(self.current_advancement - self.advancement) > abs(
+                    (self.current_advancement + speed * timeElapsed) - self.advancement
+                )
+            ):
+                print(speed * timeElapsed)
+                self.current_advancement += speed * timeElapsed
+                self._buildImage()
+            else:
+                self.current_advancement = self.advancement
+                self.old_advancement = self.advancement
+                self.time = 0
 
     def draw(self, screen: Screen, position: tuple = None):
         """Draws the bar on the screen"""
