@@ -128,7 +128,7 @@ class Level:
                     if self.map[x][y].code not in ("k1", "QG"):
                         self.map[x][y].draw(self.background)
                     elif self.map[x][y].code == "k1":
-                        bastion = Bastion((x, y), initial_health=10000)
+                        bastion = Bastion((x, y), initial_health=100)
                         self.bastions.append(bastion)
 
     def initMap(self):
