@@ -1,0 +1,17 @@
+{
+    "duration": 1.5,
+    "elements": [
+        {
+            "image": "quit",
+            "from": [516, 699],
+            "to": [516, 484],
+            "style": "sine"
+        },
+        {
+            "image": "defeat_text",
+            "from": [386, -15],
+            "to": [386, 200],
+            "style": "sine"
+        }
+    ]
+}
