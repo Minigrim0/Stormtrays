@@ -42,6 +42,7 @@ class Tower:
 
         options = GameOptions.getInstance()
         self.font = options.fonts["MedievalSharp-xOZ5"]["25"]
+        self.hovered_tower: TowerDO = None
         self.hovered_tower_name: pg.Surface = None
         self.missing_funds: pg.Surface = self.font.render("Vous n'avez pas assez d'argent", 1, (200, 100, 100))
         self.grid: pg.Surface = None
