@@ -22,5 +22,5 @@ screen = Screen(
 root = tkinter.Tk()
 root.withdraw()
 
-editor = Editor(screen)
+editor = Editor()
 editor()
