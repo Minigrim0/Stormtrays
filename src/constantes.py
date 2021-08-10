@@ -16,7 +16,6 @@ titre_jeu = "StormTrays - 0 - Alpha 1.3"
 IconImg = "assets/images/Icon.png"
 
 
-poubelle = "assets/images/poubelle.png", "assets/images/poubelle.png"
 fort1 = "assets/images/fort1.png", "assets/images/fort1.png"
 Vide1 = "assets/images/Vide.png", "assets/images/VideE.png"
 

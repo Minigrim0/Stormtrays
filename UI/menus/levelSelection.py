@@ -4,7 +4,6 @@ import os
 
 import pygame as pg
 
-import src.constantes as constants
 from models.game import Game
 from models.game_options import GameOptions
 from src.runnable import Runnable
@@ -21,7 +20,8 @@ class LevelSelectMenu(Menu, Runnable):
         super().__init__(*args, **kwargs)
         self.scrollAmount = 60
 
-        self.semiThing = pg.image.load(constants.sombre).convert_alpha()
+        self.dark_background = pg.Surface((576, 704), pg.SRCALPHA)
+        self.dark_background.fill((0, 0, 0, 128))
 
         options = GameOptions.getInstance()
         self.buttons["back"] = Button(
@@ -66,7 +66,7 @@ class LevelSelectMenu(Menu, Runnable):
 
     def _draw(self):
         """Draws the buttons/images on screen and refreshes it"""
-        self.screen.blit(self.semiThing, (0, 0))
+        self.screen.blit(self.dark_background, (576, 0))
 
         for card in self.cards:
             card.draw(self.screen)

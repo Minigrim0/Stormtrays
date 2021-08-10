@@ -1,7 +1,6 @@
 import pygame as pg
 
 from models.game_options import GameOptions
-from src import constantes as constants
 from src.runnable import Runnable
 from UI.components.animation import Animation
 from UI.components.button import Button

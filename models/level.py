@@ -6,7 +6,6 @@ import pygame as pg
 from models.screen import Screen
 from models.game_options import GameOptions
 
-import src.constantes as consts
 from src.bastion import Bastion
 from src.coin import Coin
 from src.errors.invalidPositionException import InvalidPositionException
@@ -39,7 +38,7 @@ class Level:
             (("assets/images/tiles/turn.png", "assets/images/tiles/left_turn_edit.png"), "t2"),
             (("assets/images/tiles/turn.png", "assets/images/tiles/right_turn_edit.png"), "t1"),
             ("assets/images/tiles/cross.png", "x1"),
-            (consts.poubelle, "p1"),
+            ("assets/images/poubelle.png", "p1"),
             ("assets/images/tiles/fort.png", "k1"),
             ((None, "assets/images/blocked_edit.png"), "v1"),
         ]

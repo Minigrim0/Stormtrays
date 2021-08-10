@@ -1,6 +1,5 @@
 import pygame as pg
 
-import src.constantes as constants
 from models.game_options import GameOptions
 from models.screen import Screen
 from src.runnable import Runnable
@@ -47,7 +46,11 @@ class OptionMenu(Menu, Runnable):
         self.buttons["moreDifficulty"] = Button(
             (705, 347), (40, 40), image=Plus, callback=self.updateDifficulty, value=1)
         self.buttons["quitOptions"] = Button(
-            (516, 407), (120, 50), image=pg.image.load(constants.quitpaus).convert_alpha(), callback=self.quitMenu
+            (516, 407), (120, 50), image=pg.image.load(options.fullPath("images", "buttons/small_button.png")).convert_alpha(), callback=self.quitMenu
+        )
+        self.buttons["quitOptions"].build(
+            "Retour", options.fonts["MedievalSharp-xOZ5"]["25"],
+            text_position=("CENTER", "CENTER")
         )
 
         self.buttons["play"] = Button((1102, 464), (500, 50), image=self.pickFromBase["play"])

@@ -1,6 +1,5 @@
 import pygame as pg
 
-import src.constantes as constants
 from models.game_options import GameOptions
 from models.screen import Screen
 from src.runnable import Runnable
@@ -13,15 +12,27 @@ class QuitMenu(Menu, Runnable):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        options = GameOptions.getInstance()
 
         self.buttons["reprise"] = Button(
-            (516, 297), (120, 50), pg.image.load(constants.reprise).convert_alpha(), self.cancel
+            (516, 297), (120, 50),
+            image=pg.image.load(options.fullPath("images", "buttons/small_button.png")).convert_alpha(),
+            callback=self.cancel
         )
-        self.buttons["confirmQuit"] = Button(
-            (516, 367), (120, 50), pg.image.load(constants.quitpaus).convert_alpha(), self.confirm
+        self.buttons["reprise"].build(
+            "Reprendre", options.fonts["MedievalSharp-xOZ5"]["20"],
+            text_position=("CENTER", "CENTER")
         )
 
-        options = GameOptions.getInstance()
+        self.buttons["confirmQuit"] = Button(
+            (516, 367), (120, 50),
+            image=pg.image.load(options.fullPath("images", "buttons/small_button.png")).convert_alpha(),
+            callback=self.confirm
+        )
+        self.buttons["confirmQuit"].build(
+            "Quitter", options.fonts["MedievalSharp-xOZ5"]["25"],
+            text_position=("CENTER", "CENTER")
+        )
 
         self.menu_background = pg.image.load(
             options.fullPath("images", "backgrounds/submenu_background.png")
