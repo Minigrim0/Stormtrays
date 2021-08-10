@@ -27,7 +27,7 @@ class Screen:
 
         info = pygame.display.Info()
         self.fullSize = (info.current_w, info.current_h)
-        self.screen = None
+        self.display = None
 
         self.fullScreen = fullScreen
         if self.fullScreen:
@@ -75,9 +75,9 @@ class Screen:
             size (tuple): the new size for the screen
         """
         if self.fullScreen:
-            self.screen = pygame.display.set_mode(self.fullSize, pygame.locals.FULLSCREEN)
+            self.display = pygame.display.set_mode(self.fullSize, pygame.locals.FULLSCREEN)
         else:
-            self.screen = pygame.display.set_mode(size, pygame.locals.RESIZABLE)
+            self.display = pygame.display.set_mode(size, pygame.locals.RESIZABLE)
 
         taillex = size[0] / self.initial_size[0]
         tailley = size[1] / self.initial_size[1]
@@ -92,7 +92,7 @@ class Screen:
         """Refreshes the screen"""
         self.update()
         self.scaleButton.draw(self)
-        self.screen.blit(
+        self.display.blit(
             pygame.transform.scale(
                 self.fenetre, (int(self.initial_size[0] * self.taille), int(self.initial_size[1] * self.taille))
             ),
