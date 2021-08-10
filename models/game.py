@@ -67,22 +67,20 @@ class Game(Runnable):
         GameUI.getInstance().draw(self.screen)
         Projectile.getInstance().draw(self.screen)
 
-        """
-        if invocation and not invocation.vit(screen, Liste_Mechants, niveau):
-            King.XpToAdd += invocation.xp
-            invocation = None
+        # if invocation and not invocation.vit(screen, Liste_Mechants, niveau):
+        #     King.XpToAdd += invocation.xp
+        #     invocation = None
 
-        Level_Difficulty = niveau.Set_Difficulty(Difficulte)
+        # Level_Difficulty = niveau.Set_Difficulty(Difficulte)
 
-        if Tps_Invoc_affiche and King.Level_Roi >= 5:
-            screen.blit(TpsRestInvocSombre, (1152 - 550, 10))
-            screen.blit(Tps_Invoc_affiche, (1152 - 535, 25))
-        elif King.Level_Roi >= 5:
-            screen.blit(TpsRestInvoc, (1152 - 550, 10))
+        # if Tps_Invoc_affiche and King.Level_Roi >= 5:
+        #     screen.blit(TpsRestInvocSombre, (1152 - 550, 10))
+        #     screen.blit(Tps_Invoc_affiche, (1152 - 535, 25))
+        # elif King.Level_Roi >= 5:
+        #     screen.blit(TpsRestInvoc, (1152 - 550, 10))
 
-        if King.Level_Roi == 5 and not HaveSeenLvl5Msg:
-            screen.blit(InfoLvl5Img, (0, 0))
-        """
+        # if King.Level_Roi == 5 and not HaveSeenLvl5Msg:
+        #     screen.blit(InfoLvl5Img, (0, 0))
 
     def loop(self):
         """Gets called at each code loop"""
