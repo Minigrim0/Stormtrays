@@ -4,6 +4,7 @@ from copy import copy
 import pygame as pg
 
 from models.screen import Screen
+from models.game_options import GameOptions
 
 import src.constantes as consts
 from src.bastion import Bastion
@@ -64,6 +65,7 @@ class Level:
         self.bastions: list(Bastion) = []
         self.gold = 500
         self.killed_ennemies = 0
+
         self.background: pg.Surface = None
         self.backgroundName = "fond1"
         self.size = [18, 11]
@@ -85,33 +87,14 @@ class Level:
             screen.initial_size[1] / self.size[1],
         )
 
-    def initMap(self):
-        """Empties the level"""
-        self.map = []
-        for x in range(self.size[0]):
-            self.map.append([])
-            for _ in range(self.size[1]):
-                self.map[x].append(None)
+    @property
+    def spawn_rate(self):
+        """Returns the spawn rate of the ennemies, based on the difficulty and the amount of killed ennemies"""
+        options = GameOptions.getInstance()
 
-    def save(self, nomfichier: str, thumbnail_path: str):
-        """Saves the level
+        return options.difficulty * self.killed_ennemies
 
-        Args:
-            nomfichier (str): The name of the file to save the level in
-            thumbnail_path (str): The path of the level's thumbnail
-        """
-        serializedMap = [[tile.toJson() if tile is not None else {} for tile in row] for row in self.map]
-        level = {
-            "background": self.backgroundName,
-            "size": self.size,
-            "map": serializedMap,
-            "thumbnail": thumbnail_path,
-        }
-
-        with open(nomfichier, "w") as f:
-            f.write(json.dumps(level))
-
-    def build(self, nomfichier, editor=False):
+    def _build(self, nomfichier, editor=False):
         """Builds the level from a file
 
         Args:
@@ -141,6 +124,32 @@ class Level:
                     elif self.map[x][y].code == "k1":
                         bastion = Bastion((x, y), initial_health=10000)
                         self.bastions.append(bastion)
+
+    def initMap(self):
+        """Empties the level"""
+        self.map = []
+        for x in range(self.size[0]):
+            self.map.append([])
+            for _ in range(self.size[1]):
+                self.map[x].append(None)
+
+    def save(self, nomfichier: str, thumbnail_path: str):
+        """Saves the level
+
+        Args:
+            nomfichier (str): The name of the file to save the level in
+            thumbnail_path (str): The path of the level's thumbnail
+        """
+        serializedMap = [[tile.toJson() if tile is not None else {} for tile in row] for row in self.map]
+        level = {
+            "background": self.backgroundName,
+            "size": self.size,
+            "map": serializedMap,
+            "thumbnail": thumbnail_path,
+        }
+
+        with open(nomfichier, "w") as f:
+            f.write(json.dumps(level))
 
     def placeTile(self, position: tuple, tile):
         """Places a tile at the given coordinates
@@ -179,42 +188,6 @@ class Level:
 
         for gold in self.coins:
             gold.draw(screen)
-
-    def Set_Difficulty(self, Difficulte):
-        """Changes variables relative to the diffculty information
-
-        Args:
-            Difficulte ([type]): [description]
-
-        Returns:
-            [type]: [description]
-        """
-        Level_Difficulty = 0
-
-        Difficulty = 11 - Difficulte
-
-        if self.killed_ennemies >= 0:
-            Level_Difficulty = 10 * Difficulty
-        if self.killed_ennemies >= 10:
-            Level_Difficulty = 9 * Difficulty
-        if self.killed_ennemies >= 25:
-            Level_Difficulty = 8 * Difficulty
-        if self.killed_ennemies >= 50:
-            Level_Difficulty = 7 * Difficulty
-        if self.killed_ennemies >= 100:
-            Level_Difficulty = 6 * Difficulty
-        if self.killed_ennemies >= 200:
-            Level_Difficulty = 5 * Difficulty
-        if self.killed_ennemies >= 400:
-            Level_Difficulty = 4 * Difficulty
-        if self.killed_ennemies >= 750:
-            Level_Difficulty = 3 * Difficulty
-        if self.killed_ennemies >= 1000:
-            Level_Difficulty = 2 * Difficulty
-        if self.killed_ennemies >= 2500:
-            Level_Difficulty = 1 * Difficulty
-
-        return Level_Difficulty
 
     def hitBastion(self, position: tuple, damage: int = 0) -> bool:
         """Hits the bastion at the given coordinate (if any) with the given amount of damage"""

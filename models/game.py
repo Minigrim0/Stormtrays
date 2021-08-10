@@ -15,7 +15,7 @@ class Game(Runnable):
     def __init__(self, screen: Screen, levelPath: str):
         super().__init__()
         self.level = Level.getInstance()
-        self.level.build(levelPath)
+        self.level._build(levelPath)
         self.screen = screen
 
         # double_invoque = False
