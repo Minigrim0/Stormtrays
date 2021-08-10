@@ -28,9 +28,6 @@ class Popup:
     def addButton(self, button: Button):
         self.buttons.append(button)
 
-    def update(self, elapsed_time):
-        pass
-
     def handleEvent(self, event):
         if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
 
