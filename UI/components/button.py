@@ -4,7 +4,10 @@ import pygame as pg
 class Button:
     """A button that can be clicked and may induce a callback"""
 
-    def __init__(self, pos: tuple, size: tuple, image: pg.Surface = None, callback: callable = None, *cargs, **ckwargs):
+    def __init__(
+        self, pos: tuple, size: tuple, toggleable: bool = False,
+        image: pg.Surface = None, callback: callable = None, *cargs, **ckwargs
+    ):
         self.pos = pos
         self.size = size
         self.image = image
@@ -12,6 +15,10 @@ class Button:
         self.callback: callable = callback
         self.cargs = cargs
         self.ckwargs = ckwargs
+        self.toggleable = toggleable
+        self.toggled = False
+        if self.toggleable and len(self.image) == 1:
+            raise RuntimeError("No second image available for toggleable button")
 
     def toPos(self, position: tuple, insize: tuple, outsize: tuple):
         final_position = []
@@ -54,7 +61,10 @@ class Button:
 
     def draw(self, screen):
         """Draws the button on the screen"""
-        screen.blit(self.image, self.pos)
+        if self.toggleable:
+            screen.blit(self.image[self.toggled], self.pos)
+        else:
+            screen.blit(self.image, self.pos)
 
     def collide(self, pos: tuple):
         """Checks whether the position is colliding the button"""
@@ -64,6 +74,8 @@ class Button:
         """Execute the callback if the position collide the button"""
         if self.collide(pos) and self.callback is not None:
             self.callback(*self.cargs, **self.ckwargs)
+            if self.toggleable:
+                self.toggled = not self.toggled
 
     def move(self, offset: tuple):
         """Moves a button by the given offset"""
