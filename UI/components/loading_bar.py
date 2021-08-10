@@ -86,16 +86,12 @@ class LoadingBar:
             self.time += timeElapsed
 
             speed = self.moving_speed
-            print(self.current_advancement - self.advancement)
-            print((self.current_advancement + speed * timeElapsed) - self.advancement)
-            print("\n\n\n")
             if (
                 abs(speed) > 1e-3 and
                 abs(self.current_advancement - self.advancement) > abs(
                     (self.current_advancement + speed * timeElapsed) - self.advancement
                 )
             ):
-                print(speed * timeElapsed)
                 self.current_advancement += speed * timeElapsed
                 self._buildImage()
             else:

@@ -23,7 +23,6 @@ class OptionMenu(Menu, Runnable):
             (Screen.getInstance().get_size()[0] - self.menu_background.get_size()[0]) / 2,
             (Screen.getInstance().get_size()[1] - self.menu_background.get_size()[1]) / 2
         )
-        print(self.menu_background.get_size()[0], self.menu_background_position)
 
         self._build()
 

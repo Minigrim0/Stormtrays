@@ -7,8 +7,6 @@ class Grid:
     """Represents a UI grid"""
 
     def __init__(self, size: tuple, tile_size: tuple, color: tuple = (0, 0, 0)):
-        print(size[0] * tile_size[0], size[1] * tile_size[1])
-
         self.image: pg.Surface = pg.Surface(
             (
                 int(size[0] * tile_size[0]),
