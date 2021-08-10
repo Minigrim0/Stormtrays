@@ -10,6 +10,7 @@ from models.tower import Tower
 from src.invocation import Invocation
 from src.runnable import Runnable
 from UI.menus.game_ui import GameUI
+from UI.menus.endMenu import EndScreen
 
 
 class Game(Runnable):
@@ -82,7 +83,13 @@ class Game(Runnable):
         """
 
     def loop(self):
-        """Updates whole the objects of the game"""
+        """Gets called at each code loop"""
+        self.update()
+        self.draw()
+        self.handleEvent()
+
+    def update(self):
+        """Updates all the objects of the game"""
         Level.getInstance().update(self.screen.elapsed_time)
         Ennemy.getInstance().update(self.screen.elapsed_time)
         Character.getInstance().update(self.screen.elapsed_time)
@@ -90,9 +97,13 @@ class Game(Runnable):
         Tower.getInstance().update(self.screen.elapsed_time)
         Projectile.getInstance().update(self.screen.elapsed_time)
 
-        self.draw()
+        if Level.getInstance().health <= 0:
+            self.endGame()
 
-        self.handleEvent()
+    def draw(self):
+        """Draws the game ond refresh the screen"""
+        self._draw()
+        self.screen.flip()
 
     def handleEvent(self):
         """Handles user events"""
@@ -104,7 +115,6 @@ class Game(Runnable):
             if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
                 self.running = False
 
-    def draw(self):
-        """Draws the game ond refresh the screen"""
-        self._draw()
-        self.screen.flip()
+    def endGame(self):
+        EndScreen(self.screen, background=self._draw)()
+        self.running = False
