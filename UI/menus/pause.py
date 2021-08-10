@@ -7,6 +7,7 @@ from models.screen import Screen
 from src.runnable import Runnable
 from UI.components.button import Button
 from UI.menus.menu import Menu
+from UI.menus.options_game import GameOptionsMenu
 
 
 class PauseMenu(Menu, Runnable):
@@ -95,7 +96,7 @@ class PauseMenu(Menu, Runnable):
         self.running = False
 
     def options_menu(self):
-        self.running = False
+        GameOptionsMenu(self.screen, background=self.backgroundCallback)()
 
     def quit_game(self):
         self.running = False

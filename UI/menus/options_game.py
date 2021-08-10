@@ -10,18 +10,24 @@ from UI.menus.menu import Menu
 class GameOptionsMenu(Menu, Runnable):
     """Represents the in game option menu"""
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.menu_background: pg.Surface = None
         self.menu_background_position: tuple = None
 
         self.volume_text: pg.Surface = None
         self.difficulty_text: pg.Surface = None
 
+        self.background: pg.Surface = None
+
         self._build()
 
     def _build(self):
         """Builds the menu's buttons and texts"""
         options = GameOptions.getInstance()
+
+        self.background = pg.Surface((1152, 704), pg.SRCALPHA)
+        self.background.fill((0, 0, 0, 128))
 
         self.menu_background = pg.image.load(
             options.fullPath("images", "backgrounds/submenu_background.png")
@@ -89,7 +95,8 @@ class GameOptionsMenu(Menu, Runnable):
         self.handleEvent()
 
     def _draw(self):
-        self.screen.draw(self.menu_background, self.menu_background_position)
+        self.screen.blit(self.background, (0, 0))
+        self.screen.blit(self.menu_background, self.menu_background_position)
         self.screen.blit(self.volume_text, (410, 302))
         self.screen.blit(self.difficulty_text, (410, 347))
 
