@@ -42,6 +42,7 @@ class Tile:
             return (0, 1)
         if self.code == "x1":
             return (0, 0)
+        return (-1, -1)
 
     def move(self, pos):
         self.position = pos

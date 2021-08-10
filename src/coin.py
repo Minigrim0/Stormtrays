@@ -32,8 +32,7 @@ class Coin:
         """
         self.life_span -= elapsed_time
         self.posy -= 64 * elapsed_time
-        if self.life_span <= 0:
-            return True
+        return self.life_span <= 0
 
     def draw(self, screen: Screen):
         """Draws the coin on the screen"""

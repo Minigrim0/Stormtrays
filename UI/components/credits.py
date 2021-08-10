@@ -139,6 +139,7 @@ class Credits:
             return min_pos_x
         elif position == "right":
             return max_pos_x - element_size
+        return 0
 
     def draw(self, screen: Screen, y_offset: int):
         for element in self.elements:

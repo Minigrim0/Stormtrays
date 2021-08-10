@@ -67,6 +67,7 @@ class Ennemy:
         for ennemy in self.ennemies:
             if ennemy.collide(position):
                 return ennemy
+        return None
 
     def invoke(self):
         """Invokes an ennemy, by choosing randomly in the weighted ennemy list"""
