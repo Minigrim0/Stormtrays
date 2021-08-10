@@ -9,6 +9,7 @@ from models.screen import Screen
 from src.tower import TowerDO
 from UI.components.button import Button
 from UI.components.popup import Popup
+from UI.components.grid import Grid
 
 
 class Tower:
@@ -77,20 +78,7 @@ class Tower:
             )
 
         level: Level = Level.getInstance()
-        screen: Screen = Screen.getInstance()
-
-        self.grid = pg.Surface(screen.initial_size, pg.SRCALPHA)
-        for x in range(1, level.size[0]):
-            pg.draw.line(
-                self.grid, (0, 0, 0),
-                (x * level.tile_size[0], 0), (x * level.tile_size[0], screen.initial_size[1])
-            )
-
-        for y in range(1, level.size[1]):
-            pg.draw.line(
-                self.grid, (0, 0, 0),
-                (0, y * level.tile_size[1]), (screen.initial_size[0], y * level.tile_size[1])
-            )
+        self.grid = Grid(level.size, level.tile_size)
 
     def _setTowerHover(self, tower_data: dict):
         self.hovered_tower_name = self.font.render(tower_data["name"], 1, (0, 0, 0))
@@ -115,7 +103,7 @@ class Tower:
                 if not Level.getInstance().canAfford(self.hovered_tower["price"]):
                     screen.blit(self.missing_funds, (10, 40))
         elif self.selectedTower is not None:
-            screen.blit(self.grid, (0, 0))
+            self.grid.draw(screen, (0, 0))
             self.selectedTower.draw(screen)
 
     def handleEvent(self, event):
