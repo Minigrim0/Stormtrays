@@ -57,7 +57,7 @@ class ImageAnimation:
             ]
 
     def _loadMultipart(self, setup: dict, folder_path: str, image_size: tuple = (-1, -1)):
-        """Loads an animation from a single """
+        """Loads an animation from a single image file"""
         cut_size = tuple(setup["size"])
         self.original_image = pg.image.load(os.path.join(folder_path, setup["file"])).convert_alpha()
 
