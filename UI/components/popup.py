@@ -4,6 +4,8 @@ from UI.components.button import Button
 
 
 class Popup:
+    """Represents a UI element with a button that shows a larger menu"""
+
     def __init__(
         self, position: tuple, background: pg.Surface,
         button_position: tuple, button_size: tuple, button_image: pg.Surface

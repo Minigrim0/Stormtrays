@@ -7,6 +7,7 @@ from src.projectile import ProjectileDO
 
 
 class Projectile:
+    """The projectile model, handles the in game projectiles"""
 
     instance = None
 

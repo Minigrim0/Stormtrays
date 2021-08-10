@@ -8,6 +8,8 @@ from UI.components.loading_bar import LoadingBar
 
 
 class XPBar(LoadingBar):
+    """Represents the user's XP bar, with an objective update on level up"""
+
     def __init__(
         self, position: tuple, size: tuple,
         fg_color: tuple = (76, 187, 23), bg_color: tuple = (138, 7, 7),

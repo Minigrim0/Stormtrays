@@ -14,6 +14,8 @@ from UI.menus.endMenu import EndScreen
 
 
 class Game(Runnable):
+    """The game in itself, runs on its own and updates/draws all the elements"""
+
     instance = None
 
     @staticmethod
