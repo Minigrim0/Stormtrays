@@ -26,7 +26,7 @@ class Editor(Runnable):
             Editor()
         return Editor.instance
 
-    def __init__(self, screen: Screen):
+    def __init__(self):
         if Editor.instance is not None:
             raise RuntimeError("Trying to instanciate a second object from a singleton")
         Editor.instance = self
@@ -42,7 +42,7 @@ class Editor(Runnable):
 
         self.choice: Tile = None
         self.mousePosition = (0, 0)
-        self.screen: Screen = screen
+        self.screen: Screen = Screen.getInstance()
 
     def loop(self):
         """Shows the editor and handles the actions to create/save/load levels"""
