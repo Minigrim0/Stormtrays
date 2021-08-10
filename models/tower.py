@@ -91,9 +91,10 @@ class Tower:
 
     def draw(self, screen: Screen):
         """Draws the in game towers and the tower menu on the screen"""
-        self.popup.draw(screen)
         for tower in self.towers:
             tower.draw(screen)
+
+        self.popup.draw(screen)
 
         if self.popup.opened:
             for tower_button in self.tower_buttons:
