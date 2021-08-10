@@ -73,7 +73,7 @@ class EndScreen(Menu, Runnable):
 
     def handleEvent(self):
         """Handles the user's events"""
-        for _ in super().handleEvent():
+        for _ in super().handleEvent():  # skipcq PTC-W0047
             pass
 
     def quitMenu(self):

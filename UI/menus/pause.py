@@ -89,7 +89,7 @@ class PauseMenu(Menu, Runnable):
         self.handleEvent()
 
     def handleEvent(self):
-        for _ in super().handleEvent():
+        for _ in super().handleEvent():  # skipcq PTC-W0047
             pass
 
     def resume(self):

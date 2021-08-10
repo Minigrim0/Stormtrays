@@ -101,7 +101,7 @@ class GameOptionsMenu(Menu, Runnable):
         self.screen.blit(self.difficulty_text, (410, 347))
 
     def handleEvent(self):
-        for _ in super().handleEvent():
+        for _ in super().handleEvent():  # skipcq PTC-W0047
             pass
 
     def updateVolume(self, value: int):

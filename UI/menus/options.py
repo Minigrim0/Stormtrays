@@ -91,7 +91,7 @@ class OptionMenu(Menu, Runnable):
 
     def handleEvent(self):
         """Handles user inputs"""
-        for _ in super().handleEvent():
+        for _ in super().handleEvent():  # skipcq PTC-W0047
             pass
 
     def updateDifficulty(self, value: int):
