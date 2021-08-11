@@ -58,8 +58,8 @@ class Game(Runnable):
         options = GameOptions.getInstance()
         options.setSpeed(1)
 
-    def _draw(self):
-        """Draws the game without refreshing the screen"""
+    def draw(self):
+        """Draws the game"""
         self.level.draw(self.screen)
 
         Ennemy.getInstance().draw(self.screen)
@@ -87,6 +87,7 @@ class Game(Runnable):
         """Gets called at each code loop"""
         self.update()
         self.draw()
+        self.screen.flip()
         self.handleEvent()
 
     def update(self):
@@ -101,11 +102,6 @@ class Game(Runnable):
         if Level.getInstance().health <= 0:
             self.endGame()
 
-    def draw(self):
-        """Draws the game ond refresh the screen"""
-        self._draw()
-        self.screen.flip()
-
     def handleEvent(self):
         """Handles user events"""
         for event in self.screen.getEvent():
@@ -117,5 +113,5 @@ class Game(Runnable):
                 GameUI.pauseMenu()
 
     def endGame(self):
-        EndScreen(self.screen, background=self._draw)()
+        EndScreen(self.screen, background=self.draw)()
         self.running = False

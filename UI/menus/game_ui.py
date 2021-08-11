@@ -113,7 +113,7 @@ class GameUI:
     @staticmethod
     def pauseMenu():
         from models.game import Game
-        PauseMenu(background=Game.getInstance()._draw)()
+        PauseMenu(background=Game.getInstance().draw)()
 
     def reset(self):
         self.xp_bar.resetBar()
