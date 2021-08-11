@@ -16,7 +16,7 @@ class ImageAnimation:
         self, folder_path: str = None, flippable: bool = False,
         callback: callable = None, speed: int = 2, image_size: tuple = (-1, -1),
         loop: int = 1, bank_name: str = None,
-        callback_on: list = [-1]
+        callback_on: list = None
     ):
         self.images: list(pg.Surface) = []
         self.images_flipped: list(pg.Surface) = []
@@ -38,7 +38,7 @@ class ImageAnimation:
 
         self.multipart = False
 
-        self.callback_on = callback_on  # When to call the callback
+        self.callback_on = callback_on if callback_on is not None else [-1]  # When to call the callback
 
         bank = ImageBank.getInstance()
         if (bank_name is None or not bank.exists(bank_name)) and folder_path is not None:

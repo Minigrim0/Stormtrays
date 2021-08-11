@@ -7,9 +7,9 @@ from UI.components.button import Button
 class Menu:
     """The base class for all menus"""
 
-    def __init__(self, screen: Screen, pickFrom: dict = {}, background: callable = None, **background_kwargs):
+    def __init__(self, screen: Screen, pickFrom: dict = None, background: callable = None, **background_kwargs):
         self.buttons: {Button} = {}
-        self.pickFromBase = pickFrom
+        self.pickFromBase = pickFrom if pickFrom is not None else {}
         self.screen = screen
         self.backgroundCallback: callable = background
         self.background_kwargs = background_kwargs
