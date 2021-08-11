@@ -115,7 +115,7 @@ class Game(Runnable):
             Tower.getInstance().handleEvent(event)
 
             if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
-                self.running = False
+                GameUI.pauseMenu()
 
     def endGame(self):
         EndScreen(self.screen, background=self._draw)()
