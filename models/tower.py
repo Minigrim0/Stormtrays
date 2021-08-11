@@ -19,6 +19,7 @@ class Tower:
 
     @staticmethod
     def getInstance():
+        """Singleton pattern"""
         if Tower.instance is None:
             Tower()
         return Tower.instance
@@ -82,6 +83,7 @@ class Tower:
         self.grid = Grid(level.size, level.tile_size)
 
     def _setTowerHover(self, tower_data: dict):
+        """builds the rendered name of the currently hovered tower"""
         self.hovered_tower_name = self.font.render(tower_data["name"], 1, (0, 0, 0))
         self.hovered_tower = tower_data
 
@@ -151,16 +153,19 @@ class Tower:
                     self.hovered_tower_name = None
 
     def selectTower(self, tower_data: dict):
+        """Callback for the tower buttons"""
         if Level.getInstance().canAfford(tower_data["price"]):
             self.selectedTower = TowerDO(tower_data)
             self.popup.close()
 
     def reset(self):
+        """Removes all towers currently in game and empties player's hand"""
         self.towers = []  # In game Towers
         self.hovered_tower_name = None
         self.selectedTower: TowerDO = None
 
     def isFree(self, position: tuple) -> bool:
+        """Returns true if there is no tower at the given position"""
         for tower in self.towers:
             if tower.position == position:
                 return False
