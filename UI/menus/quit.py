@@ -17,8 +17,8 @@ class QuitMenu(Menu, Runnable):
 
         self.toReturn: str = None  # Either "q" or "c"
 
-    def __call__(self) -> str:
-        super().__call__()
+    def __call__(self, *args, **kwargs) -> str:
+        super().__call__(*args, **kwargs)
         return self.toReturn
 
     def _build(self):

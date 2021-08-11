@@ -114,7 +114,7 @@ class Screen:
                 if self.isPosOutOfScreen(event.pos):
                     continue
             if event.type == pygame.locals.QUIT:
-                exit()
+                exit()  # skipcq PYL-R1722
             elif event.type == pygame.locals.KEYDOWN:
                 self.handleFKeys(event)
             elif event.type == pygame.locals.VIDEORESIZE:

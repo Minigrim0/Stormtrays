@@ -93,7 +93,7 @@ class XPBar(LoadingBar):
             self._levelUp()
             self.level_up_animation.play()
 
-    def draw(self, screen: Screen):
+    def draw(self, screen: Screen):  # skipcq PYL-W0221
         """Displays the bar and its text on the screen"""
         super().draw(screen)
         screen.blit(self.xp_text, self.text_position)

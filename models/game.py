@@ -45,7 +45,7 @@ class Game(Runnable):
         # Compteur_Iteration = 0
         # Time_50 = myfont2.render("0", 1, (0, 0, 0))
 
-    def _start(self, screen: Screen, levelPath: str):
+    def _start(self, screen: Screen, levelPath: str):  # skipcq PYL-W0221
         """Called before the first loop, reinit the whole game"""
         self.level.load(levelPath)
         self.screen = screen

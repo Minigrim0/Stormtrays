@@ -77,7 +77,7 @@ class MainMenu(Menu, Runnable):
 
         self.handleEvent()
 
-    def _draw(self, draw_title=True):
+    def _draw(self, draw_title=True):  # skipcq PYL-W0221
         """Draws the buttons/images on screen"""
         self.screen.blit(self.background, (0, 0))
         if draw_title:
