@@ -20,6 +20,7 @@ class Animated:
         self.style = style
 
     def getSpeeds(self):
+        """Returns the speeds (X and Y) of the element"""
         if self.style == "linear":
             delta_x = self.end_pos[0] - self.current_position[0]
             delta_y = self.end_pos[1] - self.current_position[1]
@@ -52,5 +53,6 @@ class Animated:
         screen.blit(self.image, (int(self.current_position[0]), int(self.current_position[1])))
 
     def invert(self):
+        """Inverts the animation"""
         self.start_pos, self.end_pos = self.end_pos, self.start_pos
         self.current_position = self.start_pos

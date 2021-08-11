@@ -66,6 +66,7 @@ class XPBar(LoadingBar):
         self.add_xp(stashed)
 
     def _genText(self):
+        """Generates the text in the XP bar"""
         self.xp_text = self.font.render(
             f"{int(self.current_advancement)}/{self.max_advancement}",
             1, (0, 0, 0)
@@ -112,6 +113,7 @@ class XPBar(LoadingBar):
         self._genText()
 
     def resetBar(self):
+        """Resets the bar to its default values"""
         self.setObjective(20)
         self.stashed = 0
         self.current_advancement = 0

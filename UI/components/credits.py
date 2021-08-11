@@ -16,7 +16,8 @@ class Credits:
         self._build()
 
     @property
-    def height(self):
+    def height(self) -> int:
+        """Returns the total height of the credits"""
         return sum([element["height"] + 10 for element in self.elements])
 
     def _build(self):
@@ -35,6 +36,7 @@ class Credits:
                 )
 
     def _buildCategory(self, category_data: dict):
+        """Builds a category of credits"""
         self._buildTitle(category_data["name"])
 
         for element in category_data["values"]:
@@ -48,6 +50,7 @@ class Credits:
                 print("Unhandled", type(element))
 
     def _buildTitle(self, title: str):
+        """Builds the title of a caegory"""
         options: GameOptions = GameOptions.getInstance()
         title_font = options.fonts["MedievalSharp-xOZ5"]["60"]
         title = title_font.render(title, 1, (0, 0, 0))
@@ -60,6 +63,7 @@ class Credits:
         )
 
     def _buildElementFromDict(self, element_dict):
+        """Builds an element from a dict"""
         if "image" in element_dict.keys():
             image = pg.image.load(element_dict["image"]).convert_alpha()
             position = element_dict["position"] if "position" in element_dict.keys() else "centered"
@@ -72,6 +76,7 @@ class Credits:
             )
 
     def _buildElementFromString(self, string: str):
+        """Builds an element from a string with default parameters"""
         options: GameOptions = GameOptions.getInstance()
         element_font = options.fonts["MedievalSharp-xOZ5"]["40"]
         element = element_font.render(string, 1, (0, 0, 0))
@@ -84,6 +89,7 @@ class Credits:
         )
 
     def _buildElementFromList(self, element_list: list):
+        """Builds elements from a list"""
         options: GameOptions = GameOptions.getInstance()
         element_font = options.fonts["MedievalSharp-xOZ5"]
         images = []
@@ -113,6 +119,7 @@ class Credits:
 
     @staticmethod
     def _mergeImages(images: [pg.Surface]) -> pg.Surface:
+        """Merges two images into a single one"""
         final_size = (
             sum([img.get_size()[0] for img in images]),
             max([img.get_size()[1] for img in images])
@@ -133,6 +140,7 @@ class Credits:
 
     @staticmethod
     def _getElementXPosition(element_size: int, position: str, min_pos_x: int = 0, max_pos_x: int = 1152) -> int:
+        """Returns the position on the x axis of an element"""
         if position == "centered":
             return (max_pos_x - element_size) / 2
         if position == "left":
@@ -142,6 +150,7 @@ class Credits:
         return 0
 
     def draw(self, screen: Screen, y_offset: int):
+        """Draws the credits elements on screen with the given offset"""
         for element in self.elements:
             if element["image"] is not None:
                 screen.blit(

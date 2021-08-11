@@ -28,9 +28,11 @@ class Popup:
         )
 
     def addButton(self, button: Button):
+        """Adds a button in the popup menu"""
         self.buttons.append(button)
 
     def handleEvent(self, event):
+        """Handles user's events"""
         if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
 
             if self.opened:
@@ -41,6 +43,7 @@ class Popup:
                 self.button.click(event.pos)
 
     def draw(self, screen):
+        """Draws the popup on the screen"""
         if self.opened:
             screen.blit(self.background, self.position)
             self.cross_button.draw(screen)
@@ -50,7 +53,9 @@ class Popup:
             self.button.draw(screen)
 
     def toggleVisibility(self):
+        """Callback of the popup's button, toggles the visibility of the popup"""
         self.opened = not self.opened
 
     def close(self):
+        """Closes the popup"""
         self.opened = False

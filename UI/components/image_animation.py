@@ -103,11 +103,7 @@ class ImageAnimation:
                 )
 
     def loadFolder(self, folder_path: str, image_size: tuple):
-        """Loads an animation from a folder
-
-        Args:
-            folder_path (str): The path to the animation folder
-        """
+        """Loads an animation from a folder"""
         setup_file = os.path.join(folder_path, "setup.json")
         if not os.path.exists(setup_file):
             logging.warning("No setup file found for {}, trying fuzzy load".format(folder_path))

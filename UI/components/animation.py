@@ -27,6 +27,7 @@ class Animation(Runnable):
             self.load(data, pickFrom=pickFrom, background=background)
 
     def load(self, data: dict, pickFrom: dict = None, background: callable = None):
+        """Loads the animation from the given dict"""
         self.duration = data["duration"]
         if "background" in data.keys():
             self.background = pg.image.load(data["background"])
@@ -48,6 +49,7 @@ class Animation(Runnable):
             )
 
     def loop(self):
+        """Method called at each code loop"""
         self.draw()
         for animated in self.elements:
             animated.update(self.screen.elapsed_time)
@@ -61,13 +63,16 @@ class Animation(Runnable):
         self.screen.flip()
 
     def invert(self):
+        """Inverts the animation of all the elements"""
         for elem in self.elements:
             elem.invert()
 
     def handleEvent(self):
+        """Handles the user's events"""
         self.screen.getEvent()
 
     def draw(self):
+        """Draws the animation on the screen"""
         if self.background is not None:
             if callable(self.background):
                 self.background(**self.background_kwargs)

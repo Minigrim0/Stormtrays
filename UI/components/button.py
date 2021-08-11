@@ -21,6 +21,7 @@ class Button:
 
     @staticmethod
     def toPos(position: tuple, insize: tuple, outsize: tuple):
+        """Tranforms the given position into a real position: eg. ("CENTER", "CENTER") becomes to int values"""
         final_position = []
         for axis, var in enumerate(position):
             if type(var) is int:
@@ -47,6 +48,7 @@ class Button:
         background: pg.Surface = None,
         text_color: tuple = (0, 0, 0),
     ):
+        """Builds the button with the given text"""
         if background is not None:
             self.image = background
 
