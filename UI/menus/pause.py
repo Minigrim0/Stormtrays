@@ -89,8 +89,9 @@ class PauseMenu(Menu, Runnable):
         self.handleEvent()
 
     def handleEvent(self):
-        for _ in super().handleEvent():  # skipcq PTC-W0047
-            pass
+        for event in super().handleEvent():  # skipcq PTC-W0047
+            if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
+                self.running = False
 
     def resume(self):
         self.running = False
@@ -99,4 +100,6 @@ class PauseMenu(Menu, Runnable):
         GameOptionsMenu(self.screen, background=self.backgroundCallback)()
 
     def quit_game(self):
+        from models.game import Game
+        Game.getInstance().running = False
         self.running = False
