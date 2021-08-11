@@ -21,6 +21,7 @@ class Credits:
         return sum([element["height"] + 10 for element in self.elements])
 
     def _build(self):
+        """Builds the credits from a file"""
         with open(self.file_path) as credits_file:
             data = json.load(credits_file)
             for category in data["categories"]:

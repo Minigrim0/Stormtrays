@@ -83,7 +83,7 @@ class Tower:
         self.grid = Grid(level.size, level.tile_size)
 
     def _setTowerHover(self, tower_data: dict):
-        """builds the rendered name of the currently hovered tower"""
+        """Builds the rendered name of the currently hovered tower"""
         self.hovered_tower_name = self.font.render(tower_data["name"], 1, (0, 0, 0))
         self.hovered_tower = tower_data
 
