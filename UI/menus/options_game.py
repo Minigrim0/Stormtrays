@@ -75,18 +75,21 @@ class GameOptionsMenu(Menu, Runnable):
         self._buildDifficultyText()
 
     def _buildVolumeText(self):
+        """Builds the text for the volume option"""
         options = GameOptions.getInstance()
         self.volume_text = options.fonts["MedievalSharp-xOZ5"]["25"].render(
             f"Volume : {int(options.volume * 10)}", 1, (0, 0, 0)
         )
 
     def _buildDifficultyText(self):
+        """Builds the text for the difficulty option"""
         options = GameOptions.getInstance()
         self.difficulty_text = options.fonts["MedievalSharp-xOZ5"]["25"].render(
             f"Difficulté : {options.difficulty}", 1, (0, 0, 0)
         )
 
     def loop(self):
+        """Method called at each code's loop"""
         super().loop()
 
         self.draw()
@@ -95,14 +98,17 @@ class GameOptionsMenu(Menu, Runnable):
         self.handleEvent()
 
     def _draw(self):
+        """Draws the menu's background"""
         self.screen.blit(self.background, (0, 0))
         self.screen.blit(self.menu_background, self.menu_background_position)
         self.screen.blit(self.volume_text, (410, 302))
         self.screen.blit(self.difficulty_text, (410, 347))
 
     def handleEvent(self):
-        for _ in super().handleEvent():  # skipcq PTC-W0047
-            pass
+        """Handles the user's events"""
+        for event in super().handleEvent():
+            if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
+                self.running = False
 
     def updateVolume(self, value: int):
         """Updates the volume of the music"""
@@ -115,4 +121,5 @@ class GameOptionsMenu(Menu, Runnable):
         self._buildDifficultyText()
 
     def quitMenu(self):
+        """Callback for the quit button"""
         self.running = False

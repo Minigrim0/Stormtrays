@@ -61,6 +61,7 @@ class OptionMenu(Menu, Runnable):
         self.buttons["quit"] = Button((1102, 644), (500, 50), image=self.pickFromBase["quit"])
 
     def _build(self):
+        """Builds menu's background"""
         options = GameOptions.getInstance()
 
         title = options.fonts["MedievalSharp-xOZ5"]["60"].render(

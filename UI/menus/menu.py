@@ -23,6 +23,7 @@ class Menu:
 
     @property
     def pickFrom(self):
+        """The dictionnary in which images can be picked"""
         return self.pickFromBase | {key: self.buttons[key].image for key in self.buttons}
 
     def draw(self):
@@ -45,4 +46,5 @@ class Menu:
             yield event
 
     def _draw(self):
+        """Forces the implementation of the method in daughters classes, blocking Menu instanciation alone"""
         raise NotImplementedError()

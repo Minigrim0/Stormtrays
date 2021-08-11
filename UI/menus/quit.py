@@ -12,6 +12,17 @@ class QuitMenu(Menu, Runnable):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self._build()
+
+        self.toReturn: str = None  # Either "q" or "c"
+
+    def __call__(self) -> str:
+        super().__call__()
+        return self.toReturn
+
+    def _build(self):
+        """Builds the menu's background and buttons"""
         options = GameOptions.getInstance()
 
         self.buttons["reprise"] = Button(
@@ -41,16 +52,6 @@ class QuitMenu(Menu, Runnable):
             (Screen.getInstance().get_size()[0] - self.menu_background.get_size()[0]) / 2,
             (Screen.getInstance().get_size()[1] - self.menu_background.get_size()[1]) / 2
         )
-        self._build()
-
-        self.toReturn: str = None  # Either "q" or "c"
-
-    def __call__(self) -> str:
-        super().__call__()
-        return self.toReturn
-
-    def _build(self):
-        options = GameOptions.getInstance()
 
         title = options.fonts["MedievalSharp-xOZ5"]["60"].render(
             "Quitter ?", 1, (0, 0, 0)

@@ -29,6 +29,7 @@ class MainMenu(Menu, Runnable):
         self._build()
 
     def _build(self):
+        """Builds the menu's buttons"""
         options = GameOptions.getInstance()
 
         self.buttons["play"] = Button(

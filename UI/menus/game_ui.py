@@ -16,6 +16,7 @@ class GameUI:
 
     @staticmethod
     def getInstance():
+        """Singleton Pattern"""
         if GameUI.instance is None:
             GameUI()
         return GameUI.instance
@@ -43,6 +44,7 @@ class GameUI:
         self._build()
 
     def _build(self):
+        """Builds the UI texts,..."""
         options: GameOptions = GameOptions.getInstance()
         self.buttons = [
             Button(
@@ -70,6 +72,7 @@ class GameUI:
         self.update(0)
 
     def update(self, elapsed_time: float):
+        """Updates the UI texts"""
         level = Level.getInstance()
         character = Character.getInstance()
         self.xp_bar.update(elapsed_time)
@@ -82,11 +85,13 @@ class GameUI:
         self.character_speed = self.font.render("Vitesse : %i " % character.speed, 1, (0, 0, 0))
 
     def handleEvent(self, event):
+        """Handles user's events"""
         if event.type == pg.MOUSEBUTTONDOWN:
             for button in self.buttons:
                 button.click(event.pos)
 
     def draw(self, screen: Screen):
+        """Draws the UI"""
         screen.blit(self.stats_background, (870, 0))
 
         screen.blit(self.gold_amount, (872, 5))
@@ -107,14 +112,17 @@ class GameUI:
 
     @staticmethod
     def toggleSpeed():
+        """Callback for the speed button"""
         options = GameOptions.getInstance()
         options.toggleGameSpeed()
 
     @staticmethod
     def pauseMenu():
+        """Callback for the pause button"""
         from models.game import Game
         PauseMenu(background=Game.getInstance().draw)()
 
     def reset(self):
+        """Resets the UI"""
         self.xp_bar.resetBar()
         self.update(0)

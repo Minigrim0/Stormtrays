@@ -31,6 +31,7 @@ class PauseMenu(Menu, Runnable):
         self._build()
 
     def _build(self):
+        """Builds the menu's buttons and background"""
         options = GameOptions.getInstance()
 
         title = options.fonts["MedievalSharp-xOZ5"]["60"].render(
@@ -76,6 +77,7 @@ class PauseMenu(Menu, Runnable):
         )
 
     def _draw(self):
+        """Draws the menu background"""
         self.screen.blit(self.background, (0, 0))
         self.screen.blit(self.menu_background, self.menu_background_position)
 
@@ -89,17 +91,21 @@ class PauseMenu(Menu, Runnable):
         self.handleEvent()
 
     def handleEvent(self):
+        """Handles the user's event"""
         for event in super().handleEvent():  # skipcq PTC-W0047
             if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
                 self.running = False
 
     def resume(self):
+        """Callback for the resume button"""
         self.running = False
 
     def options_menu(self):
+        """Callback for the options button"""
         GameOptionsMenu(self.screen, background=self.backgroundCallback)()
 
     def quit_game(self):
+        """Callback for the quit button"""
         from models.game import Game
         Game.getInstance().running = False
         self.running = False
