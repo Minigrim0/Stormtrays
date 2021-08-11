@@ -112,10 +112,15 @@ class Tower:
         """Handles the user's events, selecting towers, opening/closing the tower menu, ..."""
         if event.type == pg.MOUSEBUTTONDOWN:
             if event.button == 1:
-                if self.selectedTower is not None and self.selectedTower.place():
-                    self.towers.append(self.selectedTower)
-                    Level.getInstance().pay(self.selectedTower.price)
-                    self.selectedTower = None
+                if self.selectedTower is not None:
+                    position = (
+                        self.selectedTower.position[0] // 64,
+                        self.selectedTower.position[1] // 64
+                    )
+                    if Level.getInstance().isFree(position) and self.isFree(position) and self.selectedTower.place():
+                        self.towers.append(self.selectedTower)
+                        Level.getInstance().pay(self.selectedTower.price)
+                        self.selectedTower = None
 
                 elif self.popup.opened:
                     for tower_button in self.tower_buttons:
@@ -154,3 +159,9 @@ class Tower:
         self.towers = []  # In game Towers
         self.hovered_tower_name = None
         self.selectedTower: TowerDO = None
+
+    def isFree(self, position: tuple) -> bool:
+        for tower in self.towers:
+            if tower.position == position:
+                return False
+        return True

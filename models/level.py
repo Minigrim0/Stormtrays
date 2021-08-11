@@ -232,3 +232,6 @@ class Level:
 
     def add_count(self, counter: str, amount: int):
         self.counters[counter] += amount
+
+    def isFree(self, position: tuple) -> bool:
+        return self.map[position[0]][position[1]] is None
