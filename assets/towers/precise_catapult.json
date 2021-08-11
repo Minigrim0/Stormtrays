@@ -1,0 +1,11 @@
+{
+    "name" : "Catapulte Précise",
+    "damage" : 10,
+    "fire_rate" : 2,
+    "range" : 10,
+    "animation" : "assets/images/animations/towers/catapult/",
+    "thumbnail": "assets/images/towers/catapult.png",
+    "price" : 400,
+    "projectile" : "boulder",
+    "shoot_on": [2]
+}

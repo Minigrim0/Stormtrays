@@ -1,0 +1,7 @@
+{
+    "name": "boulder",
+    "image": "assets/images/projectile/boulder.png",
+    "speed": 10,
+    "curvature": 0.5,
+    "zone" : true
+}

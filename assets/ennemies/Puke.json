@@ -1,0 +1,10 @@
+{
+    "name": "Puke",
+    "animation": "assets/images/animations/ennemies/puke/",
+    "DeathSound": "../musique/mort-Orc.wav",
+    "height": 32,
+    "health": 20,
+    "speed": 0.2,
+    "weight": 15,
+    "animation_speed": 8
+}

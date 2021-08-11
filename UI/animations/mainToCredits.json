@@ -1,0 +1,29 @@
+{
+    "duration": 1.5,
+    "elements": [
+        {
+            "image": "play",
+            "from": [652, 464],
+            "to": [1162, 464],
+            "style": "sine"
+        },
+        {
+            "image": "credits",
+            "from": [702, 524],
+            "to": [702, 654],
+            "style": "sine"
+        },
+        {
+            "image": "options",
+            "from": [752, 584],
+            "to": [1166, 584],
+            "style": "sine"
+        },
+        {
+            "image": "quit",
+            "from": [802, 644],
+            "to": [1166, 644],
+            "style": "sine"
+        }
+    ]
+}

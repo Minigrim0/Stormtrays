@@ -1,8 +1,11 @@
 version = 1
 
+test_patterns = ["test/**"]
+
 [[analyzers]]
 name = "python"
 enabled = true
 
   [analyzers.meta]
+  max_line_length = 120
   runtime_version = "3.x.x"

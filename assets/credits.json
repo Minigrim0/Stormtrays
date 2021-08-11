@@ -1,0 +1,40 @@
+{
+    "categories": [
+        {
+            "name": "Programming",
+            "values": [
+                "Minigrim0"
+            ]
+        },
+        {
+            "name": "Character animations",
+            "values": [
+                "Mihemine",
+                "LuizMelo : https://luizmelo.itch.io/"
+            ]
+        },
+        {
+            "name": "sound effect",
+            "values": [
+                "Minigrim0",
+                "Maga",
+                "Mihemine"
+            ]
+        },
+        {
+            "name": "",
+            "values": [
+                "This game was made using pygame",
+                {
+                    "image": ".meta/pygame.png",
+                    "position": "centered"
+                },
+                "You can contribute to this project on",
+                {
+                    "image": ".meta/github.png"
+                },
+                "https://github.com/Minigrim0/Stormtrays"
+            ]
+        }
+    ]
+}

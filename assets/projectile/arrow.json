@@ -1,0 +1,7 @@
+{
+    "name": "arrow",
+    "image": "assets/images/projectile/arrow.png",
+    "speed": 40,
+    "curvature": 0.1,
+    "zone" : false
+}

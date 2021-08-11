@@ -1,0 +1,11 @@
+{
+    "name" : "Catapulte tres rapide",
+    "damage" : 4,
+    "fire_rate" : 18,
+    "range" : 2,
+    "animation" : "assets/images/animations/towers/catapult/",
+    "thumbnail": "assets/images/towers/catapult.png",
+    "price" : 500,
+    "projectile" : "boulder",
+    "shoot_on": [2]
+}

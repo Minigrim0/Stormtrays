@@ -1,0 +1,11 @@
+{
+    "name" : "Archer",
+    "damage" : 30,
+    "fire_rate" : 1,
+    "range" : 5,
+    "animation" : "assets/images/animations/towers/archer/",
+    "thumbnail": "assets/images/towers/archer.png",
+    "price" : 75,
+    "projectile" : "arrow",
+    "shoot_on": [4]
+}

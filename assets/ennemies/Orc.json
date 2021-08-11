@@ -1,0 +1,10 @@
+{
+    "name": "Orc",
+    "animation": "assets/images/animations/ennemies/orc/",
+    "DeathSound": "../musique/mort-Orc.wav",
+    "height": 80,
+    "health": 60,
+    "speed": 1.2,
+    "weight": 4,
+    "animation_speed": 8
+}
