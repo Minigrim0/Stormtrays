@@ -13,7 +13,7 @@ from src.tile import Tile
 
 class Level:
     """The level class contains information and logic about the current level
-    such as the list of gold anim objects and the number of ennemy killed
+    such as the list of coins and the number of ennemy killed
     """
 
     instance = None
@@ -78,14 +78,17 @@ class Level:
 
     @property
     def killed_ennemies(self) -> int:
+        """Returns the total amount of ennemies killed"""
         return self.counters["player_kills"] + self.counters["tower_kills"]
 
     @property
     def health(self):
+        """Returns the sum of all the bastions health"""
         return sum([x.health for x in self.bastions])
 
     @property
     def tile_size(self):
+        """Returns the size of a tile in pixels"""
         screen: Screen = Screen.getInstance()
         return (
             screen.initial_size[0] / self.size[0],
@@ -99,15 +102,9 @@ class Level:
 
         return (0.2 * options.difficulty) * (0.1 * self.killed_ennemies) + 1
 
-    def _build(self, nomfichier, editor=False):
-        """Builds the level from a file
-
-        Args:
-            nomfichier ([type]): [description]
-        """
-        self.reset()
-
-        with open(nomfichier) as f:
+    def _build(self, filename, editor=False):
+        """Builds the level from a file"""
+        with open(filename) as f:
             data = json.load(f)
             self.background = pg.image.load(data["background"])
             self.size = data["size"]
@@ -133,6 +130,7 @@ class Level:
                         self.bastions.append(bastion)
 
     def reset(self):
+        """Resets the map, the counters, the gold etc..."""
         self.counters = {
             "tower_kills": 0,
             "player_kills": 0
@@ -151,13 +149,13 @@ class Level:
             for _ in range(self.size[1]):
                 self.map[x].append(None)
 
-    def save(self, nomfichier: str, thumbnail_path: str):
-        """Saves the level
+    def load(self, filename, editor=False):
+        """Loads a level (for either the editor or the game)"""
+        self.reset()
+        self._build(filename, editor)
 
-        Args:
-            nomfichier (str): The name of the file to save the level in
-            thumbnail_path (str): The path of the level's thumbnail
-        """
+    def save(self, filename: str, thumbnail_path: str):
+        """Saves the current level"""
         serializedMap = [[tile.toJson() if tile is not None else {} for tile in row] for row in self.map]
         level = {
             "background": self.backgroundName,
@@ -166,22 +164,18 @@ class Level:
             "thumbnail": thumbnail_path,
         }
 
-        with open(nomfichier, "w") as f:
+        with open(filename, "w") as f:
             f.write(json.dumps(level))
 
     def placeTile(self, position: tuple, tile):
-        """Places a tile at the given coordinates
-
-        Args:
-            position (tuple): the position to place the tile at
-            tile ([type]): [description]
-        """
+        """Places a tile at the given coordinates"""
         if position[0] not in list(range(self.size[0])) or position[1] not in list(range(self.size[1])):
             raise InvalidPositionException("Tile is outside of the map !")
 
         self.map[position[0]][position[1]] = tile
 
     def update(self, elapsed_time: float):
+        """Updates the bastions and the floating coins"""
         for bastion in self.bastions:
             bastion.update(elapsed_time)
         for coin in self.coins:
@@ -189,11 +183,7 @@ class Level:
                 del self.coins[self.coins.index(coin)]
 
     def draw(self, screen, editor=False):
-        """Draws the current level
-
-        Args:
-            screen (Screen): The screen to blit the level on
-        """
+        """Draws the current level"""
         screen.blit(self.background, (0, 0))
         for bastion in self.bastions:
             bastion.draw(screen)
@@ -216,6 +206,7 @@ class Level:
         return False
 
     def addGold(self, amount, position):
+        """Adds the given amount of gold to the user's stash and spawns a coin"""
         self.gold += amount
         self.coins.append(
             Coin(
@@ -225,13 +216,17 @@ class Level:
         )
 
     def pay(self, amount: int):
+        """Pays the given amount from the user's stash"""
         self.gold -= amount
 
     def canAfford(self, amount: int):
+        """Returns whether the player can afford the given amount"""
         return self.gold - amount > 0
 
     def add_count(self, counter: str, amount: int):
+        """Adds the given value to the given counter"""
         self.counters[counter] += amount
 
     def isFree(self, position: tuple) -> bool:
+        """Returns whether the tile at the given position is free or not"""
         return self.map[position[0]][position[1]] is None

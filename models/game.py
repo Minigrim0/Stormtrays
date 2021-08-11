@@ -45,8 +45,7 @@ class Game(Runnable):
         # Time_50 = myfont2.render("0", 1, (0, 0, 0))
 
     def _start(self, screen: Screen, levelPath: str):
-        print("STARTING GAME")
-        self.level._build(levelPath)
+        self.level.load(levelPath)
         self.screen = screen
         Tower.getInstance().reset()
         Ennemy.getInstance().reset()
