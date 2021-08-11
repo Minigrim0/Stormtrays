@@ -31,7 +31,8 @@ class Tile:
         if self.image[int(editor)] is not None:
             screen.blit(self.image[int(editor)], self.position)
 
-    def direction(self):
+    def direction(self) -> tuple:
+        """Returns the direction the current tile leads towards"""
         if (self.code, self.rotation) in (("c1", 0), ("t1", 2), ("t2", 3)):
             return (1, 0)
         if (self.code, self.rotation) in (("c1", 1), ("t1", 3), ("t2", 0)):
@@ -45,7 +46,9 @@ class Tile:
         return (-1, -1)
 
     def move(self, pos):
+        """Moves the tile to the given position"""
         self.position = pos
 
-    def toJson(self):
+    def toJson(self) -> dict:
+        """Serializes the tiles information to a dictionnary"""
         return {"code": self.code, "rotation": self.rotation}
