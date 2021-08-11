@@ -168,6 +168,7 @@ class Character:
                 self.setAnimation("idle")
 
     def reset(self):
+        """Resets all charachter's stats"""
         self.target = (576, 352)
 
         self.posx = 0

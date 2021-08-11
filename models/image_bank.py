@@ -8,6 +8,7 @@ class ImageBank:
 
     @staticmethod
     def getInstance():
+        """Singleton pattern"""
         if ImageBank.instance is None:
             ImageBank()
         return ImageBank.instance
@@ -22,9 +23,11 @@ class ImageBank:
     def __getitem__(self, name: str):
         return self.images[name]
 
-    def exists(self, name: str):
+    def exists(self, name: str) -> bool:
+        """Returns true if the given name is in the bank"""
         return name in self.images.keys()
 
     def set(self, name: str, value):
+        """Adds an entry to the image bank"""
         logging.debug(f"BANK: Registering {name}")
         self.images[name] = value

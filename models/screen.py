@@ -13,7 +13,7 @@ class Screen:
 
     @staticmethod
     def getInstance(*args, **kwargs):
-        """Returns the model's instance, creating it if needed"""
+        """Singleton pattern"""
         if Screen.instance is None:
             Screen(*args, **kwargs)
         return Screen.instance
@@ -57,6 +57,7 @@ class Screen:
 
     @property
     def elapsed_time(self):
+        """Returns the elapsed time times the speed of the game"""
         options = GameOptions.getInstance()
         return self.time_elapsed * options.game_speed
 
@@ -69,11 +70,7 @@ class Screen:
             self.resize(self.initial_size)
 
     def resize(self, size: tuple):
-        """Resizes the screen to the given size
-
-        Args:
-            size (tuple): the new size for the screen
-        """
+        """Resizes the screen to the given size"""
         if self.fullScreen:
             self.display = pygame.display.set_mode(self.fullSize, pygame.locals.FULLSCREEN)
         else:
@@ -128,6 +125,7 @@ class Screen:
             yield event
 
     def get_size(self):
+        """Returns the screen's initial size"""
         return self.initial_size
 
     def isPosOutOfScreen(self, pos: tuple):
@@ -143,11 +141,7 @@ class Screen:
         return self.fenetre.subsurface(rect)
 
     def handleFKeys(self, event: pygame.event.Event):
-        """Handles events where function keys are pressed
-
-        Args:
-            event (pygame.Event): The event to handle
-        """
+        """Handles events where function keys are pressed"""
         if event.key == pygame.locals.K_F2:
             self.screenshot()
         elif event.key == pygame.locals.K_F11:

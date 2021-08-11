@@ -68,4 +68,5 @@ class GameOptions:
         self.game_speed = 1 if self.game_speed == 4 else 4
 
     def setSpeed(self, speed: int):
+        """Changes the speed of the game to the given speed"""
         self.game_speed = speed

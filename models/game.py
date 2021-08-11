@@ -20,6 +20,7 @@ class Game(Runnable):
 
     @staticmethod
     def getInstance():
+        """Singleton Pattern"""
         if Game.instance is None:
             Game()
         return Game.instance
@@ -45,6 +46,7 @@ class Game(Runnable):
         # Time_50 = myfont2.render("0", 1, (0, 0, 0))
 
     def _start(self, screen: Screen, levelPath: str):
+        """Called before the first loop, reinit the whole game"""
         self.level.load(levelPath)
         self.screen = screen
         Tower.getInstance().reset()
@@ -113,5 +115,6 @@ class Game(Runnable):
                 GameUI.pauseMenu()
 
     def endGame(self):
+        """Shows the end screen"""
         EndScreen(self.screen, background=self.draw)()
         self.running = False

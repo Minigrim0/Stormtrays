@@ -13,6 +13,7 @@ class Projectile:
 
     @staticmethod
     def getInstance():
+        """Singleton pattern"""
         if Projectile.instance is None:
             Projectile()
         return Projectile.instance
@@ -39,6 +40,7 @@ class Projectile:
                 self.available_projectiles[projectile["name"]] = projectile
 
     def shootProjectile(self, name, tower, time_before_impact):
+        """Shoots a projectile of the given name"""
         self.projectiles.append(
             ProjectileDO(
                 self[name],
@@ -48,11 +50,13 @@ class Projectile:
         )
 
     def update(self, elapsed_time: float):
+        """Updates all in game projectiles"""
         for projectile in self.projectiles:
             projectile.update(elapsed_time)
             if projectile.hasHit:
                 del self.projectiles[self.projectiles.index(projectile)]
 
     def draw(self, screen: Screen):
+        """Draws all in-game projectiles"""
         for projectile in self.projectiles:
             projectile.draw(screen)

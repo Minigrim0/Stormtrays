@@ -77,7 +77,9 @@ class Ennemy:
         self.ennemies.append(ennemi)
 
     def getEnnemyList(self):
+        """Returns the list of ennemies"""
         return self.ennemies
 
     def reset(self):
+        """Removes all ennemies from the game"""
         self.ennemies = []
