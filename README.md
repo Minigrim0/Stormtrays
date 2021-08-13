@@ -6,7 +6,10 @@
 <p>
     A tower defense game written in python with <a href="https://pygame.org"><img src=".meta/pygame.png" height=20 alt="pygame" title="pygame" /></a>
 </p>
-
+<p>
+    <a href="https://minigrim0.itch.io/stormtrays">Stormtrays on itch.io</a>
+</p>
+    
 ## Installation
 
 ```bash
