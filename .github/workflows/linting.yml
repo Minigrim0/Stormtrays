@@ -51,10 +51,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: Build executable
-      run: |
-        python -m pip install --upgrade pip
-        pip install pyinstaller
-        pip install -r requirements.txt
+      run: pyinstaller -w --add-data "assets:assets" --add-data "models:models" --add-data "UI:UI" --add-data "src:src" --add-data ".meta:.meta" --add-data "Stormtrays.py:." Stormtrays.py
     
     - name: itch-io linux publish
       uses: josephbmanley/butler-publish-itchio-action@master
