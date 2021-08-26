@@ -69,11 +69,11 @@ class Character:
         self.animations = {name: ImageAnimation(initial_data=state) for name, state in data["states"].items()}
         self.current_animation = "idle"
 
-        logging.debug("Ensuring the presence of required animatons")
+        logging.info("Ensuring the presence of required animatons")
         assert "idle" in self.animations.keys()
         assert "walk" in self.animations.keys()
         assert "attack" in self.animations.keys()
-        logging.success("ok")
+        logging.info("ok")
 
     def getCurrentAnimation(self) -> ImageAnimation:
         """Returns the currently playing animation"""
