@@ -1,7 +1,20 @@
 {
     "name": "Wizard",
     "damage": 3,
+    "speed": 3,
     "states": {
+        "idle": {
+            "flippable": true,
+            "speed": 0.66,
+            "loop": -1,
+            "animations": [
+                {
+                    "multipart": true,
+                    "file": "animations/idle.png",
+                    "size": [6, 1]
+                }
+            ]
+        },
         "attack": {
             "flippable": true,
             "speed": 0.5,
@@ -16,18 +29,6 @@
                     "multipart": true,
                     "file": "animations/attack2.png",
                     "size": [8, 1]
-                }
-            ]
-        },
-        "idle": {
-            "flippable": true,
-            "speed": 0.66,
-            "loop": -1,
-            "animations": [
-                {
-                    "multipart": true,
-                    "file": "animations/idle.png",
-                    "size": [6, 1]
                 }
             ]
         },
