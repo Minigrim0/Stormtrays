@@ -1,3 +1,4 @@
+import json
 import math
 
 import pygame as pg
@@ -49,6 +50,10 @@ class Character:
         from UI.menus.game_ui import GameUI
         self.ui = GameUI.getInstance()
 
+        with open("assets/character/wizard/wizard.json") as wizard_data:
+            data = json.load(wizard_data)
+            print(data)
+
         self.animations = {
             "idle": ImageAnimation("assets/images/animations/character/idle/", loop=-1, flippable=True),
             "walk": ImageAnimation("assets/images/animations/character/walk/", loop=-1, flippable=True, speed=8),
@@ -56,6 +61,9 @@ class Character:
                 "assets/images/animations/character/attack/", flippable=True, speed=9, loop=2, callback=self.hit),
             "invoke": ImageAnimation("assets/images/animations/character/invoke/", flippable=True, speed=5)
         }
+
+        self.animations = {name: ImageAnimation(initial_data=state) for name, state in data.items()}
+
         self.current_animation = "idle"
 
     def getCurrentAnimation(self) -> ImageAnimation:
