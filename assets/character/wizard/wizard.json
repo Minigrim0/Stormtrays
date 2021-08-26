@@ -5,41 +5,41 @@
     "states": {
         "idle": {
             "flippable": true,
-            "speed": 0.66,
+            "speed": 3,
             "loop": -1,
             "animations": [
                 {
                     "multipart": true,
-                    "file": "animations/idle.png",
+                    "file": "character/wizard/animations/idle.png",
                     "size": [6, 1]
                 }
             ]
         },
         "attack": {
             "flippable": true,
-            "speed": 0.5,
+            "speed": 4,
             "loop": 2,
             "animations": [
                 {
                     "multipart": true,
-                    "file": "animations/attack1.png",
+                    "file": "character/wizard/animations/attack1.png",
                     "size": [8, 1]
                 },
                 {
                     "multipart": true,
-                    "file": "animations/attack2.png",
+                    "file": "character/wizard/animations/attack2.png",
                     "size": [8, 1]
                 }
             ]
         },
         "walk": {
             "flippable": true,
-            "speed": 0.5,
+            "speed": 4,
             "loop": -1,
             "animations": [
                 {
                     "multipart": true,
-                    "file": "animations/run.png",
+                    "file": "character/wizard/animations/run.png",
                     "size": [8, 1]
                 }
             ]
