@@ -16,7 +16,7 @@ class ImageAnimation:
         self, folder_path: str = None, flippable: bool = False,
         callback: callable = None, speed: int = 2, image_size: tuple = (-1, -1),
         loop: int = 1, bank_name: str = None,
-        callback_on: list = None
+        callback_on: list = None, initial_data: dict = None
     ):
         self.images: list(pg.Surface) = []
         self.images_flipped: list(pg.Surface) = []
