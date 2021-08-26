@@ -40,21 +40,17 @@ class ImageAnimation:
 
         self.callback_on = callback_on if callback_on is not None else [-1]  # When to call the callback
 
+    def _load(self, image_size, folder_path: str = None, initial_data: dict = None, bank_name: str = None):
+        """Loads the animation from the given parameters"""
         bank = ImageBank.getInstance()
-        if (bank_name is None or not bank.exists(bank_name)) and folder_path is not None:
-            self.loadFolder(folder_path, image_size=image_size)
-            if bank_name is not None:
-                bank.set(
-                    bank_name,
-                    (
-                        self.images, self.images_flipped, self.multipart,
-                        self.original_image, self.flipped_original_image
-                    )
-                )
+        if (bank_name is None or not bank.exists(bank_name)):
+            if folder_path is not None:
+                self.loadFolder(folder_path, image_size=image_size)
+            elif initial_data is not None:
+                self.loadDict(initial_data)
+            self._saveBank(bank, bank_name)
         elif bank_name is not None and bank.exists(bank_name):
-            self.images, self.images_flipped, self.multipart, self.original_image, self.flipped_original_image = bank[
-                bank_name
-            ]
+            self._loadBank(bank, bank_name)
 
     def _loadMultipart(self, setup: dict, folder_path: str, image_size: tuple = (-1, -1)):
         """Loads an animation from a single image file"""
@@ -102,6 +98,22 @@ class ImageAnimation:
                     pg.transform.flip(self.images[-1], True, False)
                 )
 
+    def _saveBank(self, bank: ImageBank, bank_name: str = None):
+        """Saves the images in the bank if bank_name is not None"""
+        if bank_name is not None:
+            bank.set(
+                bank_name,
+                (
+                    self.images, self.images_flipped, self.multipart,
+                    self.original_image, self.flipped_original_image
+                )
+            )
+
+    def _loadBank(self, bank: ImageBank, bank_name: str):
+        self.images, self.images_flipped, self.multipart, self.original_image, self.flipped_original_image = bank[
+            bank_name
+        ]
+
     def loadFolder(self, folder_path: str, image_size: tuple):
         """Loads an animation from a folder"""
         setup_file = os.path.join(folder_path, "setup.json")
@@ -118,6 +130,10 @@ class ImageAnimation:
             else:
                 images_format = os.path.join(folder_path, setup["format"])
                 self._loadFormat(images_format, image_size=image_size)
+
+    def loadDict(self, data: dict):
+        """Loads an animation from a dictionnary containing the needed information"""
+        pass
 
     def play(self):
         """Sets the animation state to playing"""
