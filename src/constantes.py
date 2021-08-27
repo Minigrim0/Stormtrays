@@ -23,7 +23,6 @@ LoadingScreen = "assets/images/FondMenu/LoadingScreen.png"
 LoadLevelImg = "assets/images/FondMenu/LoadLevel.png"
 LoadBar = "assets/images/FondMenu/LoadBar.png"
 
-TpsRestInvocSombre__ = "assets/images/Perso/TpsInvocSomb.png"
 TpsRestInvoc__ = "assets/images/Perso/TpsInvoc.png"
 
 
@@ -33,8 +32,6 @@ option = "assets/images/Boutons/options.png"
 retour = "assets/images/Boutons/retour.png"
 pause = "assets/images/Boutons/pause.png"
 
-sombre = "assets/images/sombre.png"
-sombre__ = "assets/images/SombreFull.png"
 mt = "assets/images/menutours.png"
 carrea = "assets/images/truc1.png"
 Invoc = "assets/images/Invoc.png"
