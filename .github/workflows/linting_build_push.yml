@@ -1,4 +1,4 @@
-name: Lint and push to itchio
+name: Lint, Build executables and push to itchio
 
 on:
   push:
