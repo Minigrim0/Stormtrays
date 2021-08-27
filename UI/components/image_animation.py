@@ -109,7 +109,7 @@ class ImageAnimation:
         self.loop = data["loop"]
         self.multipart = data["animations"][0]["multipart"]
         if self.multipart:
-            self._loadMultipart(data["animations"][0], "assets/")
+            self._loadMultipart(data["animations"][0], "assets/", image_size=image_size)
         else:
             images_format = os.path.join(data["animations"][0], data["format"])
             self._loadFormat(images_format, image_size=image_size)
