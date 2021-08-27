@@ -52,10 +52,6 @@ class Character:
         from UI.menus.game_ui import GameUI
         self.ui = GameUI.getInstance()
 
-        with open("assets/character/wizard/wizard.json") as wizard_data:
-            data = json.load(wizard_data)
-            self._load(data)
-
     @property
     def real_speed(self) -> float:
         """Returns the speed in pixel/sec instead of tiles/sec"""
@@ -76,6 +72,12 @@ class Character:
         assert "walk" in self.animations.keys()
         assert "attack" in self.animations.keys()
         logging.info("ok")
+
+    def setStyle(self, style: str):
+        path = style.lower().replace(" ", "-")
+        with open(f"assets/character/{path}/setup.json") as character_style:
+            data = json.load(character_style)
+            self._load(data)
 
     def getCurrentAnimation(self) -> ImageAnimation:
         """Returns the currently playing animation"""

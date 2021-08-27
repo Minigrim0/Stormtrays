@@ -6,6 +6,7 @@ import pygame as pg
 
 from models.game import Game
 from models.game_options import GameOptions
+from models.character import Character
 from src.runnable import Runnable
 from UI.components.button import Button
 from UI.components.animated_selector import AnimatedSelector
@@ -90,6 +91,8 @@ class ChacracterChoiceMenu(Menu, Runnable):
 
     def runLevel(self, level):
         """Callback for the levels' cards, launches the selected level"""
+        character = Character.getInstance()
+        character.setStyle(self.selector.selected_name)
         options = GameOptions.getInstance()
         levelPath = options.fullPath("levels", f"{level}.json")
         Game.getInstance()(self.screen, levelPath)
