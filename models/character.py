@@ -49,6 +49,7 @@ class Character:
         self.capacite2: bool = False
 
         self.animations: dict = {}
+        self.current_animation: str = "idle"
 
         from UI.menus.game_ui import GameUI
         self.ui = GameUI.getInstance()
@@ -64,7 +65,6 @@ class Character:
         self.damage = data["damage"]
 
         self.animations = {name: ImageAnimation(initial_data=state) for name, state in data["states"].items()}
-        self.current_animation = "idle"
 
         self.animations["attack"].setCallback(self.hit)
 

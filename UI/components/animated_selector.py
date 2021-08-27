@@ -10,6 +10,7 @@ class AnimatedSelector:
     def __init__(self, position, size, selectable_size: tuple = (256, 256)):
         self.elements: list(AnimatedSelectable) = []
         self.position = position
+        self.size = size
         self.selectable_size = selectable_size
 
     @property

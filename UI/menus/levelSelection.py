@@ -96,7 +96,9 @@ class LevelSelectMenu(Menu, Runnable):
 
     def runLevel(self, level):
         """Callback for the levels' cards, launches the selected level"""
-        ChacracterChoiceMenu(screen=self.screen, pickFrom=self.pickFrom, level=level, background=self.backgroundCallback)()
+        ChacracterChoiceMenu(
+            screen=self.screen, pickFrom=self.pickFrom, level=level, background=self.backgroundCallback
+        )()
 
     def back(self):
         """Callback for the back button, gets the user back to the main menu"""

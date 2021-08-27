@@ -16,8 +16,8 @@ from UI.menus.menu import Menu
 class ChacracterChoiceMenu(Menu, Runnable):
     """The character selection menu"""
 
-    def __init__(self, level: str = None, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, level: str = None, **kwargs):
+        super().__init__(**kwargs)
         self.scrollAmount = 60
 
         self.dark_background = pg.Surface((576, 704), pg.SRCALPHA)
