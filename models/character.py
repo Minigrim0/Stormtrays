@@ -14,6 +14,7 @@ from src.errors.missingAnimationException import MissingAnimationException
 from src.utils.distance_between import distance_between
 from src.utils.find_angle import findAngle
 from UI.components.image_animation import ImageAnimation
+from UI.components.power_bar.power_bar import PowerBar
 
 
 class Character:
@@ -52,6 +53,8 @@ class Character:
         self.animations: dict = {}
         self.current_animation: str = "idle"
 
+        self.power_bar = PowerBar(box_size=48)
+
         self.bombs: [Bomb] = []
 
         from UI.menus.game_ui import GameUI
@@ -76,6 +79,9 @@ class Character:
             if "idle" not in self.animations.keys():
                 raise MissingAnimationException(f"Missing animation {animation} in Character model")
         logging.info("ok")
+
+    def _placeBomb(self) -> bool:
+        return False
 
     def setStyle(self, style: str):
         """Sets the style of the character, based on the available characters in assets/characters"""
@@ -149,16 +155,13 @@ class Character:
         if event.type == pg.MOUSEBUTTONDOWN and event.button == 3:
             ennemy = Ennemy.getInstance().getEnnemy(event.pos)
             self.target = ennemy if ennemy is not None else event.pos
-        elif event.type == pg.KEYDOWN and event.key == pg.K_1:
-            self.bombs.append(
-                Bomb((self.posx, self.posy), 5)
-            )
 
     def draw(self, screen: Screen):
         """Draws the character on screen"""
         self.getCurrentAnimation().draw(screen, (self.posx, self.posy), centered=True)
         for bomb in self.bombs:
             bomb.draw(screen)
+        self.power_bar.draw(screen)
 
     def move(self, elapsed_time: float):
         """Updates the status of the character"""
