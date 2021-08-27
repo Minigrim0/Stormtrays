@@ -25,7 +25,7 @@ class Box:
     def _cooldownText(self) -> pg.Surface:
         options = GameOptions.getInstance()
         return options.fonts["MedievalSharp-xOZ5"]["14"].render(
-            self.current_cooldown, 0, (255, 255, 255)
+            str(round(self.current_cooldown, 1)), 0, (255, 255, 255)
         )
 
     def trigger(self):
@@ -38,11 +38,12 @@ class Box:
             self.current_cooldown = max(self.current_cooldown - elapsed_time, 0)
 
     def draw(self, screen, position: tuple):
-        screen.blit(self.icon, position)
-        screen.blit(
-            self._cooldownText,
-            (
-                position[0],
-                position[1] + self.size - 14
+        # screen.blit(self.icon, position)
+        if not self.available:
+            screen.blit(
+                self._cooldownText,
+                (
+                    position[0] + 2,
+                    position[1] + self.size - 15
+                )
             )
-        )

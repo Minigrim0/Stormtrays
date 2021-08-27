@@ -3,6 +3,7 @@ import logging
 import pygame as pg
 
 from UI.components.power_bar.box import Box
+import src.constantes as consts
 
 
 class PowerBar:
@@ -16,17 +17,19 @@ class PowerBar:
         self.columns = columns
         self.rows = rows
         self.boxes: [Box] = []
+        self.position: tuple = (0, 0)
+        self.total_size: tuple = (0, 0)
 
         self.image: pg.Surface = None
-        self._build()
+        self._build(position)
 
-    def _build(self):
+    def _build(self, position):
         """Builds the UI of the Power Bar"""
-        total_size = (
+        self.total_size = (
             self.box_size * self.columns,
             self.box_size * self.rows
         )
-        self.image = pg.Surface(total_size, pg.SRCALPHA)
+        self.image = pg.Surface(self.total_size, pg.SRCALPHA)
         self.image.fill((0, 0, 0, 128))
         for row in range(self.rows):
             for column in range(self.columns):
@@ -38,6 +41,11 @@ class PowerBar:
                     ),
                     width=1
                 )
+
+        self.position = (
+            (consts.WINDOW_WIDTH - self.total_size[0]) // 2,
+            (consts.WINDOW_HEIGHT - self.total_size[1]),
+        )
 
     def addBox(self, icon: pg.Surface, name: str, cooldown: int, callback: callable, **ckwargs):
         logging.info(f"Adding '{name}' to power bar")
