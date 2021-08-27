@@ -1,7 +1,6 @@
-import math
-
 from models.ennemy import Ennemy
 from UI.components.image_animation import ImageAnimation
+from src.utils.distance_between import distance_between
 
 
 class Bomb:
@@ -11,15 +10,20 @@ class Bomb:
         self.position: tuple = position
         self.lifespan: float = time
         self.radius: int = 40
-        self.animation = ImageAnimation("assets/images/animations/bomb", callback=self.explode, speed=5)
+        self.animation = ImageAnimation(
+            "assets/images/animations/bomb", callback=self.explode, speed=5, bank_name="bomb")
+        self.alive: bool = True
 
-    def update(self, time_elapsed: float):
+    def _die(self):
+        self.alive = False
+
+    def update(self, elapsed_time: float):
         """Update the bomb lifetime and displays it to the screen"""
         if self.lifespan <= 0:
             self.animation.play()
-            self.animation.update(time_elapsed)
+            self.animation.update(elapsed_time)
         else:
-            self.lifespan -= time_elapsed
+            self.lifespan -= elapsed_time
 
     def draw(self, screen):
         """Draws the bomb on screen"""
@@ -29,7 +33,6 @@ class Bomb:
         """Deals damage to the surrouding ennemies"""
         ennemies = Ennemy.getInstance().getEnnemyList()
         for ennemy in ennemies:
-            dist = math.sqrt(((ennemy.PosAbsolue[0] - self.Posx) ** 2) + ((ennemy.PosAbsolue[1] - self.Posy) ** 2))
-
-            if dist <= self.radius:
+            if distance_between(ennemy.centeredPosition, self.position) <= self.radius:
                 ennemy.hit(20)
+        self._die()

@@ -9,6 +9,7 @@ from models.ennemy import Ennemy
 from models.level import Level
 from models.screen import Screen
 from src.ennemy import EnnemyDO
+from src.bomb import Bomb
 from src.errors.missingAnimationException import MissingAnimationException
 from src.utils.distance_between import distance_between
 from src.utils.find_angle import findAngle
@@ -50,6 +51,8 @@ class Character:
 
         self.animations: dict = {}
         self.current_animation: str = "idle"
+
+        self.bombs: [Bomb] = []
 
         from UI.menus.game_ui import GameUI
         self.ui = GameUI.getInstance()
@@ -133,6 +136,10 @@ class Character:
             self.target = (self.posx, self.posy)
         self.move(elapsed_time)
         self.getCurrentAnimation().update(elapsed_time)
+        for bomb in self.bombs:
+            bomb.update(elapsed_time)
+            if not bomb.alive:
+                print("Bomb dead")
 
     def handleEvent(self, event: pg.event):
         """Handles user events"""
@@ -142,10 +149,16 @@ class Character:
         if event.type == pg.MOUSEBUTTONDOWN and event.button == 3:
             ennemy = Ennemy.getInstance().getEnnemy(event.pos)
             self.target = ennemy if ennemy is not None else event.pos
+        elif event.type == pg.KEYDOWN and event.key == pg.K_1:
+            self.bombs.append(
+                Bomb((self.posx, self.posy), 5)
+            )
 
     def draw(self, screen: Screen):
         """Draws the character on screen"""
         self.getCurrentAnimation().draw(screen, (self.posx, self.posy), centered=True)
+        for bomb in self.bombs:
+            bomb.draw(screen)
 
     def move(self, elapsed_time: float):
         """Updates the status of the character"""
@@ -205,3 +218,4 @@ class Character:
         self.capacite1 = False
         self.capacite2 = False
         self.current_animation = "idle"
+        self.bombs = []
