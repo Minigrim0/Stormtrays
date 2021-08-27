@@ -5,7 +5,7 @@
     "states": {
         "idle": {
             "flippable": true,
-            "speed": 3,
+            "speed": 6,
             "loop": -1,
             "animations": [
                 {
@@ -17,7 +17,7 @@
         },
         "attack": {
             "flippable": true,
-            "speed": 4,
+            "speed": 6,
             "loop": 2,
             "animations": [
                 {
@@ -34,7 +34,7 @@
         },
         "walk": {
             "flippable": true,
-            "speed": 4,
+            "speed": 6,
             "loop": -1,
             "animations": [
                 {
