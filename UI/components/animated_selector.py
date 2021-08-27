@@ -12,6 +12,18 @@ class AnimatedSelector:
         self.position = position
         self.selectable_size = selectable_size
 
+    @property
+    def _selected(self) -> AnimatedSelectable:
+        for element in self.elements:
+            if element.selected:
+                return element
+
+    @property
+    def selected_name(self) -> AnimatedSelectable:
+        for element in self.elements:
+            if element.selected:
+                return element.name
+
     def update(self, timeElapsed):
         for selectable in self.elements:
             selectable.update(timeElapsed)
@@ -22,7 +34,7 @@ class AnimatedSelector:
 
     def handleEvent(self, event):
         if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
-            selected_element = self._getSelected()
+            selected_element = self._selected
             for element in self.elements:
                 if element != selected_element and element.click(event.pos, offset=self.position):
                     selected_element.unselect()
@@ -40,8 +52,3 @@ class AnimatedSelector:
             if len(self.elements) == 0:
                 selectable.selected = True
         self.elements.append(selectable)
-
-    def _getSelected(self) -> AnimatedSelectable:
-        for element in self.elements:
-            if element.selected:
-                return element
