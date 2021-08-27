@@ -54,6 +54,9 @@ class Character:
         self.current_animation: str = "idle"
 
         self.power_bar = PowerBar(box_size=48)
+        self.power_bar.addBox(
+            icon=None, name="Bomb", cooldown=5, callback=self._placeBomb
+        )
 
         self.bombs: [Bomb] = []
 
@@ -136,23 +139,17 @@ class Character:
 
     def update(self, elapsed_time: float):
         """Updates the character, makes him move"""
-        # if self.capacite1:
-        #     Icapacite1 += 1
-        #     if Icapacite1 == 160:
-        #         Icapacite1 = 0
-        #         King.capacite1 = False
-        # if CooldownInvoc > 0:
-        #     CooldownInvoc -= 1
-        # TpsCoolDown = CooldownInvoc // 24
-
         if isinstance(self.target, EnnemyDO) and not self.target.alive:
             self.target = (self.posx, self.posy)
         self.move(elapsed_time)
         self.getCurrentAnimation().update(elapsed_time)
+
+        self.power_bar.update(elapsed_time)
+
         for bomb in self.bombs:
             bomb.update(elapsed_time)
             if not bomb.alive:
-                print("Bomb dead")
+                del self.bombs[self.bombs.index(bomb)]
 
     def handleEvent(self, event: pg.event):
         """Handles user events"""
@@ -162,6 +159,8 @@ class Character:
         if event.type == pg.MOUSEBUTTONDOWN and event.button == 3:
             ennemy = Ennemy.getInstance().getEnnemy(event.pos)
             self.target = ennemy if ennemy is not None else event.pos
+
+        self.power_bar.handleEvent(event)
 
     def draw(self, screen: Screen):
         """Draws the character on screen"""
