@@ -30,11 +30,23 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
   
-  linux_build:
+  build_and_push:
     needs: linting
     if: ${{ github.event_name == 'push' }}
-    runs-on: ubuntu-latest
-    
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: windows-latest
+            CHANNEL: windows
+
+          - os: macos-latest
+            CHANNEL: osx
+
+          - os: ubuntu-latest
+            CHANNEL: linux
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.9
@@ -55,7 +67,7 @@ jobs:
       uses: josephbmanley/butler-publish-itchio-action@master
       env:
         BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
-        CHANNEL: linux
+        CHANNEL: ${{ matrix.CHANNEL }}
         ITCH_GAME: stormtrays
         ITCH_USER: Minigrim0
         PACKAGE: dist/Stormtrays/
