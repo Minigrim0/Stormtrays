@@ -7,7 +7,6 @@ import pygame as pg
 from models.game import Game
 from models.game_options import GameOptions
 from src.runnable import Runnable
-from UI.components.image_animation import ImageAnimation
 from UI.components.button import Button
 from UI.components.animated_selector import AnimatedSelector
 from UI.menus.menu import Menu
@@ -94,6 +93,7 @@ class ChacracterChoiceMenu(Menu, Runnable):
         options = GameOptions.getInstance()
         levelPath = options.fullPath("levels", f"{level}.json")
         Game.getInstance()(self.screen, levelPath)
+        self.back()
 
     def back(self):
         """Callback for the back button, gets the user back to the Level Selection menu"""
