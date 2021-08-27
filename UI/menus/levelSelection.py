@@ -11,6 +11,7 @@ from UI.components.animation import Animation
 from UI.components.button import Button
 from UI.components.card import Card
 from UI.menus.menu import Menu
+from UI.menus.character_choice import ChacracterChoiceMenu
 
 
 class LevelSelectMenu(Menu, Runnable):
@@ -95,9 +96,9 @@ class LevelSelectMenu(Menu, Runnable):
 
     def runLevel(self, level):
         """Callback for the levels' cards, launches the selected level"""
-        options = GameOptions.getInstance()
-        levelPath = options.fullPath("levels", f"{level}.json")
-        Game.getInstance()(self.screen, levelPath)
+        ChacracterChoiceMenu(
+            screen=self.screen, pickFrom=self.pickFrom, level=level, background=self.backgroundCallback
+        )()
 
     def back(self):
         """Callback for the back button, gets the user back to the main menu"""

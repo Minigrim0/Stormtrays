@@ -1,4 +1,7 @@
+import json
 import math
+
+import logging
 
 import pygame as pg
 
@@ -6,6 +9,7 @@ from models.ennemy import Ennemy
 from models.level import Level
 from models.screen import Screen
 from src.ennemy import EnnemyDO
+from src.errors.missingAnimationException import MissingAnimationException
 from src.utils.distance_between import distance_between
 from src.utils.find_angle import findAngle
 from UI.components.image_animation import ImageAnimation
@@ -30,33 +34,52 @@ class Character:
 
         self.target = (576, 352)  # Either a position or an ennemy
 
-        self.posx = 0
-        self.posy = 0
+        self.posx: int = 0
+        self.posy: int = 0
+        self.XpToAdd: int = 0
+        self.xp: int = 0
+        self.objectif: int = 10
+        self.level: int = 1
+        self.damage: int = 0
+        self.speed: int = 0
+        self.kills: int = 0
 
-        self.XpToAdd = 0
-        self.xp = 0
-        self.objectif = 10
-        self.level = 1
-        self.damage = 3
-        self.speed = 5
+        self.Is_Returned: bool = False
+        self.capacite1: bool = False
+        self.capacite2: bool = False
 
-        self.kills = 0
-
-        self.Is_Returned = False
-        self.capacite1 = False
-        self.capacite2 = False
+        self.animations: dict = {}
+        self.current_animation: str = "idle"
 
         from UI.menus.game_ui import GameUI
         self.ui = GameUI.getInstance()
 
-        self.animations = {
-            "idle": ImageAnimation("assets/images/animations/character/idle/", loop=-1, flippable=True),
-            "walk": ImageAnimation("assets/images/animations/character/walk/", loop=-1, flippable=True, speed=8),
-            "attack": ImageAnimation(
-                "assets/images/animations/character/attack/", flippable=True, speed=9, loop=2, callback=self.hit),
-            "invoke": ImageAnimation("assets/images/animations/character/invoke/", flippable=True, speed=5)
-        }
-        self.current_animation = "idle"
+    @property
+    def real_speed(self) -> float:
+        """Returns the speed in pixel/sec instead of tiles/sec"""
+        return self.speed * 64
+
+    def _load(self, data):
+        """Loads informations about the character from a parsed json file"""
+        self.speed = data["speed"]
+        self.damage = data["damage"]
+
+        self.animations = {name: ImageAnimation(initial_data=state) for name, state in data["states"].items()}
+
+        self.animations["attack"].setCallback(self.hit)
+
+        logging.info("Ensuring the presence of required animatons")
+        for animation in ["idle", "walk", "attack"]:
+            if "idle" not in self.animations.keys():
+                raise MissingAnimationException(f"Missing animation {animation} in Character model")
+        logging.info("ok")
+
+    def setStyle(self, style: str):
+        """Sets the style of the character, based on the available characters in assets/characters"""
+        path = style.lower().replace(" ", "-")
+        with open(f"assets/character/{path}/setup.json") as character_style:
+            data = json.load(character_style)
+            self._load(data)
 
     def getCurrentAnimation(self) -> ImageAnimation:
         """Returns the currently playing animation"""
@@ -123,11 +146,6 @@ class Character:
     def draw(self, screen: Screen):
         """Draws the character on screen"""
         self.getCurrentAnimation().draw(screen, (self.posx, self.posy), centered=True)
-
-    @property
-    def real_speed(self) -> float:
-        """Returns the speed in pixel/sec instead of tiles/sec"""
-        return self.speed * 64
 
     def move(self, elapsed_time: float):
         """Updates the status of the character"""
