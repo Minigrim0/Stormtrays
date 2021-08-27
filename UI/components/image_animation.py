@@ -207,6 +207,14 @@ class ImageAnimation:
             return self.images_flipped[self.step]
         return self.images[self.step]
 
+    def getFrame(self, index: int = 0) -> pg.Surface:
+        """Returns a frame of the animation, ensures the result to be a pygame Surface"""
+        frame = self.images_flipped[self.step] if self.flipped else self.images[self.step]
+        if isinstance(frame, pg.Rect):
+            if self.flipped:
+                return self.flipped_original_image.subsurface(frame)
+            return self.original_image.subsurface(frame)
+
     def draw(self, screen: Screen, position: tuple, centered: bool = False):
         """Draws the current frame on the screen, at the given position"""
         if self.multipart:
