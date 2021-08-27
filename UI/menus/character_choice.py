@@ -7,9 +7,9 @@ import pygame as pg
 from models.game import Game
 from models.game_options import GameOptions
 from src.runnable import Runnable
-from UI.components.animation import Animation
 from UI.components.image_animation import ImageAnimation
 from UI.components.button import Button
+from UI.components.animated_selector import AnimatedSelector
 from UI.menus.menu import Menu
 
 
@@ -23,9 +23,7 @@ class ChacracterChoiceMenu(Menu, Runnable):
         self.dark_background = pg.Surface((576, 704), pg.SRCALPHA)
         self.dark_background.fill((0, 0, 0, 128))
 
-        self.animations: list = []
-        self.selected_character: int = 0
-        self.current_animation: str = "idle"
+        self.selector = AnimatedSelector((576, 50), (576, 550))
 
         self._load(level)
 
@@ -40,15 +38,14 @@ class ChacracterChoiceMenu(Menu, Runnable):
         self.buttons["back"].build("Retour", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
         button_image = pg.image.load(options.fullPath("images", "buttons/small_button.png")).convert_alpha()
-
         self.buttons["choose"] = Button(
-            (516, 387), button_image.get_size(),
+            (864 - button_image.get_size()[0]//2, 600), button_image.get_size(),
             image=button_image,
             callback=self.runLevel,
             level=level
         )
         self.buttons["choose"].build(
-            "Continuer", options.fonts["MedievalSharp-xOZ5"]["25"],
+            "Lancer", options.fonts["MedievalSharp-xOZ5"]["25"],
             ("CENTER", "CENTER")
         )
 
@@ -59,13 +56,7 @@ class ChacracterChoiceMenu(Menu, Runnable):
             with open(os.path.join(character_folder, "setup.json")) as data_file:
                 data = json.load(data_file)
 
-            self.animations.append({
-                "name": data["name"],
-                "animations": {
-                    name: ImageAnimation(initial_data=state, image_size=(256, 256)) for name, state in data["states"].items()
-                }
-            })
-        self.animations[self.selected_character]["animations"][self.current_animation].play()
+            self.selector.addElement(name=data["name"], animations=data["states"])
 
     def loop(self):
         """The bit of code called at each iteration"""
@@ -74,7 +65,7 @@ class ChacracterChoiceMenu(Menu, Runnable):
         self.draw()
         self.screen.flip()
 
-        self.animations[self.selected_character]["animations"][self.current_animation].update(self.screen.time_elapsed)
+        self.selector.update(self.screen.time_elapsed)
 
         self.handleEvent()
 
@@ -82,13 +73,15 @@ class ChacracterChoiceMenu(Menu, Runnable):
         """Draws the buttons/images on screen and refreshes it"""
         self.screen.blit(self.dark_background, (576, 0))
 
-        self.animations[self.selected_character]["animations"][self.current_animation].draw(self.screen, (500, 200))
+        self.selector.draw(self.screen)
 
     def handleEvent(self):
         """Handles the user inputs"""
         for event in super().handleEvent():
             if event.type == pg.locals.KEYDOWN and event.key == pg.locals.K_ESCAPE:
                 self.back()
+
+            self.selector.handleEvent(event)
 
     def scroll(self, amount):
         """Moves the levelss cards up or down"""
