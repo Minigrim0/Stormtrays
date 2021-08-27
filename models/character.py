@@ -81,6 +81,13 @@ class Character:
         logging.info("ok")
 
     def _placeBomb(self) -> bool:
+        """Callback for the placing bomb power"""
+        if Level.getInstance().canAfford(150):
+            self.bombs.append(
+                Bomb((self.posx, self.posy), 3)
+            )
+            Level.getInstance().pay(150)
+            return True
         return False
 
     def setStyle(self, style: str):
