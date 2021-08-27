@@ -1,5 +1,6 @@
 import pygame as pg
 
+from models.game_options import GameOptions
 from UI.components.image_animation import ImageAnimation
 
 
@@ -18,6 +19,13 @@ class AnimatedSelectable:
         self.selected: bool = False
         self.name: str = name
         self.size: tuple = size
+
+        self.name_display: pg.Surface = None
+        self._build()
+
+    def _build(self):
+        options = GameOptions.getInstance()
+        self.name_display = options.fonts["MedievalSharp-xOZ5"]["20"].render(self.name, 1, (255, 255, 255))
 
     def _endSelectAnimation(self):
         self.current_animation = self.initial_animation
@@ -43,6 +51,10 @@ class AnimatedSelectable:
         self.animations[self.current_animation].draw(screen, position)
         if self.selected:
             pg.draw.rect(screen.fenetre, (255, 255, 255), pg.Rect(position, (256, 256)), width=2)
+        screen.blit(
+            self.name_display,
+            (position[0] + 128 - self.name_display.get_size()[0]//2, position[1])
+        )
 
     def select(self):
         self.selected = True
