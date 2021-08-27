@@ -69,6 +69,8 @@ class Character:
         self.animations = {name: ImageAnimation(initial_data=state) for name, state in data["states"].items()}
         self.current_animation = "idle"
 
+        self.animations["attack"].setCallback(self.hit)
+
         logging.info("Ensuring the presence of required animatons")
         assert "idle" in self.animations.keys()
         assert "walk" in self.animations.keys()

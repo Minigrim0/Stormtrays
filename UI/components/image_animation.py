@@ -37,19 +37,23 @@ class ImageAnimation:
         self.current_loop = 0
 
         self.multipart = False
-
         self.callback_on = callback_on if callback_on is not None else [-1]  # When to call the callback
+
+        self._load(image_size, folder_path=folder_path, initial_data=initial_data, bank_name=bank_name)
 
     def _load(self, image_size, folder_path: str = None, initial_data: dict = None, bank_name: str = None):
         """Loads the animation from the given parameters"""
         bank = ImageBank.getInstance()
         if (bank_name is None or not bank.exists(bank_name)):
             if folder_path is not None:
-                self.loadFolder(folder_path, image_size=image_size)
+                logging.info(f"loading animation from folder {folder_path}")
+                self._loadFolder(folder_path, image_size=image_size)
             elif initial_data is not None:
-                self.loadDict(initial_data, image_size=image_size)
+                logging.info("loading animation from dict")
+                self._loadDict(initial_data, image_size=image_size)
             self._saveBank(bank, bank_name)
         elif bank_name is not None and bank.exists(bank_name):
+            logging.info(f"loading animation from bank '{bank_name}'")
             self._loadBank(bank, bank_name)
 
     def _loadMultipart(self, setup: dict, folder_path: str, image_size: tuple = (-1, -1)):
@@ -98,13 +102,17 @@ class ImageAnimation:
                     pg.transform.flip(self.images[-1], True, False)
                 )
 
-    def loadDict(self, data: dict, image_size: tuple = (-1, -1)):
+    def _loadDict(self, data: dict, image_size: tuple = (-1, -1)):
         """Loads an animation from a dictionnary containing the needed information"""
         self.flippable = data["flippable"]
         self.speed = data["speed"]
         self.loop = data["loop"]
-
-        self._loadMultipart(data["animations"][0], "assets/")
+        self.multipart = data["animations"][0]["multipart"]
+        if self.multipart:
+            self._loadMultipart(data["animations"][0], "assets/")
+        else:
+            images_format = os.path.join(data["animations"][0], data["format"])
+            self._loadFormat(images_format, image_size=image_size)
 
     def _saveBank(self, bank: ImageBank, bank_name: str = None):
         """Saves the images in the bank if bank_name is not None"""
@@ -122,7 +130,7 @@ class ImageAnimation:
             bank_name
         ]
 
-    def loadFolder(self, folder_path: str, image_size: tuple):
+    def _loadFolder(self, folder_path: str, image_size: tuple):
         """Loads an animation from a folder"""
         setup_file = os.path.join(folder_path, "setup.json")
         if not os.path.exists(setup_file):
@@ -133,11 +141,33 @@ class ImageAnimation:
             with open(setup_file) as setup_file:
                 setup = json.load(setup_file)
             self.multipart = setup["multipart"]
-            if self.multipart is True:
+            if self.multipart:
                 self._loadMultipart(setup, folder_path, image_size=image_size)
             else:
                 images_format = os.path.join(folder_path, setup["format"])
                 self._loadFormat(images_format, image_size=image_size)
+
+    def _stepUp(self):
+        """Called at each animation step"""
+        self.last_step = 0
+        self.step += 1
+        if self.step in self.callback_on:
+            self.trigger()
+        if self.step == len(self.images):
+            if -1 in self.callback_on and self.trigger is not None:
+                self.trigger()
+            self._endLoop()
+
+    def _endLoop(self):
+        """Bit of code executed at each loop's end"""
+        self.current_loop += 1
+        self.step %= len(self.images)
+        if self.current_loop >= self.loop and self.loop > 0:
+            self.reset()
+
+    def setCallback(self, callback: callable, callback_on: list = None):
+        self.trigger = callback
+        self.callback_on = callback_on if callback_on is not None else [-1]
 
     def play(self):
         """Sets the animation state to playing"""
@@ -168,24 +198,6 @@ class ImageAnimation:
             self.last_step += elapsed_time
             if self.last_step > (1 / self.speed):
                 self._stepUp()
-
-    def _stepUp(self):
-        """Called at each animation step"""
-        self.last_step = 0
-        self.step += 1
-        if self.step in self.callback_on:
-            self.trigger()
-        if self.step == len(self.images):
-            if -1 in self.callback_on and self.trigger is not None:
-                self.trigger()
-            self._endLoop()
-
-    def _endLoop(self):
-        """Bit of code executed at each loop's end"""
-        self.current_loop += 1
-        self.step %= len(self.images)
-        if self.current_loop >= self.loop and self.loop > 0:
-            self.reset()
 
     def currentFrame(self):
         """Returns the animation's current frame"""
