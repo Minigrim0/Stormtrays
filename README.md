@@ -1,6 +1,7 @@
 # Stromtrays
 <p>
-<img src="https://deepsource.io/gh/Minigrim0/Stormtrays.svg/?label=active+issues&show_trend=true&token=9zXI6PGE43X7aVUJL0rgA6Qf)](https://deepsource.io/gh/Minigrim0/Stormtrays/?ref=repository-badge" alt="deepsource status" title="deepsource status" />
+<img src="https://deepsource.io/gh/Minigrim0/Stormtrays.svg/?label=active+issues&show_trend=true&token=9zXI6PGE43X7aVUJL0rgA6Qf" alt="deepsource status" title="deepsource status" />
+<img src="https://github.com/Minigrim0/Stormtrays/actions/workflows/linting.yml/badge.svg" alt="github action status" title="itch.io build and push" /> 
 </p>
 
 <p>
