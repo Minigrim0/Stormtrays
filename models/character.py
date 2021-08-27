@@ -9,6 +9,7 @@ from models.ennemy import Ennemy
 from models.level import Level
 from models.screen import Screen
 from src.ennemy import EnnemyDO
+from src.errors.missingAnimationException import MissingAnimationException
 from src.utils.distance_between import distance_between
 from src.utils.find_angle import findAngle
 from UI.components.image_animation import ImageAnimation
@@ -68,9 +69,9 @@ class Character:
         self.animations["attack"].setCallback(self.hit)
 
         logging.info("Ensuring the presence of required animatons")
-        assert "idle" in self.animations.keys()
-        assert "walk" in self.animations.keys()
-        assert "attack" in self.animations.keys()
+        for animation in ["idle", "walk", "attack"]:
+            if "idle" not in self.animations.keys():
+                raise MissingAnimationException(f"Missing animation {animation} in Character model")
         logging.info("ok")
 
     def setStyle(self, style: str):
