@@ -126,6 +126,7 @@ class ImageAnimation:
             )
 
     def _loadBank(self, bank: ImageBank, bank_name: str):
+        """Loads an animation set from the image bank"""
         self.images, self.images_flipped, self.multipart, self.original_image, self.flipped_original_image = bank[
             bank_name
         ]
@@ -166,6 +167,7 @@ class ImageAnimation:
             self.reset()
 
     def setCallback(self, callback: callable, callback_on: list = None):
+        """Sets the animation callback"""
         self.trigger = callback
         self.callback_on = callback_on if callback_on is not None else [-1]
 

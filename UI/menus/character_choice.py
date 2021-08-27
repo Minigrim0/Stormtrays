@@ -28,6 +28,7 @@ class ChacracterChoiceMenu(Menu, Runnable):
         self._load(level)
 
     def _load(self, level):
+        """Loads the buttons for the menu"""
         options = GameOptions.getInstance()
         self.buttons["back"] = Button(
             (654, 0),
@@ -52,6 +53,7 @@ class ChacracterChoiceMenu(Menu, Runnable):
         self._loadCharacters()
 
     def _loadCharacters(self):
+        """Loads the available characters and put them in the animated selector"""
         for character_folder in glob.glob("assets/character/*"):
             with open(os.path.join(character_folder, "setup.json")) as data_file:
                 data = json.load(data_file)
@@ -83,14 +85,8 @@ class ChacracterChoiceMenu(Menu, Runnable):
 
             self.selector.handleEvent(event)
 
-    def scroll(self, amount):
-        """Moves the levelss cards up or down"""
-        self.scrollAmount += amount
-        for levelcard in self.cards:
-            levelcard.move((0, amount))
-
     def runLevel(self, level):
-        """Callback for the levels' cards, launches the selected level"""
+        """Runs the level selected in the previous menu with the selected character"""
         character = Character.getInstance()
         character.setStyle(self.selector.selected_name)
         options = GameOptions.getInstance()

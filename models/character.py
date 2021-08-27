@@ -75,6 +75,7 @@ class Character:
         logging.info("ok")
 
     def setStyle(self, style: str):
+        """Sets the style of the character, based on the available characters in assets/characters"""
         path = style.lower().replace(" ", "-")
         with open(f"assets/character/{path}/setup.json") as character_style:
             data = json.load(character_style)
