@@ -68,3 +68,4 @@ class AnimatedSelectable:
         position = tuple(map(lambda i, j: i + j, self.position, offset))
         if position[0] < event_pos[0] < position[0] + self.size[0]:
             return position[1] < event_pos[1] < position[1] + self.size[1]
+        return False

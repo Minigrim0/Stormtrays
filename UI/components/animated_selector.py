@@ -18,12 +18,14 @@ class AnimatedSelector:
         for element in self.elements:
             if element.selected:
                 return element
+        return None
 
     @property
     def selected_name(self) -> AnimatedSelectable:
         for element in self.elements:
             if element.selected:
                 return element.name
+        return None
 
     def update(self, timeElapsed):
         for selectable in self.elements:
