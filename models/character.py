@@ -55,7 +55,8 @@ class Character:
 
         self.power_bar = PowerBar(box_size=48)
         self.power_bar.addBox(
-            icon=None, name="Bomb", cooldown=5, callback=self._placeBomb
+            icon=ImageAnimation("assets/images/animations/bomb", bank_name="bomb").getFrame(),
+            name="Bomb", cooldown=5, callback=self._placeBomb
         )
 
         self.bombs: [Bomb] = []
