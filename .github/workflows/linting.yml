@@ -69,7 +69,7 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
         name: ${{ matrix.CHANNEL }}-artifact
-        path: artifact
+        path: dist/Stormtrays
 
   push_butler:
     needs: build_artifacts
@@ -82,7 +82,7 @@ jobs:
     - uses: actions/download-artifact@master
       with:
         name: ${{ matrix.channel }}-artifact
-        path: artifact
+        path: dist/Stormtrays
 
     - name: itch-io linux publish
       uses: josephbmanley/butler-publish-itchio-action@master
