@@ -38,7 +38,7 @@ class Box:
             self.current_cooldown = max(self.current_cooldown - elapsed_time, 0)
 
     def draw(self, screen, position: tuple):
-        # screen.blit(self.icon, position)
+        screen.blit(self.icon, position)
         if not self.available:
             screen.blit(
                 self._cooldownText,
