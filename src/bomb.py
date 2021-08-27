@@ -27,7 +27,7 @@ class Bomb:
 
     def explode(self):
         """Deals damage to the surrouding ennemies"""
-        ennemies = Ennemy.getInstance().getEnnemyList
+        ennemies = Ennemy.getInstance().getEnnemyList()
         for ennemy in ennemies:
             dist = math.sqrt(((ennemy.PosAbsolue[0] - self.Posx) ** 2) + ((ennemy.PosAbsolue[1] - self.Posy) ** 2))
 
