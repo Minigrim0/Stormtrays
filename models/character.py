@@ -9,10 +9,12 @@ from models.ennemy import Ennemy
 from models.level import Level
 from models.screen import Screen
 from src.ennemy import EnnemyDO
+from src.bomb import Bomb
 from src.errors.missingAnimationException import MissingAnimationException
 from src.utils.distance_between import distance_between
 from src.utils.find_angle import findAngle
 from UI.components.image_animation import ImageAnimation
+from UI.components.power_bar.power_bar import PowerBar
 
 
 class Character:
@@ -51,6 +53,14 @@ class Character:
         self.animations: dict = {}
         self.current_animation: str = "idle"
 
+        self.power_bar = PowerBar(box_size=48)
+        self.power_bar.addBox(
+            icon=ImageAnimation("assets/images/animations/bomb", bank_name="bomb").getFrame(),
+            name="Bomb", cooldown=5, callback=self._placeBomb
+        )
+
+        self.bombs: [Bomb] = []
+
         from UI.menus.game_ui import GameUI
         self.ui = GameUI.getInstance()
 
@@ -73,6 +83,16 @@ class Character:
             if "idle" not in self.animations.keys():
                 raise MissingAnimationException(f"Missing animation {animation} in Character model")
         logging.info("ok")
+
+    def _placeBomb(self) -> bool:
+        """Callback for the placing bomb power"""
+        if Level.getInstance().canAfford(150):
+            self.bombs.append(
+                Bomb((self.posx, self.posy), 3)
+            )
+            Level.getInstance().pay(150)
+            return True
+        return False
 
     def setStyle(self, style: str):
         """Sets the style of the character, based on the available characters in assets/characters"""
@@ -120,19 +140,17 @@ class Character:
 
     def update(self, elapsed_time: float):
         """Updates the character, makes him move"""
-        # if self.capacite1:
-        #     Icapacite1 += 1
-        #     if Icapacite1 == 160:
-        #         Icapacite1 = 0
-        #         King.capacite1 = False
-        # if CooldownInvoc > 0:
-        #     CooldownInvoc -= 1
-        # TpsCoolDown = CooldownInvoc // 24
-
         if isinstance(self.target, EnnemyDO) and not self.target.alive:
             self.target = (self.posx, self.posy)
         self.move(elapsed_time)
         self.getCurrentAnimation().update(elapsed_time)
+
+        self.power_bar.update(elapsed_time)
+
+        for bomb in self.bombs:
+            bomb.update(elapsed_time)
+            if not bomb.alive:
+                del self.bombs[self.bombs.index(bomb)]
 
     def handleEvent(self, event: pg.event):
         """Handles user events"""
@@ -143,9 +161,14 @@ class Character:
             ennemy = Ennemy.getInstance().getEnnemy(event.pos)
             self.target = ennemy if ennemy is not None else event.pos
 
+        self.power_bar.handleEvent(event)
+
     def draw(self, screen: Screen):
         """Draws the character on screen"""
         self.getCurrentAnimation().draw(screen, (self.posx, self.posy), centered=True)
+        for bomb in self.bombs:
+            bomb.draw(screen)
+        self.power_bar.draw(screen)
 
     def move(self, elapsed_time: float):
         """Updates the status of the character"""
@@ -205,3 +228,4 @@ class Character:
         self.capacite1 = False
         self.capacite2 = False
         self.current_animation = "idle"
+        self.bombs = []
