@@ -10,8 +10,7 @@ class PowerBar:
     """The character's power bar"""
 
     def __init__(
-        self, position: tuple = ("CENTERED", "BOTTOM"), rows: int = 1, columns: int = 5,
-        box_size: int = 32
+        self, rows: int = 1, columns: int = 5, box_size: int = 32
     ):
         self.box_size = box_size
         self.columns = columns
@@ -21,9 +20,9 @@ class PowerBar:
         self.total_size: tuple = (0, 0)
 
         self.image: pg.Surface = None
-        self._build(position)
+        self._build()
 
-    def _build(self, position):
+    def _build(self):
         """Builds the UI of the Power Bar"""
         self.total_size = (
             self.box_size * self.columns,
