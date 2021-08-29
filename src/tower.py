@@ -20,6 +20,7 @@ class TowerDO:
         self.damage = tower_data["damage"]
         self.fire_rate = tower_data["fire_rate"]
         self.price = tower_data["price"]
+        self.selected = False
 
         self.target: EnnemyDO = None
 
