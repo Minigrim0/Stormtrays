@@ -209,7 +209,7 @@ class ImageAnimation:
 
     def getFrame(self, index: int = 0) -> pg.Surface:
         """Returns a frame of the animation, ensures the result to be a pygame Surface"""
-        frame = self.images_flipped[self.step] if self.flipped else self.images[self.step]
+        frame = self.images_flipped[index] if self.flipped else self.images[index]
         if isinstance(frame, pg.Rect):
             if self.flipped:
                 return self.flipped_original_image.subsurface(frame)
