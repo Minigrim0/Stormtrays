@@ -130,6 +130,8 @@ class Tower:
 
                 if self.selectedTower is None:
                     self.popup.handleEvent(event)
+                    for tower in self.towers:
+                        tower.click(event.pos)
 
             elif event.button == 3:
                 self.selectedTower = None

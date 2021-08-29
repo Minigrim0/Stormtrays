@@ -12,9 +12,10 @@ from UI.components.image_animation import ImageAnimation
 class TowerDO:
     """Represents an in-game tower"""
 
-    def __init__(self, tower_data, position: tuple = (0, 0)):
+    def __init__(self, tower_data, position: tuple = (0, 0), size: tuple = (64, 64)):
         self.placed: bool = False
         self.position: tuple = position
+        self.size = size
         self.range = tower_data["range"]
         self.damage = tower_data["damage"]
         self.fire_rate = tower_data["fire_rate"]
@@ -89,6 +90,8 @@ class TowerDO:
             self.animation.draw(screen, self.absolute_position)
         else:
             self.animation.draw(screen, self.position)
+        if self.selected:
+            pass
 
     def update(self, elapsed_time: float):
         """Updates the in-game towers and the tower menu"""
@@ -148,3 +151,9 @@ class TowerDO:
             self.counters[name] += amount
         else:
             self.counters[name] = amount
+
+    def click(self, position: tuple):
+        if self.position[0] <= position[0] <= self.position[0] + self.size[0]:
+            if self.position[1] <= position[1] <= self.position[1] + self.size[1]:
+                self.selected = True
+        self.selected = False
