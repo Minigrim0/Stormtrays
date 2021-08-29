@@ -47,12 +47,14 @@ class PowerBar:
         )
 
     def addBox(self, icon: pg.Surface, name: str, cooldown: int, callback: callable, **ckwargs):
+        """Adds a box in the power bar"""
         logging.info(f"Adding '{name}' to power bar")
         self.boxes.append(
             Box(icon, self.box_size, cooldown, callback, **ckwargs)
         )
 
     def draw(self, screen):
+        """Draws the poser bar and the boxes on screen"""
         screen.blit(self.image, self.position)
         for index, box in enumerate(self.boxes):
             box.draw(
@@ -60,9 +62,11 @@ class PowerBar:
             )
 
     def update(self, elapsed_time: float):
+        """Updates the boxes"""
         for box in self.boxes:
             box.update(elapsed_time)
 
     def handleEvent(self, event):
+        """Handles user events"""
         if event.type == pg.KEYDOWN and event.key == pg.K_1:
             self.boxes[0].trigger()

@@ -15,6 +15,7 @@ class Bomb:
         self.alive: bool = True
 
     def _die(self):
+        """Sets the bomb as not alive"""
         self.alive = False
 
     def update(self, elapsed_time: float):

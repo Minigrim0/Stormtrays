@@ -29,14 +29,17 @@ class Box:
         )
 
     def trigger(self):
+        """Triggers the box's power"""
         if self.available and self.callback(**self.ckwargs):
             self.current_cooldown = self.initial_cooldown
 
     def update(self, elapsed_time: float):
+        """Diminishes cooldown by the elapsed_time"""
         if not self.available:
             self.current_cooldown = max(self.current_cooldown - elapsed_time, 0)
 
     def draw(self, screen, position: tuple):
+        """Draws the box's icon and cooldown"""
         screen.blit(self.icon, position)
         if not self.available:
             screen.blit(
