@@ -29,9 +29,8 @@ class Box:
         )
 
     def trigger(self):
-        if self.available:
-            if self.callback(**self.ckwargs):
-                self.current_cooldown = self.initial_cooldown
+        if self.available and self.callback(**self.ckwargs):
+            self.current_cooldown = self.initial_cooldown
 
     def update(self, elapsed_time: float):
         if not self.available:
