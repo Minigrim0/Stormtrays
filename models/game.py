@@ -9,7 +9,7 @@ from models.screen import Screen
 from models.tower import Tower
 # from src.invocation import Invocation
 from src.runnable import Runnable
-from UI.menus.game_ui import GameUI
+from UI.components.gui.game_ui import GameUI
 from UI.menus.endMenu import EndScreen
 
 

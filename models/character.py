@@ -61,7 +61,7 @@ class Character:
 
         self.bombs: [Bomb] = []
 
-        from UI.menus.game_ui import GameUI
+        from UI.components.gui.game_ui import GameUI
         self.ui = GameUI.getInstance()
 
     @property
