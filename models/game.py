@@ -7,7 +7,7 @@ from models.level import Level
 from models.projectile import Projectile
 from models.screen import Screen
 from models.tower import Tower
-from src.invocation import Invocation
+# from src.invocation import Invocation
 from src.runnable import Runnable
 from UI.menus.game_ui import GameUI
 from UI.menus.endMenu import EndScreen
