@@ -50,6 +50,8 @@ class Character:
         self.capacite1: bool = False
         self.capacite2: bool = False
 
+        self.movement_button_pressed: bool = False
+
         self.animations: dict = {}
         self.current_animation: str = "idle"
 
@@ -159,7 +161,16 @@ class Character:
 
         if event.type == pg.MOUSEBUTTONDOWN and event.button == 3:
             ennemy = Ennemy.getInstance().getEnnemy(event.pos)
-            self.target = ennemy if ennemy is not None else event.pos
+            if ennemy is not None:
+                self.target = ennemy
+            else:
+                self.target = event.pos
+                self.movement_button_pressed = True
+
+        elif event.type == pg.MOUSEBUTTONUP and event.button == 3:
+            self.movement_button_pressed = False
+        elif event.type == pg.MOUSEMOTION and self.movement_button_pressed:
+            self.target = event.pos
 
         self.power_bar.handleEvent(event)
 
