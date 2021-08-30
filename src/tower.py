@@ -1,10 +1,11 @@
 import math
-
+import logging
 import pygame
 
 from models.ennemy import Ennemy
 from models.projectile import Projectile
 from models.screen import Screen
+from models.game_options import GameOptions
 from src.ennemy import EnnemyDO
 from UI.components.image_animation import ImageAnimation
 
@@ -58,6 +59,14 @@ class TowerDO:
             self.position[0] * 64,
             self.position[1] * 64,
         )
+
+    @property
+    def kills(self):
+        return self.counters["kills"]
+
+    @property
+    def damage_dealt(self):
+        return self.counters["damage"]
 
     def _targetInRange(self, target: EnnemyDO = None):
         """Check if the given or the current target is in range of the tower"""
@@ -154,7 +163,14 @@ class TowerDO:
             self.counters[name] = amount
 
     def click(self, position: tuple):
-        if self.position[0] <= position[0] <= self.position[0] + self.size[0]:
-            if self.position[1] <= position[1] <= self.position[1] + self.size[1]:
+        options = GameOptions.getInstance()
+        if self.position[0] * options.tile_size <= position[0] <= self.position[0] * options.tile_size + self.size[0]:
+            if self.position[1] * options.tile_size <= position[1] <= self.position[1] * options.tile_size + self.size[1]:
                 self.selected = True
+                from UI.components.gui.tower_ui import TowerUI
+                TowerUI.getInstance().setTower(self)
+                TowerUI.getInstance().open()
         self.selected = False
+
+    def sell(self):
+        logging.info("Selling tower")
