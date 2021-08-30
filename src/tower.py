@@ -68,6 +68,14 @@ class TowerDO:
     def damage_dealt(self):
         return self.counters["damage"]
 
+    @property
+    def centered_position(self) -> tuple:
+        options = GameOptions.getInstance()
+        return (
+            self.position[0] * options.tile_size + self.size[0] // 2,
+            self.position[1] * options.tile_size + self.size[1] // 2
+        )
+
     def _targetInRange(self, target: EnnemyDO = None):
         """Check if the given or the current target is in range of the tower"""
         target = target if target is not None else self.target

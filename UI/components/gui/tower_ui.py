@@ -94,7 +94,7 @@ class TowerUI:
             pg.draw.circle(
                 screen.fenetre,
                 (128, 0, 0),
-                self.tower.position, self.tower.range * options.tile_size,
+                self.tower.centered_position, self.tower.range * options.tile_size,
                 width=2
             )
 
