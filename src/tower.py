@@ -3,6 +3,8 @@ import math
 import pygame
 
 from models.ennemy import Ennemy
+from models.game_options import GameOptions
+from models.level import Level
 from models.projectile import Projectile
 from models.screen import Screen
 from src.ennemy import EnnemyDO
@@ -12,13 +14,15 @@ from UI.components.image_animation import ImageAnimation
 class TowerDO:
     """Represents an in-game tower"""
 
-    def __init__(self, tower_data, position: tuple = (0, 0)):
+    def __init__(self, tower_data, position: tuple = (0, 0), size: tuple = (64, 64)):
         self.placed: bool = False
         self.position: tuple = position
+        self.size = size
         self.range = tower_data["range"]
         self.damage = tower_data["damage"]
         self.fire_rate = tower_data["fire_rate"]
         self.price = tower_data["price"]
+        self.selected = False
 
         self.target: EnnemyDO = None
 
@@ -52,9 +56,29 @@ class TowerDO:
     @property
     def absolute_position(self) -> tuple:
         """Returns the position on screen"""
+        options = GameOptions.getInstance()
+        return tuple(
+            map(
+                lambda i, j: i * j,
+                self.position,
+                (options.tile_size, options.tile_size)
+            )
+        )
+
+    @property
+    def kills(self):
+        return self.counters["kills"]
+
+    @property
+    def damage_dealt(self):
+        return self.counters["damage"]
+
+    @property
+    def centered_position(self) -> tuple:
+        options = GameOptions.getInstance()
         return (
-            self.position[0] * 64,
-            self.position[1] * 64,
+            self.position[0] * options.tile_size + self.size[0] // 2,
+            self.position[1] * options.tile_size + self.size[1] // 2
         )
 
     def _targetInRange(self, target: EnnemyDO = None):
@@ -148,3 +172,40 @@ class TowerDO:
             self.counters[name] += amount
         else:
             self.counters[name] = amount
+
+    def select(self):
+        """Sets the tower as selected, updating the TowerUI"""
+        self.selected = True
+        from UI.components.gui.tower_ui import TowerUI
+        TowerUI.getInstance().setTower(self)
+        TowerUI.getInstance().open()
+
+    def unselect(self):
+        """Sets the tower as unselected, closing the TowerUI if no other tower took the place of the current one"""
+        if self.selected:
+            from UI.components.gui.tower_ui import TowerUI
+
+            self.selected = False
+            TowerUI.getInstance().unsetTower(self)
+
+    def click(self, position: tuple):
+        """Sets the current tower as selected or not depending on whether the click is on the tower or not"""
+        absolute_position = self.absolute_position
+        if (
+            absolute_position[0] <= position[0] <= absolute_position[0] + self.size[0] and
+            absolute_position[1] <= position[1] <= absolute_position[1] + self.size[1]
+        ):
+            self.select()
+            return
+        self.unselect()
+
+    def sell(self):
+        """Gives back a percentage of the tower cost and destroys the tower"""
+        level = Level.getInstance()
+        level.addGold(
+            int(self.price * 0.75),
+            self.centered_position
+        )
+
+        from models.tower import Tower
+        Tower.getInstance().delTower(self)

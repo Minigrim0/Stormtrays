@@ -10,8 +10,8 @@ from src.runnable import Runnable
 from UI.components.animation import Animation
 from UI.components.button import Button
 from UI.components.card import Card
-from UI.menus.menu import Menu
 from UI.menus.character_choice import ChacracterChoiceMenu
+from UI.menus.menu import Menu
 
 
 class LevelSelectMenu(Menu, Runnable):

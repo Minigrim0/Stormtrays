@@ -28,6 +28,14 @@ class GameOptions:
         self.difficulty = 5
         self.game_speed = 1
 
+        self.tile_size: int = 64
+        self.map_size: tuple = (18, 11)
+
+        self.window_size = (
+            self.tile_size * self.map_size[0],
+            self.tile_size * self.map_size[1]
+        )
+
         self.fonts = {}
 
         self._load()

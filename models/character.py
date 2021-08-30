@@ -1,15 +1,14 @@
 import json
-import math
-
 import logging
+import math
 
 import pygame as pg
 
 from models.ennemy import Ennemy
 from models.level import Level
 from models.screen import Screen
-from src.ennemy import EnnemyDO
 from src.bomb import Bomb
+from src.ennemy import EnnemyDO
 from src.errors.missingAnimationException import MissingAnimationException
 from src.utils.distance_between import distance_between
 from src.utils.find_angle import findAngle
@@ -50,6 +49,8 @@ class Character:
         self.capacite1: bool = False
         self.capacite2: bool = False
 
+        self.movement_button_pressed: bool = False
+
         self.animations: dict = {}
         self.current_animation: str = "idle"
 
@@ -61,7 +62,7 @@ class Character:
 
         self.bombs: [Bomb] = []
 
-        from UI.menus.game_ui import GameUI
+        from UI.components.gui.game_ui import GameUI
         self.ui = GameUI.getInstance()
 
     @property
@@ -159,7 +160,16 @@ class Character:
 
         if event.type == pg.MOUSEBUTTONDOWN and event.button == 3:
             ennemy = Ennemy.getInstance().getEnnemy(event.pos)
-            self.target = ennemy if ennemy is not None else event.pos
+            if ennemy is not None:
+                self.target = ennemy
+            else:
+                self.target = event.pos
+                self.movement_button_pressed = True
+
+        elif event.type == pg.MOUSEBUTTONUP and event.button == 3:
+            self.movement_button_pressed = False
+        elif event.type == pg.MOUSEMOTION and self.movement_button_pressed:
+            self.target = event.pos
 
         self.power_bar.handleEvent(event)
 

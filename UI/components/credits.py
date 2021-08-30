@@ -1,5 +1,5 @@
 import json
-
+import logging
 import pygame as pg
 
 from models.game_options import GameOptions
@@ -48,7 +48,7 @@ class Credits:
             elif isinstance(element, str):
                 self._buildElementFromString(element)
             else:
-                print("Unhandled", type(element))
+                logging.warning(f"Unhandled {type(element)}")
 
     def _buildTitle(self, title: str):
         """Builds the title of a caegory"""

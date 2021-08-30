@@ -58,8 +58,6 @@ class Level:
                     )
                 )
 
-        # self.editorImage["QG", 0] = pg.image.load("img/QuestGiverF1.png").convert_alpha()
-
         self.counters = {
             "tower_kills": 0,
             "player_kills": 0

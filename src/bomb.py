@@ -1,6 +1,6 @@
 from models.ennemy import Ennemy
-from UI.components.image_animation import ImageAnimation
 from src.utils.distance_between import distance_between
+from UI.components.image_animation import ImageAnimation
 
 
 class Bomb:

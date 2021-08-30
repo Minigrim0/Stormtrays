@@ -2,8 +2,8 @@ import logging
 
 import pygame as pg
 
-from UI.components.power_bar.box import Box
 import src.constantes as consts
+from UI.components.power_bar.box import Box
 
 
 class PowerBar:
