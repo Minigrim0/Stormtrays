@@ -114,4 +114,5 @@ class TowerUI:
 
     def handleEvent(self, event):
         """Handles click on the UI's button"""
-        self.button.click(event.pos)
+        if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
+            self.button.click(event.pos)
