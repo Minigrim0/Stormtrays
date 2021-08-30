@@ -48,7 +48,7 @@ class Credits:
             elif isinstance(element, str):
                 self._buildElementFromString(element)
             else:
-                logging.warning("Unhandled", type(element))
+                logging.warning(f"Unhandled {type(element)}")
 
     def _buildTitle(self, title: str):
         """Builds the title of a caegory"""

@@ -167,5 +167,6 @@ class Tower:
         return True
 
     def delTower(self, tower: TowerDO):
+        """Removes a tower from the map"""
         if tower in self.towers:
             del self.towers[self.towers.index(tower)]
