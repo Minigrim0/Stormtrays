@@ -121,8 +121,7 @@ class Tower:
                         self.towers.append(self.selectedTower)
                         Level.getInstance().pay(self.selectedTower.price)
                         self.selectedTower = None
-
-                if self.selectedTower is None:
+                else:
                     self.popup.handleEvent(event)
                     for tower in self.towers:
                         tower.click(event.pos)
