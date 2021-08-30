@@ -72,10 +72,10 @@ class Game(Runnable):
         Level.getInstance().update(self.screen.elapsed_time)
         Ennemy.getInstance().update(self.screen.elapsed_time)
         Character.getInstance().update(self.screen.elapsed_time)
+        TowerUI.getInstance().update(self.screen.elapsed_time)
+        GameUI.getInstance().update(self.screen.elapsed_time)
         Tower.getInstance().update(self.screen.elapsed_time)
         Projectile.getInstance().update(self.screen.elapsed_time)
-        GameUI.getInstance().update(self.screen.elapsed_time)
-        TowerUI.getInstance().update(self.screen.elapsed_time)
 
         if Level.getInstance().health <= 0:
             self.endGame()
@@ -83,8 +83,9 @@ class Game(Runnable):
     def handleEvent(self):
         """Handles user events"""
         for event in self.screen.getEvent():
-            Character.getInstance().handleEvent(event)
             GameUI.getInstance().handleEvent(event)
+            TowerUI.getInstance().handleEvent(event)
+            Character.getInstance().handleEvent(event)
             Tower.getInstance().handleEvent(event)
 
             if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
