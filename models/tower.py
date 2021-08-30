@@ -165,3 +165,7 @@ class Tower:
             if tower.position == position:
                 return False
         return True
+
+    def delTower(self, tower: TowerDO):
+        if tower in self.towers:
+            del self.towers[self.towers.index(tower)]
