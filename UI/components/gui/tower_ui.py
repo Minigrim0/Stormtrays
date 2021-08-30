@@ -74,8 +74,16 @@ class TowerUI:
         self.opened = False
 
     def setTower(self, tower: TowerDO):
+        if self.tower is not None:
+            self.tower.unselect()
         self.tower = tower
         self._buildText()
+
+    def unsetTower(self, tower: TowerDO):
+        """Closes and unset the tower if the given tower is the selected one"""
+        if self.tower == tower:
+            self.tower = None
+            self.opened = False
 
     def update(self, elapsed_time: float):
         if self.opened and self.tower is not None:
