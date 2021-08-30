@@ -39,7 +39,6 @@ class Tower:
 
         self.towers: list(TowerDO) = []  # In game Towers
         self.available_towers: list(dict) = []  # Available towers to draw in the menu
-        self.tower_buttons: [Button] = []
 
         options = GameOptions.getInstance()
         self.font = options.fonts["MedievalSharp-xOZ5"]["25"]
@@ -70,7 +69,7 @@ class Tower:
     def _build(self):
         """Build the buttons of the tower menu"""
         for index, tower in enumerate(self.available_towers):
-            self.tower_buttons.append(
+            self.popup.addButton(
                 Button(
                     (20 + (70 * index), 615),
                     (64, 64),
@@ -101,8 +100,6 @@ class Tower:
         self.popup.draw(screen)
 
         if self.popup.opened:
-            for tower_button in self.tower_buttons:
-                tower_button.draw(screen)
             if self.hovered_tower_name is not None:
                 screen.blit(self.hovered_tower_name, (10, 10))
                 if not Level.getInstance().canAfford(self.hovered_tower["price"]):
@@ -125,10 +122,6 @@ class Tower:
                         Level.getInstance().pay(self.selectedTower.price)
                         self.selectedTower = None
 
-                elif self.popup.opened:
-                    for tower_button in self.tower_buttons:
-                        tower_button.click(event.pos)
-
                 if self.selectedTower is None:
                     self.popup.handleEvent(event)
                     for tower in self.towers:
@@ -149,7 +142,7 @@ class Tower:
                     )
                 )
             elif self.popup.opened:
-                for button in self.tower_buttons:
+                for button in self.popup.buttons:
                     if button.collide(event.pos):
                         self._setTowerHover(tower_data=button.ckwargs["tower_data"])
                         break
