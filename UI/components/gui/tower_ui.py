@@ -68,12 +68,15 @@ class TowerUI:
             self.tower = None
 
     def open(self):
+        """Opens the UI"""
         self.opened = True
 
     def close(self):
+        """Closes the UI"""
         self.opened = False
 
     def setTower(self, tower: TowerDO):
+        """Sets the selected tower"""
         if self.tower is not None:
             self.tower.unselect()
         self.tower = tower
@@ -86,10 +89,12 @@ class TowerUI:
             self.opened = False
 
     def update(self, elapsed_time: float):
+        """Rebuilds the UI text"""
         if self.opened and self.tower is not None:
             self._buildText()
 
     def draw(self, screen):
+        """Draws the tower UI on screen"""
         if self.opened and self.tower is not None:
             options = GameOptions.getInstance()
 
@@ -107,4 +112,5 @@ class TowerUI:
             )
 
     def handleEvent(self, event):
+        """Handles click on the UI's button"""
         self.button.click(event.pos)
