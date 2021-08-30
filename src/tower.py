@@ -1,11 +1,12 @@
-import math
 import logging
+import math
+
 import pygame
 
 from models.ennemy import Ennemy
+from models.game_options import GameOptions
 from models.projectile import Projectile
 from models.screen import Screen
-from models.game_options import GameOptions
 from src.ennemy import EnnemyDO
 from UI.components.image_animation import ImageAnimation
 
@@ -112,8 +113,6 @@ class TowerDO:
             self.animation.draw(screen, self.absolute_position)
         else:
             self.animation.draw(screen, self.position)
-        if self.selected:
-            pass
 
     def update(self, elapsed_time: float):
         """Updates the in-game towers and the tower menu"""
@@ -193,11 +192,14 @@ class TowerDO:
         """Sets the current tower as selected or not depending on whether the click is on the tower or not"""
         absolute_position = self.absolute_position
         print(absolute_position, position, self.size)
-        if absolute_position[0] <= position[0] <= absolute_position[0] + self.size[0]:
-            if absolute_position[1] <= position[1] <= absolute_position[1] + self.size[1]:
-                self.select()
-                return
+        if (
+            absolute_position[0] <= position[0] <= absolute_position[0] + self.size[0] and
+            absolute_position[1] <= position[1] <= absolute_position[1] + self.size[1]
+        ):
+            self.select()
+            return
         self.unselect()
 
     def sell(self):
+        """Gives back a percentage of the tower cost and destroys the tower"""
         logging.info("Selling tower")

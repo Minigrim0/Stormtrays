@@ -1,5 +1,6 @@
-import pygame
 import logging
+
+import pygame
 
 from models.stormtrays import Stormtrays
 

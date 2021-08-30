@@ -12,6 +12,7 @@ class TowerUI:
 
     @staticmethod
     def getInstance():
+        """Returns the one and only instance of the TowerUI"""
         if TowerUI.instance is None:
             TowerUI()
         return TowerUI.instance
@@ -88,7 +89,7 @@ class TowerUI:
             self.tower = None
             self.opened = False
 
-    def update(self, elapsed_time: float):
+    def update(self, _elapsed_time: float):
         """Rebuilds the UI text"""
         if self.opened and self.tower is not None:
             self._buildText()

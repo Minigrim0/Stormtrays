@@ -7,10 +7,9 @@ from models.level import Level
 from models.projectile import Projectile
 from models.screen import Screen
 from models.tower import Tower
-from UI.components.gui.tower_ui import TowerUI
-
 from src.runnable import Runnable
 from UI.components.gui.game_ui import GameUI
+from UI.components.gui.tower_ui import TowerUI
 from UI.menus.endMenu import EndScreen
 
 

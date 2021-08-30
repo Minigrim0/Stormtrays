@@ -3,7 +3,6 @@ import pygame as pg
 from models.game_options import GameOptions
 from models.screen import Screen
 from src.runnable import Runnable
-
 from UI.components.button import Button
 from UI.menus.menu import Menu
 
