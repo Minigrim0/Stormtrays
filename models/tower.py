@@ -65,6 +65,7 @@ class Tower:
                 price = font.render(str(data["price"]), 1, (0, 0, 0))
                 data["thumbnail"].blit(price, (0, 0))
                 self.available_towers.append(data)
+        self.available_towers = sorted(self.available_towers, key=lambda x: x["price"])
 
     def _build(self):
         """Build the buttons of the tower menu"""
