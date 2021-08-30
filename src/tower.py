@@ -174,15 +174,30 @@ class TowerDO:
         else:
             self.counters[name] = amount
 
+    def select(self):
+        """Sets the tower as selected, updating the TowerUI"""
+        self.selected = True
+        from UI.components.gui.tower_ui import TowerUI
+        TowerUI.getInstance().setTower(self)
+        TowerUI.getInstance().open()
+
+    def unselect(self):
+        """Sets the tower as unselected, closing the TowerUI if no other tower took the place of the current one"""
+        if self.selected:
+            from UI.components.gui.tower_ui import TowerUI
+
+            self.selected = False
+            TowerUI.getInstance().unsetTower(self)
+
     def click(self, position: tuple):
-        options = GameOptions.getInstance()
-        if self.position[0] * options.tile_size <= position[0] <= self.position[0] * options.tile_size + self.size[0]:
-            if self.position[1] * options.tile_size <= position[1] <= self.position[1] * options.tile_size + self.size[1]:
-                self.selected = True
-                from UI.components.gui.tower_ui import TowerUI
-                TowerUI.getInstance().setTower(self)
-                TowerUI.getInstance().open()
-        self.selected = False
+        """Sets the current tower as selected or not depending on whether the click is on the tower or not"""
+        absolute_position = self.absolute_position
+        print(absolute_position, position, self.size)
+        if absolute_position[0] <= position[0] <= absolute_position[0] + self.size[0]:
+            if absolute_position[1] <= position[1] <= absolute_position[1] + self.size[1]:
+                self.select()
+                return
+        self.unselect()
 
     def sell(self):
         logging.info("Selling tower")
