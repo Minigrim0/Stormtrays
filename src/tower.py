@@ -55,9 +55,13 @@ class TowerDO:
     @property
     def absolute_position(self) -> tuple:
         """Returns the position on screen"""
-        return (
-            self.position[0] * 64,
-            self.position[1] * 64,
+        options = GameOptions.getInstance()
+        return tuple(
+            map(
+                lambda i, j: i * j,
+                self.position,
+                (options.tile_size, options.tile_size)
+            )
         )
 
     @property
