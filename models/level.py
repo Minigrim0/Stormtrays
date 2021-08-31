@@ -39,7 +39,7 @@ class Level:
             ("assets/images/tiles/cross.png", "x1"),
             ("assets/images/poubelle.png", "p1"),
             ("assets/images/tiles/fort.png", "k1"),
-            ((None, "assets/images/blocked_edit.png"), "v1"),
+            ((None, "assets/images/tiles/blocked_edit.png"), "v1"),
         ]
 
         for path, code in images:
@@ -47,7 +47,7 @@ class Level:
                 self.tiles[code] = Tile(
                     code, (
                         pg.image.load(path[0]).convert_alpha() if path[0] is not None else None,
-                        pg.image.load(path[1]).convert_alpha() if path[0] is not None else None
+                        pg.image.load(path[1]).convert_alpha() if path[1] is not None else None
                     )
                 )
             elif isinstance(path, str):
