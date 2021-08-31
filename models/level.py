@@ -104,11 +104,10 @@ class Level:
         """Builds the level from a file"""
         with open(filename) as f:
             data = json.load(f)
-            self.background = pg.image.load(data["background"])
+            self.setBackground(data["background"])
             self.size = data["size"]
             self.initMap()
 
-        self.background = pg.transform.scale(self.background, (1152, 704))
         for y in range(self.size[1]):
             for x in range(self.size[0]):
                 tile = data["map"][x][y]
@@ -126,6 +125,10 @@ class Level:
                     elif self.map[x][y].code == "k1":
                         bastion = Bastion((x, y), initial_health=100)
                         self.bastions.append(bastion)
+
+    def setBackground(self, background_path: str):
+        self.background = pg.image.load(background_path)
+        self.background = pg.transform.scale(self.background, (1152, 704))
 
     def reset(self):
         """Resets the map, the counters, the gold etc..."""
