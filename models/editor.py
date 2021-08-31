@@ -133,6 +133,7 @@ class Editor(Runnable):
 
     def save(self):
         """Saves the current level"""
+        # TODO: fix thumbnail export
         options = GameOptions.getInstance()
         full_path = filedialog.asksaveasfilename(initialdir=options["paths"]["levels"], defaultextension=".json")
         if full_path:
