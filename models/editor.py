@@ -11,7 +11,7 @@ from models.screen import Screen
 from src.errors.invalidPositionException import InvalidPositionException
 from src.runnable import Runnable
 from src.tile import Tile
-from UI.menus.editor import EditorUI
+from UI.components.gui.editor_ui import EditorUI
 
 
 class Editor(Runnable):
@@ -34,13 +34,16 @@ class Editor(Runnable):
         super().__init__()
 
         self.level: Level = Level.getInstance()
+        options = GameOptions.getInstance()
+        self.level.setBackground(options.fullPath("images", "levels/fond1.png"))
+
         self.UI: EditorUI = EditorUI(self.level)
         self.UI.buttons["eraseButton"].setCallback(self.erase)
         self.UI.buttons["changeBackgroundButton"].setCallback(self.changeBackground)
         self.UI.buttons["loadButton"].setCallback(self.loadLevel)
         self.UI.buttons["saveButton"].setCallback(self.save)
         for code in ["c1", "t2", "t1", "x1", "p1", "v1", "k1"]:
-            self.UI.buttons[code].setCallback(self.setChoice, self.level.tiles[code])
+            self.UI.buttons[code].setCallback(self.setChoice, choice=self.level.tiles[code])
 
         self.choice: Tile = None
         self.mousePosition = (0, 0)
