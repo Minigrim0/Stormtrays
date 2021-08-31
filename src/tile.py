@@ -12,6 +12,10 @@ class Tile:
         self.rotation = rotation
         self.position = position
 
+    @property
+    def editor_image(self) -> pg.Surface:
+        return self.image[1]
+
     def rotate(self, amount: int = 1):
         """Rotates the image by 90 degrees"""
         self.rotation = (self.rotation + amount) % 4
