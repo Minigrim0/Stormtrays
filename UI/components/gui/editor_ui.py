@@ -13,8 +13,6 @@ class EditorUI:
         self.vert_line = pygame.Surface((1, const.WINDOW_WIDTH))
         self.hori_line = pygame.Surface((const.WINDOW_WIDTH, 1))
 
-        self.fond_Edit = None
-
         self.buttons = {}
 
         self._build(level)
