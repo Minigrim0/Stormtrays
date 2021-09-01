@@ -144,7 +144,7 @@ class Level:
                         bastion = Bastion((x, y), initial_health=100)
                         self.bastions.append(bastion)
 
-    def findLinkedBastion(self, start_pos: tuple) -> Bastion:
+    def findLinkedBastion(self, start_pos: tuple) -> (int, int):
         logging.info(f"checking starting_position {start_pos}")
         x, y = start_pos
         while self.map[x][y] is not None and self.map[x][y].code != "k1":
@@ -155,7 +155,7 @@ class Level:
 
         if self.map[x][y] is None:
             raise InvalidPathException(f"The path starting on {start_pos} does not lead to a bastion")
-        return self.map[x][y]
+        return x, y
 
     def setBackground(self, background_path: str):
         """Sets the background of the level"""
@@ -241,7 +241,7 @@ class Level:
                 if not bastion.alive:
                     logging.info("Bastion dead, deleting spawn place")
                     for start_pos in self.spawn_places:
-                        if self.findLinkedBastion(start_pos) == bastion:
+                        if self.findLinkedBastion(start_pos) == bastion.position:
                             logging.info(f"Spawn place is {start_pos}, deleting")
                             del self.spawn_places[self.spawn_places.index(start_pos)]
                 return True
