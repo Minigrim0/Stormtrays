@@ -102,9 +102,6 @@ class Editor(Runnable):
         self.level.draw(self.screen, editor=True)
         self.UI.draw(self.screen)
 
-        if self.UI.QGPos:
-            self.screen.blit(self.UI.QGImg, (self.UI.QGPos))
-
         if self.choice is not None:
             self.choice.draw(self.screen, editor=True)
 

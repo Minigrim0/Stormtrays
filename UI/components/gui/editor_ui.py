@@ -13,26 +13,15 @@ class EditorUI:
         self.vert_line = pygame.Surface((1, const.WINDOW_WIDTH))
         self.hori_line = pygame.Surface((const.WINDOW_WIDTH, 1))
 
-        options = GameOptions.getInstance()
-        self.QGImg = pygame.image.load(options.fullPath("images", "QuestGiverF1.png")).convert_alpha()
-
         self.fond_Edit = None
 
         self.buttons = {}
-        self.QGPos = (0, 0)
 
         self._build(level)
 
     def _build(self, level):
         options = GameOptions.getInstance()
-        self.buttons["c1"] = Button((const.WINDOW_WIDTH + 10, 10), (64, 64), image=level.tiles["c1"].editor_image)
-        self.buttons["t2"] = Button((const.WINDOW_WIDTH + 10, 74), (64, 64), image=level.tiles["t2"].editor_image)
-        self.buttons["t1"] = Button((const.WINDOW_WIDTH + 10, 138), (64, 64), image=level.tiles["t1"].editor_image)
-        self.buttons["x1"] = Button((const.WINDOW_WIDTH + 85, 10), (64, 64), image=level.tiles["x1"].editor_image)
-        self.buttons["p1"] = Button((const.WINDOW_WIDTH + 85, 74), (64, 64), image=level.tiles["p1"].editor_image)
-        self.buttons["v1"] = Button((const.WINDOW_WIDTH + 85, 138), (64, 64), image=level.tiles["v1"].editor_image)
-        self.buttons["k1"] = Button((const.WINDOW_WIDTH + 5, 228), (192, 64), image=level.tiles["k1"].editor_image)
-        self.buttons["QG"] = Button((const.WINDOW_WIDTH + 10, 292), (64, 64), image=self.QGImg)
+
         self.buttons["eraseButton"] = Button(
             (const.WINDOW_WIDTH + 2, const.WINDOW_HEIGHT - 45),
             (80, 30),
@@ -63,9 +52,9 @@ class EditorUI:
         for i in range(1, const.tabx):
             screen.blit(self.vert_line, (i * 64, 0))
             screen.blit(self.hori_line, (0, i * 64))
+
         screen.blit(self.right_panel, (const.WINDOW_WIDTH, 0))
         for _name, button in self.buttons.items():
-            print(_name)
             button.draw(screen)
 
     def update(self, event):
