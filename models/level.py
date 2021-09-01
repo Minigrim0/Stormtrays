@@ -41,7 +41,7 @@ class Level:
         self.gold = 500
 
         self.background: pg.Surface = None
-        self.backgroundName = "fond1"
+        self.background_path = "assets/images/levels/fond1.png"
         self.size = [18, 11]
 
         self.coins: [Coin] = []
@@ -130,6 +130,7 @@ class Level:
                         self.bastions.append(bastion)
 
     def setBackground(self, background_path: str):
+        self.background_path = background_path
         self.background = pg.image.load(background_path)
         self.background = pg.transform.scale(self.background, (1152, 704))
 
@@ -162,7 +163,7 @@ class Level:
         """Saves the current level"""
         serializedMap = [[tile.toJson() if tile is not None else {} for tile in row] for row in self.map]
         level = {
-            "background": self.backgroundName,
+            "background": self.background_path,
             "size": self.size,
             "map": serializedMap,
             "thumbnail": thumbnail_path,
