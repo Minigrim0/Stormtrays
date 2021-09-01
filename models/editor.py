@@ -115,8 +115,7 @@ class Editor(Runnable):
         options = GameOptions.getInstance()
         filename = filedialog.askopenfilename(initialdir=options.fullPath("images", "levels"), defaultextension=".png")
         if filename:
-            self.level.backgroundName = os.path.relpath(filename)
-            self.level.background = pygame.image.load(self.level.backgroundName).convert_alpha()
+            self.level.setBackground(os.path.relpath(filename))
 
         self.choice = None
 
