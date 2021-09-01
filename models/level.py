@@ -38,6 +38,7 @@ class Level:
         }
 
         self.bastions: list(Bastion) = []
+        self.spawn_places = []
         self.gold = 500
 
         self.background: pg.Surface = None
@@ -47,35 +48,7 @@ class Level:
         self.coins: [Coin] = []
         self.map = None
         self.initMap()
-        self._load()
-
-    def _load(self):
-        images = [
-            (("assets/images/tiles/straight.png", "assets/images/tiles/start_edit.png"), "s1"),
-            (("assets/images/tiles/straight.png", "assets/images/tiles/straight_edit.png"), "c1"),
-            (("assets/images/tiles/turn.png", "assets/images/tiles/left_turn_edit.png"), "t2"),
-            (("assets/images/tiles/turn.png", "assets/images/tiles/right_turn_edit.png"), "t1"),
-            ("assets/images/tiles/cross.png", "x1"),
-            ("assets/images/tiles/fort.png", "k1"),
-            ("assets/images/poubelle.png", "p1"),
-            ((None, "assets/images/tiles/blocked_edit.png"), "v1"),
-        ]
-
-        for path, code in images:
-            if isinstance(path, tuple):
-                self.tiles[code] = Tile(
-                    code, (
-                        pg.image.load(path[0]).convert_alpha() if path[0] is not None else None,
-                        pg.image.load(path[1]).convert_alpha() if path[1] is not None else None
-                    )
-                )
-            elif isinstance(path, str):
-                self.tiles[code] = Tile(
-                    code, (
-                        pg.image.load(path).convert_alpha(),
-                        pg.image.load(path).convert_alpha()
-                    )
-                )
+        self._preload()
 
     @property
     def killed_ennemies(self) -> int:
@@ -103,6 +76,34 @@ class Level:
 
         return (0.2 * options.difficulty) * (0.1 * self.killed_ennemies) + 1
 
+    def _preload(self):
+        images = [
+            (("assets/images/tiles/straight.png", "assets/images/tiles/start_edit.png"), "s1"),
+            (("assets/images/tiles/straight.png", "assets/images/tiles/straight_edit.png"), "c1"),
+            (("assets/images/tiles/turn.png", "assets/images/tiles/left_turn_edit.png"), "t2"),
+            (("assets/images/tiles/turn.png", "assets/images/tiles/right_turn_edit.png"), "t1"),
+            ("assets/images/tiles/cross.png", "x1"),
+            ("assets/images/tiles/fort.png", "k1"),
+            ("assets/images/poubelle.png", "p1"),
+            ((None, "assets/images/tiles/blocked_edit.png"), "v1"),
+        ]
+
+        for path, code in images:
+            if isinstance(path, tuple):
+                self.tiles[code] = Tile(
+                    code, (
+                        pg.image.load(path[0]).convert_alpha() if path[0] is not None else None,
+                        pg.image.load(path[1]).convert_alpha() if path[1] is not None else None
+                    )
+                )
+            elif isinstance(path, str):
+                self.tiles[code] = Tile(
+                    code, (
+                        pg.image.load(path).convert_alpha(),
+                        pg.image.load(path).convert_alpha()
+                    )
+                )
+
     def _build(self, filename, editor=False):
         """Builds the level from a file"""
         with open(filename) as f:
@@ -111,6 +112,7 @@ class Level:
             self.size = data["size"]
             self.initMap()
 
+        self.spawn_places = []
         for y in range(self.size[1]):
             for x in range(self.size[0]):
                 tile = data["map"][x][y]
@@ -124,6 +126,8 @@ class Level:
 
                 if not editor:
                     if self.map[x][y].code not in ("k1", "QG"):
+                        if self.map[x][y].code == "s1":
+                            self.spawn_places.append((x, y))
                         self.map[x][y].draw(self.background)
                     elif self.map[x][y].code == "k1":
                         bastion = Bastion((x, y), initial_health=100)
