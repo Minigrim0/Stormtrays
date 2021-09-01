@@ -42,7 +42,7 @@ class Editor(Runnable):
         self.UI.buttons["changeBackgroundButton"].setCallback(self.changeBackground)
         self.UI.buttons["loadButton"].setCallback(self.loadLevel)
         self.UI.buttons["saveButton"].setCallback(self.save)
-        for code in ["c1", "t2", "t1", "x1", "p1", "v1", "k1"]:
+        for code in self.level.tiles.keys():
             self.UI.buttons[code].setCallback(self.setChoice, choice=self.level.tiles[code])
 
         self.choice: Tile = None
@@ -130,11 +130,10 @@ class Editor(Runnable):
 
     def save(self):
         """Saves the current level"""
-        # TODO: fix thumbnail export
         options = GameOptions.getInstance()
         full_path = filedialog.asksaveasfilename(initialdir=options["paths"]["levels"], defaultextension=".json")
         if full_path:
-            self.level.draw(self.screen)
+            self.level.draw(self.screen, force_tile_rendering=True)
 
             arect = pygame.Rect(0, 0, consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT)
             sub = self.screen.subsurface(arect)
