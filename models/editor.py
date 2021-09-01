@@ -42,7 +42,7 @@ class Editor(Runnable):
         self.UI.buttons["changeBackgroundButton"].setCallback(self.changeBackground)
         self.UI.buttons["loadButton"].setCallback(self.loadLevel)
         self.UI.buttons["saveButton"].setCallback(self.save)
-        for code in self.level.tiles.keys():
+        for code in self.level.tiles:
             self.UI.buttons[code].setCallback(self.setChoice, choice=self.level.tiles[code])
 
         self.choice: Tile = None

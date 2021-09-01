@@ -88,6 +88,7 @@ class Level:
         return len(self.spawn_places) > 0
 
     def _preload(self):
+        """Loads the diffrent tiles"""
         images = [
             (("assets/images/tiles/straight.png", "assets/images/tiles/start_edit.png"), "s1"),
             (("assets/images/tiles/straight.png", "assets/images/tiles/straight_edit.png"), "c1"),
@@ -145,6 +146,7 @@ class Level:
                         self.bastions.append(bastion)
 
     def findLinkedBastion(self, start_pos: tuple) -> (int, int):
+        """Follows a path to find the bastion at the end of the path"""
         logging.info(f"checking starting_position {start_pos}")
         x, y = start_pos
         while self.map[x][y] is not None and self.map[x][y].code != "k1":

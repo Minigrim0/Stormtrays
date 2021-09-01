@@ -18,12 +18,13 @@ class EditorUI:
         self._build(level)
 
     def _build(self, level):
+        """Builds the Editor's UI"""
         options = GameOptions.getInstance()
         for index, (key, tile) in enumerate(level.tiles.items()):
             self.buttons[key] = Button(
                 (const.WINDOW_WIDTH + 10 + (74 * (index % 2)), 10 + (74 * (index // 2))),
                 (64, 64),
-                image=level.tiles[key].editor_image
+                image=tile.editor_image
             )
 
         self.buttons["eraseButton"] = Button(
