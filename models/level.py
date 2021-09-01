@@ -1,3 +1,4 @@
+import logging
 import json
 from copy import copy
 
@@ -144,8 +145,10 @@ class Level:
                         self.bastions.append(bastion)
 
     def findLinkedBastion(self, start_pos: tuple) -> Bastion:
+        logging.info(f"checking starting_position {start_pos}")
         x, y = start_pos
         while self.map[x][y] is not None and self.map[x][y].code != "k1":
+            logging.info(f"{x}-{y}")
             direction_x, direction_y = self.map[x][y].direction()
             x += direction_x
             y += direction_y
@@ -236,8 +239,10 @@ class Level:
             if bastion.position == position:
                 bastion.hit(damage)
                 if not bastion.alive:
+                    logging.info("Bastion dead, deleting spawn place")
                     for start_pos in self.spawn_places:
                         if self.findLinkedBastion(start_pos) == bastion:
+                            logging.info(f"Spawn place is {start_pos}, deleting")
                             del self.spawn_places[self.spawn_places.index(start_pos)]
                 return True
         return False
