@@ -130,6 +130,7 @@ class Level:
                         self.bastions.append(bastion)
 
     def setBackground(self, background_path: str):
+        """Sets the background of the level"""
         self.background_path = background_path
         self.background = pg.image.load(background_path)
         self.background = pg.transform.scale(self.background, (1152, 704))
@@ -214,10 +215,7 @@ class Level:
         """Adds the given amount of gold to the user's stash and spawns a coin"""
         self.gold += amount
         self.coins.append(
-            Coin(
-                position,
-                amount
-            )
+            Coin(position, amount)
         )
 
     def pay(self, amount: int):
