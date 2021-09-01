@@ -14,7 +14,6 @@ class Bastion:
         self.health = initial_health
         self.image = pg.image.load("assets/images/tiles/fort.png").convert_alpha()
 
-        # Whether the bastion is under attack and how long since last attack
         self.underAttack: tuple(bool, int) = (False, 0)
 
         self.healthBar = LoadingBar(
@@ -35,7 +34,7 @@ class Bastion:
 
     def hit(self, damage: int):
         """Hits the bastion with the given amount of damage"""
-        self.health -= damage
+        self.health = max(self.health - damage, 0)
         self.healthBar.set_advancement(self.health)
         self.underAttack = (True, 0)
 
@@ -51,5 +50,5 @@ class Bastion:
     def draw(self, screen: Screen):
         """Draws the healthbar on the screen if the bastion is under attack"""
         screen.blit(self.image, self._blit_position)
-        if self.underAttack[0]:
+        if self.underAttack[0] or self.health == 0:
             self.healthBar.draw(screen)
