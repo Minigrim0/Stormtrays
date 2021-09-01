@@ -77,6 +77,15 @@ class Level:
 
         return (0.2 * options.difficulty) * (0.1 * self.killed_ennemies) + 1
 
+    @property
+    def valid(self) -> bool:
+        for start_pos in self.spawn_places:
+            try:
+                self.findLinkedBastion(start_pos)
+            except InvalidPathException:
+                return False
+        return len(self.spawn_places) > 0
+
     def _preload(self):
         images = [
             (("assets/images/tiles/straight.png", "assets/images/tiles/start_edit.png"), "s1"),
