@@ -195,6 +195,8 @@ class Level:
             raise InvalidPositionException("Tile is outside of the map !")
 
         self.map[position[0]][position[1]] = tile
+        if tile is not None and tile.code == "s1":
+            self.spawn_places.append(position)
 
     def update(self, elapsed_time: float):
         """Updates the bastions and the floating coins"""
