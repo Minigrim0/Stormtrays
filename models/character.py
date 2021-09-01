@@ -1,3 +1,5 @@
+import json
+import logging
 import math
 
 import pygame as pg
@@ -5,10 +7,13 @@ import pygame as pg
 from models.ennemy import Ennemy
 from models.level import Level
 from models.screen import Screen
+from src.bomb import Bomb
 from src.ennemy import EnnemyDO
+from src.errors.missingAnimationException import MissingAnimationException
 from src.utils.distance_between import distance_between
 from src.utils.find_angle import findAngle
 from UI.components.image_animation import ImageAnimation
+from UI.components.power_bar.power_bar import PowerBar
 
 
 class Character:
@@ -30,33 +35,72 @@ class Character:
 
         self.target = (576, 352)  # Either a position or an ennemy
 
-        self.posx = 0
-        self.posy = 0
+        self.posx: int = 0
+        self.posy: int = 0
+        self.XpToAdd: int = 0
+        self.xp: int = 0
+        self.objectif: int = 10
+        self.level: int = 1
+        self.damage: int = 0
+        self.speed: int = 0
+        self.kills: int = 0
 
-        self.XpToAdd = 0
-        self.xp = 0
-        self.objectif = 10
-        self.level = 1
-        self.damage = 3
-        self.speed = 5
+        self.Is_Returned: bool = False
+        self.capacite1: bool = False
+        self.capacite2: bool = False
 
-        self.kills = 0
+        self.movement_button_pressed: bool = False
 
-        self.Is_Returned = False
-        self.capacite1 = False
-        self.capacite2 = False
+        self.animations: dict = {}
+        self.current_animation: str = "idle"
 
-        from UI.menus.game_ui import GameUI
+        self.power_bar = PowerBar(box_size=48)
+        self.power_bar.addBox(
+            icon=ImageAnimation("assets/images/animations/bomb", bank_name="bomb").getFrame(),
+            name="Bomb", cooldown=5, callback=self._placeBomb
+        )
+
+        self.bombs: [Bomb] = []
+
+        from UI.components.gui.game_ui import GameUI
         self.ui = GameUI.getInstance()
 
-        self.animations = {
-            "idle": ImageAnimation("assets/images/animations/character/idle/", loop=-1, flippable=True),
-            "walk": ImageAnimation("assets/images/animations/character/walk/", loop=-1, flippable=True, speed=8),
-            "attack": ImageAnimation(
-                "assets/images/animations/character/attack/", flippable=True, speed=9, loop=2, callback=self.hit),
-            "invoke": ImageAnimation("assets/images/animations/character/invoke/", flippable=True, speed=5)
-        }
-        self.current_animation = "idle"
+    @property
+    def real_speed(self) -> float:
+        """Returns the speed in pixel/sec instead of tiles/sec"""
+        return self.speed * 64
+
+    def _load(self, data):
+        """Loads informations about the character from a parsed json file"""
+        self.speed = data["speed"]
+        self.damage = data["damage"]
+
+        self.animations = {name: ImageAnimation(initial_data=state) for name, state in data["states"].items()}
+
+        self.animations["attack"].setCallback(self.hit)
+
+        logging.info("Ensuring the presence of required animatons")
+        for animation in ["idle", "walk", "attack"]:
+            if "idle" not in self.animations.keys():
+                raise MissingAnimationException(f"Missing animation {animation} in Character model")
+        logging.info("ok")
+
+    def _placeBomb(self) -> bool:
+        """Callback for the placing bomb power"""
+        if Level.getInstance().canAfford(150):
+            self.bombs.append(
+                Bomb((self.posx, self.posy), 3)
+            )
+            Level.getInstance().pay(150)
+            return True
+        return False
+
+    def setStyle(self, style: str):
+        """Sets the style of the character, based on the available characters in assets/characters"""
+        path = style.lower().replace(" ", "-")
+        with open(f"assets/character/{path}/setup.json") as character_style:
+            data = json.load(character_style)
+            self._load(data)
 
     def getCurrentAnimation(self) -> ImageAnimation:
         """Returns the currently playing animation"""
@@ -97,19 +141,17 @@ class Character:
 
     def update(self, elapsed_time: float):
         """Updates the character, makes him move"""
-        # if self.capacite1:
-        #     Icapacite1 += 1
-        #     if Icapacite1 == 160:
-        #         Icapacite1 = 0
-        #         King.capacite1 = False
-        # if CooldownInvoc > 0:
-        #     CooldownInvoc -= 1
-        # TpsCoolDown = CooldownInvoc // 24
-
         if isinstance(self.target, EnnemyDO) and not self.target.alive:
             self.target = (self.posx, self.posy)
         self.move(elapsed_time)
         self.getCurrentAnimation().update(elapsed_time)
+
+        self.power_bar.update(elapsed_time)
+
+        for bomb in self.bombs:
+            bomb.update(elapsed_time)
+            if not bomb.alive:
+                del self.bombs[self.bombs.index(bomb)]
 
     def handleEvent(self, event: pg.event):
         """Handles user events"""
@@ -118,16 +160,25 @@ class Character:
 
         if event.type == pg.MOUSEBUTTONDOWN and event.button == 3:
             ennemy = Ennemy.getInstance().getEnnemy(event.pos)
-            self.target = ennemy if ennemy is not None else event.pos
+            if ennemy is not None:
+                self.target = ennemy
+            else:
+                self.target = event.pos
+                self.movement_button_pressed = True
+
+        elif event.type == pg.MOUSEBUTTONUP and event.button == 3:
+            self.movement_button_pressed = False
+        elif event.type == pg.MOUSEMOTION and self.movement_button_pressed:
+            self.target = event.pos
+
+        self.power_bar.handleEvent(event)
 
     def draw(self, screen: Screen):
         """Draws the character on screen"""
         self.getCurrentAnimation().draw(screen, (self.posx, self.posy), centered=True)
-
-    @property
-    def real_speed(self) -> float:
-        """Returns the speed in pixel/sec instead of tiles/sec"""
-        return self.speed * 64
+        for bomb in self.bombs:
+            bomb.draw(screen)
+        self.power_bar.draw(screen)
 
     def move(self, elapsed_time: float):
         """Updates the status of the character"""
@@ -187,3 +238,4 @@ class Character:
         self.capacite1 = False
         self.capacite2 = False
         self.current_animation = "idle"
+        self.bombs = []

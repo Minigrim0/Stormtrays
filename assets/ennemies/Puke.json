@@ -4,7 +4,7 @@
     "DeathSound": "../musique/mort-Orc.wav",
     "height": 32,
     "health": 20,
-    "speed": 0.2,
-    "weight": 15,
+    "speed": 0.5,
+    "weight": 8,
     "animation_speed": 8
 }

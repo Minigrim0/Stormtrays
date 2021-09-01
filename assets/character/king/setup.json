@@ -1,0 +1,53 @@
+{
+    "name": "King",
+    "damage": 3,
+    "speed": 3,
+    "states": {
+        "idle": {
+            "flippable": true,
+            "speed": 6,
+            "loop": -1,
+            "animations": [
+                {
+                    "multipart": true,
+                    "file": "character/king/animations/idle.png",
+                    "size": [8, 1]
+                }
+            ]
+        },
+        "attack": {
+            "flippable": true,
+            "speed": 6,
+            "loop": 1,
+            "animations": [
+                {
+                    "multipart": true,
+                    "file": "character/king/animations/attack1.png",
+                    "size": [4, 1]
+                },
+                {
+                    "multipart": true,
+                    "file": "character/king/animations/attack2.png",
+                    "size": [4, 1]
+                },
+                {
+                    "multipart": true,
+                    "file": "character/king/animations/attack3.png",
+                    "size": [4, 1]
+                }
+            ]
+        },
+        "walk": {
+            "flippable": true,
+            "speed": 6,
+            "loop": -1,
+            "animations": [
+                {
+                    "multipart": true,
+                    "file": "character/king/animations/run.png",
+                    "size": [8, 1]
+                }
+            ]
+        }
+    }
+}

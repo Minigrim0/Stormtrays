@@ -74,7 +74,7 @@ class Screen:
         if self.fullScreen:
             self.display = pygame.display.set_mode(self.fullSize, pygame.locals.FULLSCREEN)
         else:
-            self.display = pygame.display.set_mode(size, pygame.locals.RESIZABLE)
+            self.display = pygame.display.set_mode(size)  # , pygame.locals.RESIZABLE)
 
         taillex = size[0] / self.initial_size[0]
         tailley = size[1] / self.initial_size[1]
