@@ -1,3 +1,4 @@
+import random
 import pygame
 
 from models.level import Level
@@ -20,7 +21,7 @@ class EnnemyDO:
         self.direction = (1, 0)
         self.Tics = 0
 
-        self.pose_ennemi()
+        self.place_ennemy()
 
         self.propriete = data
 
@@ -60,19 +61,18 @@ class EnnemyDO:
             self.absolute_position[1] + self.height // 2,
         )
 
-    def pose_ennemi(self):
+    def place_ennemy(self):
         """Adds an ennemy to the game"""
-        self.position = (0, 0)
         level = Level.getInstance()
-        self.direction = (1, 0)
+        spawn_point = random.choice(level.spawn_places)
+        self.position = spawn_point
 
-        x = 0
-        for y in range(11):
-            tile = level.map[x][y]
-            if tile is not None and (tile.code, tile.rotation) == ("c1", 0):
-                self.position = (0, y)
-                self.absolute_position = (0, y * 64)
-                self.HitBox = pygame.Rect((0, y), (64, 64))
+        tile = level.map[self.position[0]][self.position[1]]
+        self.direction = tile.direction()
+
+        self.absolute_position = (self.position[0] * level.tile_size[0], self.position[1] * level.tile_size[0])
+        print("absol pos", self.absolute_position)
+        self.HitBox = pygame.Rect(self.absolute_position, (64, 64))
 
     def update(self, elapsed_time: float):
         """Makes the ennemy move and updates it's health bar"""
@@ -100,7 +100,7 @@ class EnnemyDO:
                 tile = level.map[self.position[0]][self.position[1]]
                 new_dir = tile.direction()
                 if new_dir is None:
-                    self.pose_ennemi()
+                    self.place_ennemy()
                 elif new_dir != (0, 0):
                     if new_dir[0] != self.direction[0]:
                         self.animation.flip()
