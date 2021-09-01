@@ -71,7 +71,6 @@ class EnnemyDO:
         self.direction = tile.direction()
 
         self.absolute_position = (self.position[0] * level.tile_size[0], self.position[1] * level.tile_size[0])
-        print("absol pos", self.absolute_position)
         self.HitBox = pygame.Rect(self.absolute_position, (64, 64))
 
     def update(self, elapsed_time: float):
