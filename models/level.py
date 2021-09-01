@@ -186,13 +186,13 @@ class Level:
             if coin.update(elapsed_time):
                 del self.coins[self.coins.index(coin)]
 
-    def draw(self, screen, editor=False):
+    def draw(self, screen, editor=False, force_tile_rendering=False):
         """Draws the current level"""
         screen.blit(self.background, (0, 0))
         for bastion in self.bastions:
             bastion.draw(screen)
 
-        if editor:
+        if editor or force_tile_rendering:
             for y in range(self.size[1]):
                 for x in range(self.size[0]):
                     if self.map[x][y] is not None:
