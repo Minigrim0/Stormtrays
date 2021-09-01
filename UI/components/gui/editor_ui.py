@@ -21,6 +21,12 @@ class EditorUI:
 
     def _build(self, level):
         options = GameOptions.getInstance()
+        for index, (key, tile) in enumerate(level.tiles.items()):
+            self.buttons[key] = Button(
+                (const.WINDOW_WIDTH + 10 + (74 * (index % 2)), 10 + (74 * (index // 2))),
+                (64, 64),
+                image=level.tiles[key].editor_image
+            )
 
         self.buttons["eraseButton"] = Button(
             (const.WINDOW_WIDTH + 2, const.WINDOW_HEIGHT - 45),
@@ -43,7 +49,7 @@ class EditorUI:
             image=pygame.image.load(options.fullPath("images", "buttons/open.png")).convert_alpha(),
         )
 
-        self.right_panel.fill((189, 83, 64))
+        self.right_panel.fill((128, 0, 0))
         self.vert_line.fill((0, 0, 0))
         self.hori_line.fill((0, 0, 0))
 
