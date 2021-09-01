@@ -32,13 +32,32 @@ class Level:
 
         self.tiles = {}
 
+        self.counters = {
+            "tower_kills": 0,
+            "player_kills": 0
+        }
+
+        self.bastions: list(Bastion) = []
+        self.gold = 500
+
+        self.background: pg.Surface = None
+        self.backgroundName = "fond1"
+        self.size = [18, 11]
+
+        self.coins: [Coin] = []
+        self.map = None
+        self.initMap()
+        self._load()
+
+    def _load(self):
         images = [
+            (("assets/images/tiles/straight.png", "assets/images/tiles/start_edit.png"), "s1"),
             (("assets/images/tiles/straight.png", "assets/images/tiles/straight_edit.png"), "c1"),
             (("assets/images/tiles/turn.png", "assets/images/tiles/left_turn_edit.png"), "t2"),
             (("assets/images/tiles/turn.png", "assets/images/tiles/right_turn_edit.png"), "t1"),
             ("assets/images/tiles/cross.png", "x1"),
-            ("assets/images/poubelle.png", "p1"),
             ("assets/images/tiles/fort.png", "k1"),
+            ("assets/images/poubelle.png", "p1"),
             ((None, "assets/images/tiles/blocked_edit.png"), "v1"),
         ]
 
@@ -57,22 +76,6 @@ class Level:
                         pg.image.load(path).convert_alpha()
                     )
                 )
-
-        self.counters = {
-            "tower_kills": 0,
-            "player_kills": 0
-        }
-
-        self.bastions: list(Bastion) = []
-        self.gold = 500
-
-        self.background: pg.Surface = None
-        self.backgroundName = "fond1"
-        self.size = [18, 11]
-
-        self.coins: [Coin] = []
-        self.map = None
-        self.initMap()
 
     @property
     def killed_ennemies(self) -> int:
