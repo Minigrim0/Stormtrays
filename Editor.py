@@ -1,4 +1,5 @@
 import tkinter
+import logging
 
 import pygame
 import pygame.locals
@@ -7,6 +8,8 @@ import src.constantes as constantes
 from models.editor import Editor
 from models.game_options import GameOptions
 from models.screen import Screen
+
+logging.basicConfig(level=logging.INFO)
 
 pygame.init()
 

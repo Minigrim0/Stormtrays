@@ -94,9 +94,6 @@ class Editor(Runnable):
             except InvalidPositionException:
                 pass
 
-        # if self.choice == "QG":
-        #     self.QGPos = (x * 64, y * 64)
-
     def draw(self):
         """Draws the diffrent elements of the Editor on the screen"""
         self.level.draw(self.screen, editor=True)
