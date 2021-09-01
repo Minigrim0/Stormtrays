@@ -1,6 +1,6 @@
 import os
 from copy import copy
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 
 import pygame
 
@@ -129,6 +129,11 @@ class Editor(Runnable):
 
     def save(self):
         """Saves the current level"""
+        if not self.level.valid:
+            force = messagebox.askokcancel("The level is not valid !")
+            if not force:
+                return
+
         options = GameOptions.getInstance()
         full_path = filedialog.asksaveasfilename(initialdir=options["paths"]["levels"], defaultextension=".json")
         if full_path:
