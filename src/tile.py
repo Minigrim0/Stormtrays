@@ -37,13 +37,13 @@ class Tile:
 
     def direction(self) -> tuple:
         """Returns the direction the current tile leads towards"""
-        if (self.code, self.rotation) in (("c1", 0), ("t1", 2), ("t2", 3)):
+        if (self.code, self.rotation) in (("c1", 0), ("s1", 0), ("t1", 2), ("t2", 3)):
             return (1, 0)
-        if (self.code, self.rotation) in (("c1", 1), ("t1", 3), ("t2", 0)):
+        if (self.code, self.rotation) in (("c1", 1), ("s1", 1), ("t1", 3), ("t2", 0)):
             return (0, -1)
-        if (self.code, self.rotation) in (("c1", 2), ("t1", 0), ("t2", 1)):
+        if (self.code, self.rotation) in (("c1", 2), ("s1", 2), ("t1", 0), ("t2", 1)):
             return (-1, 0)
-        if (self.code, self.rotation) in (("c1", 3), ("t1", 1), ("t2", 2)):
+        if (self.code, self.rotation) in (("c1", 3), ("s1", 3), ("t1", 1), ("t2", 2)):
             return (0, 1)
         if self.code == "x1":
             return (0, 0)
