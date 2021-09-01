@@ -75,11 +75,7 @@ class Editor(Runnable):
                     self.placeTile(event)
 
     def placeTile(self, event):
-        """Places a tile on the map according to the event
-
-        Args:
-            event (pygame.Event): The event that occured
-        """
+        """Places a tile on the map according to the event"""
         if self.choice is not None:
             x = event.pos[0] // 64
             y = event.pos[1] // 64
@@ -150,10 +146,6 @@ class Editor(Runnable):
         self.choice = None
 
     def setChoice(self, choice):
-        """Sets the holded tile to the given choice
-
-        Args:
-            choice (str): The choice to set the user to
-        """
+        """Sets the holded tile to the given choice"""
         self.choice = copy(choice)
         self.choice.move(self.mousePosition)
