@@ -44,6 +44,10 @@ class Bastion:
         """Returns the real position to blit the bastion to"""
         return (self.position[0] * 64, self.position[1] * 64)
 
+    @property
+    def alive(self) -> bool:
+        return self.health > 0
+
     def draw(self, screen: Screen):
         """Draws the healthbar on the screen if the bastion is under attack"""
         screen.blit(self.image, self._blit_position)

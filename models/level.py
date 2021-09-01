@@ -224,6 +224,10 @@ class Level:
         for bastion in self.bastions:
             if bastion.position == position:
                 bastion.hit(damage)
+                if not bastion.alive:
+                    for start_pos in self.spawn_places:
+                        if self.findLinkedBastion(start_pos) == bastion:
+                            del self.spawn_places[self.spawn_places.index(start_pos)]
                 return True
         return False
 
