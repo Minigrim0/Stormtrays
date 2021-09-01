@@ -2,7 +2,7 @@
     "name" : "Catapulte Basique",
     "damage" : 8,
     "fire_rate" : 6,
-    "range" : 3,
+    "range" : 5,
     "animation" : "assets/images/animations/towers/catapult/",
     "thumbnail": "assets/images/towers/catapult.png",
     "price" : 200,
