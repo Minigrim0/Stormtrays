@@ -1,6 +1,6 @@
 import os
 from copy import copy
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 
 import pygame
 
@@ -11,7 +11,7 @@ from models.screen import Screen
 from src.errors.invalidPositionException import InvalidPositionException
 from src.runnable import Runnable
 from src.tile import Tile
-from UI.menus.editor import EditorUI
+from UI.components.gui.editor_ui import EditorUI
 
 
 class Editor(Runnable):
@@ -34,13 +34,16 @@ class Editor(Runnable):
         super().__init__()
 
         self.level: Level = Level.getInstance()
+        options = GameOptions.getInstance()
+        self.level.setBackground(options.fullPath("images", "levels/fond1.png"))
+
         self.UI: EditorUI = EditorUI(self.level)
         self.UI.buttons["eraseButton"].setCallback(self.erase)
         self.UI.buttons["changeBackgroundButton"].setCallback(self.changeBackground)
         self.UI.buttons["loadButton"].setCallback(self.loadLevel)
         self.UI.buttons["saveButton"].setCallback(self.save)
-        for code in ["c1", "t2", "t1", "x1", "p1", "v1", "k1"]:
-            self.UI.buttons[code].setCallback(self.setChoice, self.level.tiles[code])
+        for code in self.level.tiles:
+            self.UI.buttons[code].setCallback(self.setChoice, choice=self.level.tiles[code])
 
         self.choice: Tile = None
         self.mousePosition = (0, 0)
@@ -72,11 +75,7 @@ class Editor(Runnable):
                     self.placeTile(event)
 
     def placeTile(self, event):
-        """Places a tile on the map according to the event
-
-        Args:
-            event (pygame.Event): The event that occured
-        """
+        """Places a tile on the map according to the event"""
         if self.choice is not None:
             x = event.pos[0] // 64
             y = event.pos[1] // 64
@@ -91,16 +90,10 @@ class Editor(Runnable):
             except InvalidPositionException:
                 pass
 
-        # if self.choice == "QG":
-        #     self.QGPos = (x * 64, y * 64)
-
     def draw(self):
         """Draws the diffrent elements of the Editor on the screen"""
         self.level.draw(self.screen, editor=True)
         self.UI.draw(self.screen)
-
-        if self.UI.QGPos:
-            self.screen.blit(self.UI.QGImg, (self.UI.QGPos))
 
         if self.choice is not None:
             self.choice.draw(self.screen, editor=True)
@@ -115,8 +108,7 @@ class Editor(Runnable):
         options = GameOptions.getInstance()
         filename = filedialog.askopenfilename(initialdir=options.fullPath("images", "levels"), defaultextension=".png")
         if filename:
-            self.level.backgroundName = os.path.relpath(filename)
-            self.level.background = pygame.image.load(self.level.backgroundName).convert_alpha()
+            self.level.setBackground(os.path.relpath(filename))
 
         self.choice = None
 
@@ -130,10 +122,15 @@ class Editor(Runnable):
 
     def save(self):
         """Saves the current level"""
+        if not self.level.valid:
+            force = messagebox.askokcancel("The level is not valid !")
+            if not force:
+                return
+
         options = GameOptions.getInstance()
         full_path = filedialog.asksaveasfilename(initialdir=options["paths"]["levels"], defaultextension=".json")
         if full_path:
-            self.level.draw(self.screen)
+            self.level.draw(self.screen, force_tile_rendering=True)
 
             arect = pygame.Rect(0, 0, consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT)
             sub = self.screen.subsurface(arect)
@@ -149,10 +146,6 @@ class Editor(Runnable):
         self.choice = None
 
     def setChoice(self, choice):
-        """Sets the holded tile to the given choice
-
-        Args:
-            choice (str): The choice to set the user to
-        """
+        """Sets the holded tile to the given choice"""
         self.choice = copy(choice)
         self.choice.move(self.mousePosition)
