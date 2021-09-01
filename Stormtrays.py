@@ -4,7 +4,7 @@ import pygame
 
 from models.stormtrays import Stormtrays
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 
 logging.info("Initializing pygame")
 pygame.init()

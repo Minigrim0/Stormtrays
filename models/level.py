@@ -262,7 +262,7 @@ class Level:
 
     def canAfford(self, amount: int):
         """Returns whether the player can afford the given amount"""
-        return self.gold - amount > 0
+        return self.gold - amount >= 0
 
     def add_count(self, counter: str, amount: int):
         """Adds the given value to the given counter"""

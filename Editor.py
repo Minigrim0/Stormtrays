@@ -9,7 +9,7 @@ from models.editor import Editor
 from models.game_options import GameOptions
 from models.screen import Screen
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 
 pygame.init()
 
