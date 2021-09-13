@@ -1,3 +1,5 @@
+from gettext import gettext as _
+
 import pygame as pg
 
 from models.game_options import GameOptions
@@ -22,7 +24,7 @@ class CreditsMenu(Menu, Runnable):
             image=pg.image.load(options.fullPath("images", "buttons/MenuButton.png")).convert_alpha(),
             callback=self.back,
         )
-        self.buttons["back"].build("Retour", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["back"].build(_("menu_credits_back"), options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
         self.credits = Credits("assets/credits.json")
 
