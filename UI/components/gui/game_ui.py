@@ -1,4 +1,5 @@
 import pygame as pg
+from gettext import gettext as _
 
 from models.character import Character
 from models.game_options import GameOptions
@@ -77,12 +78,12 @@ class GameUI:
         character = Character.getInstance()
         self.xp_bar.update(elapsed_time)
 
-        self.gold_amount = self.font.render(f"Or : {level.gold}", 1, (0, 0, 0))
-        self.bastion_health = self.font.render(f"Vie : {level.health} pv.", 1, (0, 0, 0))
-        self.character_level = self.font.render(f"Niveau {character.level}", 1, (0, 0, 0))
-        self.ennemies_killed = self.font.render(f"Victimes : {character.kills}", 1, (0, 0, 0))
-        self.character_damage = self.font.render(f"Dégats : {character.damage}", 1, (0, 0, 0))
-        self.character_speed = self.font.render(f"Vitesse : {character.speed}", 1, (0, 0, 0))
+        self.gold_amount = self.font.render(_("gui_goldAmount").format(level.gold), 1, (0, 0, 0))
+        self.bastion_health = self.font.render(_("gui_healthAmount").format(level.health), 1, (0, 0, 0))
+        self.character_level = self.font.render(_("gui_level").format(character.level), 1, (0, 0, 0))
+        self.ennemies_killed = self.font.render(_("gui_victims").format(character.kills), 1, (0, 0, 0))
+        self.character_damage = self.font.render(_("gui_damage").format(character.damage), 1, (0, 0, 0))
+        self.character_speed = self.font.render(_("gui_speed").format(character.speed), 1, (0, 0, 0))
 
     def handleEvent(self, event):
         """Handles user's events"""
