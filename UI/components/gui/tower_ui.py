@@ -53,7 +53,7 @@ class TowerUI:
         )
         self.font = options.fonts["MedievalSharp-xOZ5"]["20"]
         self.button.build(
-            -("tower_sell"), self.font,
+            ("tower_sell"), self.font,
             text_position=("CENTER", "CENTER"), text_color=(0, 0, 0)
         )
 
