@@ -1,3 +1,5 @@
+from gettext import gettext as _
+
 import pygame as pg
 
 from models.game_options import GameOptions
@@ -38,7 +40,7 @@ class GameOptionsMenu(Menu, Runnable):
         )
 
         title = options.fonts["MedievalSharp-xOZ5"]["60"].render(
-            "Options", 1, (0, 0, 0)
+            _("menuOptions_options"), 1, (0, 0, 0)
         )
 
         title_pos = (self.menu_background.get_size()[0] - title.get_size()[0]) / 2
@@ -67,7 +69,7 @@ class GameOptionsMenu(Menu, Runnable):
             callback=self.quitMenu
         )
         self.buttons["quitOptions"].build(
-            "Retour", options.fonts["MedievalSharp-xOZ5"]["25"],
+            _("menuOptions_back"), options.fonts["MedievalSharp-xOZ5"]["25"],
             text_position=("CENTER", "CENTER")
         )
 
@@ -78,14 +80,16 @@ class GameOptionsMenu(Menu, Runnable):
         """Builds the text for the volume option"""
         options = GameOptions.getInstance()
         self.volume_text = options.fonts["MedievalSharp-xOZ5"]["25"].render(
-            f"Volume : {int(options.volume * 10)}", 1, (0, 0, 0)
+            _("menuOptions_volume").format(int(options.volume * 10)),
+            1, (0, 0, 0)
         )
 
     def _buildDifficultyText(self):
         """Builds the text for the difficulty option"""
         options = GameOptions.getInstance()
         self.difficulty_text = options.fonts["MedievalSharp-xOZ5"]["25"].render(
-            f"Difficulté : {options.difficulty}", 1, (0, 0, 0)
+            _("menuOptions_difficulty").format(options.difficulty),
+            1, (0, 0, 0)
         )
 
     def loop(self):
