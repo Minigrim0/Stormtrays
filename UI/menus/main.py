@@ -1,3 +1,5 @@
+from gettext import gettext as _
+
 import pygame
 
 from models.game_options import GameOptions
@@ -39,7 +41,7 @@ class MainMenu(Menu, Runnable):
             callback=self.launch,
             toLaunch="game",
         )
-        self.buttons["play"].build("Jouer", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["play"].build(_("mainMenu_play_button"), options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
         self.buttons["options"] = Button(
             (752, 584),
@@ -48,7 +50,7 @@ class MainMenu(Menu, Runnable):
             callback=self.launch,
             toLaunch="options",
         )
-        self.buttons["options"].build("Options", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["options"].build(_("mainMenu_options_button"), options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
         self.buttons["credits"] = Button(
             (702, 524),
@@ -57,7 +59,7 @@ class MainMenu(Menu, Runnable):
             callback=self.launch,
             toLaunch="credits",
         )
-        self.buttons["credits"].build("Credits", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["credits"].build(_("mainMenu_credits_button"), options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
         self.buttons["quit"] = Button(
             (802, 644),
@@ -66,7 +68,7 @@ class MainMenu(Menu, Runnable):
             callback=self.launch,
             toLaunch="quit",
         )
-        self.buttons["quit"].build("Quitter", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["quit"].build(_("mainMenu_quit_button"), options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
     def loop(self):
         """The bit of code called at each iteration"""
