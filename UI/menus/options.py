@@ -1,3 +1,5 @@
+from gettext import gettext as _
+
 import pygame as pg
 
 from models.game_options import GameOptions
@@ -25,12 +27,8 @@ class OptionMenu(Menu, Runnable):
 
         self._build()
 
-        self.Diffictxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
-            "Difficulté : {}".format(options.difficulty), 1, (0, 0, 0)
-        )
-        self.Volumetxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
-            "Volume : {}".format(int(options.volume * 10)), 1, (0, 0, 0)
-        )
+        self.updateDifficulty(options.difficulty)
+        self.updateVolume(options.volume)
 
         Moins = options.fonts["MedievalSharp-xOZ5"]["40"].render(
             "-", 1, (0, 0, 0)
@@ -51,7 +49,7 @@ class OptionMenu(Menu, Runnable):
             callback=self.quitMenu
         )
         self.buttons["quitOptions"].build(
-            "Retour", options.fonts["MedievalSharp-xOZ5"]["25"],
+            _("menuOptions_back"), options.fonts["MedievalSharp-xOZ5"]["25"],
             text_position=("CENTER", "CENTER")
         )
 
@@ -65,7 +63,7 @@ class OptionMenu(Menu, Runnable):
         options = GameOptions.getInstance()
 
         title = options.fonts["MedievalSharp-xOZ5"]["60"].render(
-            "Options", 1, (0, 0, 0)
+            _("menuOptions_options"), 1, (0, 0, 0)
         )
 
         title_pos = (self.menu_background.get_size()[0] - title.get_size()[0]) / 2
@@ -101,7 +99,8 @@ class OptionMenu(Menu, Runnable):
         options = GameOptions.getInstance()
 
         self.Diffictxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
-            "Difficulté : {}".format(options.difficulty), 1, (0, 0, 0)
+            _("menuOptions_difficulty").format(options.difficulty),
+            1, (0, 0, 0)
         )
 
     def updateVolume(self, value: int):
@@ -110,7 +109,8 @@ class OptionMenu(Menu, Runnable):
         options = GameOptions.getInstance()
 
         self.Volumetxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
-            "Volume : {}".format(int(options.volume * 10)), 1, (0, 0, 0)
+            _("menuOptions_volume").format(int(options.volume * 10)),
+            1, (0, 0, 0)
         )
 
     def quitMenu(self):
