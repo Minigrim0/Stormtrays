@@ -1,3 +1,5 @@
+from gettext import gettext as _
+
 from copy import copy
 
 import pygame as pg
@@ -35,7 +37,7 @@ class PauseMenu(Menu, Runnable):
         options = GameOptions.getInstance()
 
         title = options.fonts["MedievalSharp-xOZ5"]["60"].render(
-            "Pause", 1, (0, 0, 0)
+            _("menu_pause_pause"), 1, (0, 0, 0)
         )
 
         title_pos = (self.menu_background.get_size()[0] - title.get_size()[0]) / 2
@@ -64,15 +66,15 @@ class PauseMenu(Menu, Runnable):
         )
 
         self.buttons["reprise"].build(
-            "Reprendre", options.fonts["MedievalSharp-xOZ5"]["25"],
+            _("menu_pause_resume"), options.fonts["MedievalSharp-xOZ5"]["25"],
             text_position=("CENTER", "CENTER")
         )
         self.buttons["options"].build(
-            "Options", options.fonts["MedievalSharp-xOZ5"]["25"],
+            _("menu_pause_options"), options.fonts["MedievalSharp-xOZ5"]["25"],
             text_position=("CENTER", "CENTER")
         )
         self.buttons["quit"].build(
-            "Quitter", options.fonts["MedievalSharp-xOZ5"]["25"],
+            _("menu_pause_quit"), options.fonts["MedievalSharp-xOZ5"]["25"],
             text_position=("CENTER", "CENTER")
         )
 
