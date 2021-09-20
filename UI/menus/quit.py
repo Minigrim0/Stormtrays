@@ -1,3 +1,5 @@
+from gettext import gettext as _
+
 import pygame as pg
 
 from models.game_options import GameOptions
@@ -31,7 +33,7 @@ class QuitMenu(Menu, Runnable):
             callback=self.cancel
         )
         self.buttons["reprise"].build(
-            "Reprendre", options.fonts["MedievalSharp-xOZ5"]["20"],
+            _("quit_menu_resume"), options.fonts["MedievalSharp-xOZ5"]["20"],
             text_position=("CENTER", "CENTER")
         )
 
@@ -41,7 +43,7 @@ class QuitMenu(Menu, Runnable):
             callback=self.confirm
         )
         self.buttons["confirmQuit"].build(
-            "Quitter", options.fonts["MedievalSharp-xOZ5"]["25"],
+            _("quit_menu_quit"), options.fonts["MedievalSharp-xOZ5"]["25"],
             text_position=("CENTER", "CENTER")
         )
 
@@ -54,7 +56,7 @@ class QuitMenu(Menu, Runnable):
         )
 
         title = options.fonts["MedievalSharp-xOZ5"]["60"].render(
-            "Quitter ?", 1, (0, 0, 0)
+            _("quit_menu_askquit"), 1, (0, 0, 0)
         )
 
         title_pos = (self.menu_background.get_size()[0] - title.get_size()[0]) / 2
