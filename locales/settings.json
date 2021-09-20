@@ -1,0 +1,5 @@
+{
+    "apps": {
+        "game_ui": "UI/components/gui/game_ui.py"
+    }
+}
