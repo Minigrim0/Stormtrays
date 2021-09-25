@@ -12,7 +12,10 @@ def makeTrans():
 
     for app_name, file in apps.items():
         subprocess.run(
-            ["/usr/lib/python3.9/Tools/i18n/pygettext.py", "-d", app_name, "-o", f"locales/{app_name}.pot", file]
+            [
+                "/usr/lib/python3.9/Tools/i18n/pygettext.py", "-d",
+                app_name, "-o", f"locales/templates/{app_name}.pot", file
+            ]
         )
 
 
@@ -32,7 +35,7 @@ def addApp():
         data = json.load(settings_file)
         data["apps"][app] = path
     with open("locales/settings.json", "w") as settings_file:
-        json.dump(data, settings_file)
+        json.dump(data, settings_file, indent=4)
 
 
 availabe_commands = {
