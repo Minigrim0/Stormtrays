@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-09-20 12:02+0200\n"
+"POT-Creation-Date: 2021-09-25 21:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,15 +15,11 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: UI/menus/quit.py:36
-msgid "quit_menu_resume"
+#: UI/menus/levelSelection.py:35
+msgid "levelSelection_back"
 msgstr ""
 
-#: UI/menus/quit.py:46
-msgid "quit_menu_quit"
-msgstr ""
-
-#: UI/menus/quit.py:59
-msgid "quit_menu_askquit"
+#: UI/menus/levelSelection.py:54
+msgid "levelSelection_level"
 msgstr ""
 

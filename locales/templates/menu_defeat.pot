@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-09-20 12:00+0200\n"
+"POT-Creation-Date: 2021-09-25 21:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,19 +15,11 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: UI/menus/pause.py:40
-msgid "menu_pause_pause"
+#: UI/menus/endMenu.py:39
+msgid "menu_defeat_defeat"
 msgstr ""
 
-#: UI/menus/pause.py:69
-msgid "menu_pause_resume"
-msgstr ""
-
-#: UI/menus/pause.py:73
-msgid "menu_pause_options"
-msgstr ""
-
-#: UI/menus/pause.py:77
-msgid "menu_pause_quit"
+#: UI/menus/endMenu.py:57
+msgid "menu_defeat_quit"
 msgstr ""
 

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-09-17 15:24+0200\n"
+"POT-Creation-Date: 2021-09-25 21:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,19 +15,19 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/menus/main.py:44
-msgid "mainMenu_play_button"
+#: UI/menus/options.py:52
+msgid "menuOptions_back"
 msgstr ""
 
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/menus/main.py:53
-msgid "mainMenu_options_button"
+#: UI/menus/options.py:66
+msgid "menuOptions_options"
 msgstr ""
 
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/menus/main.py:62
-msgid "mainMenu_credits_button"
+#: UI/menus/options.py:102
+msgid "menuOptions_difficulty"
 msgstr ""
 
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/menus/main.py:71
-msgid "mainMenu_quit_button"
+#: UI/menus/options.py:112
+msgid "menuOptions_volume"
 msgstr ""
 

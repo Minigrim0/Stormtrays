@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-09-13 17:29+0200\n"
+"POT-Creation-Date: 2021-09-25 21:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,33 +15,27 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#:
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/components/gui/game_ui.py:81
+#: UI/components/gui/game_ui.py:81
 msgid "gui_goldAmount"
 msgstr ""
 
-#:
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/components/gui/game_ui.py:82
+#: UI/components/gui/game_ui.py:82
 msgid "gui_healthAmount"
 msgstr ""
 
-#:
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/components/gui/game_ui.py:83
+#: UI/components/gui/game_ui.py:83
 msgid "gui_level"
 msgstr ""
 
-#:
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/components/gui/game_ui.py:84
+#: UI/components/gui/game_ui.py:84
 msgid "gui_victims"
 msgstr ""
 
-#:
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/components/gui/game_ui.py:85
+#: UI/components/gui/game_ui.py:85
 msgid "gui_damage"
 msgstr ""
 
-#:
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/components/gui/game_ui.py:86
+#: UI/components/gui/game_ui.py:86
 msgid "gui_speed"
 msgstr ""
 

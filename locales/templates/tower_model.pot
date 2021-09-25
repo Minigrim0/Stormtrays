@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-09-13 17:39+0200\n"
+"POT-Creation-Date: 2021-09-25 21:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,14 +14,4 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
 
-
-#:
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/menus/character_choice.py:41
-msgid "menu_cc_back"
-msgstr ""
-
-#:
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/menus/character_choice.py:51
-msgid "menu_cc_start"
-msgstr ""
 

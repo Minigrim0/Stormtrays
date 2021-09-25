@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-09-13 17:43+0200\n"
+"POT-Creation-Date: 2021-09-25 21:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,11 +15,15 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/menus/endMenu.py:39
-msgid "menu_defeat_defeat"
+#: UI/menus/quit.py:36
+msgid "quit_menu_resume"
 msgstr ""
 
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/menus/endMenu.py:57
-msgid "menu_defeat_quit"
+#: UI/menus/quit.py:46
+msgid "quit_menu_quit"
+msgstr ""
+
+#: UI/menus/quit.py:59
+msgid "quit_menu_askquit"
 msgstr ""
 

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-09-13 17:32+0200\n"
+"POT-Creation-Date: 2021-09-25 21:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,18 +15,15 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#:
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/components/gui/tower_ui.py:62
+#: UI/components/gui/tower_ui.py:62
 msgid "tower_damage"
 msgstr ""
 
-#:
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/components/gui/tower_ui.py:63
+#: UI/components/gui/tower_ui.py:63
 msgid "tower_victims"
 msgstr ""
 
-#:
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/components/gui/tower_ui.py:64
+#: UI/components/gui/tower_ui.py:64
 msgid "tower_totalDamage"
 msgstr ""
 

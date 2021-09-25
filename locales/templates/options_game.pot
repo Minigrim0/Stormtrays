@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-09-17 15:27+0200\n"
+"POT-Creation-Date: 2021-09-25 21:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,23 +15,19 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#:
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/menus/options_game.py:43
+#: UI/menus/options_game.py:43
 msgid "menuOptions_options"
 msgstr ""
 
-#:
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/menus/options_game.py:72
+#: UI/menus/options_game.py:72
 msgid "menuOptions_back"
 msgstr ""
 
-#:
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/menus/options_game.py:83
+#: UI/menus/options_game.py:83
 msgid "menuOptions_volume"
 msgstr ""
 
-#:
-#: /home/minigrim0/Documents/code/python/Stormtrays/UI/menus/options_game.py:91
+#: UI/menus/options_game.py:91
 msgid "menuOptions_difficulty"
 msgstr ""
 
