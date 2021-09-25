@@ -12,5 +12,9 @@
         "menu_quit": "UI/menus/quit.py",
         "tower_ui": "UI/components/gui/tower_ui.py",
         "tower_model": "models/tower.py"
-    }
+    },
+    "lang": [
+        "fr",
+        "en"
+    ]
 }
