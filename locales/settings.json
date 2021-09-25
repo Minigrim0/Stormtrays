@@ -1,5 +1,16 @@
 {
     "apps": {
-        "game_ui": "UI/components/gui/game_ui.py"
+        "game_ui": "UI/components/gui/game_ui.py",
+        "options_game": "UI/menus/options_game.py",
+        "menu_cc": "UI/menus/character_choice.py",
+        "menu_credits": "UI/menus/credits.py",
+        "menu_defeat": "UI/menus/endMenu.py",
+        "menu_level": "UI/menus/levelSelection.py",
+        "menu_main": "UI/menus/main.py",
+        "menu_options": "UI/menus/options.py",
+        "menu_pause": "UI/menus/pause.py",
+        "menu_quit": "UI/menus/quit.py",
+        "tower_ui": "UI/components/gui/tower_ui.py",
+        "tower_model": "models/tower.py"
     }
 }
