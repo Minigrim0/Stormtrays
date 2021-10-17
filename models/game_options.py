@@ -62,6 +62,7 @@ class GameOptions:
         self._loadLang()
 
     def _loadLang(self):
+        """Loads the lang saved in the settings"""
         self.lang = gettext.translation('stormtrays', localedir='locales', languages=[self["Game"]["lang"]])
         self.lang.install()
 
@@ -89,6 +90,7 @@ class GameOptions:
         self.game_speed = speed
 
     def setLang(self, lang):
+        """Changes the lang of the game"""
         self.settings["Game"]["lang"] = lang
 
         with open("assets/settings.json", "w") as settings:
@@ -97,4 +99,5 @@ class GameOptions:
         self._loadLang()
 
     def get_lang(self):
+        """Returns the gettext options for the translations"""
         return self.lang.gettext

@@ -49,7 +49,8 @@ class MainMenu(Menu, Runnable):
             callback=self.launch,
             toLaunch="options",
         )
-        self.buttons["options"].build(_("mainMenu_options_button"), options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["options"].build(
+            _("mainMenu_options_button"), options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
         self.buttons["credits"] = Button(
             (702, 524),
@@ -58,7 +59,8 @@ class MainMenu(Menu, Runnable):
             callback=self.launch,
             toLaunch="credits",
         )
-        self.buttons["credits"].build(_("mainMenu_credits_button"), options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["credits"].build(
+            _("mainMenu_credits_button"), options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
         self.buttons["quit"] = Button(
             (802, 644),

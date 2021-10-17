@@ -78,6 +78,8 @@ class GameOptionsMenu(Menu, Runnable):
     def _buildVolumeText(self):
         """Builds the text for the volume option"""
         options = GameOptions.getInstance()
+        _ = options.get_lang()
+
         self.volume_text = options.fonts["MedievalSharp-xOZ5"]["25"].render(
             _("menuOptions_volume").format(int(options.volume * 10)),
             1, (0, 0, 0)
@@ -86,6 +88,8 @@ class GameOptionsMenu(Menu, Runnable):
     def _buildDifficultyText(self):
         """Builds the text for the difficulty option"""
         options = GameOptions.getInstance()
+        _ = options.get_lang()
+
         self.difficulty_text = options.fonts["MedievalSharp-xOZ5"]["25"].render(
             _("menuOptions_difficulty").format(options.difficulty),
             1, (0, 0, 0)
