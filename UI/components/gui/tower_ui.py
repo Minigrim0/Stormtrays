@@ -39,7 +39,7 @@ class TowerUI:
     def _build(self):
         """Loads the background image and build the selling button"""
         options = GameOptions.getInstance()
-        _ = options.get_lang()
+        _ = options.getLang()
         self.background = pg.image.load(options.fullPath("images", "overlays/stats_background.png"))
         self.position = tuple(map(lambda i, j: i - j, options.window_size, self.background.get_size()))
 
@@ -58,7 +58,7 @@ class TowerUI:
 
     def _buildText(self):
         """Builds the text of the tower stats"""
-        _ = GameOptions.getInstance().get_lang()
+        _ = GameOptions.getInstance().getLang()
         self.damage_text = self.font.render(_("tower_damage").format(self.tower.damage), 1, (0, 0, 0))
         self.kills_text = self.font.render(_("tower_victims").format(self.tower.kills), 1, (0, 0, 0))
         self.total_damage_text = self.font.render(_("tower_totalDamage").format(self.tower.damage_dealt), 1, (0, 0, 0))

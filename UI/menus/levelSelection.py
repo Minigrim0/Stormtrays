@@ -19,7 +19,7 @@ class LevelSelectMenu(Menu, Runnable):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.scrollAmount = 60
-        _ = GameOptions.getInstance().get_lang()
+        _ = GameOptions.getInstance().getLang()
 
         self.dark_background = pg.Surface((576, 704), pg.SRCALPHA)
         self.dark_background.fill((0, 0, 0, 128))
@@ -38,7 +38,7 @@ class LevelSelectMenu(Menu, Runnable):
 
     def load(self):
         """Generates the levels' cards"""
-        _ = GameOptions.getInstance().get_lang()
+        _ = GameOptions.getInstance().getLang()
 
         Compteur = 60
         options = GameOptions.getInstance()

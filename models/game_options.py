@@ -98,6 +98,6 @@ class GameOptions:
 
         self._loadLang()
 
-    def get_lang(self):
+    def getLang(self):
         """Returns the gettext options for the translations"""
         return self.lang.gettext

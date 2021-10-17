@@ -33,7 +33,7 @@ class PauseMenu(Menu, Runnable):
     def _build(self):
         """Builds the menu's buttons and background"""
         options = GameOptions.getInstance()
-        _ = options.get_lang()
+        _ = options.getLang()
 
         title = options.fonts["MedievalSharp-xOZ5"]["60"].render(
             _("menu_pause_pause"), 1, (0, 0, 0)

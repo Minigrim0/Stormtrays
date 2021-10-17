@@ -21,7 +21,7 @@ class EndScreen(Menu, Runnable):
     def _build(self):
         """Builds the backgrounds and buttons of the end screen"""
         options: GameOptions = GameOptions.getInstance()
-        _ = options.get_lang()
+        _ = options.getLang()
 
         self.background = pg.Surface((1152, 704), pg.SRCALPHA)
         self.background.fill((0, 0, 0, 128))

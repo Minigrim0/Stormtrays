@@ -77,7 +77,7 @@ class GameUI:
         character = Character.getInstance()
         self.xp_bar.update(elapsed_time)
 
-        _ = GameOptions.getInstance().get_lang()
+        _ = GameOptions.getInstance().getLang()
 
         self.gold_amount = self.font.render(_("gui_goldAmount").format(level.gold), 1, (0, 0, 0))
         self.bastion_health = self.font.render(_("gui_healthAmount").format(level.health), 1, (0, 0, 0))

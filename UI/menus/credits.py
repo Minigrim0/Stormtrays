@@ -13,7 +13,7 @@ class CreditsMenu(Menu, Runnable):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        _ = GameOptions.getInstance().get_lang()
+        _ = GameOptions.getInstance().getLang()
 
         options = GameOptions.getInstance()
         self.scroll = 704

@@ -24,7 +24,7 @@ class QuitMenu(Menu, Runnable):
     def _build(self):
         """Builds the menu's background and buttons"""
         options = GameOptions.getInstance()
-        _ = options.get_lang()
+        _ = options.getLang()
 
         self.buttons["reprise"] = Button(
             (516, 297), (120, 50),

@@ -14,7 +14,7 @@ class OptionMenu(Menu, Runnable):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         options = GameOptions.getInstance()
-        _ = options.get_lang()
+        _ = options.getLang()
 
         self.menu_background = pg.image.load(
             options.fullPath("images", "backgrounds/submenu_background.png")
@@ -60,7 +60,7 @@ class OptionMenu(Menu, Runnable):
     def _build(self):
         """Builds menu's background"""
         options = GameOptions.getInstance()
-        _ = options.get_lang()
+        _ = options.getLang()
 
         title = options.fonts["MedievalSharp-xOZ5"]["60"].render(
             _("menuOptions_options"), 1, (0, 0, 0)
@@ -97,7 +97,7 @@ class OptionMenu(Menu, Runnable):
         """Updates the difficulty of the game"""
         options = GameOptions.getInstance()
         options.changeDifficulty(value)
-        _ = GameOptions.getInstance().get_lang()
+        _ = GameOptions.getInstance().getLang()
 
         self.Diffictxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
             _("menuOptions_difficulty").format(options.difficulty),
@@ -108,7 +108,7 @@ class OptionMenu(Menu, Runnable):
         """Updates the volume of the music"""
         options = GameOptions.getInstance()
         options.changeDifficulty(value)
-        _ = GameOptions.getInstance().get_lang()
+        _ = GameOptions.getInstance().getLang()
 
         self.Volumetxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
             _("menuOptions_volume").format(int(options.volume * 10)),

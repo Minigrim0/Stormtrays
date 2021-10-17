@@ -29,7 +29,7 @@ class ChacracterChoiceMenu(Menu, Runnable):
 
     def _load(self, level):
         """Loads the buttons for the menu"""
-        _ = GameOptions.getInstance().get_lang()
+        _ = GameOptions.getInstance().getLang()
 
         options = GameOptions.getInstance()
         self.buttons["back"] = Button(

@@ -28,7 +28,7 @@ class Tower:
         if Tower.instance is not None:
             raise RuntimeError("Trying to instanciate a second object from a singleton class")
         Tower.instance = self
-        _ = GameOptions.getInstance().get_lang()
+        _ = GameOptions.getInstance().getLang()
 
         self.popup = Popup(
             position=(15, 610),

@@ -31,7 +31,7 @@ class MainMenu(Menu, Runnable):
     def _build(self):
         """Builds the menu's buttons"""
         options = GameOptions.getInstance()
-        _ = options.get_lang()
+        _ = options.getLang()
 
         self.buttons["play"] = Button(
             (652, 464),
@@ -121,4 +121,10 @@ class MainMenu(Menu, Runnable):
             CreditsMenu(self.screen, pickFrom=self.pickFrom, background=self._draw, draw_title=False)()
 
     def toggleLangs(self):
-        print("Changing lang")
+        options = GameOptions.getInstance()
+        if options["Game"]["lang"] == "en":
+            options.setLang("fr")
+        else:
+            options.setLang("en")
+
+        self._build()

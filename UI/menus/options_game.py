@@ -25,7 +25,7 @@ class GameOptionsMenu(Menu, Runnable):
     def _build(self):
         """Builds the menu's buttons and texts"""
         options = GameOptions.getInstance()
-        _ = options.get_lang()
+        _ = options.getLang()
 
         self.background = pg.Surface((1152, 704), pg.SRCALPHA)
         self.background.fill((0, 0, 0, 128))
@@ -78,7 +78,7 @@ class GameOptionsMenu(Menu, Runnable):
     def _buildVolumeText(self):
         """Builds the text for the volume option"""
         options = GameOptions.getInstance()
-        _ = options.get_lang()
+        _ = options.getLang()
 
         self.volume_text = options.fonts["MedievalSharp-xOZ5"]["25"].render(
             _("menuOptions_volume").format(int(options.volume * 10)),
@@ -88,7 +88,7 @@ class GameOptionsMenu(Menu, Runnable):
     def _buildDifficultyText(self):
         """Builds the text for the difficulty option"""
         options = GameOptions.getInstance()
-        _ = options.get_lang()
+        _ = options.getLang()
 
         self.difficulty_text = options.fonts["MedievalSharp-xOZ5"]["25"].render(
             _("menuOptions_difficulty").format(options.difficulty),
