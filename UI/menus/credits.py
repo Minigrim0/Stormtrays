@@ -13,6 +13,7 @@ class CreditsMenu(Menu, Runnable):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        _ = GameOptions.getInstance().getLang()
 
         options = GameOptions.getInstance()
         self.scroll = 704
@@ -22,7 +23,7 @@ class CreditsMenu(Menu, Runnable):
             image=pg.image.load(options.fullPath("images", "buttons/MenuButton.png")).convert_alpha(),
             callback=self.back,
         )
-        self.buttons["back"].build("Retour", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["back"].build(_("menu_credits_back"), options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
         self.credits = Credits("assets/credits.json")
 

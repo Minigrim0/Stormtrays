@@ -5,6 +5,7 @@ import os
 import pygame as pg
 
 from src.utils.bound import bound
+import gettext
 
 
 class GameOptions:
@@ -38,6 +39,8 @@ class GameOptions:
 
         self.fonts = {}
 
+        self.lang = None
+
         self._load()
 
     def __getitem__(self, category: str) -> dict:
@@ -55,6 +58,13 @@ class GameOptions:
 
         with open("assets/settings.json") as settings:
             self.settings = json.load(settings)
+
+        self._loadLang()
+
+    def _loadLang(self):
+        """Loads the lang saved in the settings"""
+        self.lang = gettext.translation('stormtrays', localedir='locales', languages=[self["Game"]["lang"]])
+        self.lang.install()
 
     def fullPath(self, category, path):
         """Returns the concatenated full path for a category and a sub path"""
@@ -78,3 +88,16 @@ class GameOptions:
     def setSpeed(self, speed: int):
         """Changes the speed of the game to the given speed"""
         self.game_speed = speed
+
+    def setLang(self, lang):
+        """Changes the lang of the game"""
+        self.settings["Game"]["lang"] = lang
+
+        with open("assets/settings.json", "w") as settings:
+            json.dump(self.settings, settings)
+
+        self._loadLang()
+
+    def getLang(self):
+        """Returns the gettext options for the translations"""
+        return self.lang.gettext

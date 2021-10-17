@@ -39,6 +39,7 @@ class TowerUI:
     def _build(self):
         """Loads the background image and build the selling button"""
         options = GameOptions.getInstance()
+        _ = options.getLang()
         self.background = pg.image.load(options.fullPath("images", "overlays/stats_background.png"))
         self.position = tuple(map(lambda i, j: i - j, options.window_size, self.background.get_size()))
 
@@ -51,15 +52,16 @@ class TowerUI:
         )
         self.font = options.fonts["MedievalSharp-xOZ5"]["20"]
         self.button.build(
-            "Vendre", self.font,
+            _("tower_sell"), self.font,
             text_position=("CENTER", "CENTER"), text_color=(0, 0, 0)
         )
 
     def _buildText(self):
         """Builds the text of the tower stats"""
-        self.damage_text = self.font.render(f"dégâts: {self.tower.damage}", 1, (0, 0, 0))
-        self.kills_text = self.font.render(f"Victimes: {self.tower.kills}", 1, (0, 0, 0))
-        self.total_damage_text = self.font.render(f"Dégâts totaux: {self.tower.damage_dealt}", 1, (0, 0, 0))
+        _ = GameOptions.getInstance().getLang()
+        self.damage_text = self.font.render(_("tower_damage").format(self.tower.damage), 1, (0, 0, 0))
+        self.kills_text = self.font.render(_("tower_victims").format(self.tower.kills), 1, (0, 0, 0))
+        self.total_damage_text = self.font.render(_("tower_totalDamage").format(self.tower.damage_dealt), 1, (0, 0, 0))
 
     def _sell(self):
         """Sells the currently selected tower"""

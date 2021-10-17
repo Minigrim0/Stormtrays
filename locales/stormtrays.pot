@@ -1,0 +1,153 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2021-10-17 13:41+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: UI/components/gui/game_ui.py:82
+msgid "gui_goldAmount"
+msgstr ""
+
+#: UI/components/gui/game_ui.py:83
+msgid "gui_healthAmount"
+msgstr ""
+
+#: UI/components/gui/game_ui.py:84
+msgid "gui_level"
+msgstr ""
+
+#: UI/components/gui/game_ui.py:85
+msgid "gui_victims"
+msgstr ""
+
+#: UI/components/gui/game_ui.py:86
+msgid "gui_damage"
+msgstr ""
+
+#: UI/components/gui/game_ui.py:87
+msgid "gui_speed"
+msgstr ""
+
+#: UI/components/gui/tower_ui.py:55
+msgid "tower_sell"
+msgstr ""
+
+#: UI/components/gui/tower_ui.py:62
+msgid "tower_damage"
+msgstr ""
+
+#: UI/components/gui/tower_ui.py:63
+msgid "tower_victims"
+msgstr ""
+
+#: UI/components/gui/tower_ui.py:64
+msgid "tower_totalDamage"
+msgstr ""
+
+#: UI/menus/character_choice.py:41
+msgid "menu_cc_back"
+msgstr ""
+
+#: UI/menus/character_choice.py:51
+msgid "menu_cc_start"
+msgstr ""
+
+#: UI/menus/credits.py:26
+msgid "menu_credits_back"
+msgstr ""
+
+#: UI/menus/endMenu.py:38
+msgid "menu_defeat_defeat"
+msgstr ""
+
+#: UI/menus/endMenu.py:56
+msgid "menu_defeat_quit"
+msgstr ""
+
+#: UI/menus/levelSelection.py:34
+msgid "levelSelection_back"
+msgstr ""
+
+#: UI/menus/levelSelection.py:55
+msgid "levelSelection_level"
+msgstr ""
+
+#: UI/menus/main.py:43
+msgid "mainMenu_play_button"
+msgstr ""
+
+#: UI/menus/main.py:53
+msgid "mainMenu_options_button"
+msgstr ""
+
+#: UI/menus/main.py:63
+msgid "mainMenu_credits_button"
+msgstr ""
+
+#: UI/menus/main.py:72
+msgid "mainMenu_quit_button"
+msgstr ""
+
+#: UI/menus/main.py:80
+msgid "mainMenu_lang"
+msgstr ""
+
+#: UI/menus/options.py:51 UI/menus/options_game.py:71
+msgid "menuOptions_back"
+msgstr ""
+
+#: UI/menus/options.py:66 UI/menus/options_game.py:42
+msgid "menuOptions_options"
+msgstr ""
+
+#: UI/menus/options.py:103 UI/menus/options_game.py:94
+msgid "menuOptions_difficulty"
+msgstr ""
+
+#: UI/menus/options.py:114 UI/menus/options_game.py:84
+msgid "menuOptions_volume"
+msgstr ""
+
+#: UI/menus/pause.py:39
+msgid "menu_pause_pause"
+msgstr ""
+
+#: UI/menus/pause.py:68
+msgid "menu_pause_resume"
+msgstr ""
+
+#: UI/menus/pause.py:72
+msgid "menu_pause_options"
+msgstr ""
+
+#: UI/menus/pause.py:76
+msgid "menu_pause_quit"
+msgstr ""
+
+#: UI/menus/quit.py:35
+msgid "quit_menu_resume"
+msgstr ""
+
+#: UI/menus/quit.py:45
+msgid "quit_menu_quit"
+msgstr ""
+
+#: UI/menus/quit.py:58
+msgid "quit_menu_askquit"
+msgstr ""
+
+#: models/tower.py:48
+msgid "tower_model_missingMoney"
+msgstr ""
+
