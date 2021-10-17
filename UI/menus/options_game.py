@@ -1,5 +1,3 @@
-from gettext import gettext as _
-
 import pygame as pg
 
 from models.game_options import GameOptions
@@ -27,6 +25,7 @@ class GameOptionsMenu(Menu, Runnable):
     def _build(self):
         """Builds the menu's buttons and texts"""
         options = GameOptions.getInstance()
+        _ = options.get_lang()
 
         self.background = pg.Surface((1152, 704), pg.SRCALPHA)
         self.background.fill((0, 0, 0, 128))

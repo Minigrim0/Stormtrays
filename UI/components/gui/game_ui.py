@@ -1,5 +1,4 @@
 import pygame as pg
-from gettext import gettext as _
 
 from models.character import Character
 from models.game_options import GameOptions
@@ -77,6 +76,8 @@ class GameUI:
         level = Level.getInstance()
         character = Character.getInstance()
         self.xp_bar.update(elapsed_time)
+
+        _ = GameOptions.getInstance().get_lang()
 
         self.gold_amount = self.font.render(_("gui_goldAmount").format(level.gold), 1, (0, 0, 0))
         self.bastion_health = self.font.render(_("gui_healthAmount").format(level.health), 1, (0, 0, 0))

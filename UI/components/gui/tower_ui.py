@@ -1,5 +1,3 @@
-from gettext import gettext as _
-
 import pygame as pg
 
 from models.game_options import GameOptions
@@ -59,6 +57,7 @@ class TowerUI:
 
     def _buildText(self):
         """Builds the text of the tower stats"""
+        _ = GameOptions.getInstance().get_lang()
         self.damage_text = self.font.render(_("tower_damage").format(self.tower.damage), 1, (0, 0, 0))
         self.kills_text = self.font.render(_("tower_victims").format(self.tower.kills), 1, (0, 0, 0))
         self.total_damage_text = self.font.render(_("tower_totalDamage").format(self.tower.damage_dealt), 1, (0, 0, 0))

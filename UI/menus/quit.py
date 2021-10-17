@@ -1,5 +1,3 @@
-from gettext import gettext as _
-
 import pygame as pg
 
 from models.game_options import GameOptions
@@ -26,6 +24,7 @@ class QuitMenu(Menu, Runnable):
     def _build(self):
         """Builds the menu's background and buttons"""
         options = GameOptions.getInstance()
+        _ = options.get_lang()
 
         self.buttons["reprise"] = Button(
             (516, 297), (120, 50),

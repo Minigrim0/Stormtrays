@@ -2,8 +2,6 @@ import glob
 import json
 import os
 
-from gettext import gettext as _
-
 import pygame as pg
 
 from models.character import Character
@@ -31,6 +29,8 @@ class ChacracterChoiceMenu(Menu, Runnable):
 
     def _load(self, level):
         """Loads the buttons for the menu"""
+        _ = GameOptions.getInstance().get_lang()
+
         options = GameOptions.getInstance()
         self.buttons["back"] = Button(
             (654, 0),

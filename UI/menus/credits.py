@@ -1,5 +1,3 @@
-from gettext import gettext as _
-
 import pygame as pg
 
 from models.game_options import GameOptions
@@ -15,6 +13,7 @@ class CreditsMenu(Menu, Runnable):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        _ = GameOptions.getInstance().get_lang()
 
         options = GameOptions.getInstance()
         self.scroll = 704

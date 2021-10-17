@@ -1,5 +1,3 @@
-from gettext import gettext as _
-
 import pygame
 
 from models.game_options import GameOptions
@@ -33,6 +31,7 @@ class MainMenu(Menu, Runnable):
     def _build(self):
         """Builds the menu's buttons"""
         options = GameOptions.getInstance()
+        _ = options.get_lang()
 
         self.buttons["play"] = Button(
             (652, 464),

@@ -1,5 +1,3 @@
-from gettext import gettext as _
-
 from copy import copy
 
 import pygame as pg
@@ -35,6 +33,7 @@ class PauseMenu(Menu, Runnable):
     def _build(self):
         """Builds the menu's buttons and background"""
         options = GameOptions.getInstance()
+        _ = options.get_lang()
 
         title = options.fonts["MedievalSharp-xOZ5"]["60"].render(
             _("menu_pause_pause"), 1, (0, 0, 0)

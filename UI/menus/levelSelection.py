@@ -2,8 +2,6 @@ import glob
 import json
 import os
 
-from gettext import gettext as _
-
 import pygame as pg
 
 from models.game_options import GameOptions
@@ -21,6 +19,7 @@ class LevelSelectMenu(Menu, Runnable):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.scrollAmount = 60
+        _ = GameOptions.getInstance().get_lang()
 
         self.dark_background = pg.Surface((576, 704), pg.SRCALPHA)
         self.dark_background.fill((0, 0, 0, 128))
@@ -39,6 +38,8 @@ class LevelSelectMenu(Menu, Runnable):
 
     def load(self):
         """Generates the levels' cards"""
+        _ = GameOptions.getInstance().get_lang()
+
         Compteur = 60
         options = GameOptions.getInstance()
         for index, level in enumerate(glob.glob(options.fullPath("levels", "*.json"))):

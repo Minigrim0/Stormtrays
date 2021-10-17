@@ -1,5 +1,3 @@
-from gettext import gettext as _
-
 import pygame as pg
 
 from models.game_options import GameOptions
@@ -16,6 +14,7 @@ class OptionMenu(Menu, Runnable):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         options = GameOptions.getInstance()
+        _ = options.get_lang()
 
         self.menu_background = pg.image.load(
             options.fullPath("images", "backgrounds/submenu_background.png")
@@ -61,6 +60,7 @@ class OptionMenu(Menu, Runnable):
     def _build(self):
         """Builds menu's background"""
         options = GameOptions.getInstance()
+        _ = options.get_lang()
 
         title = options.fonts["MedievalSharp-xOZ5"]["60"].render(
             _("menuOptions_options"), 1, (0, 0, 0)
@@ -95,8 +95,9 @@ class OptionMenu(Menu, Runnable):
 
     def updateDifficulty(self, value: int):
         """Updates the difficulty of the game"""
-        GameOptions.getInstance().changeDifficulty(value)
         options = GameOptions.getInstance()
+        options.changeDifficulty(value)
+        _ = GameOptions.getInstance().get_lang()
 
         self.Diffictxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
             _("menuOptions_difficulty").format(options.difficulty),
@@ -105,8 +106,9 @@ class OptionMenu(Menu, Runnable):
 
     def updateVolume(self, value: int):
         """Updates the volume of the music"""
-        GameOptions.getInstance().changeVolume(value)
         options = GameOptions.getInstance()
+        options.changeDifficulty(value)
+        _ = GameOptions.getInstance().get_lang()
 
         self.Volumetxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
             _("menuOptions_volume").format(int(options.volume * 10)),
