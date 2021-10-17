@@ -18,19 +18,19 @@ def makeTrans():
         subprocess.run(
             [
                 "/usr/lib/python3.9/Tools/i18n/pygettext.py", "-d",
-                app_name, "-o", f"locales/templates/{app_name}.pot", file
+                app_name, "-o", f"locales/{app_name}.pot", file
             ]
         )
 
         for lang in langs:
-            if os.path.exists(f"locales/{lang}/{app_name}.po"):
+            if os.path.exists(f"locales/{lang}/LC_MESSAGES/{app_name}.po"):
                 subprocess.run(
                     [
-                        "msgmerge", "-vU", f"locales/{lang}/{app_name}.po", f"locales/templates/{app_name}.pot"
+                        "msgmerge", "-vU", f"locales/{lang}/LC_MESSAGES/{app_name}.po", f"locales/{app_name}.pot"
                     ]
                 )
             else:
-                shutil.copy(f"locales/templates/{app_name}.pot", f"locales/{lang}/{app_name}.po")
+                shutil.copy(f"locales/{app_name}.pot", f"locales/{lang}/LC_MESSAGES/{app_name}.po")
 
 
 def compileTrans():
@@ -44,7 +44,7 @@ def compileTrans():
         for lang in langs:
             subprocess.run(
                 [
-                    "msgfmt", "-o", f"locales/{lang}/compiled/{app_name}.mo", f"locales/{lang}/{app_name}.po",
+                    "msgfmt", "-o", f"locales/{lang}/LC_MESSAGES/{app_name}.mo", f"locales/{lang}/LC_MESSAGES/{app_name}.po",
                 ]
             )
 
