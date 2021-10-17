@@ -9,11 +9,11 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-
 
 #: UI/menus/levelSelection.py:35
 msgid "levelSelection_back"
@@ -22,4 +22,3 @@ msgstr ""
 #: UI/menus/levelSelection.py:54
 msgid "levelSelection_level"
 msgstr ""
-
