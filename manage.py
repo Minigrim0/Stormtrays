@@ -26,7 +26,7 @@ def makeTrans():
             if os.path.exists(f"locales/{lang}/{app_name}.po"):
                 subprocess.run(
                     [
-                        "/usr/bin/msgmerge", "-vU", f"locales/{lang}/{app_name}.po", f"locales/templates/{app_name}.pot"
+                        "msgmerge", "-vU", f"locales/{lang}/{app_name}.po", f"locales/templates/{app_name}.pot"
                     ]
                 )
             else:
@@ -35,7 +35,18 @@ def makeTrans():
 
 def compileTrans():
     """Compiles all the po files into mo files"""
-    pass
+    with open("locales/settings.json") as settings_file:
+        settings = json.load(settings_file)
+        apps = settings["apps"]
+        langs = settings["langs"]
+
+    for app_name, file in apps.items():
+        for lang in langs:
+            subprocess.run(
+                [
+                    "msgfmt", "-o", f"locales/{lang}/compiled/{app_name}.mo", f"locales/{lang}/{app_name}.po",
+                ]
+            )
 
 
 def addApp():
