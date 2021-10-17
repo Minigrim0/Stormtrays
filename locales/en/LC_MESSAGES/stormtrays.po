@@ -5,39 +5,43 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-10-17 13:03+0200\n"
+"POT-Creation-Date: 2021-10-17 13:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
 
-
-#: UI/components/gui/game_ui.py:81
+#: UI/components/gui/game_ui.py:82
 msgid "gui_goldAmount"
 msgstr "Gold: {}"
 
-#: UI/components/gui/game_ui.py:82
-msgid "gui_healthAmount"
-msgstr "Bastions: {}"
-
 #: UI/components/gui/game_ui.py:83
+msgid "gui_healthAmount"
+msgstr "Bastions: {}hp"
+
+#: UI/components/gui/game_ui.py:84
 msgid "gui_level"
 msgstr "Level {}"
 
-#: UI/components/gui/game_ui.py:84
+#: UI/components/gui/game_ui.py:85
 msgid "gui_victims"
 msgstr "Victims: {}"
 
-#: UI/components/gui/game_ui.py:85
+#: UI/components/gui/game_ui.py:86
 msgid "gui_damage"
 msgstr "Damage: {}"
 
-#: UI/components/gui/game_ui.py:86
+#: UI/components/gui/game_ui.py:87
 msgid "gui_speed"
 msgstr "Speed: {}"
+
+#: UI/components/gui/tower_ui.py:55
+msgid "tower_sell"
+msgstr "Sell"
 
 #: UI/components/gui/tower_ui.py:62
 msgid "tower_damage"
@@ -59,82 +63,86 @@ msgstr "Back"
 msgid "menu_cc_start"
 msgstr "Start"
 
-#: UI/menus/credits.py:27
+#: UI/menus/credits.py:26
 msgid "menu_credits_back"
 msgstr "Back"
 
-#: UI/menus/endMenu.py:39
+#: UI/menus/endMenu.py:38
 msgid "menu_defeat_defeat"
 msgstr "Defeat"
 
-#: UI/menus/endMenu.py:57
+#: UI/menus/endMenu.py:56
 msgid "menu_defeat_quit"
 msgstr "Quit"
 
-#: UI/menus/levelSelection.py:35
+#: UI/menus/levelSelection.py:34
 msgid "levelSelection_back"
 msgstr "Back"
 
-#: UI/menus/levelSelection.py:54
+#: UI/menus/levelSelection.py:55
 msgid "levelSelection_level"
-msgstr "Level"
+msgstr "Level {}"
 
-#: UI/menus/main.py:44
+#: UI/menus/main.py:43
 msgid "mainMenu_play_button"
 msgstr "Play"
 
-#: UI/menus/main.py:53
+#: UI/menus/main.py:52
 msgid "mainMenu_options_button"
 msgstr "Options"
 
-#: UI/menus/main.py:62
+#: UI/menus/main.py:61
 msgid "mainMenu_credits_button"
 msgstr "Credits"
 
-#: UI/menus/main.py:71
+#: UI/menus/main.py:70
 msgid "mainMenu_quit_button"
 msgstr "Quit"
 
-#: UI/menus/options.py:52 UI/menus/options_game.py:72
+#: UI/menus/options.py:51 UI/menus/options_game.py:71
 msgid "menuOptions_back"
 msgstr "Back"
 
-#: UI/menus/options.py:66 UI/menus/options_game.py:43
+#: UI/menus/options.py:66 UI/menus/options_game.py:42
 msgid "menuOptions_options"
 msgstr "Options"
 
-#: UI/menus/options.py:102 UI/menus/options_game.py:91
+#: UI/menus/options.py:103 UI/menus/options_game.py:90
 msgid "menuOptions_difficulty"
 msgstr "Difficulty: {}"
 
-#: UI/menus/options.py:112 UI/menus/options_game.py:83
+#: UI/menus/options.py:114 UI/menus/options_game.py:82
 msgid "menuOptions_volume"
 msgstr "Volume: {}"
 
-#: UI/menus/pause.py:40
+#: UI/menus/pause.py:39
 msgid "menu_pause_pause"
 msgstr "Pause"
 
-#: UI/menus/pause.py:69
+#: UI/menus/pause.py:68
 msgid "menu_pause_resume"
 msgstr "Resume"
 
-#: UI/menus/pause.py:73
+#: UI/menus/pause.py:72
 msgid "menu_pause_options"
 msgstr "Options"
 
-#: UI/menus/pause.py:77
+#: UI/menus/pause.py:76
 msgid "menu_pause_quit"
 msgstr "Quit"
 
-#: UI/menus/quit.py:36
+#: UI/menus/quit.py:35
 msgid "quit_menu_resume"
 msgstr "Resume"
 
-#: UI/menus/quit.py:46
+#: UI/menus/quit.py:45
 msgid "quit_menu_quit"
 msgstr "Quit"
 
-#: UI/menus/quit.py:59
+#: UI/menus/quit.py:58
 msgid "quit_menu_askquit"
 msgstr "Do you really want to quit ?"
+
+#: models/tower.py:48
+msgid "tower_model_missingMoney"
+msgstr "You do not have enough money"
