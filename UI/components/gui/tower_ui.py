@@ -39,6 +39,7 @@ class TowerUI:
     def _build(self):
         """Loads the background image and build the selling button"""
         options = GameOptions.getInstance()
+        _ = options.get_lang()
         self.background = pg.image.load(options.fullPath("images", "overlays/stats_background.png"))
         self.position = tuple(map(lambda i, j: i - j, options.window_size, self.background.get_size()))
 
@@ -51,7 +52,7 @@ class TowerUI:
         )
         self.font = options.fonts["MedievalSharp-xOZ5"]["20"]
         self.button.build(
-            ("tower_sell"), self.font,
+            _("tower_sell"), self.font,
             text_position=("CENTER", "CENTER"), text_color=(0, 0, 0)
         )
 
