@@ -17,125 +17,124 @@ msgstr ""
 
 #: UI/components/gui/game_ui.py:81
 msgid "gui_goldAmount"
-msgstr ""
+msgstr "Gold: {}"
 
 #: UI/components/gui/game_ui.py:82
 msgid "gui_healthAmount"
-msgstr ""
+msgstr "Bastions: {}"
 
 #: UI/components/gui/game_ui.py:83
 msgid "gui_level"
-msgstr ""
+msgstr "Level {}"
 
 #: UI/components/gui/game_ui.py:84
 msgid "gui_victims"
-msgstr ""
+msgstr "Victims: {}"
 
 #: UI/components/gui/game_ui.py:85
 msgid "gui_damage"
-msgstr ""
+msgstr "Damage: {}"
 
 #: UI/components/gui/game_ui.py:86
 msgid "gui_speed"
-msgstr ""
+msgstr "Speed: {}"
 
 #: UI/components/gui/tower_ui.py:62
 msgid "tower_damage"
-msgstr ""
+msgstr "Damage: {}"
 
 #: UI/components/gui/tower_ui.py:63
 msgid "tower_victims"
-msgstr ""
+msgstr "Victims: {}"
 
 #: UI/components/gui/tower_ui.py:64
 msgid "tower_totalDamage"
-msgstr ""
+msgstr "Total damage: {}"
 
 #: UI/menus/character_choice.py:41
 msgid "menu_cc_back"
-msgstr ""
+msgstr "Back"
 
 #: UI/menus/character_choice.py:51
 msgid "menu_cc_start"
-msgstr ""
+msgstr "Start"
 
 #: UI/menus/credits.py:27
 msgid "menu_credits_back"
-msgstr ""
+msgstr "Back"
 
 #: UI/menus/endMenu.py:39
 msgid "menu_defeat_defeat"
-msgstr ""
+msgstr "Defeat"
 
 #: UI/menus/endMenu.py:57
 msgid "menu_defeat_quit"
-msgstr ""
+msgstr "Quit"
 
 #: UI/menus/levelSelection.py:35
 msgid "levelSelection_back"
-msgstr ""
+msgstr "Back"
 
 #: UI/menus/levelSelection.py:54
 msgid "levelSelection_level"
-msgstr ""
+msgstr "Level"
 
 #: UI/menus/main.py:44
 msgid "mainMenu_play_button"
-msgstr ""
+msgstr "Play"
 
 #: UI/menus/main.py:53
 msgid "mainMenu_options_button"
-msgstr ""
+msgstr "Options"
 
 #: UI/menus/main.py:62
 msgid "mainMenu_credits_button"
-msgstr ""
+msgstr "Credits"
 
 #: UI/menus/main.py:71
 msgid "mainMenu_quit_button"
-msgstr ""
+msgstr "Quit"
 
 #: UI/menus/options.py:52 UI/menus/options_game.py:72
 msgid "menuOptions_back"
-msgstr ""
+msgstr "Back"
 
 #: UI/menus/options.py:66 UI/menus/options_game.py:43
 msgid "menuOptions_options"
-msgstr ""
+msgstr "Options"
 
 #: UI/menus/options.py:102 UI/menus/options_game.py:91
 msgid "menuOptions_difficulty"
-msgstr ""
+msgstr "Difficulty: {}"
 
 #: UI/menus/options.py:112 UI/menus/options_game.py:83
 msgid "menuOptions_volume"
-msgstr ""
+msgstr "Volume: {}"
 
 #: UI/menus/pause.py:40
 msgid "menu_pause_pause"
-msgstr ""
+msgstr "Pause"
 
 #: UI/menus/pause.py:69
 msgid "menu_pause_resume"
-msgstr ""
+msgstr "Resume"
 
 #: UI/menus/pause.py:73
 msgid "menu_pause_options"
-msgstr ""
+msgstr "Options"
 
 #: UI/menus/pause.py:77
 msgid "menu_pause_quit"
-msgstr ""
+msgstr "Quit"
 
 #: UI/menus/quit.py:36
 msgid "quit_menu_resume"
-msgstr ""
+msgstr "Resume"
 
 #: UI/menus/quit.py:46
 msgid "quit_menu_quit"
-msgstr ""
+msgstr "Quit"
 
 #: UI/menus/quit.py:59
 msgid "quit_menu_askquit"
-msgstr ""
-
+msgstr "Do you really want to quit ?"
