@@ -14,39 +14,33 @@ def makeTrans():
         apps = settings["apps"]
         langs = settings["langs"]
 
-    for app_name, file in apps.items():
-        subprocess.run(
-            [
-                "/usr/lib/python3.9/Tools/i18n/pygettext.py", "-d",
-                app_name, "-o", f"locales/{app_name}.pot", file
-            ]
-        )
+    files = [file for _, file in apps.items()]
+    command = ["/usr/lib/python3.9/Tools/i18n/pygettext.py", "-d", "stormtrays", "-o", f"locales/stormtrays.pot"]
+    command.extend(files)
+    subprocess.run(
+        command
+    )
 
-        for lang in langs:
-            if os.path.exists(f"locales/{lang}/LC_MESSAGES/{app_name}.po"):
-                subprocess.run(
-                    [
-                        "msgmerge", "-vU", f"locales/{lang}/LC_MESSAGES/{app_name}.po", f"locales/{app_name}.pot"
-                    ]
-                )
-            else:
-                shutil.copy(f"locales/{app_name}.pot", f"locales/{lang}/LC_MESSAGES/{app_name}.po")
+    for lang in langs:
+        if os.path.exists(f"locales/{lang}/LC_MESSAGES/stormtrays.po"):
+            subprocess.run(
+                [
+                    "msgmerge", "-vU", f"locales/{lang}/LC_MESSAGES/stormtrays.po", "locales/stormtrays.pot"
+                ]
+            )
+        else:
+            shutil.copy("locales/stormtrays.pot", f"locales/{lang}/LC_MESSAGES/stormtrays.po")
 
 
 def compileTrans():
     """Compiles all the po files into mo files"""
     with open("locales/settings.json") as settings_file:
         settings = json.load(settings_file)
-        apps = settings["apps"]
         langs = settings["langs"]
 
-    for app_name, file in apps.items():
-        for lang in langs:
-            subprocess.run(
-                [
-                    "msgfmt", "-o", f"locales/{lang}/LC_MESSAGES/{app_name}.mo", f"locales/{lang}/LC_MESSAGES/{app_name}.po",
-                ]
-            )
+    for lang in langs:
+        command = ["msgfmt", "-o", f"locales/{lang}/LC_MESSAGES/stormtrays.mo", f"locales/{lang}/LC_MESSAGES/stormtrays.po"]
+        subprocess.run(command)
 
 
 def addApp():
