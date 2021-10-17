@@ -1,5 +1,7 @@
+import os
 import sys
 import json
+import shutil
 import subprocess
 
 command = sys.argv[1]
@@ -8,7 +10,9 @@ command = sys.argv[1]
 def makeTrans():
     """Creates the POT files and the po files from the code"""
     with open("locales/settings.json") as settings_file:
-        apps = json.load(settings_file)["apps"]
+        settings = json.load(settings_file)
+        apps = settings["apps"]
+        langs = settings["langs"]
 
     for app_name, file in apps.items():
         subprocess.run(
@@ -17,6 +21,16 @@ def makeTrans():
                 app_name, "-o", f"locales/templates/{app_name}.pot", file
             ]
         )
+
+        for lang in langs:
+            if os.path.exists(f"locales/{lang}/{app_name}.po"):
+                subprocess.run(
+                    [
+                        "/usr/bin/msgmerge", "-vU", f"locales/{lang}/{app_name}.po", f"locales/templates/{app_name}.pot"
+                    ]
+                )
+            else:
+                shutil.copy(f"locales/templates/{app_name}.pot", f"locales/{lang}/{app_name}.po")
 
 
 def compileTrans():
