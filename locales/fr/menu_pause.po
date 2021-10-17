@@ -17,17 +17,16 @@ msgstr ""
 
 #: UI/menus/pause.py:40
 msgid "menu_pause_pause"
-msgstr ""
+msgstr "Pause"
 
 #: UI/menus/pause.py:69
 msgid "menu_pause_resume"
-msgstr ""
+msgstr "Reprendre"
 
 #: UI/menus/pause.py:73
 msgid "menu_pause_options"
-msgstr ""
+msgstr "Options"
 
 #: UI/menus/pause.py:77
 msgid "menu_pause_quit"
-msgstr ""
-
+msgstr "Quitter"

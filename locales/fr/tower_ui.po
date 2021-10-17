@@ -17,13 +17,12 @@ msgstr ""
 
 #: UI/components/gui/tower_ui.py:62
 msgid "tower_damage"
-msgstr ""
+msgstr "Dégâts: {}"
 
 #: UI/components/gui/tower_ui.py:63
 msgid "tower_victims"
-msgstr ""
+msgstr "Victimes: {}"
 
 #: UI/components/gui/tower_ui.py:64
 msgid "tower_totalDamage"
-msgstr ""
-
+msgstr "Dégâts totaux: {}"

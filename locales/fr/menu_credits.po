@@ -17,5 +17,4 @@ msgstr ""
 
 #: UI/menus/credits.py:27
 msgid "menu_credits_back"
-msgstr ""
-
+msgstr "Retour"

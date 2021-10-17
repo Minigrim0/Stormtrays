@@ -17,17 +17,16 @@ msgstr ""
 
 #: UI/menus/main.py:44
 msgid "mainMenu_play_button"
-msgstr ""
+msgstr "Jouer"
 
 #: UI/menus/main.py:53
 msgid "mainMenu_options_button"
-msgstr ""
+msgstr "Options"
 
 #: UI/menus/main.py:62
 msgid "mainMenu_credits_button"
-msgstr ""
+msgstr "Crédits"
 
 #: UI/menus/main.py:71
 msgid "mainMenu_quit_button"
-msgstr ""
-
+msgstr "Quitter"

@@ -17,9 +17,8 @@ msgstr ""
 
 #: UI/menus/endMenu.py:39
 msgid "menu_defeat_defeat"
-msgstr ""
+msgstr "Défaite"
 
 #: UI/menus/endMenu.py:57
 msgid "menu_defeat_quit"
-msgstr ""
-
+msgstr "Quitter"

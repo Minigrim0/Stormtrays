@@ -17,9 +17,8 @@ msgstr ""
 
 #: UI/menus/levelSelection.py:35
 msgid "levelSelection_back"
-msgstr ""
+msgstr "Retour"
 
 #: UI/menus/levelSelection.py:54
 msgid "levelSelection_level"
-msgstr ""
-
+msgstr "Niveau"

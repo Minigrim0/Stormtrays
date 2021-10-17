@@ -17,13 +17,12 @@ msgstr ""
 
 #: UI/menus/quit.py:36
 msgid "quit_menu_resume"
-msgstr ""
+msgstr "Retour"
 
 #: UI/menus/quit.py:46
 msgid "quit_menu_quit"
-msgstr ""
+msgstr "Quitter"
 
 #: UI/menus/quit.py:59
 msgid "quit_menu_askquit"
-msgstr ""
-
+msgstr "Voulez-vous vraiment quitter ?"

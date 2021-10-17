@@ -17,9 +17,8 @@ msgstr ""
 
 #: UI/menus/character_choice.py:41
 msgid "menu_cc_back"
-msgstr ""
+msgstr "Retour"
 
 #: UI/menus/character_choice.py:51
 msgid "menu_cc_start"
-msgstr ""
-
+msgstr "Lancer"

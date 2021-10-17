@@ -17,17 +17,16 @@ msgstr ""
 
 #: UI/menus/options.py:52
 msgid "menuOptions_back"
-msgstr ""
+msgstr "Retour"
 
 #: UI/menus/options.py:66
 msgid "menuOptions_options"
-msgstr ""
+msgstr "Options"
 
 #: UI/menus/options.py:102
 msgid "menuOptions_difficulty"
-msgstr ""
+msgstr "Difficulté: {}"
 
 #: UI/menus/options.py:112
 msgid "menuOptions_volume"
-msgstr ""
-
+msgstr "Volume: {}"

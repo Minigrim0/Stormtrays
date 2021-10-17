@@ -17,25 +17,24 @@ msgstr ""
 
 #: UI/components/gui/game_ui.py:81
 msgid "gui_goldAmount"
-msgstr ""
+msgstr "Or: {}"
 
 #: UI/components/gui/game_ui.py:82
 msgid "gui_healthAmount"
-msgstr ""
+msgstr "Bastions: {}pv"
 
 #: UI/components/gui/game_ui.py:83
 msgid "gui_level"
-msgstr ""
+msgstr "Niveau: {}"
 
 #: UI/components/gui/game_ui.py:84
 msgid "gui_victims"
-msgstr ""
+msgstr "Victimes: {}"
 
 #: UI/components/gui/game_ui.py:85
 msgid "gui_damage"
-msgstr ""
+msgstr "Dégàts: {}"
 
 #: UI/components/gui/game_ui.py:86
 msgid "gui_speed"
-msgstr ""
-
+msgstr "Vitesse: {}"
