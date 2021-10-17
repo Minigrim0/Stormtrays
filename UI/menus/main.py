@@ -71,6 +71,14 @@ class MainMenu(Menu, Runnable):
         )
         self.buttons["quit"].build(_("mainMenu_quit_button"), options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
+        self.buttons["lang"] = Button(
+            (20, 642),
+            (120, 50),
+            image=pygame.image.load(f"{options['paths']['images']}buttons/small_button.png").convert_alpha(),
+            callback=self.toggleLangs,
+        )
+        self.buttons["lang"].build(_("mainMenu_lang"), options.fonts["MedievalSharp-xOZ5"]["20"], ("CENTER", "CENTER"))
+
     def loop(self):
         """The bit of code called at each iteration"""
         super().loop()
@@ -111,3 +119,6 @@ class MainMenu(Menu, Runnable):
         elif toLaunch == "credits":
             Animation("UI/animations/mainToCredits.json", self.screen, pickFrom=self.pickFrom, background=self._draw)()
             CreditsMenu(self.screen, pickFrom=self.pickFrom, background=self._draw, draw_title=False)()
+
+    def toggleLangs(self):
+        print("Changing lang")

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-10-17 13:27+0200\n"
+"POT-Creation-Date: 2021-10-17 13:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,17 +87,21 @@ msgstr "Niveau {}"
 msgid "mainMenu_play_button"
 msgstr "Jouer"
 
-#: UI/menus/main.py:52
+#: UI/menus/main.py:53
 msgid "mainMenu_options_button"
 msgstr "Options"
 
-#: UI/menus/main.py:61
+#: UI/menus/main.py:63
 msgid "mainMenu_credits_button"
 msgstr "Crédits"
 
-#: UI/menus/main.py:70
+#: UI/menus/main.py:72
 msgid "mainMenu_quit_button"
 msgstr "Quitter"
+
+#: UI/menus/main.py:80
+msgid "mainMenu_lang"
+msgstr "English"
 
 #: UI/menus/options.py:51 UI/menus/options_game.py:71
 msgid "menuOptions_back"
@@ -107,11 +111,11 @@ msgstr "Retour"
 msgid "menuOptions_options"
 msgstr "Options"
 
-#: UI/menus/options.py:103 UI/menus/options_game.py:90
+#: UI/menus/options.py:103 UI/menus/options_game.py:94
 msgid "menuOptions_difficulty"
 msgstr "Difficulté: {}"
 
-#: UI/menus/options.py:114 UI/menus/options_game.py:82
+#: UI/menus/options.py:114 UI/menus/options_game.py:84
 msgid "menuOptions_volume"
 msgstr "Volume: {}"
 
