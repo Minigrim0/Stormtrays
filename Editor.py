@@ -1,5 +1,5 @@
-import tkinter
 import logging
+import tkinter
 
 import pygame
 import pygame.locals

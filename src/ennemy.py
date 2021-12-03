@@ -1,4 +1,5 @@
 import random
+
 import pygame
 
 from models.level import Level
