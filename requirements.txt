@@ -30,7 +30,7 @@ pycodestyle==2.7.0
     # via flake8
 pyflakes==2.3.1
     # via flake8
-pygame==2.0.1
+pygame==2.1.2
     # via -r requirements.in
 pyinstaller-hooks-contrib==2021.2
     # via pyinstaller
