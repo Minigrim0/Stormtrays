@@ -3,6 +3,7 @@ import pygame
 import src.constantes as const
 from models.game_options import GameOptions
 from UI.components.button import Button
+from UI.components.text import Text
 
 
 class EditorUI:
@@ -12,7 +13,9 @@ class EditorUI:
         self.right_panel = pygame.Surface((158, const.WINDOW_HEIGHT))
         self.vert_line = pygame.Surface((1, const.WINDOW_WIDTH))
         self.hori_line = pygame.Surface((const.WINDOW_WIDTH, 1))
+        from models.editor import Editor
 
+        self.editor = Editor.getInstance()
         self.buttons = {}
 
         self._build(level)
@@ -47,6 +50,42 @@ class EditorUI:
             (40, 40),
             image=pygame.image.load(options.fullPath("images", "buttons/open.png")).convert_alpha(),
         )
+        self.buttons["heightIncrease"] = Button(
+            (const.WINDOW_WIDTH + 120, const.WINDOW_HEIGHT - 170),
+            (20, 20),
+            image=pygame.image.load(options.fullPath("images", "buttons/increase.png")).convert_alpha(),
+        )
+        self.buttons["heightDecrease"] = Button(
+            (const.WINDOW_WIDTH + 70, const.WINDOW_HEIGHT - 170),
+            (20, 20),
+            image=pygame.image.load(options.fullPath("images", "buttons/decrease.png")).convert_alpha(),
+        )
+        self.buttons["widthIncrease"] = Button(
+            (const.WINDOW_WIDTH + 120, const.WINDOW_HEIGHT - 140),
+            (20, 20),
+            image=pygame.image.load(options.fullPath("images", "buttons/increase.png")).convert_alpha(),
+        )
+        self.buttons["widthDecrease"] = Button(
+            (const.WINDOW_WIDTH + 70, const.WINDOW_HEIGHT - 140),
+            (20, 20),
+            image=pygame.image.load(options.fullPath("images", "buttons/decrease.png")).convert_alpha(),
+        )
+
+        font = options.fonts["MedievalSharp-xOZ5"]["20"]
+        self.texts = [
+            Text(
+                font.render("Map info :", 1, (255, 255, 255)),
+                (const.WINDOW_WIDTH + 30, const.WINDOW_HEIGHT - 195)
+            ),
+            Text(
+                font.render("Width", 1, (255, 255, 255)),
+                (const.WINDOW_WIDTH + 2, const.WINDOW_HEIGHT - 142)
+            ),
+            Text(
+                font.render("Height", 1, (255, 255, 255)),
+                (const.WINDOW_WIDTH + 2, const.WINDOW_HEIGHT - 172)
+            ),
+        ]
 
         self.right_panel.fill((128, 0, 0))
         self.vert_line.fill((0, 0, 0))
@@ -61,6 +100,24 @@ class EditorUI:
         screen.blit(self.right_panel, (const.WINDOW_WIDTH, 0))
         for _name, button in self.buttons.items():
             button.draw(screen)
+
+        for text in self.texts:
+            text.draw(screen)
+
+        width, height = self.editor.map_info
+
+        screen.blit(
+            GameOptions.getInstance().fonts["MedievalSharp-xOZ5"]["20"].render(
+                str(width), 1, (255, 255, 255)
+            ),
+            (const.WINDOW_WIDTH + 95, const.WINDOW_HEIGHT - 142)
+        )
+        screen.blit(
+            GameOptions.getInstance().fonts["MedievalSharp-xOZ5"]["20"].render(
+                str(height), 1, (255, 255, 255)
+            ),
+            (const.WINDOW_WIDTH + 95, const.WINDOW_HEIGHT - 172)
+        )
 
     def update(self, event):
         """Handles click events"""

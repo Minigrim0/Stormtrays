@@ -98,6 +98,10 @@ class Editor(Runnable):
         if self.choice is not None:
             self.choice.draw(self.screen, editor=True)
 
+    @property
+    def map_info(self):
+        return self.level.size
+
     def erase(self):
         """Empties the level, and resets the tile choice"""
         self.level.initMap()
