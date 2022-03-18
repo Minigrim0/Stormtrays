@@ -6,7 +6,7 @@ authors = ["Minigrim0"]
 license = "GPL 3.0"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9,<3.11"
 pygame = "^2.1.0"
 coloredlogs = "^15.0.1"
 
@@ -15,6 +15,7 @@ rope = "^0.22.0"
 black = "^21.11b1"
 isort = "^5.10.1"
 pyproject-flake8 = "^0.0.1-alpha.2"
+pyinstaller = "^4.10"
 
 [tool.flake8]
 max-line-length = 120
