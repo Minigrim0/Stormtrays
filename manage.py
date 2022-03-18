@@ -15,7 +15,13 @@ def makeTrans():
         langs = settings["langs"]
 
     files = [file for _, file in apps.items()]
-    full_command = ["/usr/lib/python3.9/Tools/i18n/pygettext.py", "-d", "stormtrays", "-o", "locales/stormtrays.pot"]
+    full_command = [
+        "/usr/lib/python3.9/Tools/i18n/pygettext.py",
+        "-d",
+        "stormtrays",
+        "-o",
+        "locales/stormtrays.pot"
+    ]
     full_command.extend(files)
     subprocess.run(full_command, check=True)
 
@@ -23,7 +29,10 @@ def makeTrans():
         if os.path.exists(f"locales/{lang}/LC_MESSAGES/stormtrays.po"):
             subprocess.run(
                 [
-                    "/usr/bin/msgmerge", "-vU", f"locales/{lang}/LC_MESSAGES/stormtrays.po", "locales/stormtrays.pot"
+                    "/usr/bin/msgmerge",
+                    "-vU",
+                    f"locales/{lang}/LC_MESSAGES/stormtrays.po",
+                    "locales/stormtrays.pot"
                 ],
                 check=True
             )
@@ -39,7 +48,10 @@ def compileTrans():
 
     for lang in langs:
         full_command = [
-            "/usr/bin/msgfmt", "-o", f"locales/{lang}/LC_MESSAGES/stormtrays.mo", f"locales/{lang}/LC_MESSAGES/stormtrays.po"
+            "/usr/bin/msgfmt",
+            "-o",
+            f"locales/{lang}/LC_MESSAGES/stormtrays.mo",
+            f"locales/{lang}/LC_MESSAGES/stormtrays.po"
         ]
         subprocess.run(full_command, check=True)
 

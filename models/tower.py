@@ -162,10 +162,7 @@ class Tower:
 
     def isFree(self, position: tuple) -> bool:
         """Returns true if there is no tower at the given position"""
-        for tower in self.towers:
-            if tower.position == position:
-                return False
-        return True
+        return all(tower.position != position for tower in self.towers)
 
     def delTower(self, tower: TowerDO):
         """Removes a tower from the map"""

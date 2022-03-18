@@ -6,7 +6,7 @@ import pygame as pg
 class Animated:
     """An animable object"""
 
-    def __init__(self, image: pg.Surface, start: tuple, end: tuple, style: str, duration: float, offset: float = 0):
+    def __init__(self, image: pg.Surface, start: tuple, end: tuple, style: str, duration: float, _offset: float = 0):
         self.image = image
         self.start_pos = start
         self.end_pos = end

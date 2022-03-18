@@ -168,7 +168,7 @@ class TowerDO:
 
     def add_count(self, name: str, amount: float):
         """Adds the given value to the given counter"""
-        if name in self.counters.keys():
+        if name in self.counters:
             self.counters[name] += amount
         else:
             self.counters[name] = amount
