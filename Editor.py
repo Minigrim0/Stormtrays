@@ -2,7 +2,6 @@ import logging
 import tkinter
 
 import pygame
-import pygame.locals
 
 import src.constantes as constantes
 from models.editor import Editor
