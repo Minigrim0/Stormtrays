@@ -51,22 +51,22 @@ class EditorUI:
             image=pygame.image.load(options.fullPath("images", "buttons/open.png")).convert_alpha(),
         )
         self.buttons["heightIncrease"] = Button(
-            (const.WINDOW_WIDTH + 120, const.WINDOW_HEIGHT - 170),
-            (20, 20),
-            image=pygame.image.load(options.fullPath("images", "buttons/increase.png")).convert_alpha(),
-        )
-        self.buttons["heightDecrease"] = Button(
-            (const.WINDOW_WIDTH + 70, const.WINDOW_HEIGHT - 170),
-            (20, 20),
-            image=pygame.image.load(options.fullPath("images", "buttons/decrease.png")).convert_alpha(),
-        )
-        self.buttons["widthIncrease"] = Button(
             (const.WINDOW_WIDTH + 120, const.WINDOW_HEIGHT - 140),
             (20, 20),
             image=pygame.image.load(options.fullPath("images", "buttons/increase.png")).convert_alpha(),
         )
-        self.buttons["widthDecrease"] = Button(
+        self.buttons["heightDecrease"] = Button(
             (const.WINDOW_WIDTH + 70, const.WINDOW_HEIGHT - 140),
+            (20, 20),
+            image=pygame.image.load(options.fullPath("images", "buttons/decrease.png")).convert_alpha(),
+        )
+        self.buttons["widthIncrease"] = Button(
+            (const.WINDOW_WIDTH + 120, const.WINDOW_HEIGHT - 170),
+            (20, 20),
+            image=pygame.image.load(options.fullPath("images", "buttons/increase.png")).convert_alpha(),
+        )
+        self.buttons["widthDecrease"] = Button(
+            (const.WINDOW_WIDTH + 70, const.WINDOW_HEIGHT - 170),
             (20, 20),
             image=pygame.image.load(options.fullPath("images", "buttons/decrease.png")).convert_alpha(),
         )
@@ -79,11 +79,11 @@ class EditorUI:
             ),
             Text(
                 font.render("Width", 1, (255, 255, 255)),
-                (const.WINDOW_WIDTH + 2, const.WINDOW_HEIGHT - 142)
+                (const.WINDOW_WIDTH + 2, const.WINDOW_HEIGHT - 172)
             ),
             Text(
                 font.render("Height", 1, (255, 255, 255)),
-                (const.WINDOW_WIDTH + 2, const.WINDOW_HEIGHT - 172)
+                (const.WINDOW_WIDTH + 2, const.WINDOW_HEIGHT - 142)
             ),
         ]
 
@@ -108,15 +108,15 @@ class EditorUI:
 
         screen.blit(
             GameOptions.getInstance().fonts["MedievalSharp-xOZ5"]["20"].render(
-                str(width), 1, (255, 255, 255)
+                str(width), 0, (255, 255, 255)
             ),
-            (const.WINDOW_WIDTH + 95, const.WINDOW_HEIGHT - 142)
+            (const.WINDOW_WIDTH + 95, const.WINDOW_HEIGHT - 172)
         )
         screen.blit(
             GameOptions.getInstance().fonts["MedievalSharp-xOZ5"]["20"].render(
-                str(height), 1, (255, 255, 255)
+                str(height), 0, (255, 255, 255)
             ),
-            (const.WINDOW_WIDTH + 95, const.WINDOW_HEIGHT - 172)
+            (const.WINDOW_WIDTH + 95, const.WINDOW_HEIGHT - 142)
         )
 
     def update(self, event):
