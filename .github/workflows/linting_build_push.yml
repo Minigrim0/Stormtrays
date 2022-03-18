@@ -59,12 +59,11 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install pyinstaller
-        pip install -r requirements.txt
+        apt update && apt install python-poetry
+        poetry install
 
     - name: Build executable
-      run: pyinstaller -w --add-data "assets${{ matrix.SEPARATOR }}assets" --add-data "models${{ matrix.SEPARATOR }}models" --add-data "UI${{ matrix.SEPARATOR }}UI" --add-data "src${{ matrix.SEPARATOR }}src" --add-data ".meta${{ matrix.SEPARATOR }}.meta" --add-data "Stormtrays.py${{ matrix.SEPARATOR }}." Stormtrays.py
+      run: poetry run pyinstaller -w --add-data "assets${{ matrix.SEPARATOR }}assets" --add-data "models${{ matrix.SEPARATOR }}models" --add-data "UI${{ matrix.SEPARATOR }}UI" --add-data "src${{ matrix.SEPARATOR }}src" --add-data ".meta${{ matrix.SEPARATOR }}.meta" --add-data "Stormtrays.py${{ matrix.SEPARATOR }}." Stormtrays.py
 
     - uses: actions/upload-artifact@master
       with:

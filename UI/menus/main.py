@@ -121,6 +121,7 @@ class MainMenu(Menu, Runnable):
             CreditsMenu(self.screen, pickFrom=self.pickFrom, background=self._draw, draw_title=False)()
 
     def toggleLangs(self):
+        """Toggles between the available languages"""
         options = GameOptions.getInstance()
         if options["Game"]["lang"] == "en":
             options.setLang("fr")

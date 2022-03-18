@@ -1,5 +1,5 @@
-import logging
 import json
+import logging
 from copy import copy
 
 import pygame as pg
@@ -8,8 +8,8 @@ from models.game_options import GameOptions
 from models.screen import Screen
 from src.bastion import Bastion
 from src.coin import Coin
-from src.errors.invalidPositionException import InvalidPositionException
 from src.errors.invalidPathException import InvalidPathException
+from src.errors.invalidPositionException import InvalidPositionException
 from src.tile import Tile
 
 
