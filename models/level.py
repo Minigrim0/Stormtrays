@@ -159,6 +159,9 @@ class Level:
             raise InvalidPathException(f"The path starting on {start_pos} does not lead to a bastion")
         return x, y
 
+    def setSize(self, width: int, height: int):
+        self.size = [width, height]
+
     def setBackground(self, background_path: str):
         """Sets the background of the level"""
         self.background_path = background_path

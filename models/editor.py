@@ -42,6 +42,10 @@ class Editor(Runnable):
         self.UI.buttons["changeBackgroundButton"].setCallback(self.changeBackground)
         self.UI.buttons["loadButton"].setCallback(self.loadLevel)
         self.UI.buttons["saveButton"].setCallback(self.save)
+        self.UI.buttons["widthIncrease"].setCallback(self.updateMapSize, width=True, off=1)
+        self.UI.buttons["heightIncrease"].setCallback(self.updateMapSize, width=False, off=1)
+        self.UI.buttons["widthDecrease"].setCallback(self.updateMapSize, width=True, off=-1)
+        self.UI.buttons["heightDecrease"].setCallback(self.updateMapSize, width=False, off=-1)
         for code in self.level.tiles:
             self.UI.buttons[code].setCallback(self.setChoice, choice=self.level.tiles[code])
 
@@ -89,6 +93,12 @@ class Editor(Runnable):
                 self.level.placeTile((x, y), tile)
             except InvalidPositionException:
                 pass
+
+    def updateMapSize(self, width: bool, off: int):
+        if width:
+            self.level.setSize(width=self.level.size[0] + off, height=self.level.size[1])
+        else:
+            self.level.setSize(width=self.level.size[0], height=self.level.size[1] + off)
 
     def draw(self):
         """Draws the diffrent elements of the Editor on the screen"""
