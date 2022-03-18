@@ -14,6 +14,7 @@ class OptionMenu(Menu, Runnable):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         options = GameOptions.getInstance()
+        _ = options.getLang()
 
         self.menu_background = pg.image.load(
             options.fullPath("images", "backgrounds/submenu_background.png")
@@ -25,12 +26,8 @@ class OptionMenu(Menu, Runnable):
 
         self._build()
 
-        self.Diffictxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
-            "Difficulté : {}".format(options.difficulty), 1, (0, 0, 0)
-        )
-        self.Volumetxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
-            "Volume : {}".format(int(options.volume * 10)), 1, (0, 0, 0)
-        )
+        self.updateDifficulty(options.difficulty)
+        self.updateVolume(options.volume)
 
         Moins = options.fonts["MedievalSharp-xOZ5"]["40"].render(
             "-", 1, (0, 0, 0)
@@ -51,7 +48,7 @@ class OptionMenu(Menu, Runnable):
             callback=self.quitMenu
         )
         self.buttons["quitOptions"].build(
-            "Retour", options.fonts["MedievalSharp-xOZ5"]["25"],
+            _("menuOptions_back"), options.fonts["MedievalSharp-xOZ5"]["25"],
             text_position=("CENTER", "CENTER")
         )
 
@@ -63,9 +60,10 @@ class OptionMenu(Menu, Runnable):
     def _build(self):
         """Builds menu's background"""
         options = GameOptions.getInstance()
+        _ = options.getLang()
 
         title = options.fonts["MedievalSharp-xOZ5"]["60"].render(
-            "Options", 1, (0, 0, 0)
+            _("menuOptions_options"), 1, (0, 0, 0)
         )
 
         title_pos = (self.menu_background.get_size()[0] - title.get_size()[0]) / 2
@@ -97,20 +95,24 @@ class OptionMenu(Menu, Runnable):
 
     def updateDifficulty(self, value: int):
         """Updates the difficulty of the game"""
-        GameOptions.getInstance().changeDifficulty(value)
         options = GameOptions.getInstance()
+        options.changeDifficulty(value)
+        _ = GameOptions.getInstance().getLang()
 
         self.Diffictxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
-            "Difficulté : {}".format(options.difficulty), 1, (0, 0, 0)
+            _("menuOptions_difficulty").format(options.difficulty),
+            1, (0, 0, 0)
         )
 
     def updateVolume(self, value: int):
         """Updates the volume of the music"""
-        GameOptions.getInstance().changeVolume(value)
         options = GameOptions.getInstance()
+        options.changeDifficulty(value)
+        _ = GameOptions.getInstance().getLang()
 
         self.Volumetxt = options.fonts["MedievalSharp-xOZ5"]["40"].render(
-            "Volume : {}".format(int(options.volume * 10)), 1, (0, 0, 0)
+            _("menuOptions_volume").format(int(options.volume * 10)),
+            1, (0, 0, 0)
         )
 
     def quitMenu(self):

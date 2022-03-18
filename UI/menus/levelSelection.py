@@ -4,7 +4,6 @@ import os
 
 import pygame as pg
 
-from models.game import Game
 from models.game_options import GameOptions
 from src.runnable import Runnable
 from UI.components.animation import Animation
@@ -20,6 +19,7 @@ class LevelSelectMenu(Menu, Runnable):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.scrollAmount = 60
+        _ = GameOptions.getInstance().getLang()
 
         self.dark_background = pg.Surface((576, 704), pg.SRCALPHA)
         self.dark_background.fill((0, 0, 0, 128))
@@ -31,13 +31,15 @@ class LevelSelectMenu(Menu, Runnable):
             image=pg.image.load(options.fullPath("images", "buttons/MenuButton.png")).convert_alpha(),
             callback=self.back,
         )
-        self.buttons["back"].build("Retour", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["back"].build(_("levelSelection_back"), options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
         self.cards: [Card] = []
         self.load()
 
     def load(self):
         """Generates the levels' cards"""
+        _ = GameOptions.getInstance().getLang()
+
         Compteur = 60
         options = GameOptions.getInstance()
         for index, level in enumerate(glob.glob(options.fullPath("levels", "*.json"))):
@@ -50,7 +52,7 @@ class LevelSelectMenu(Menu, Runnable):
                 img = pg.image.load("UI/assets/images/missing.png").convert_alpha()
 
             file = os.path.splitext(os.path.split(level)[1])[0]
-            level = Card((1152 / 2 + 10, Compteur), (500, 110), img, file, f"Level {index + 1}")
+            level = Card((1152 / 2 + 10, Compteur), (500, 110), img, file, _("levelSelection_level").format(index + 1))
             level.setCallback(self.runLevel, level=file)
 
             self.cards.append(level)

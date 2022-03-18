@@ -1,10 +1,11 @@
 import logging
 
+import coloredlogs
 import pygame
 
 from models.stormtrays import Stormtrays
 
-logging.basicConfig(level=logging.WARNING)
+coloredlogs.install(level='WARNING')
 
 logging.info("Initializing pygame")
 pygame.init()

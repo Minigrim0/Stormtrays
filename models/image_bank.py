@@ -25,7 +25,7 @@ class ImageBank:
 
     def exists(self, name: str) -> bool:
         """Returns true if the given name is in the bank"""
-        return name in self.images.keys()
+        return name in self.images
 
     def set(self, name: str, value):
         """Adds an entry to the image bank"""

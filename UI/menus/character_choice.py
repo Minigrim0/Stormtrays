@@ -29,6 +29,8 @@ class ChacracterChoiceMenu(Menu, Runnable):
 
     def _load(self, level):
         """Loads the buttons for the menu"""
+        _ = GameOptions.getInstance().getLang()
+
         options = GameOptions.getInstance()
         self.buttons["back"] = Button(
             (654, 0),
@@ -36,7 +38,7 @@ class ChacracterChoiceMenu(Menu, Runnable):
             image=pg.image.load(options.fullPath("images", "buttons/MenuButton.png")).convert_alpha(),
             callback=self.back,
         )
-        self.buttons["back"].build("Retour", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["back"].build(_("menu_cc_back"), options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
         button_image = pg.image.load(options.fullPath("images", "buttons/small_button.png")).convert_alpha()
         self.buttons["choose"] = Button(
@@ -46,7 +48,7 @@ class ChacracterChoiceMenu(Menu, Runnable):
             level=level
         )
         self.buttons["choose"].build(
-            "Lancer", options.fonts["MedievalSharp-xOZ5"]["25"],
+            _("menu_cc_start"), options.fonts["MedievalSharp-xOZ5"]["25"],
             ("CENTER", "CENTER")
         )
 

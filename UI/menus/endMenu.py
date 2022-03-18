@@ -21,6 +21,7 @@ class EndScreen(Menu, Runnable):
     def _build(self):
         """Builds the backgrounds and buttons of the end screen"""
         options: GameOptions = GameOptions.getInstance()
+        _ = options.getLang()
 
         self.background = pg.Surface((1152, 704), pg.SRCALPHA)
         self.background.fill((0, 0, 0, 128))
@@ -34,7 +35,7 @@ class EndScreen(Menu, Runnable):
         )
 
         title = options.fonts["MedievalSharp-xOZ5"]["60"].render(
-            "Défaite", 1, (0, 0, 0)
+            _("menu_defeat_defeat"), 1, (0, 0, 0)
         )
 
         title_pos = (self.menu_background.get_size()[0] - title.get_size()[0]) / 2
@@ -52,7 +53,7 @@ class EndScreen(Menu, Runnable):
             callback=self.quitMenu
         )
         self.buttons["quit"].build(
-            "Retour", options.fonts["MedievalSharp-xOZ5"]["25"],
+            _("menu_defeat_quit"), options.fonts["MedievalSharp-xOZ5"]["25"],
             ("CENTER", "CENTER")
         )
 
@@ -72,7 +73,7 @@ class EndScreen(Menu, Runnable):
 
     def handleEvent(self):
         """Handles the user's events"""
-        for _ in super().handleEvent():  # skipcq PTC-W0047
+        for _event in super().handleEvent():  # skipcq PTC-W0047
             pass
 
     def quitMenu(self):

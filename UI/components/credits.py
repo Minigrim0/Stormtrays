@@ -1,5 +1,6 @@
 import json
 import logging
+
 import pygame as pg
 
 from models.game_options import GameOptions

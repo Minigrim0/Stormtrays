@@ -31,6 +31,7 @@ class MainMenu(Menu, Runnable):
     def _build(self):
         """Builds the menu's buttons"""
         options = GameOptions.getInstance()
+        _ = options.getLang()
 
         self.buttons["play"] = Button(
             (652, 464),
@@ -39,7 +40,7 @@ class MainMenu(Menu, Runnable):
             callback=self.launch,
             toLaunch="game",
         )
-        self.buttons["play"].build("Jouer", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["play"].build(_("mainMenu_play_button"), options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
         self.buttons["options"] = Button(
             (752, 584),
@@ -48,7 +49,8 @@ class MainMenu(Menu, Runnable):
             callback=self.launch,
             toLaunch="options",
         )
-        self.buttons["options"].build("Options", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["options"].build(
+            _("mainMenu_options_button"), options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
         self.buttons["credits"] = Button(
             (702, 524),
@@ -57,7 +59,8 @@ class MainMenu(Menu, Runnable):
             callback=self.launch,
             toLaunch="credits",
         )
-        self.buttons["credits"].build("Credits", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["credits"].build(
+            _("mainMenu_credits_button"), options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
 
         self.buttons["quit"] = Button(
             (802, 644),
@@ -66,7 +69,15 @@ class MainMenu(Menu, Runnable):
             callback=self.launch,
             toLaunch="quit",
         )
-        self.buttons["quit"].build("Quitter", options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+        self.buttons["quit"].build(_("mainMenu_quit_button"), options.fonts["MedievalSharp-xOZ5"]["35"], (20, "CENTER"))
+
+        self.buttons["lang"] = Button(
+            (20, 642),
+            (120, 50),
+            image=pygame.image.load(f"{options['paths']['images']}buttons/small_button.png").convert_alpha(),
+            callback=self.toggleLangs,
+        )
+        self.buttons["lang"].build(_("mainMenu_lang"), options.fonts["MedievalSharp-xOZ5"]["20"], ("CENTER", "CENTER"))
 
     def loop(self):
         """The bit of code called at each iteration"""
@@ -108,3 +119,13 @@ class MainMenu(Menu, Runnable):
         elif toLaunch == "credits":
             Animation("UI/animations/mainToCredits.json", self.screen, pickFrom=self.pickFrom, background=self._draw)()
             CreditsMenu(self.screen, pickFrom=self.pickFrom, background=self._draw, draw_title=False)()
+
+    def toggleLangs(self):
+        """Toggles between the available languages"""
+        options = GameOptions.getInstance()
+        if options["Game"]["lang"] == "en":
+            options.setLang("fr")
+        else:
+            options.setLang("en")
+
+        self._build()

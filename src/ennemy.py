@@ -1,4 +1,5 @@
 import random
+
 import pygame
 
 from models.level import Level
@@ -26,7 +27,6 @@ class EnnemyDO:
         self.propriete = data
 
         self.name = self.propriete["name"]
-        # self.meurt = pygame.mixer.Sound(self.propriete["DeathSound"])
         self.health = self.propriete["health"]
         self.max_health = self.propriete["health"]
         self.speed = self.propriete["speed"]

@@ -77,12 +77,14 @@ class GameUI:
         character = Character.getInstance()
         self.xp_bar.update(elapsed_time)
 
-        self.gold_amount = self.font.render("Or : %i" % level.gold, 1, (0, 0, 0))
-        self.bastion_health = self.font.render("Vie : %i pv." % level.health, 1, (0, 0, 0))
-        self.character_level = self.font.render("Niveau %i" % character.level, 1, (0, 0, 0))
-        self.ennemies_killed = self.font.render("Victimes : %i" % character.kills, 1, (0, 0, 0))
-        self.character_damage = self.font.render("Dégats : %i" % character.damage, 1, (0, 0, 0))
-        self.character_speed = self.font.render("Vitesse : %i " % character.speed, 1, (0, 0, 0))
+        _ = GameOptions.getInstance().getLang()
+
+        self.gold_amount = self.font.render(_("gui_goldAmount").format(level.gold), 1, (0, 0, 0))
+        self.bastion_health = self.font.render(_("gui_healthAmount").format(level.health), 1, (0, 0, 0))
+        self.character_level = self.font.render(_("gui_level").format(character.level), 1, (0, 0, 0))
+        self.ennemies_killed = self.font.render(_("gui_victims").format(character.kills), 1, (0, 0, 0))
+        self.character_damage = self.font.render(_("gui_damage").format(character.damage), 1, (0, 0, 0))
+        self.character_speed = self.font.render(_("gui_speed").format(character.speed), 1, (0, 0, 0))
 
     def handleEvent(self, event):
         """Handles user's events"""

@@ -28,6 +28,7 @@ class Tower:
         if Tower.instance is not None:
             raise RuntimeError("Trying to instanciate a second object from a singleton class")
         Tower.instance = self
+        _ = GameOptions.getInstance().getLang()
 
         self.popup = Popup(
             position=(15, 610),
@@ -44,7 +45,7 @@ class Tower:
         self.font = options.fonts["MedievalSharp-xOZ5"]["25"]
         self.hovered_tower: TowerDO = None
         self.hovered_tower_name: pg.Surface = None
-        self.missing_funds: pg.Surface = self.font.render("Vous n'avez pas assez d'argent", 1, (200, 100, 100))
+        self.missing_funds: pg.Surface = self.font.render(_("tower_model_missingMoney"), 1, (200, 100, 100))
         self.grid: pg.Surface = None
 
         self.selectedTower: TowerDO = None
@@ -161,10 +162,7 @@ class Tower:
 
     def isFree(self, position: tuple) -> bool:
         """Returns true if there is no tower at the given position"""
-        for tower in self.towers:
-            if tower.position == position:
-                return False
-        return True
+        return all(tower.position != position for tower in self.towers)
 
     def delTower(self, tower: TowerDO):
         """Removes a tower from the map"""
