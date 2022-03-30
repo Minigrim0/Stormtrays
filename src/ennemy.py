@@ -16,7 +16,6 @@ class EnnemyDO:
         self.count = 0
         self.absolute_position = (0, 0)
 
-        self.Returned = False
         self.under_attack = (False, 0)
 
         self.direction = (1, 0)
@@ -24,13 +23,13 @@ class EnnemyDO:
 
         self.place_ennemy()
 
-        self.propriete = data
+        self.property = data
 
-        self.name = self.propriete["name"]
-        self.health = self.propriete["health"]
-        self.max_health = self.propriete["health"]
-        self.speed = self.propriete["speed"]
-        self.height = self.propriete["height"]
+        self.name = self.property["name"]
+        self.health = self.property["health"]
+        self.max_health = self.property["health"]
+        self.speed = self.property["speed"]
+        self.height = self.property["height"]
 
         self.healthBar = LoadingBar(
             (0, 0),
@@ -39,8 +38,8 @@ class EnnemyDO:
             animation_type="linear", speed=50
         )
         self.animation = ImageAnimation(
-            self.propriete["animation"], flippable=True, loop=-1,
-            speed=self.propriete["animation_speed"], image_size=(self.height, self.height),
+            self.property["animation"], flippable=True, loop=-1,
+            speed=self.property["animation_speed"], image_size=(self.height, self.height),
             bank_name=self.name
         )
         self.animation.play()
