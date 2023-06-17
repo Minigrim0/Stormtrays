@@ -93,9 +93,23 @@ class EditorUI:
 
     def draw(self, screen):
         """Draws the UI on the screen"""
-        for i in range(1, const.tabx):
-            screen.blit(self.vert_line, (i * 64, 0))
-            screen.blit(self.hori_line, (0, i * 64))
+        tile_width, tile_height = self.editor.level.tile_size
+
+        for i in range(1, self.editor.level.width-1):
+            pygame.draw.line(
+                screen.fenetre,
+                (0, 0, 0),
+                (i * tile_width, 0),
+                (i * tile_width, const.WINDOW_HEIGHT)
+            )
+
+        for i in range(1, self.editor.level.height):
+            pygame.draw.line(
+                screen.fenetre,
+                (0, 0, 0),
+                (0, i * tile_height),
+                (const.WINDOW_WIDTH, i * tile_height)
+            )
 
         screen.blit(self.right_panel, (const.WINDOW_WIDTH, 0))
         for _name, button in self.buttons.items():
