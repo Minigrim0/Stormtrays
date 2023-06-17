@@ -1,8 +1,8 @@
 tabx = 18
 taby = 11
 
-WINDOW_WIDTH = 64 * tabx
-WINDOW_HEIGHT = 64 * taby
+WINDOW_WIDTH = 1920
+WINDOW_HEIGHT = 1080
 
 # ------------------------------------------------------------
 

@@ -49,6 +49,8 @@ class Level:
 
         self.coins: list[Coin] = []
         self.map = None
+        self.position: tuple[int, int] = (0, 0)
+
         self.initMap()
         self._preload()
 
@@ -174,7 +176,7 @@ class Level:
         """Sets the background of the level"""
         self.background_path = background_path
         self.background = pg.image.load(background_path)
-        self.background = pg.transform.scale(self.background, (1152, 704))
+        self.background = pg.transform.scale(self.background, (1920, 1080))
 
     def reset(self):
         """Resets the map, the counters, the gold etc..."""
@@ -233,7 +235,7 @@ class Level:
 
     def draw(self, screen, editor=False, force_tile_rendering=False):
         """Draws the current level"""
-        screen.blit(self.background, (0, 0))
+        screen.blit(self.background, self.position)
         for bastion in self.bastions:
             bastion.draw(screen)
 

@@ -8,7 +8,7 @@ class Tile:
 
     def __init__(self, code: str, image: tuple, position: tuple = None, rotation: int = 0):
         self.code = code
-        self.image: (pg.Surface, pg.Surface) = image
+        self.image: tuple[pg.Surface, pg.Surface] = image
         self.rotation = rotation
         self.position = position
 
