@@ -39,7 +39,7 @@ class Level:
             "player_kills": 0
         }
 
-        self.bastions: list(Bastion) = []
+        self.bastions: list[Bastion] = []
         self.spawn_places = []
         self.gold = 500
 
@@ -47,10 +47,18 @@ class Level:
         self.background_path = "assets/images/levels/fond1.png"
         self.size = [18, 11]
 
-        self.coins: [Coin] = []
+        self.coins: list[Coin] = []
         self.map = None
         self.initMap()
         self._preload()
+
+    @property
+    def width(self) -> int:
+        return self.size[0]
+
+    @property
+    def height(self) -> int:
+        return self.size[1]
 
     @property
     def killed_ennemies(self) -> int:
@@ -145,7 +153,7 @@ class Level:
                         bastion = Bastion((x, y), initial_health=100)
                         self.bastions.append(bastion)
 
-    def findLinkedBastion(self, start_pos: tuple) -> (int, int):
+    def findLinkedBastion(self, start_pos: tuple) -> tuple[int, int]:
         """Follows a path to find the bastion at the end of the path"""
         logging.info(f"checking starting_position {start_pos}")
         x, y = start_pos
@@ -175,10 +183,10 @@ class Level:
             "player_kills": 0
         }
 
-        self.bastions: list(Bastion) = []
+        self.bastions: list[Bastion] = []
         self.gold = 500
 
-        self.coins: [Coin] = []
+        self.coins: list[Coin] = []
 
     def initMap(self):
         """Empties the level"""
