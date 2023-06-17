@@ -99,6 +99,7 @@ class Editor(Runnable):
             self.level.setSize(width=self.level.size[0] + off, height=self.level.size[1])
         else:
             self.level.setSize(width=self.level.size[0], height=self.level.size[1] + off)
+        self.level.initMap()
 
     def draw(self):
         """Draws the diffrent elements of the Editor on the screen"""
