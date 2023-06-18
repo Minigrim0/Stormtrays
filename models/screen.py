@@ -96,6 +96,7 @@ class Screen:
             self.posAffiche,
         )
         pygame.display.flip()
+        self.fenetre.fill((0, 0, 0))
 
     def blit(self, surface: pygame.Surface, pos: tuple, *args, **kwargs):
         """Draws an image to the screen"""
