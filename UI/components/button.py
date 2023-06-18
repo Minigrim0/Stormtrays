@@ -6,7 +6,8 @@ class Button:
 
     def __init__(
         self, pos: tuple, size: tuple, toggleable: bool = False,
-        image: pg.Surface = None, callback: callable = None, **ckwargs
+        image: pg.Surface = None, enabled=True, callback: callable = None,
+        **ckwargs
     ):
         self.pos = pos
         self.size = size
@@ -16,6 +17,7 @@ class Button:
         self.ckwargs = ckwargs
         self.toggleable = toggleable
         self.toggled = False
+        self.enabled = enabled
         if self.toggleable and len(self.image) == 1:
             raise RuntimeError("No second image available for toggleable button")
 
@@ -73,7 +75,7 @@ class Button:
 
     def click(self, pos: tuple):
         """Execute the callback if the position collide the button"""
-        if self.collide(pos) and self.callback is not None:
+        if self.collide(pos) and self.callback is not None and self.enabled:
             self.callback(**self.ckwargs)
             if self.toggleable:
                 self.toggled = not self.toggled
