@@ -126,6 +126,13 @@ class Level:
                     )
                 )
 
+    def move(self, vec: tuple[int, int]) -> None:
+        """Moves the level according to the movement vectormove"""
+        self.position = (
+            self.position[0] + vec[0],
+            self.position[1] + vec[1]
+        )
+
     def _build(self, filename, editor=False):
         """Builds the level from a file"""
         with open(filename) as f:

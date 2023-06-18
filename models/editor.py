@@ -1,8 +1,9 @@
 import os
+import logging
 from copy import copy
 from tkinter import filedialog, messagebox
 
-import pygame
+import pygame as pg
 
 import src.constantes as consts
 from models.game_options import GameOptions
@@ -12,6 +13,9 @@ from src.errors.invalidPositionException import InvalidPositionException
 from src.runnable import Runnable
 from src.tile import Tile
 from UI.components.gui.editor_ui import EditorUI
+
+
+logger = logging.getLogger(__file__)
 
 
 class Editor(Runnable):
@@ -33,6 +37,8 @@ class Editor(Runnable):
 
         super().__init__()
 
+        self.grabbing = False
+
         self.level: Level = Level.getInstance()
         options = GameOptions.getInstance()
         self.level.setBackground(options.fullPath("images", "levels/fond1.png"))
@@ -50,7 +56,6 @@ class Editor(Runnable):
             self.UI.buttons[code].setCallback(self.setChoice, choice=self.level.tiles[code])
 
         self.choice: Tile = None
-        self.mousePosition = (0, 0)
         self.screen: Screen = Screen.getInstance()
 
     def loop(self):
@@ -63,20 +68,28 @@ class Editor(Runnable):
     def handleEvent(self):
         """Handles eventual events from the user"""
         for event in self.screen.getEvent():
-            if event.type == pygame.locals.MOUSEBUTTONDOWN:
+            self.UI.update(event)
+            if event.type == pg.locals.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    self.UI.update(event)
                     self.placeTile(event)
-
+                if event.button == 2:
+                    self.grabbing = True
                 if event.button == 3 and self.choice is not None:
                     self.choice.rotate()
 
-            if event.type == pygame.locals.MOUSEMOTION:
-                self.mousePosition = (event.pos[0], event.pos[1])
+            if event.type == pg.MOUSEBUTTONUP:
+                if event.button == 2:
+                    self.grabbing = False
+
+            if event.type == pg.locals.MOUSEMOTION:
+                delta = pg.mouse.get_rel()
                 if self.choice is not None:
                     self.choice.move(event.pos)
                 if event.buttons[0] == 1 and self.choice != "  ":
                     self.placeTile(event)
+                if self.grabbing:
+                    self.level.move(delta)
+                    self.UI.move(delta)
 
     def placeTile(self, event):
         """Places a tile on the map according to the event"""
@@ -92,7 +105,7 @@ class Editor(Runnable):
             try:
                 self.level.placeTile((x, y), tile)
             except InvalidPositionException:
-                pass
+                logger.warning("Tried to place a tile at an invalid position")
 
     def updateMapSize(self, width: bool, off: int):
         if width:
@@ -147,14 +160,14 @@ class Editor(Runnable):
         if full_path:
             self.level.draw(self.screen, force_tile_rendering=True)
 
-            arect = pygame.Rect(0, 0, consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT)
+            arect = pg.Rect(0, 0, consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT)
             sub = self.screen.subsurface(arect)
-            sub = pygame.transform.scale(sub, (39 * 5, 22 * 5))
+            sub = pg.transform.scale(sub, (39 * 5, 22 * 5))
             _dirname, filename = os.path.split(full_path)
             filename, _ext = os.path.splitext(filename)
 
             thumbnail_path = os.path.join(options.fullPath("levels", "thumbnails"), filename + ".png")
-            pygame.image.save(sub, thumbnail_path)
+            pg.image.save(sub, thumbnail_path)
 
             self.level.save(full_path, thumbnail_path)
 
@@ -163,4 +176,4 @@ class Editor(Runnable):
     def setChoice(self, choice):
         """Sets the holded tile to the given choice"""
         self.choice = copy(choice)
-        self.choice.move(self.mousePosition)
+        self.choice.move(pg.mouse.get_pos())
