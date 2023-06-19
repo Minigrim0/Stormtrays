@@ -94,24 +94,33 @@ class Editor(Runnable):
     def placeTile(self, event):
         """Places a tile on the map according to the event"""
         if self.choice is not None:
-            x = event.pos[0] // 64
-            y = event.pos[1] // 64
-            if self.choice.code != "p1":
-                tile = copy(self.choice)
-                tile.move((x * 64, y * 64))
-            else:
-                tile = None
+            position = self.UI.grid._posToTile(event.pos)
+            if position is not None:
+                x, y = position
+                print(x, y)
+                x = int(x)
+                y = int(y)
 
-            try:
-                self.level.placeTile((x, y), tile)
-            except InvalidPositionException:
-                logger.warning("Tried to place a tile at an invalid position")
+                if self.choice.code != "p1":
+                    tile = copy(self.choice)
+                    tile.move((x * self.level.tile_size[0], y * self.level.tile_size[1]))
+                    tile.resize((int(self.level.tile_size[0]), int(self.level.tile_size[1])))
+                else:
+                    tile = None
+
+                try:
+                    print(f"Placing at {(x, y)}")
+                    self.level.placeTile((x, y), tile)
+                except InvalidPositionException:
+                    logger.warning("Tried to place a tile at an invalid position")
 
     def updateMapSize(self, width: bool, off: int):
         if width:
             self.level.setSize(width=self.level.size[0] + off, height=self.level.size[1])
         else:
             self.level.setSize(width=self.level.size[0], height=self.level.size[1] + off)
+        print(f"Size: {self.level.size}; tile: {self.level.tile_size}")
+        self.UI.grid.set_size(self.level.size, self.level.tile_size)
         self.level.initMap()
 
     def draw(self):
@@ -147,6 +156,7 @@ class Editor(Runnable):
         if filename:
             self.level.load(filename, editor=True)
         self.choice = None
+        self.UI.grid.set_size(self.level.size, self.level.tile_size)
 
     def save(self):
         """Saves the current level"""
@@ -158,11 +168,8 @@ class Editor(Runnable):
         options = GameOptions.getInstance()
         full_path = filedialog.asksaveasfilename(initialdir=options["paths"]["levels"], defaultextension=".json")
         if full_path:
-            self.level.draw(self.screen, force_tile_rendering=True)
+            sub = self.level.render_screenshot()
 
-            arect = pg.Rect(0, 0, consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT)
-            sub = self.screen.subsurface(arect)
-            sub = pg.transform.scale(sub, (39 * 5, 22 * 5))
             _dirname, filename = os.path.split(full_path)
             filename, _ext = os.path.splitext(filename)
 

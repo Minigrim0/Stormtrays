@@ -4,7 +4,7 @@ import coloredlogs
 
 import pygame
 
-import src.constantes as constantes
+import src.constantes as cst
 from models.editor import Editor
 from models.game_options import GameOptions
 from models.screen import Screen
@@ -17,7 +17,7 @@ pygame.init()
 options = GameOptions.getInstance()
 
 screen = Screen.getInstance(
-    size=(constantes.WINDOW_WIDTH, constantes.WINDOW_HEIGHT),
+    size=(cst.WINDOW_WIDTH, cst.WINDOW_HEIGHT),
     name="Stormtray's Editor",
     icon="UI/assets/images/icon.png",
     fullscreen=False,

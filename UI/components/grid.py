@@ -7,13 +7,7 @@ class Grid:
     """Represents a UI grid"""
 
     def __init__(self, size: tuple, tile_size: tuple, color: tuple = (0, 0, 0)):
-        self.image: pg.Surface = pg.Surface(
-            (
-                int(size[0] * tile_size[0]),
-                int(size[1] * tile_size[1])
-            ),
-            pg.SRCALPHA
-        )
+        self.image: pg.Surface = None
         self.size: tuple[int, int] = size
         self.tile_size: tuple[int, int] = tile_size
         self.color: tuple[int, int, int] = color
@@ -23,6 +17,14 @@ class Grid:
 
     def _build(self):
         """Builds the grid based on its size and tile size"""
+        self.image = pg.Surface(
+            (
+                int(self.size[0] * self.tile_size[0]),
+                int(self.size[1] * self.tile_size[1])
+            ),
+            pg.SRCALPHA
+        )
+
         for x in range(1, self.size[0]):
             pg.draw.line(
                 self.image, self.color,

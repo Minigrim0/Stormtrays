@@ -24,7 +24,14 @@ class Tile:
             pg.transform.rotate(self.image[1], amount * 90) if self.image[1] is not None else None,
         )
 
-    def draw(self, screen: Screen, editor=False):
+    def resize(self, size: tuple[int, int]) -> None:
+        """Resizes the tile to the given size"""
+        self.image = (
+            pg.transform.scale(self.image[0], size) if self.image[0] is not None else None,
+            pg.transform.scale(self.image[1], size) if self.image[1] is not None else None,
+        )
+
+    def draw(self, screen: Screen, editor=False, offset: tuple[int, int] = (0, 0)):
         """Draws the tile on screen
 
         Args:
@@ -33,7 +40,7 @@ class Tile:
                 tile or a game tile. Defaults to False.
         """
         if self.image[int(editor)] is not None:
-            screen.blit(self.image[int(editor)], self.position)
+            screen.blit(self.image[int(editor)], (self.position[0] + offset[0], self.position[1] + offset[1]))
 
     def direction(self) -> tuple:
         """Returns the direction the current tile leads towards"""
