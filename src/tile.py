@@ -1,20 +1,25 @@
+import logging
 import pygame as pg
 
 from models.screen import Screen
 
+logger = logging.getLogger(__file__)
 
-class Tile:
+
+class Tile(pg.sprite.Sprite):
     """Represents a tile from the editor"""
 
-    def __init__(self, code: str, image: tuple, position: tuple = None, rotation: int = 0):
+    def __init__(self, group: pg.sprite.Group, code: str, image: pg.Surface, position: tuple = None, rotation: int = 0):
+        super().__init__(group)
         self.code = code
-        self.image: tuple[pg.Surface, pg.Surface] = image
-        self.rotation = rotation
-        self.position = position
 
-    @property
-    def editor_image(self) -> pg.Surface:
-        return self.image[1]
+        self.image = image
+        if self.image is None or position is None:
+            raise RuntimeError("Tile image or position can't be None")
+
+        self.rect = self.image.get_rect(center=position)
+
+        self.rotation = rotation
 
     def rotate(self, amount: int = 1):
         """Rotates the image by 90 degrees"""

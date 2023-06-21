@@ -45,6 +45,7 @@ class Screen:
         self.scaleButton.callback = self.rescale
 
         self.fenetre = pygame.Surface(self.initial_size)
+        self.clock = pygame.time.Clock()
 
         pygame.display.set_caption(name)
         if icon is not None and icon != "":

@@ -39,6 +39,8 @@ class Level:
             "player_kills": 0
         }
 
+        self.camera_group = pg.sprite.Group()
+
         self.bastions: list[Bastion] = []
         self.spawn_places = []
         self.gold = 500
@@ -113,17 +115,17 @@ class Level:
         for path, code in images:
             if isinstance(path, tuple):
                 self.tiles[code] = Tile(
-                    code, (
-                        pg.image.load(path[0]).convert_alpha() if path[0] is not None else None,
-                        pg.image.load(path[1]).convert_alpha() if path[1] is not None else None
-                    )
+                    self.camera_group,
+                    code,
+                    pg.image.load(path[1]).convert_alpha(),
+                    (0, 0)
                 )
             elif isinstance(path, str):
                 self.tiles[code] = Tile(
-                    code, (
-                        pg.image.load(path).convert_alpha(),
-                        pg.image.load(path).convert_alpha()
-                    )
+                    self.camera_group,
+                    code,
+                    pg.image.load(path).convert_alpha(),
+                    (0, 0)
                 )
 
     def move(self, vec: tuple[int, int]) -> None:
@@ -248,10 +250,8 @@ class Level:
             bastion.draw(screen)
 
         if editor or force_tile_rendering:
-            for y in range(self.size[1]):
-                for x in range(self.size[0]):
-                    if self.map[x][y] is not None:
-                        self.map[x][y].draw(screen, editor=editor, offset=self.position)
+            self.camera_group.update()
+            self.camera_group.draw(screen.fenetre)
 
         for gold in self.coins:
             gold.draw(screen)
