@@ -1,24 +1,27 @@
 import logging
 import tkinter
+import coloredlogs
 
 import pygame
 
-import src.constantes as constantes
+import src.constantes as cst
 from models.editor import Editor
 from models.game_options import GameOptions
 from models.screen import Screen
 
-logging.basicConfig(level=logging.WARNING)
+coloredlogs.install(level='WARNING')
+logging.basicConfig(level=logging.INFO)
 
 pygame.init()
 
 options = GameOptions.getInstance()
 
-screen = Screen(
-    (constantes.WINDOW_WIDTH + 158, constantes.WINDOW_HEIGHT),
-    "Stormtray's Editor",
-    "UI/assets/images/icon.png",
-    False,
+screen = Screen.getInstance(
+    size=(cst.WINDOW_WIDTH, cst.WINDOW_HEIGHT),
+    name="Stormtray's Editor",
+    icon="UI/assets/images/icon.png",
+    fullscreen=False,
+    resizable=False
 )
 
 root = tkinter.Tk()

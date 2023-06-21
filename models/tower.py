@@ -46,7 +46,7 @@ class Tower:
         self.hovered_tower: TowerDO = None
         self.hovered_tower_name: pg.Surface = None
         self.missing_funds: pg.Surface = self.font.render(_("tower_model_missingMoney"), 1, (200, 100, 100))
-        self.grid: pg.Surface = None
+        self.grid: Grid = None
 
         self.selectedTower: TowerDO = None
         self._load()
@@ -106,7 +106,7 @@ class Tower:
                 if not Level.getInstance().canAfford(self.hovered_tower["price"]):
                     screen.blit(self.missing_funds, (10, 40))
         elif self.selectedTower is not None:
-            self.grid.draw(screen, (0, 0))
+            self.grid.draw(screen)
             self.selectedTower.draw(screen)
 
     def handleEvent(self, event):

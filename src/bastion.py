@@ -4,15 +4,18 @@ from models.screen import Screen
 from UI.components.loading_bar import LoadingBar
 
 
-class Bastion:
+class Bastion(pg.sprite.Sprite):
     """Represents a bastion the ennemies are trying to destroy"""
 
-    def __init__(self, position: tuple, initial_health: int = 100):
+    def __init__(self, group, position: tuple, initial_health: int = 100):
+        super().__init__(group)
+
         self.position = position
 
         self.initial_health = initial_health
         self.health = initial_health
         self.image = pg.image.load("assets/images/tiles/fort.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
 
         self.underAttack: tuple(bool, int) = (False, 0)
 

@@ -39,7 +39,9 @@ class Level:
             "player_kills": 0
         }
 
-        self.bastions: list(Bastion) = []
+        self.camera_group = pg.sprite.Group()
+
+        self.bastions: list[Bastion] = []
         self.spawn_places = []
         self.gold = 500
 
@@ -47,10 +49,20 @@ class Level:
         self.background_path = "assets/images/levels/fond1.png"
         self.size = [18, 11]
 
-        self.coins: [Coin] = []
+        self.coins: list[Coin] = []
         self.map = None
+        self.position: tuple[int, int] = (0, 0)
+
         self.initMap()
         self._preload()
+
+    @property
+    def width(self) -> int:
+        return self.size[0]
+
+    @property
+    def height(self) -> int:
+        return self.size[1]
 
     @property
     def killed_ennemies(self) -> int:
@@ -103,18 +115,25 @@ class Level:
         for path, code in images:
             if isinstance(path, tuple):
                 self.tiles[code] = Tile(
-                    code, (
-                        pg.image.load(path[0]).convert_alpha() if path[0] is not None else None,
-                        pg.image.load(path[1]).convert_alpha() if path[1] is not None else None
-                    )
+                    self.camera_group,
+                    code,
+                    pg.image.load(path[1]).convert_alpha(),
+                    (0, 0)
                 )
             elif isinstance(path, str):
                 self.tiles[code] = Tile(
-                    code, (
-                        pg.image.load(path).convert_alpha(),
-                        pg.image.load(path).convert_alpha()
-                    )
+                    self.camera_group,
+                    code,
+                    pg.image.load(path).convert_alpha(),
+                    (0, 0)
                 )
+
+    def move(self, vec: tuple[int, int]) -> None:
+        """Moves the level according to the movement vectormove"""
+        self.position = (
+            self.position[0] + vec[0],
+            self.position[1] + vec[1]
+        )
 
     def _build(self, filename, editor=False):
         """Builds the level from a file"""
@@ -131,9 +150,10 @@ class Level:
                 if len(tile.keys()) == 0:
                     continue
 
-                tile_position = (int((x * 64)), int((y * 64)))
+                tile_position = (int((x * self.tile_size[0])), int((y * self.tile_size[1])))
                 self.map[x][y] = copy(self.tiles[tile["code"]])
                 self.map[x][y].rotate(amount=tile["rotation"])
+                self.map[x][y].resize(self.tile_size)
                 self.map[x][y].move(tile_position)
 
                 if not editor:
@@ -145,7 +165,7 @@ class Level:
                         bastion = Bastion((x, y), initial_health=100)
                         self.bastions.append(bastion)
 
-    def findLinkedBastion(self, start_pos: tuple) -> (int, int):
+    def findLinkedBastion(self, start_pos: tuple) -> tuple[int, int]:
         """Follows a path to find the bastion at the end of the path"""
         logging.info(f"checking starting_position {start_pos}")
         x, y = start_pos
@@ -159,11 +179,14 @@ class Level:
             raise InvalidPathException(f"The path starting on {start_pos} does not lead to a bastion")
         return x, y
 
+    def setSize(self, width: int, height: int):
+        self.size = [width, height]
+
     def setBackground(self, background_path: str):
         """Sets the background of the level"""
         self.background_path = background_path
         self.background = pg.image.load(background_path)
-        self.background = pg.transform.scale(self.background, (1152, 704))
+        self.background = pg.transform.scale(self.background, (1920, 1080))
 
     def reset(self):
         """Resets the map, the counters, the gold etc..."""
@@ -172,10 +195,10 @@ class Level:
             "player_kills": 0
         }
 
-        self.bastions: list(Bastion) = []
+        self.bastions: list[Bastion] = []
         self.gold = 500
 
-        self.coins: [Coin] = []
+        self.coins: list[Coin] = []
 
     def initMap(self):
         """Empties the level"""
@@ -203,7 +226,7 @@ class Level:
         with open(filename, "w") as f:
             f.write(json.dumps(level))
 
-    def placeTile(self, position: tuple, tile):
+    def placeTile(self, position: tuple, tile: 'Tile'):
         """Places a tile at the given coordinates"""
         if position[0] not in list(range(self.size[0])) or position[1] not in list(range(self.size[1])):
             raise InvalidPositionException("Tile is outside of the map !")
@@ -220,20 +243,32 @@ class Level:
             if coin.update(elapsed_time):
                 del self.coins[self.coins.index(coin)]
 
-    def draw(self, screen, editor=False, force_tile_rendering=False):
+    def draw(self, screen: 'Screen', editor=False, force_tile_rendering=False):
         """Draws the current level"""
-        screen.blit(self.background, (0, 0))
+        screen.blit(self.background, self.position)
         for bastion in self.bastions:
             bastion.draw(screen)
 
         if editor or force_tile_rendering:
-            for y in range(self.size[1]):
-                for x in range(self.size[0]):
-                    if self.map[x][y] is not None:
-                        self.map[x][y].draw(screen, editor=editor)
+            self.camera_group.update()
+            self.camera_group.draw(screen.fenetre)
 
         for gold in self.coins:
             gold.draw(screen)
+
+    def render_screenshot(self) -> pg.Surface:
+        image = pg.Surface((1920, 1080))
+        image.blit(self.background, (0, 0))
+        for bastion in self.bastions:
+            image.blit(bastion.image, bastion._blit_position)
+
+        for y in range(self.size[1]):
+            for x in range(self.size[0]):
+                tile = self.map[x][y]
+                if tile is not None and tile.image[0] is not None:
+                    image.blit(tile.image[0], tile.position)
+
+        return image
 
     def hitBastion(self, position: tuple, damage: int = 0) -> bool:
         """Hits the bastion at the given coordinate (if any) with the given amount of damage"""

@@ -18,7 +18,7 @@ class Screen:
             Screen(*args, **kwargs)
         return Screen.instance
 
-    def __init__(self, size: tuple, name: str, icon: str, fullScreen=True):
+    def __init__(self, size: tuple, name: str, icon: str, fullscreen=True, resizable=False):
         if Screen.instance is not None:
             raise RuntimeError("Trying to instanciate another instance of a singleton")
         Screen.instance = self
@@ -26,12 +26,13 @@ class Screen:
         self.initial_size = size
 
         info = pygame.display.Info()
-        self.fullSize = (info.current_w, info.current_h)
+        self.fullsize = (info.current_w, info.current_h)
         self.display = None
 
-        self.fullScreen = fullScreen
-        if self.fullScreen:
-            self.resize(self.fullSize)
+        self.resizable = resizable
+        self.fullscreen = fullscreen
+        if self.fullscreen:
+            self.resize(self.fullsize)
         else:
             self.resize(self.initial_size)
 
@@ -44,6 +45,7 @@ class Screen:
         self.scaleButton.callback = self.rescale
 
         self.fenetre = pygame.Surface(self.initial_size)
+        self.clock = pygame.time.Clock()
 
         pygame.display.set_caption(name)
         if icon is not None and icon != "":
@@ -63,18 +65,17 @@ class Screen:
 
     def rescale(self):
         """Resizes the screen to either fullscreen or native size"""
-        self.fullScreen = not self.fullScreen
-        if self.fullScreen:
-            self.resize(self.fullSize)
+        self.fullscreen = not self.fullscreen
+        if self.fullscreen:
+            self.resize(self.fullsize)
         else:
             self.resize(self.initial_size)
 
     def resize(self, size: tuple):
         """Resizes the screen to the given size"""
-        if self.fullScreen:
-            self.display = pygame.display.set_mode(self.fullSize, pygame.locals.FULLSCREEN)
-        else:
-            self.display = pygame.display.set_mode(size)  # , pygame.locals.RESIZABLE)
+        self.display = pygame.display.set_mode(
+            self.fullsize if self.fullscreen else self.initial_size,
+            pygame.locals.FULLSCREEN * self.fullscreen | pygame.locals.RESIZABLE * self.resizable)
 
         taillex = size[0] / self.initial_size[0]
         tailley = size[1] / self.initial_size[1]
@@ -96,6 +97,7 @@ class Screen:
             self.posAffiche,
         )
         pygame.display.flip()
+        self.fenetre.fill((0, 0, 0))
 
     def blit(self, surface: pygame.Surface, pos: tuple, *args, **kwargs):
         """Draws an image to the screen"""
