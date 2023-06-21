@@ -1,1 +1,25 @@
-{"blocked_edit.png": [0, 0], "straight_edit.png": [64, 0], "left_turn_edit.png": [128, 0], "start_edit.png": [0, 64], "right_turn_edit.png": [64, 64]}
+{
+    "size": [64, 64],
+    "tiles": {
+        "blocked_edit.png": [
+            0,
+            0
+        ],
+        "straight_edit.png": [
+            64,
+            0
+        ],
+        "left_turn_edit.png": [
+            128,
+            0
+        ],
+        "start_edit.png": [
+            0,
+            64
+        ],
+        "right_turn_edit.png": [
+            64,
+            64
+        ]
+    }
+}

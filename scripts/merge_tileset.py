@@ -72,10 +72,11 @@ if __name__ == "__main__":
         x_pos = (index % geom_x) * reference_size[0]
         y_pos = (index // geom_x) * reference_size[1]
         print(x_pos, y_pos)
-        meta[image_name] = [x_pos, y_pos]
+        meta["tiles"][image_name] = [x_pos, y_pos]
 
         final_image.blit(current_image, (x_pos, y_pos))
 
+    meta["size"] = reference_size
     pg.image.save(final_image, os.path.join(path, "tileset.png"))
     with open(os.path.join(path, "tileset.json"), "w+") as f:
         json.dump(meta, f)
