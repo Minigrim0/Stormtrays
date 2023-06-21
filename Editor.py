@@ -10,7 +10,7 @@ from models.game_options import GameOptions
 from models.screen import Screen
 
 coloredlogs.install(level='WARNING')
-logging.basicConfig(level=logging.WARNING)
+logging.basicConfig(level=logging.INFO)
 
 pygame.init()
 
